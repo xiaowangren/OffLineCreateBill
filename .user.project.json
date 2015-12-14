@@ -1,0 +1,16 @@
+{
+  "run": [
+    {
+      "filePath": "/OffLineCreateBill/index.html",
+      "previewMode": 1,
+      "dataMode": 1,
+      "workspace": "withoutWorkspace",
+      "urlParameters": null,
+      "_metadata": {
+        "runnerId": "qunitrunner",
+        "id": 9283458,
+        "displayName": "New Unit Test 23"
+      }
+    }
+  ]
+}
