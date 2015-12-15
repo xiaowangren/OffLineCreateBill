@@ -15,13 +15,13 @@ sap.ui.jsview("com.zhenergy.bill.view.BillApp", {
 	createContent : function(oController) {
 		this.app = new sap.m.App({});
 		//注册详细信息页面
-		var BillCreateInfoPage = sap.ui.view({
-			id: "idBillCreateInfoPage",
-			viewName: "com.zhenergy.bill.view.BillCreateInfoPage",
-			type: sap.ui.core.mvc.ViewType.XML
-		});
-		BillCreateInfoPage.addStyleClass("BillCreateInfoPage_page_content");
-		this.app.addPage(BillCreateInfoPage);
+// 		var BillCreateInfoPage = sap.ui.view({
+// 			id: "idBillCreateInfoPage",
+// 			viewName: "com.zhenergy.bill.view.BillCreateInfoPage",
+// 			type: sap.ui.core.mvc.ViewType.XML
+// 		});
+// 		BillCreateInfoPage.addStyleClass("BillCreateInfoPage_page_content");
+// 		this.app.addPage(BillCreateInfoPage);
 		//注册overLook页面
 	    var BillOverLookPage = sap.ui.view({
 			id: "idBillOverLookPage",
