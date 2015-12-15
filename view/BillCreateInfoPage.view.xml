@@ -1,10 +1,189 @@
 <core:View xmlns:core="sap.ui.core" 
 	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:l="sap.ui.layout"
+	xmlns:lay="sap.ui.commons.layout"
+	xmlns:c="sap.ui.commons"
 	xmlns="sap.m" controllerName="com.zhenergy.bill.view.BillCreateInfoPage" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page title="Title">
+	<Page title="创建电气操作票">
 		<content>
-		
+		    <l:VerticalLayout class="BillCreateInfoPage_page_content_VerticalLayout">
+		        <lay:MatrixLayout width="40%" widths="15%,30%,25%,25%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1">
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:Button text="提交"></c:Button>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:Button text="参考历史票/典型票"></c:Button>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:Button text="试打印操作票"></c:Button>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:Button text="试打印危险点"></c:Button>
+		                </lay:MatrixLayoutCell>
+		            </lay:MatrixLayoutRow>
+		        </lay:MatrixLayout>
+		        <lay:MatrixLayout widths="7%,20%,7%,20%,5%,10%,3%,8%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_2">
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="操作票号"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextField value="" width="95%"></c:TextField>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="工厂"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextField value="" width="95%"></c:TextField>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="填写部门"></c:TextView>
+		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
+		                    <c:TextField value="" width="95%"></c:TextField>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="班组"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextField value="" width="95%"></c:TextField>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:CheckBox text="不合格" enabled ="false"></c:CheckBox>
+		                </lay:MatrixLayoutCell>
+		            </lay:MatrixLayoutRow>
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="类型"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextField value="" width="95%"></c:TextField>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="操作类型"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:ComboBox width="95%">
+		                        <c:items>
+                                    <core:ListItem text="1 单人操作" key="GG"></core:ListItem>
+                                    <core:ListItem text="2 监护操作" key="G1"></core:ListItem>
+                                </c:items>
+		                    </c:ComboBox>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="操作性质"></c:TextView>
+		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
+		                    <c:ComboBox width="95%">
+		                        <c:items>
+                                    <core:ListItem text="1 一般操作" key="GG"></core:ListItem>
+                                    <core:ListItem text="2 重大操作" key="G1"></core:ListItem>
+                                </c:items>
+		                    </c:ComboBox>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:CheckBox text="需要值长审核"></c:CheckBox>
+		                </lay:MatrixLayoutCell>
+		            </lay:MatrixLayoutRow>
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="运行区域"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextField value="" width="95%"></c:TextField>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="机组"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextField value="" width="95%"></c:TextField>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="值别"></c:TextView>
+		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
+		                    <c:ComboBox width="95%">
+		                        <c:items>
+                                    <core:ListItem text="一值" key="0001"></core:ListItem>
+                                    <core:ListItem text="二值" key="0002"></core:ListItem>
+                                    <core:ListItem text="三值" key="0003"></core:ListItem>
+                                    <core:ListItem text="四值" key="0004"></core:ListItem>
+                                    <core:ListItem text="五值" key="0005"></core:ListItem>
+                                    <core:ListItem text="六值" key="0006"></core:ListItem>
+                                </c:items>
+		                    </c:ComboBox>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="状态"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextField value="" width="95%"></c:TextField>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
+		            </lay:MatrixLayoutRow>
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="开票人"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextField value="" width="95%"></c:TextField>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView  text="开票日期" ></c:TextView >
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <DatePicker value="" valueFormat="yyyyMMdd" width="95%" ></DatePicker>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="操作任务"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell rowSpan="2" colSpan="4">
+		                    <c:TextArea value="" rows="5" cols="55"></c:TextArea>
+		                </lay:MatrixLayoutCell>
+		            </lay:MatrixLayoutRow>
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="操作开始时间"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <!--<DatePicker value=""  valueFormat="yyyyMMdd" displayFormat="yyyy-MM-dd" width="95%" ></DatePicker>-->
+		                  <!--  <TimePicker-->
+                				<!--id="TP3"-->
+                				<!--valueFormat="hh:mm a"-->
+                				<!--displayFormat="hh:mm a"-->
+                				<!--change="handleChange"/>-->
+                				<DateTimeInput
+                				    width="95%"
+                        			type="DateTime"
+                        			class="sapUiSmallMarginBottom" />
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="操作结束时间"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <!--<DatePicker value="" valueFormat="yyyyMMdd" width="95%" ></DatePicker>-->
+		                    <DateTimeInput
+                				    width="95%"
+                        			type="DateTime"
+                        			class="sapUiSmallMarginBottom" />
+		                </lay:MatrixLayoutCell>
+
+		            </lay:MatrixLayoutRow>
+		        </lay:MatrixLayout>
+		        <mvc:JSView viewName="com.zhenergy.bill.view.BillCreateInfoTab"/>
+                <!--<c:TabStrip>-->
+                <!--    <c:Tab text="操作内容">-->
+                <!--        <c:TextView text="aa"></c:TextView>-->
+                <!--    </c:Tab>-->
+                <!--    <c:Tab text="危险点分析">-->
+                <!--        <c:TextView text="bb"></c:TextView>-->
+                <!--    </c:Tab>-->
+                <!--</c:TabStrip>-->
+		    </l:VerticalLayout>
 		</content>
 	</Page>
 </core:View>

@@ -1,0 +1,20 @@
+.BillCreateInfoPage_page_content{
+    text-align:center;
+}
+.BillCreateInfoPage_page_content_VerticalLayout{
+    width: 90%;
+}
+.BillCreateInfoPage_VerticalLayout_MatrixLayout_1{
+    margin-top: 5px;
+}
+.BillCreateInfoPage_VerticalLayout_MatrixLayout_2{
+    background-color:rgb(236, 236, 245);
+}
+.sapMPageHeader::before{
+    content: "";
+    position: absolute;
+    width: 100%;
+    top: 0;
+    border-top: 0rem solid #009de0;
+    z-index: 7;
+}

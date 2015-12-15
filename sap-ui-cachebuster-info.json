@@ -1,0 +1,15 @@
+{
+  "css/style.css": "1450144880535",
+  "index.html": "1450168391186",
+  "README.md": "1450079858145",
+  "view/BillApp.controller.js": "1450079092163",
+  "view/BillApp.view.js": "1450143483414",
+  "view/BillCreateInfoPage.controller.js": "1450079489584",
+  "view/BillCreateInfoPage.view.xml": "1450159873090",
+  "view/BillInitializationPage.controller.js": "1450079060797",
+  "view/BillInitializationPage.view.xml": "1450079060797",
+  "view/BillOverLookPage.controller.js": "1450168351922",
+  "view/BillOverLookPage.view.xml": "1450168351912",
+  "view/BillCreateInfoTab.controller.js": "1450159512373",
+  "view/BillCreateInfoTab.view.js": "1450167895507"
+}
