@@ -108,6 +108,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
         //定义Read方法的执行方法
 		var mParameters = {};
  		mParameters['async'] = false;
+ 		mParameters['urlParameters'] = [
+ 		{"sap-client" : '200'},
+ 		{"sap-user":"ac-louww"},
+ 		{"sap-password" : "1qaz2wsx"}]
+ 		;
 		mParameters['success'] = jQuery.proxy(function(oData,response) {
 	        var oJsonModel = new sap.ui.model.json.JSONModel(oData);
             //console.log(oJsonModel.getData().results[0].__metadata.type);
@@ -149,7 +154,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
         gCurrentModel="ZPMV00005"; 
 		oECCModel.read("/ZPMV00005Set", mParameters);
 		
-		
+		sap.m.MessageBox.alert("主数据下载完成");
 		//保存同步日志（最近同步时间）
 		var syncLog = { lastUpdate : $.now() };
 		oStorage.put("ZPMSyncLog",syncLog);
