@@ -91,7 +91,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 			        aFilter2.push(oData2[j]);
 			    }
 			}
-			console.log(aFilter2);
 		    oLocalModel.setProperty("/banZu",aFilter2);
 		}
 		sap.ui.getCore().setModel(oLocalModel);
@@ -116,7 +115,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 			        aFilter4.push(oData4[n]);
 			    }
 			}
-			console.log(aFilter4);
 		    oLocalModel.setProperty("/jiZu",aFilter4);
 		}
 		sap.ui.getCore().setModel(oLocalModel);

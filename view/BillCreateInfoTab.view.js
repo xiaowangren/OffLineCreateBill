@@ -14,12 +14,12 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCreateInfoTab", {
         var oModel = new sap.ui.model.json.JSONModel();
         oModel.setData({modelData: aData});
         
-	   // var oTabStrip1 = new sap.ui.commons.TabStrip("BillCreateInfoTabStrip01");
-    //     oTabStrip1.setHeight("370px");
+	    var oTabStrip1 = new sap.ui.commons.TabStrip("BillCreateInfoTabStrip01");
+        oTabStrip1.setHeight("370px");
         //tab1
 	    var oTable2 = new sap.ui.table.Table({
 	        id:"BillBaseInfoTab",
-	        visibleRowCount: 100,
+	        visibleRowCount: 10,
             selectionMode: sap.ui.table.SelectionMode.Single,
             // navigationMode: sap.ui.table.NavigationMode.Paginator,
         	fixedColumnCount: 0
@@ -87,56 +87,55 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCreateInfoTab", {
         }));
         oTable2.setModel(oModel);
         oTable2.bindRows("/modelData");
-        // var tab = new sap.ui.commons.Tab({
-        //     verticalScrolling:sap.ui.core.Scrolling.Hidden,
-        //     horizontalScrolling:sap.ui.core.Scrolling.Hidden,
-        //     text:"操作内容",
-        //     content:oTable2
-        // }); 
-        // oTabStrip1.addTab(tab);
-//         //tab2
-//         var oTable3 = new sap.ui.table.Table({
-// 	        id:"dangerousPointTab",
-// 	        visibleRowCount: 10,
-//             selectionMode: sap.ui.table.SelectionMode.Single,
-//             // navigationMode: sap.ui.table.NavigationMode.Paginator,
-//         	fixedColumnCount: 0
-//         }); 
-// 	    oTable3.addColumn(new sap.ui.table.Column({
-//         	label: new sap.ui.commons.Label({text: "序号"}),
-//         	template: new sap.ui.commons.TextField().bindProperty("value", "DsCode"),
-//         	width: "50px",
-//         	hAlign: "Center"
-//         }));
-//         oTable3.addColumn(new sap.ui.table.Column({
-//         	label: new sap.ui.commons.Label({text: "危险点"}),
-//         	template: new sap.ui.commons.TextArea().bindProperty("value", "DsNameEn"),
-//         	width: "240px",
-//         	hAlign: "Center"
-//         }));
-//         oTable3.addColumn(new sap.ui.table.Column({
-//         	label: new sap.ui.commons.Label({text: "危害后果"}),
-//         	template: new sap.ui.commons.TextField().bindProperty("value", "DsNameCn"),
-//         	width: "200px",
-//         	hAlign: "Center"
-//         }));
-//         oTable3.addColumn(new sap.ui.table.Column({
-//         	label: new sap.ui.commons.Label({text: "控制措施"}),
-//         	template: new sap.ui.commons.TextField().bindProperty("value", "DsDomain"),
-//         	width: "200px",
-//         	hAlign: "Center"
-//         }));
-//         oTable3.setModel(oModel);
-//         oTable3.bindRows("/modelData");
-//         var tab3 = new sap.ui.commons.Tab({
-//             verticalScrolling:sap.ui.core.Scrolling.Hidden,
-//             horizontalScrolling:sap.ui.core.Scrolling.Hidden,
-//             text:"危险点分析",
-//             content:oTable3
-//         }); 
-//         oTabStrip1.addTab(tab3);
-// 		return oTabStrip1;
-        return oTable2;
+        var tab = new sap.ui.commons.Tab({
+            verticalScrolling:sap.ui.core.Scrolling.Hidden,
+            horizontalScrolling:sap.ui.core.Scrolling.Hidden,
+            text:"操作内容",
+            content:oTable2
+        }); 
+        oTabStrip1.addTab(tab);
+        //tab2
+        var oTable3 = new sap.ui.table.Table({
+	        id:"dangerousPointTab",
+	        visibleRowCount: 10,
+            selectionMode: sap.ui.table.SelectionMode.Single,
+            // navigationMode: sap.ui.table.NavigationMode.Paginator,
+        	fixedColumnCount: 0
+        }); 
+	    oTable3.addColumn(new sap.ui.table.Column({
+        	label: new sap.ui.commons.Label({text: "序号"}),
+        	template: new sap.ui.commons.TextField().bindProperty("value", "DsCode"),
+        	width: "50px",
+        	hAlign: "Center"
+        }));
+        oTable3.addColumn(new sap.ui.table.Column({
+        	label: new sap.ui.commons.Label({text: "危险点"}),
+        	template: new sap.ui.commons.TextArea().bindProperty("value", "DsNameEn"),
+        	width: "240px",
+        	hAlign: "Center"
+        }));
+        oTable3.addColumn(new sap.ui.table.Column({
+        	label: new sap.ui.commons.Label({text: "危害后果"}),
+        	template: new sap.ui.commons.TextField().bindProperty("value", "DsNameCn"),
+        	width: "200px",
+        	hAlign: "Center"
+        }));
+        oTable3.addColumn(new sap.ui.table.Column({
+        	label: new sap.ui.commons.Label({text: "控制措施"}),
+        	template: new sap.ui.commons.TextField().bindProperty("value", "DsDomain"),
+        	width: "200px",
+        	hAlign: "Center"
+        }));
+        oTable3.setModel(oModel);
+        oTable3.bindRows("/modelData");
+        var tab3 = new sap.ui.commons.Tab({
+            verticalScrolling:sap.ui.core.Scrolling.Hidden,
+            horizontalScrolling:sap.ui.core.Scrolling.Hidden,
+            text:"危险点分析",
+            content:oTable3
+        }); 
+        oTabStrip1.addTab(tab3);
+		return oTabStrip1;
 	}
 
 });
