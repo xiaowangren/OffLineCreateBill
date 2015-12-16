@@ -5,7 +5,7 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCreateInfoTab", {
 	createContent : function(oController) {
 	    var aData = [];
 	        for(var i=0;i<150;i++){
-	            aData.push({DsCode:"",DsNameEn:"",DsNameCn:"",DsSubdomain:""});
+	            aData.push({Zxh:"",Zcznr:"",Zzysx:""});
 	        }
 	       // {DsCode:1,DsNameEn:"你好，吃饭了吗？",DsNameCn:"注意一下",DsSubdomain:"张三"},
 	       // {DsCode:1,DsNameEn:"你好，吃饭了吗？",DsNameCn:"注意一下",DsSubdomain:"张三"}
@@ -15,11 +15,11 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCreateInfoTab", {
         oModel.setData({modelData: aData});
         
 	    var oTabStrip1 = new sap.ui.commons.TabStrip("BillCreateInfoTabStrip01");
-        oTabStrip1.setHeight("370px");
+        oTabStrip1.setHeight("380px");
         //tab1
 	    var oTable2 = new sap.ui.table.Table({
 	        id:"BillBaseInfoTab",
-	        visibleRowCount: 10,
+	        visibleRowCount: 9,
             selectionMode: sap.ui.table.SelectionMode.Single,
             // navigationMode: sap.ui.table.NavigationMode.Paginator,
         	fixedColumnCount: 0
@@ -27,19 +27,19 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCreateInfoTab", {
         }); 
 	    oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "序号"}),
-        	template: new sap.ui.commons.TextField().bindProperty("value", "DsCode"),
+        	template: new sap.ui.commons.TextField().bindProperty("value", "Zxh"),
         	width: "50px",
         	hAlign: "Center"
         }));
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "操作内容"}),
-        	template: new sap.ui.commons.TextArea({width:"100%"}).bindProperty("value", "DsNameEn"),
+        	template: new sap.ui.commons.TextArea({width:"100%"}).bindProperty("value", "Zcznr"),
         	width: "240px",
         	hAlign: "Center"
         }));
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "注意事项"}),
-        	template: new sap.ui.commons.TextArea({width:"100%"}).bindProperty("value", "DsNameCn"),
+        	template: new sap.ui.commons.TextArea({width:"100%"}).bindProperty("value", "Zzysx"),
         	width: "180px",
         	hAlign: "Center"
         }));

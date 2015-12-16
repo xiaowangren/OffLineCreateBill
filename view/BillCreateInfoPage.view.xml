@@ -11,7 +11,7 @@
 		        <lay:MatrixLayout width="40%" widths="15%,30%,25%,25%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1">
 		            <lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutCell>
-		                    <c:Button text="提交"></c:Button>
+		                    <c:Button text="提交" press="onSubmitBillInfo"></c:Button>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:Button text="参考历史票/典型票"></c:Button>
@@ -70,8 +70,8 @@
 		                <lay:MatrixLayoutCell>
 		                    <c:ComboBox width="95%" id="dianQiCaozuoLeiXing">
 		                        <c:items>
-                                    <core:ListItem text="1 单人操作" key="GG"></core:ListItem>
-                                    <core:ListItem text="2 监护操作" key="G1"></core:ListItem>
+                                    <core:ListItem text="1 单人操作" key="1"></core:ListItem>
+                                    <core:ListItem text="2 监护操作" key="2"></core:ListItem>
                                 </c:items>
 		                    </c:ComboBox>
 		                </lay:MatrixLayoutCell>
@@ -80,8 +80,8 @@
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
 		                    <c:ComboBox width="95%" id="dianQiCaoZuoXingZhi">
 		                        <c:items>
-                                    <core:ListItem text="1 一般操作" key="GG"></core:ListItem>
-                                    <core:ListItem text="2 重大操作" key="G1"></core:ListItem>
+                                    <core:ListItem text="1 一般操作" key="1"></core:ListItem>
+                                    <core:ListItem text="2 重大操作" key="2"></core:ListItem>
                                 </c:items>
 		                    </c:ComboBox>
 		                </lay:MatrixLayoutCell>
@@ -159,6 +159,7 @@
                 				    width="95%"
                         			type="DateTime"
                         			displayFormat="yyyy-MM-dd HH:mm:ss"
+                        			valueFormat="yyyyMMdd HH:mm:ss"
                         			class="sapUiSmallMarginBottom" id="dianQiCaoZuoKaiShiShiJian"/>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
@@ -168,9 +169,8 @@
 		                    <DateTimeInput
                 				    width="95%"
                         			type="DateTime"
-                        			
                         			displayFormat="yyyy-MM-dd HH:mm:ss"
-                        			valueFormat="yyyy-MM-dd HH:mm:ss"
+                        			valueFormat="yyyyMMdd HH:mm:ss"
                         			class="sapUiSmallMarginBottom" id="dianQiCaoZuoJieShuShiJian" />
 		                </lay:MatrixLayoutCell>
 
@@ -183,7 +183,7 @@
 		                    <c:TextView text="备注"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell colSpan="3">
-		                    <c:TextArea value="" rows="4" cols="150"></c:TextArea>
+		                    <c:TextArea value="" rows="4" cols="150" id="dianQiBeiZhu"></c:TextArea>
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>

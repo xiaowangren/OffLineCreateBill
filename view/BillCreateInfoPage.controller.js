@@ -1,5 +1,5 @@
 sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
-    onPrintBillInfo:function(){
+    onSubmitBillInfo:function(){
         var dianQiCaoZuoPiaoHao = this.getView().byId("dianQiCaoZuoPiaoHao").getValue();
         var dianQiGongChang = this.getView().byId("dianQiGongChang").getValue();
         var dianQiTianXieBuMen = this.getView().byId("dianQiTianXieBuMen").getSelectedKey();
@@ -18,16 +18,56 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var dianQiCaoZuoRenWu = this.getView().byId("dianQiCaoZuoRenWu").getValue();
         var dianQiCaoZuoKaiShiShiJian = this.getView().byId("dianQiCaoZuoKaiShiShiJian").getValue();
         var dianQiCaoZuoJieShuShiJian = this.getView().byId("dianQiCaoZuoJieShuShiJian").getValue(); 
+        var dianQiBeiZhu = this.getView().byId("dianQiBeiZhu").getValue();
+        //处理数据
+        var gongChangId = dianQiGongChang.substr(0,4);
+        var leiXingId = dianQiLeiXing.substr(0,2);
+        var EstatId = dianQiZhuangTai.substr(0,2);
+        var Sdate="";
+        var Stime="";
+        if(dianQiCaoZuoKaiShiShiJian!=""){
+            var dateTime = dianQiCaoZuoKaiShiShiJian.split(" ");
+            Sdate=dateTime[0];
+            Stime=dateTime[1];
+        }
+        var Edate="";
+        var Etime="";
+        if(dianQiCaoZuoJieShuShiJian!=""){
+            var dateTimeE = dianQiCaoZuoJieShuShiJian.split(" ");
+            Edate=dateTimeE[0];
+            Etime=dateTimeE[1];
+        }
+        var payLoad ={
+            Zczph:dianQiCaoZuoPiaoHao,//ZCZPH
+            Estat:EstatId,//ESTAT
+            Cuser:dianQiKaiPiaoRen,//CUSER
+            Cdata:dianQiKaiPiaoRiQi,//CDATA
+            Ztype:leiXingId,//ZTYPE
+            Otype:dianQiCaozuoLeiXing,//OTYPE
+            Unity:dianQiJiZu,//UNITY
+            Zduty:dianQiZhiBie,//ZDUTY
+            Rarea:dianQiYunXingQuYu,//RAREA
+            Bhgbz:gongChangId,//BHGBZ
+            Sdate:Sdate,//SDATE操作开始日期
+            Stime:Stime,//STIME操作开始时间
+            Edate:Edate,//EDATE操作结束日期
+            Etime:Etime,//ETIME操作结束时间
+            Ztask:dianQiCaoZuoRenWu,//ZTASK操作任务
+            Zczfs:dianQiCaoZuoXingZhi,//ZCZFS操作性质
+            Znote:dianQiBeiZhu,//ZNOTE备注
+            Yxgroup:dianQiBanZu//YXGROUP运行班组编码
+        };
+        console.log(payLoad);
         //收集tab中的数据
         var tableId = sap.ui.getCore().byId("BillBaseInfoTab");
         var tableData = tableId.getModel().oData.modelData;
         var tableDataNew =[];
         for(var i=0;i<tableData.length;i++){
-            if(tableData[i].DsCode.trim()!=""){
-               tableDataNew.push(tableData[i]); 
+            if((tableData[i].Zzysx.trim()=="")&&(tableData[i].Zxh.trim()=="")&&(tableData[i].Zcznr.trim()=="")){
+            }else{
+                tableDataNew.push(tableData[i]); 
             }
         }
-        
     //     var i;
     //     var header1 = "<center><h3>"+dianQiCaoZuoPiaoHao+"</h3></center><br/>";
         
