@@ -34,5 +34,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 //	onExit: function() {
 //
 //	}
-
+    onExecute: function() {
+        sap.ui.getCore().byId("idBillApp").app.to("idBillCreateInfoPage");
+    }
 });

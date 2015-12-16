@@ -10,100 +10,59 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		var oTileData = {
         	"TileCollection" : [
         		{
+        		    "tid" : "t1",
         			"icon" : "inbox",
         // 			"number" : "89",
         			"title" : "同步主数据",
-        			"info" : "最近更新：2015-12-15 16:00",
-        			"infoState" : "Error"
+        			"info" : "最近更新:12.15 16:00",
+        			"infoState" : "Success",
+        			"onPress" : "onSyncMasterData"
         		},        		
+
         		{
-        			"icon" : "hint",
-        			"type" : "Monitor",
-        			"title" : "Tiles: a modern UI design pattern for overview & navigation."
-        		},
-        		{
+        		    "tid" : "t2",
+        		    "icon" : "order-status",
         			"type" : "Create",
-        			"title" : "Create Leave Requests",
-        			"info" : "28 Days Left",
+        			"title" : "创建操作票",
         			"infoState" : "Success"
         		},
         		{
-        			"icon" : "factory",
+        		    "tid" : "t3",
+        			"icon" : "order-status",
         			"number" : "2",
         			"numberUnit" : "Outages",
-        			"title" : "Factory Power Management",
+        			"title" : "修改操作票",
         			"info" : "Production On Hold",
         			"infoState" : "Error"
         		},
         		{
-        			"icon" : "travel-expense-report",
-        			"number" : "281",
-        			"numberUnit" : "euro",
-        			"title" : "Travel Reimbursement",
-        			"info" : "1 day ago"
-        		},
-        		{
-        			"icon" : "loan",
-        			"number" : "2380",
-        			"numberUnit" : "euro",
-        			"title" : "My Salary",
-        			"info" : "8 days ago"
-        		},
-        		{
-        			"icon" : "lab",
-        			"number" : "1",
-        			"numberUnit" : "Invention",
-        			"title" : "Test Lab Reports",
-        			"info" : "8 Days Ago"
-        		},
-        		{
-        			"icon" : "inbox",
+        		    "tid" : "t4",
+        			"icon" : "hint",
+        			"number" : "20",
         			"type" : "Monitor",
-        			"title" : "Leave Request History"
-        		},
-        		{
-        			"type" : "Create",
-        			"title" : "Create Purchase Order",
-        			"info" : "890€ Open Budget",
+        			"title" : "上传离线数据",
+        			"info" : "最近上传:12.15 16:00",
         			"infoState" : "Success"
         		},
         		{
-        			"icon" : "stethoscope",
-        			"number" : "3",
-        			"title" : "Yearly Health Check",
-        			"info" : "3 year overdue",
+        		    "tid" : "t5",
+        		    "icon" : "factory",
+        			"type" : "Create",
+        			"title" : "创建工作票",
+        			"infoState" : "Success"
+        		},
+        		{
+        		    "tid" : "t6",
+        			"icon" : "factory",
+        			"number" : "2",
+        			"numberUnit" : "Outages",
+        			"title" : "修改工作票",
+        			"info" : "Production On Hold",
         			"infoState" : "Error"
-        		},
-        		{
-        			"icon" : "meal",
-        			"type" : "Monitor",
-        			"title" : "Meal Schedule"
-        		},
-        		{
-        			"icon" : "cart",
-        			"number" : "787",
-        			"numberUnit" : "euro",
-        			"title" : "My Shopping Carts",
-        			"info" : "Waiting for Approval",
-        			"infoState" : "Warning"
-        		},
-
-        // 		{
-        // 			"icon" : "calendar",
-        // 			"title" : "Team Calendar"
-        // 		},
-        // 		{
-        // 			"icon" : "pie-chart",
-        // 			"number" : "5",
-        // 			"title" : "Financial Reports",
-        // 			"info" : "4 day ago",
-        // 			"infoState" : "Warning"
-        // 		}
+        		}
         	]
         };
-		
-// 		var sPath = jQuery.sap.getModulePath("sap.m.sample.TileContainer", "/data.json");
-// 		var oModel = new JSONModel(sPath);
+
 		var oModel =  new sap.ui.model.json.JSONModel();
 		oModel.setData(oTileData);
 		this.getView().setModel(oModel);
@@ -210,5 +169,23 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		}
 		jQuery.sap.require("sap.m.MessageBox");
 		sap.m.MessageBox.alert("缓存数据已读取");
+	},
+	onUploadToEcc: function(){
+	    
+	},
+	onNavigate: function(event){
+        
+	    sap.ui.getCore().byId("idBillApp").app.to("idBillInitializationPage");
+	    
+	},
+	handlePrintPress: function(){
+	    var docDefinition = { content: 'This is an sample PDF printed with pdfMake' };
+	    // open the PDF in a new window
+        window.pdfMake.createPdf(docDefinition).open();
+        // print the PDF (not working in this version, will be added back in a couple of days)
+        // pdfMake.createPdf(docDefinition).print();
+        // download the PDF
+        // window.pdfmake.createPdf(docDefinition).download();
 	}
+	
 });

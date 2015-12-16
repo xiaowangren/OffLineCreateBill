@@ -1,10 +1,50 @@
 <core:View xmlns:core="sap.ui.core" 
 	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:l="sap.ui.layout"
+	xmlns:lay="sap.ui.commons.layout"
+	xmlns:c="sap.ui.commons"
 	xmlns="sap.m" controllerName="com.zhenergy.bill.view.BillInitializationPage" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page title="Title">
 		<content>
-		
+		    <l:VerticalLayout class="BillInitializationPage_page_content_VerticalLayout">
+		        <lay:MatrixLayout width="40%" widths="15%,30%,25%,25%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1">
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:Button text="执行" press="onExecute"></c:Button>
+		                </lay:MatrixLayoutCell>
+		            </lay:MatrixLayoutRow>
+		        </lay:MatrixLayout>
+		        <lay:MatrixLayout widths="10%,20%,70%" class="BillInitializationPage_VerticalLayout_MatrixLayout_2">
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="工厂"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="工厂"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		             </lay:MatrixLayoutRow> 
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="操作票类型"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:ComboBox width="95%">
+		                        <c:items>
+                                    <core:ListItem text="电气操作票" key="DQ"></core:ListItem>
+                                    <core:ListItem text="锅炉操作票" key="GL"></core:ListItem>
+                                    <core:ListItem text="环保操作票" key="HB"></core:ListItem>
+                                    <core:ListItem text="化学操作票" key="HX"></core:ListItem>
+                                    <core:ListItem text="汽机操作票" key="QJ"></core:ListItem>
+                                    <core:ListItem text="热控操作票" key="RK"></core:ListItem>
+                                    <core:ListItem text="燃料操作票" key="RL"></core:ListItem>
+                                    <core:ListItem text="典型操作票" key="ZS"></core:ListItem>
+                                </c:items>
+		                    </c:ComboBox>
+		                </lay:MatrixLayoutCell>
+		             </lay:MatrixLayoutRow> 
+		        </lay:MatrixLayout>
+		    </l:VerticalLayout>
 		</content>
 	</Page>
 </core:View>

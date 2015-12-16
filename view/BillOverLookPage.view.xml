@@ -3,26 +3,95 @@
 	xmlns="sap.m" controllerName="com.zhenergy.bill.view.BillOverLookPage" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page
-		showHeader="false"
+	    title="两票离线打印平台"
+		showHeader="true"
 		enableScrolling="false" >
+		<!--tiles="{/TileCollection}"-->
 		<TileContainer
 			id="container"
 			tileDelete="handleTileDelete"
-			tiles="{/TileCollection}">
+			
+			>
 			<StandardTile
-				icon="sap-icon://{icon}"
-				type="{type}"
-				number="{number}"
-				numberUnit="{numberUnit}"
-				title="{title}"
-				info="{info}"
-				infoState="{infoState}" />
+			    id="tileSync"
+				icon="sap-icon://inbox"
+				title="同步主数据"
+				info="最近更新:12.15 16:00"
+				infoState="Success"
+				press="onSyncMasterData"
+				/>
+			<StandardTile
+			    id="tileCreateOT"
+				icon="sap-icon://order-status"
+				title="创建操作票"
+				infoState="Success"  
+				press="onNavigate">
+				<customData>
+					<core:CustomData key="targetPage" value="BillInitializationPage">
+					</core:CustomData>
+				</customData>
+			</StandardTile>
+			<StandardTile
+			    id="tileModifyOT"
+				icon="sap-icon://order-status"
+				number="20"
+				title="修改操作票"
+				infoState="Error"
+				press="onNavigate">
+				<customData>
+					<core:CustomData key="targetPage" value="BillInitializationPage">
+					</core:CustomData>
+				</customData>
+			</StandardTile>
+			<StandardTile
+			    id="tileUpload"
+				icon="sap-icon://hint"
+				type="Monitor"
+				title="上传离线数据"
+				info="最近上传:12.15 16:00"
+				infoState="Success"
+				press="onUploadToEcc"
+				/>
+			<StandardTile
+			    id="tileCreateWT"
+				icon="sap-icon://factory"
+				title="创建工作票"
+				infoState="Success"
+				press="onNavigate">
+				<customData>
+					<core:CustomData key="targetPage" value="BillInitializationPage">
+					</core:CustomData>
+				</customData>
+			</StandardTile>
+			<StandardTile
+			    id="tileModifyWT"
+				icon="sap-icon://factory"
+				number="20"
+				title="修改工作票"
+				infoState="Error"
+				press="onNavigate">
+				<customData>
+					<core:CustomData key="targetPage" value="BillInitializationPage">
+					</core:CustomData>
+				</customData>
+			</StandardTile>
+			<!--<StandardTile-->
+			<!--    id="tileModifyOT"-->
+			<!--	icon="sap-icon://{icon}"-->
+			<!--	type="{type}"-->
+			<!--	number="{number}"-->
+			<!--	numberUnit="{numberUnit}"-->
+			<!--	title="{title}"-->
+			<!--	info="{info}"-->
+			<!--	infoState="{infoState}"-->
+			<!--	press=""-->
+			<!--	/>-->
 		</TileContainer>
 		<footer>
 			<Toolbar>
 				<ToolbarSpacer/>
-					<Button text="Edit" press="handleEditPress" />
-					<Button text="Busy state" press="handleBusyPress" />
+					<Button text="Print" press="handlePrintPress" />
+					<!--<Button text="Busy state" press="handleBusyPress" />-->
 				<ToolbarSpacer/>
 			</Toolbar>
 		</footer>

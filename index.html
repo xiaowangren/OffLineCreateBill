@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html>
+<html manifest="manifest.appcache">
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta http-equiv='Content-Type' content='text/html;charset=UTF-8'/>
@@ -13,7 +13,9 @@
 		</script>
 		<!-- only load the mobile lib "sap.m" and the "sap_bluecrystal" theme -->
 		<link rel="stylesheet" type="text/css" href="css/style.css">
-		
+		<script src="pdfmake.min.js"></script>
+		<script src='vfs_fonts.js'></script>
+
 		<script>
 				sap.ui.localResources("view");
 				var app = new sap.m.App({initialPage:"idBillApp"});
