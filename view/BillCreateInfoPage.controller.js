@@ -4,11 +4,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var dianQiGongChang = this.getView().byId("dianQiGongChang").getValue();
         var dianQiTianXieBuMen = this.getView().byId("dianQiTianXieBuMen").getSelectedKey();
         var dianQiBanZu = this.getView().byId("dianQiBanZu").getSelectedKey();
-        var dianQiBuHeGe = this.getView().byId("dianQiBuHeGe").getChecked();
+        // var dianQiBuHeGe = this.getView().byId("dianQiBuHeGe").getChecked();
         var dianQiLeiXing = this.getView().byId("dianQiLeiXing").getValue();
         var dianQiCaozuoLeiXing = this.getView().byId("dianQiCaozuoLeiXing").getSelectedKey();
         var dianQiCaoZuoXingZhi = this.getView().byId("dianQiCaoZuoXingZhi").getSelectedKey();
-        var dianQiXuYaoZhiZhangShenHe = this.getView().byId("dianQiXuYaoZhiZhangShenHe").getChecked();
+        // var dianQiXuYaoZhiZhangShenHe = this.getView().byId("dianQiXuYaoZhiZhangShenHe").getChecked();
         var dianQiYunXingQuYu = this.getView().byId("dianQiYunXingQuYu").getSelectedKey();
         var dianQiJiZu = this.getView().byId("dianQiJiZu").getSelectedKey();
         var dianQiZhiBie = this.getView().byId("dianQiZhiBie").getSelectedKey();

@@ -33,58 +33,58 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCreateInfoTab", {
         }));
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "操作内容"}),
-        	template: new sap.ui.commons.TextField().bindProperty("value", "DsNameEn"),
+        	template: new sap.ui.commons.TextArea({width:"100%"}).bindProperty("value", "DsNameEn"),
         	width: "240px",
         	hAlign: "Center"
         }));
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "注意事项"}),
-        	template: new sap.ui.commons.TextField().bindProperty("value", "DsNameCn"),
+        	template: new sap.ui.commons.TextArea({width:"100%"}).bindProperty("value", "DsNameCn"),
         	width: "180px",
         	hAlign: "Center"
         }));
-        oTable2.addColumn(new sap.ui.table.Column({
-        	label: new sap.ui.commons.Label({text: "执行情况"}),
-        	template: new sap.ui.commons.TextField().bindProperty("value", "DsDomain"),
-        	width: "80px",
-        	hAlign: "Center"
-        }));
-        oTable2.addColumn(new sap.ui.table.Column({
-        	label: new sap.ui.commons.Label({text: "操作人"}),
-        	template: new sap.ui.commons.TextField().bindProperty("value", "DsSubdomain"),
-        	width: "80px",
-        	hAlign: "Center"
-        }));
-        oTable2.addColumn(new sap.ui.table.Column({
-        	label: new sap.ui.commons.Label({text: "监护人"}),
-        	template: new sap.ui.commons.TextField().bindProperty("value", "DsSystem"),
-        	width: "80px",
-        	hAlign: "Center"
-        }));
-        oTable2.addColumn(new sap.ui.table.Column({
-        	label: new sap.ui.commons.Label({text: "值班负责人"}),
-        	template: new sap.ui.commons.TextField().bindProperty("value", "DsBusiness"),
-        	width: "100px",
-        	hAlign: "Center"
-        }));
-        oTable2.addColumn(new sap.ui.table.Column({
-        	label: new sap.ui.commons.Label({text: "值长"}),
-        	template: new sap.ui.commons.TextField().bindProperty("value", "DsType"),
-        	width: "80px",
-        	hAlign: "Center"
-        }));
-        oTable2.addColumn(new sap.ui.table.Column({
-        	label: new sap.ui.commons.Label({text: "值别"}),
-        	template: new sap.ui.commons.TextField().bindProperty("value", "DsSecurityLevel"),
-        	width: "80px",
-        	hAlign: "Center"
-        }));
-        oTable2.addColumn(new sap.ui.table.Column({
-        	label: new sap.ui.commons.Label({text: "班组"}),
-        	template: new sap.ui.commons.TextField().bindProperty("value", "DsOwner"),
-        	width: "80px",
-        	hAlign: "Center"
-        }));
+        // oTable2.addColumn(new sap.ui.table.Column({
+        // 	label: new sap.ui.commons.Label({text: "执行情况"}),
+        // 	template: new sap.ui.commons.TextField().bindProperty("value", "DsDomain"),
+        // 	width: "80px",
+        // 	hAlign: "Center"
+        // }));
+        // oTable2.addColumn(new sap.ui.table.Column({
+        // 	label: new sap.ui.commons.Label({text: "操作人"}),
+        // 	template: new sap.ui.commons.TextField().bindProperty("value", "DsSubdomain"),
+        // 	width: "80px",
+        // 	hAlign: "Center"
+        // }));
+        // oTable2.addColumn(new sap.ui.table.Column({
+        // 	label: new sap.ui.commons.Label({text: "监护人"}),
+        // 	template: new sap.ui.commons.TextField().bindProperty("value", "DsSystem"),
+        // 	width: "80px",
+        // 	hAlign: "Center"
+        // }));
+        // oTable2.addColumn(new sap.ui.table.Column({
+        // 	label: new sap.ui.commons.Label({text: "值班负责人"}),
+        // 	template: new sap.ui.commons.TextField().bindProperty("value", "DsBusiness"),
+        // 	width: "100px",
+        // 	hAlign: "Center"
+        // }));
+        // oTable2.addColumn(new sap.ui.table.Column({
+        // 	label: new sap.ui.commons.Label({text: "值长"}),
+        // 	template: new sap.ui.commons.TextField().bindProperty("value", "DsType"),
+        // 	width: "80px",
+        // 	hAlign: "Center"
+        // }));
+        // oTable2.addColumn(new sap.ui.table.Column({
+        // 	label: new sap.ui.commons.Label({text: "值别"}),
+        // 	template: new sap.ui.commons.TextField().bindProperty("value", "DsSecurityLevel"),
+        // 	width: "80px",
+        // 	hAlign: "Center"
+        // }));
+        // oTable2.addColumn(new sap.ui.table.Column({
+        // 	label: new sap.ui.commons.Label({text: "班组"}),
+        // 	template: new sap.ui.commons.TextField().bindProperty("value", "DsOwner"),
+        // 	width: "80px",
+        // 	hAlign: "Center"
+        // }));
         oTable2.setModel(oModel);
         oTable2.bindRows("/modelData");
         var tab = new sap.ui.commons.Tab({
@@ -110,19 +110,19 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCreateInfoTab", {
         }));
         oTable3.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "危险点"}),
-        	template: new sap.ui.commons.TextArea().bindProperty("value", "DsNameEn"),
+        	template: new sap.ui.commons.TextArea({width:"100%"}).bindProperty("value", "DsNameEn"),
         	width: "240px",
         	hAlign: "Center"
         }));
         oTable3.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "危害后果"}),
-        	template: new sap.ui.commons.TextField().bindProperty("value", "DsNameCn"),
+        	template: new sap.ui.commons.TextArea({width:"100%"}).bindProperty("value", "DsNameCn"),
         	width: "200px",
         	hAlign: "Center"
         }));
         oTable3.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "控制措施"}),
-        	template: new sap.ui.commons.TextField().bindProperty("value", "DsDomain"),
+        	template: new sap.ui.commons.TextArea({width:"100%"}).bindProperty("value", "DsDomain"),
         	width: "200px",
         	hAlign: "Center"
         }));

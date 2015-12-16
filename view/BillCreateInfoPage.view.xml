@@ -36,13 +36,13 @@
 		                    <c:TextView text="工厂"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="" width="95%" id="dianQiGongChang"></c:TextField>
+		                    <c:TextField value="{/dianQiGongChang}" width="95%" id="dianQiGongChang" editable="false" tooltip="{/dianQiGongChang}"></c:TextField>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="填写部门"></c:TextView>
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
 		                    <c:ComboBox id="dianQiTianXieBuMen" items="{ path: '/tianxieBuMen'}" width="95%">
-								<core:ListItem key="{Appdep}" text="{Appdepdec}"></core:ListItem>
+								<core:ListItem key="{Appdep}" text="{Appdep} {Appdepdec}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
@@ -50,11 +50,11 @@
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:ComboBox id="dianQiBanZu" items="{ path: '/banZu'}" width="95%">
-								<core:ListItem key="{Yxgroup}" text="{Yxgroupdec}"></core:ListItem>
+								<core:ListItem key="{Yxgroup}" text="{Yxgroup} {Yxgroupdec}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:CheckBox text="不合格" enabled ="false" id="dianQiBuHeGe"></c:CheckBox>
+		                    <!--<c:CheckBox text="不合格" enabled ="false" id="dianQiBuHeGe"></c:CheckBox>-->
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		            <lay:MatrixLayoutRow>
@@ -62,7 +62,7 @@
 		                    <c:TextView text="类型"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="" width="95%" id="dianQiLeiXing"></c:TextField>
+		                    <c:TextField value="{/dianQiLeiXing} {/dianQiLeiXingValue}" width="95%" id="dianQiLeiXing" editable="false" tooltip="{/dianQiLeiXing} {/dianQiLeiXingValue}"></c:TextField>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="操作类型"></c:TextView>
@@ -90,7 +90,7 @@
 		                <lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:CheckBox text="需要值长审核" id="dianQiXuYaoZhiZhangShenHe"></c:CheckBox>
+		                    <!--<c:CheckBox text="需要值长审核" id="dianQiXuYaoZhiZhangShenHe"></c:CheckBox>-->
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		            <lay:MatrixLayoutRow>
@@ -99,7 +99,7 @@
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:ComboBox id="dianQiYunXingQuYu" items="{ path: '/yunXingQuYu'}" width="95%">
-								<core:ListItem key="{Rarea}" text="{Rareadec}"></core:ListItem>
+								<core:ListItem key="{Rarea}" text="{Rarea} {Rareadec}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
@@ -107,32 +107,21 @@
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:ComboBox id="dianQiJiZu" items="{ path: '/jiZu'}" width="95%">
-								<core:ListItem key="{Unity}" text="{Untxt}"></core:ListItem>
+								<core:ListItem key="{Unity}" text="{Unity} {Untxt}"></core:ListItem>
 							</c:ComboBox>
-		                    <!--<c:ComboBox width="95%" id="dianQiJiZu">-->
-		                    <!--    <c:items>-->
-                      <!--              <core:ListItem text="一值" key="0001"></core:ListItem>-->
-                      <!--              <core:ListItem text="二值" key="0002"></core:ListItem>-->
-                      <!--              <core:ListItem text="三值" key="0003"></core:ListItem>-->
-                      <!--              <core:ListItem text="四值" key="0004"></core:ListItem>-->
-                      <!--              <core:ListItem text="五值" key="0005"></core:ListItem>-->
-                      <!--              <core:ListItem text="六值" key="0006"></core:ListItem>-->
-                      <!--          </c:items>-->
-		                    <!--</c:ComboBox>-->
-		                    <!--<c:TextField value="" width="95%" id="dianQiJiZu"></c:TextField>-->
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="值别"></c:TextView>
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
 		                    <c:ComboBox id="dianQiZhiBie" items="{ path: '/ZhiBie'}" width="95%">
-								<core:ListItem key="{Dunum}" text="{Dutxt}"></core:ListItem>
+								<core:ListItem key="{Dunum}" text="{Dunum} {Dutxt}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="状态"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="" width="95%" id="dianQiZhuangTai"></c:TextField>
+		                    <c:TextField value="10 拟票" width="95%" id="dianQiZhuangTai" editable="false"></c:TextField>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutCell>
@@ -153,7 +142,6 @@
                         			type="DateTime"
                         			displayFormat="yyyy-MM-dd"
                         			class="sapUiSmallMarginBottom" id="dianQiKaiPiaoRiQi"/>
-		                    <!--<DatePicker value="" valueFormat="yyyyMMdd" width="95%" id="dianQiKaiPiaoRiQi"></DatePicker>-->
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="操作任务"></c:TextView>
@@ -167,12 +155,6 @@
 		                    <c:TextView text="操作开始时间"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <!--<DatePicker value=""  valueFormat="yyyyMMdd" displayFormat="yyyy-MM-dd" width="95%" ></DatePicker>-->
-		                  <!--  <TimePicker-->
-                				<!--id="TP3"-->
-                				<!--valueFormat="hh:mm a"-->
-                				<!--displayFormat="hh:mm a"-->
-                				<!--change="handleChange"/>-->
                 				<DateTimeInput
                 				    width="95%"
                         			type="DateTime"
@@ -183,7 +165,6 @@
 		                    <c:TextView text="操作结束时间"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <!--<DatePicker value="" valueFormat="yyyyMMdd" width="95%" ></DatePicker>-->
 		                    <DateTimeInput
                 				    width="95%"
                         			type="DateTime"
@@ -196,14 +177,16 @@
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>
 		        <mvc:JSView viewName="com.zhenergy.bill.view.BillCreateInfoTab"/>
-                <!--<c:TabStrip>-->
-                <!--    <c:Tab text="操作内容">-->
-                <!--        <c:TextView text="aa"></c:TextView>-->
-                <!--    </c:Tab>-->
-                <!--    <c:Tab text="危险点分析">-->
-                <!--        <c:TextView text="bb"></c:TextView>-->
-                <!--    </c:Tab>-->
-                <!--</c:TabStrip>-->
+		        <lay:MatrixLayout width="100%" widths="5%,30%,25%,35%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1">
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="备注"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell colSpan="3">
+		                    <c:TextArea value="" rows="4" cols="150"></c:TextArea>
+		                </lay:MatrixLayoutCell>
+		            </lay:MatrixLayoutRow>
+		        </lay:MatrixLayout>
 		    </l:VerticalLayout>
 		</content>
 	</Page>

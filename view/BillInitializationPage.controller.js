@@ -63,10 +63,18 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
             sap.m.MessageBox.alert("请选择操作票类型");
             return;
         }
+        
         //获取Storage中的数据
         jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var oLocalModel = new sap.ui.model.json.JSONModel();
+		//工厂
+		var idWerksSelectVaule = this.getView().byId("idWerksSelect")._sTypedChars;
+		oLocalModel.setProperty("/dianQiGongChang",idWerksSelectVaule);
+		//类型
+		var idTicketSelectValue = this.getView().byId("idTicketSelect")._sTypedChars;
+		oLocalModel.setProperty("/dianQiLeiXing",idTicketSelect);
+		oLocalModel.setProperty("/dianQiLeiXingValue",idTicketSelectValue);
 		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00204")) {
 			var oData = oStorage.get("ZPMOFFLINE_SRV.ZPMT00204");
 			oLocalModel.setProperty("/ZhiBie",oData);
