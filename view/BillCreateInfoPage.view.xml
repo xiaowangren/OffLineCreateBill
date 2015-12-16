@@ -17,7 +17,7 @@
 		                    <c:Button text="参考历史票/典型票"></c:Button>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:Button text="试打印操作票"></c:Button>
+		                    <c:Button text="试打印操作票" press="onPrintBillInfo"></c:Button>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:Button text="试打印危险点"></c:Button>
@@ -30,27 +30,47 @@
 		                    <c:TextView text="操作票号"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="" width="95%"></c:TextField>
+		                    <c:TextField value="" width="95%" id="dianQiCaoZuoPiaoHao"></c:TextField>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="工厂"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="" width="95%"></c:TextField>
+		                    <c:TextField value="" width="95%" id="dianQiGongChang"></c:TextField>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="填写部门"></c:TextView>
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
-		                    <c:TextField value="" width="95%"></c:TextField>
+		                    <c:ComboBox width="95%" id="dianQiTianXieBuMen">
+		                        <c:items>
+                                    <core:ListItem text="一值" key="0001"></core:ListItem>
+                                    <core:ListItem text="二值" key="0002"></core:ListItem>
+                                    <core:ListItem text="三值" key="0003"></core:ListItem>
+                                    <core:ListItem text="四值" key="0004"></core:ListItem>
+                                    <core:ListItem text="五值" key="0005"></core:ListItem>
+                                    <core:ListItem text="六值" key="0006"></core:ListItem>
+                                </c:items>
+		                    </c:ComboBox>
+		                    <!--<c:TextField value="" width="95%" id="dianQiTianXieBuMen"></c:TextField>-->
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="班组"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="" width="95%"></c:TextField>
+		                    <c:ComboBox width="95%" id="dianQiBanZu">
+		                        <c:items>
+                                    <core:ListItem text="一值" key="0001"></core:ListItem>
+                                    <core:ListItem text="二值" key="0002"></core:ListItem>
+                                    <core:ListItem text="三值" key="0003"></core:ListItem>
+                                    <core:ListItem text="四值" key="0004"></core:ListItem>
+                                    <core:ListItem text="五值" key="0005"></core:ListItem>
+                                    <core:ListItem text="六值" key="0006"></core:ListItem>
+                                </c:items>
+		                    </c:ComboBox>
+		                    <!--<c:TextField value="" width="95%" id="dianQiBanZu"></c:TextField>-->
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:CheckBox text="不合格" enabled ="false"></c:CheckBox>
+		                    <c:CheckBox text="不合格" enabled ="false" id="dianQiBuHeGe"></c:CheckBox>
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		            <lay:MatrixLayoutRow>
@@ -58,13 +78,13 @@
 		                    <c:TextView text="类型"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="" width="95%"></c:TextField>
+		                    <c:TextField value="" width="95%" id="dianQiLeiXing"></c:TextField>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="操作类型"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox width="95%">
+		                    <c:ComboBox width="95%" id="dianQiCaozuoLeiXing">
 		                        <c:items>
                                     <core:ListItem text="1 单人操作" key="GG"></core:ListItem>
                                     <core:ListItem text="2 监护操作" key="G1"></core:ListItem>
@@ -74,7 +94,7 @@
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="操作性质"></c:TextView>
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
-		                    <c:ComboBox width="95%">
+		                    <c:ComboBox width="95%" id="dianQiCaoZuoXingZhi">
 		                        <c:items>
                                     <core:ListItem text="1 一般操作" key="GG"></core:ListItem>
                                     <core:ListItem text="2 重大操作" key="G1"></core:ListItem>
@@ -86,7 +106,7 @@
 		                <lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:CheckBox text="需要值长审核"></c:CheckBox>
+		                    <c:CheckBox text="需要值长审核" id="dianQiXuYaoZhiZhangShenHe"></c:CheckBox>
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		            <lay:MatrixLayoutRow>
@@ -94,18 +114,38 @@
 		                    <c:TextView text="运行区域"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="" width="95%"></c:TextField>
+		                    <c:ComboBox width="95%" id="dianQiYunXingQuYu">
+		                        <c:items>
+                                    <core:ListItem text="一值" key="0001"></core:ListItem>
+                                    <core:ListItem text="二值" key="0002"></core:ListItem>
+                                    <core:ListItem text="三值" key="0003"></core:ListItem>
+                                    <core:ListItem text="四值" key="0004"></core:ListItem>
+                                    <core:ListItem text="五值" key="0005"></core:ListItem>
+                                    <core:ListItem text="六值" key="0006"></core:ListItem>
+                                </c:items>
+		                    </c:ComboBox>
+		                    <!--<c:TextField value="" width="95%" id="dianQiYunXingQuYu"></c:TextField>-->
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="机组"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="" width="95%"></c:TextField>
+		                    <c:ComboBox width="95%" id="dianQiJiZu">
+		                        <c:items>
+                                    <core:ListItem text="一值" key="0001"></core:ListItem>
+                                    <core:ListItem text="二值" key="0002"></core:ListItem>
+                                    <core:ListItem text="三值" key="0003"></core:ListItem>
+                                    <core:ListItem text="四值" key="0004"></core:ListItem>
+                                    <core:ListItem text="五值" key="0005"></core:ListItem>
+                                    <core:ListItem text="六值" key="0006"></core:ListItem>
+                                </c:items>
+		                    </c:ComboBox>
+		                    <!--<c:TextField value="" width="95%" id="dianQiJiZu"></c:TextField>-->
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="值别"></c:TextView>
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
-		                    <c:ComboBox width="95%">
+		                    <c:ComboBox width="95%" id="dianQiZhiBie">
 		                        <c:items>
                                     <core:ListItem text="一值" key="0001"></core:ListItem>
                                     <core:ListItem text="二值" key="0002"></core:ListItem>
@@ -120,7 +160,7 @@
 		                    <c:TextView text="状态"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="" width="95%"></c:TextField>
+		                    <c:TextField value="" width="95%" id="dianQiZhuangTai"></c:TextField>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutCell>
@@ -130,19 +170,24 @@
 		                    <c:TextView text="开票人"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="" width="95%"></c:TextField>
+		                    <c:TextField value="" width="95%" id="dianQiKaiPiaoRen"></c:TextField>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView  text="开票日期" ></c:TextView >
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <DatePicker value="" valueFormat="yyyyMMdd" width="95%" ></DatePicker>
+		                    <DateTimeInput
+                				    width="95%"
+                        			type="DateTime"
+                        			displayFormat="yyyy-MM-dd"
+                        			class="sapUiSmallMarginBottom" id="dianQiKaiPiaoRiQi"/>
+		                    <!--<DatePicker value="" valueFormat="yyyyMMdd" width="95%" id="dianQiKaiPiaoRiQi"></DatePicker>-->
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="操作任务"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell rowSpan="2" colSpan="4">
-		                    <c:TextArea value="" rows="5" cols="55"></c:TextArea>
+		                    <c:TextArea value="" rows="5" cols="55" id="dianQiCaoZuoRenWu"></c:TextArea>
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		            <lay:MatrixLayoutRow>
@@ -159,7 +204,8 @@
                 				<DateTimeInput
                 				    width="95%"
                         			type="DateTime"
-                        			class="sapUiSmallMarginBottom" />
+                        			displayFormat="yyyy-MM-dd HH:mm:ss"
+                        			class="sapUiSmallMarginBottom" id="dianQiCaoZuoKaiShiShiJian"/>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="操作结束时间"></c:TextView>
@@ -169,7 +215,10 @@
 		                    <DateTimeInput
                 				    width="95%"
                         			type="DateTime"
-                        			class="sapUiSmallMarginBottom" />
+                        			
+                        			displayFormat="yyyy-MM-dd HH:mm:ss"
+                        			valueFormat="yyyy-MM-dd HH:mm:ss"
+                        			class="sapUiSmallMarginBottom" id="dianQiCaoZuoJieShuShiJian" />
 		                </lay:MatrixLayoutCell>
 
 		            </lay:MatrixLayoutRow>
