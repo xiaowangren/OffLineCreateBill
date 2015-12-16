@@ -49,8 +49,19 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 //
 //	}
     onExecute: function() {
-//         jQuery.sap.require("sap.m.MessageBox");
+      jQuery.sap.require("sap.m.MessageBox");
 // 		sap.m.MessageBox.alert("ZHIXING");
+        //检查必填输入
+        if(!this.getView().byId("idWerksSelect").getSelectedKey())
+        {
+            sap.m.MessageBox.alert("请选择工厂");
+            return;
+        }
+        if(!this.getView().byId("idTicketSelect").getSelectedKey()){
+            sap.m.MessageBox.alert("请选择操作票类型");
+            return;
+        }
+        
         sap.ui.getCore().byId("idBillApp").app.to("idBillCreateInfoPage");
     }
 });

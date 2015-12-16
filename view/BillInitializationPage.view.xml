@@ -16,7 +16,7 @@
 							<c:TextView text="工厂"></c:TextView>
 						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
-							<c:ComboBox items="{ path: '/WERKS', sorter: { path: 'Iwerk' } }" width="100%">
+							<c:ComboBox id="idWerksSelect" items="{ path: '/WERKS', sorter: { path: 'Iwerk' } }" width="100%">
 								<core:ListItem key="{Iwerk}" text="{Iwerk} {Name1}"></core:ListItem>
 							</c:ComboBox>
 							<!--<c:ComboBox width="35%">-->
@@ -41,7 +41,7 @@
 							<!--<c:ComboBox items="{ path: '/TicketType', sorter: { path: 'Iwerk' } }" width="35%">-->
 							<!--	<core:ListItem key="{Iwerk}" text="{Iwerk} {Name1}"></core:ListItem>-->
 							<!--</c:ComboBox>-->
-							<c:ComboBox width="30%">
+							<c:ComboBox id="idTicketSelect"  width="30%">
 								<c:items>
 									<core:ListItem key="DQ" text="电气操作票"></core:ListItem>
 									<core:ListItem key="GL" text="锅炉操作票"></core:ListItem>
