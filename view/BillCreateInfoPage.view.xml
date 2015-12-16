@@ -41,33 +41,17 @@
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="填写部门"></c:TextView>
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
-		                    <c:ComboBox width="95%" id="dianQiTianXieBuMen">
-		                        <c:items>
-                                    <core:ListItem text="一值" key="0001"></core:ListItem>
-                                    <core:ListItem text="二值" key="0002"></core:ListItem>
-                                    <core:ListItem text="三值" key="0003"></core:ListItem>
-                                    <core:ListItem text="四值" key="0004"></core:ListItem>
-                                    <core:ListItem text="五值" key="0005"></core:ListItem>
-                                    <core:ListItem text="六值" key="0006"></core:ListItem>
-                                </c:items>
-		                    </c:ComboBox>
-		                    <!--<c:TextField value="" width="95%" id="dianQiTianXieBuMen"></c:TextField>-->
+		                    <c:ComboBox id="dianQiTianXieBuMen" items="{ path: '/tianxieBuMen'}" width="95%">
+								<core:ListItem key="{Appdep}" text="{Appdepdec}"></core:ListItem>
+							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="班组"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox width="95%" id="dianQiBanZu">
-		                        <c:items>
-                                    <core:ListItem text="一值" key="0001"></core:ListItem>
-                                    <core:ListItem text="二值" key="0002"></core:ListItem>
-                                    <core:ListItem text="三值" key="0003"></core:ListItem>
-                                    <core:ListItem text="四值" key="0004"></core:ListItem>
-                                    <core:ListItem text="五值" key="0005"></core:ListItem>
-                                    <core:ListItem text="六值" key="0006"></core:ListItem>
-                                </c:items>
-		                    </c:ComboBox>
-		                    <!--<c:TextField value="" width="95%" id="dianQiBanZu"></c:TextField>-->
+		                    <c:ComboBox id="dianQiBanZu" items="{ path: '/banZu'}" width="95%">
+								<core:ListItem key="{Yxgroup}" text="{Yxgroupdec}"></core:ListItem>
+							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:CheckBox text="不合格" enabled ="false" id="dianQiBuHeGe"></c:CheckBox>
@@ -114,47 +98,35 @@
 		                    <c:TextView text="运行区域"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox width="95%" id="dianQiYunXingQuYu">
-		                        <c:items>
-                                    <core:ListItem text="一值" key="0001"></core:ListItem>
-                                    <core:ListItem text="二值" key="0002"></core:ListItem>
-                                    <core:ListItem text="三值" key="0003"></core:ListItem>
-                                    <core:ListItem text="四值" key="0004"></core:ListItem>
-                                    <core:ListItem text="五值" key="0005"></core:ListItem>
-                                    <core:ListItem text="六值" key="0006"></core:ListItem>
-                                </c:items>
-		                    </c:ComboBox>
-		                    <!--<c:TextField value="" width="95%" id="dianQiYunXingQuYu"></c:TextField>-->
+		                    <c:ComboBox id="dianQiYunXingQuYu" items="{ path: '/yunXingQuYu'}" width="95%">
+								<core:ListItem key="{Rarea}" text="{Rareadec}"></core:ListItem>
+							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="机组"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox width="95%" id="dianQiJiZu">
-		                        <c:items>
-                                    <core:ListItem text="一值" key="0001"></core:ListItem>
-                                    <core:ListItem text="二值" key="0002"></core:ListItem>
-                                    <core:ListItem text="三值" key="0003"></core:ListItem>
-                                    <core:ListItem text="四值" key="0004"></core:ListItem>
-                                    <core:ListItem text="五值" key="0005"></core:ListItem>
-                                    <core:ListItem text="六值" key="0006"></core:ListItem>
-                                </c:items>
-		                    </c:ComboBox>
+		                    <c:ComboBox id="dianQiJiZu" items="{ path: '/jiZu'}" width="95%">
+								<core:ListItem key="{Unity}" text="{Untxt}"></core:ListItem>
+							</c:ComboBox>
+		                    <!--<c:ComboBox width="95%" id="dianQiJiZu">-->
+		                    <!--    <c:items>-->
+                      <!--              <core:ListItem text="一值" key="0001"></core:ListItem>-->
+                      <!--              <core:ListItem text="二值" key="0002"></core:ListItem>-->
+                      <!--              <core:ListItem text="三值" key="0003"></core:ListItem>-->
+                      <!--              <core:ListItem text="四值" key="0004"></core:ListItem>-->
+                      <!--              <core:ListItem text="五值" key="0005"></core:ListItem>-->
+                      <!--              <core:ListItem text="六值" key="0006"></core:ListItem>-->
+                      <!--          </c:items>-->
+		                    <!--</c:ComboBox>-->
 		                    <!--<c:TextField value="" width="95%" id="dianQiJiZu"></c:TextField>-->
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="值别"></c:TextView>
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
-		                    <c:ComboBox width="95%" id="dianQiZhiBie">
-		                        <c:items>
-                                    <core:ListItem text="一值" key="0001"></core:ListItem>
-                                    <core:ListItem text="二值" key="0002"></core:ListItem>
-                                    <core:ListItem text="三值" key="0003"></core:ListItem>
-                                    <core:ListItem text="四值" key="0004"></core:ListItem>
-                                    <core:ListItem text="五值" key="0005"></core:ListItem>
-                                    <core:ListItem text="六值" key="0006"></core:ListItem>
-                                </c:items>
-		                    </c:ComboBox>
+		                    <c:ComboBox id="dianQiZhiBie" items="{ path: '/ZhiBie'}" width="95%">
+								<core:ListItem key="{Dunum}" text="{Dutxt}"></core:ListItem>
+							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="状态"></c:TextView>

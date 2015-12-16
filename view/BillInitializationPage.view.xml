@@ -16,7 +16,7 @@
 							<c:TextView text="工厂"></c:TextView>
 						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
-							<c:ComboBox id="idWerksSelect" items="{ path: '/WERKS', sorter: { path: 'Iwerk' } }" width="100%">
+							<c:ComboBox id="idWerksSelect" items="{ path: '/WERKS', sorter: { path: 'Iwerk' } }" width="50%">
 								<core:ListItem key="{Iwerk}" text="{Iwerk} {Name1}"></core:ListItem>
 							</c:ComboBox>
 							<!--<c:ComboBox width="35%">-->
