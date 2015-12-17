@@ -24,13 +24,13 @@
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>
-		        <lay:MatrixLayout widths="7%,20%,7%,20%,5%,10%,3%,8%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_2">
+		        <lay:MatrixLayout widths="7%,20%,7%,20%,5%,10%,3%,10%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_2">
 		            <lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="操作票号"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="" width="95%" id="dianQiCaoZuoPiaoHao"></c:TextField>
+		                    <c:TextField value="" width="95%" id="dianQiCaoZuoPiaoHao" editable="false"></c:TextField>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="工厂"></c:TextView>
@@ -141,6 +141,7 @@
                 				    width="95%"
                         			type="DateTime"
                         			displayFormat="yyyy-MM-dd"
+                        			valueFormat="yyyyMMdd"
                         			class="sapUiSmallMarginBottom" id="dianQiKaiPiaoRiQi"/>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>

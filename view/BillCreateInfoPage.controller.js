@@ -1,8 +1,8 @@
 sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
     onSubmitBillInfo:function(){
-        var dianQiCaoZuoPiaoHao = this.getView().byId("dianQiCaoZuoPiaoHao").getValue();
+        // var dianQiCaoZuoPiaoHao = this.getView().byId("dianQiCaoZuoPiaoHao").getValue();
         var dianQiGongChang = this.getView().byId("dianQiGongChang").getValue();
-        var dianQiTianXieBuMen = this.getView().byId("dianQiTianXieBuMen").getSelectedKey();
+        // var dianQiTianXieBuMen = this.getView().byId("dianQiTianXieBuMen").getSelectedKey();
         var dianQiBanZu = this.getView().byId("dianQiBanZu").getSelectedKey();
         // var dianQiBuHeGe = this.getView().byId("dianQiBuHeGe").getChecked();
         var dianQiLeiXing = this.getView().byId("dianQiLeiXing").getValue();
@@ -37,8 +37,32 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             Edate=dateTimeE[0];
             Etime=dateTimeE[1];
         }
+        //生成操作票号(流水号)
+        var LiuShuiId = this.uuid(8,10);
+        //获取当前计算机名称（获取不到）
+        //收集操作内容tab中的数据
+        var tableId = sap.ui.getCore().byId("BillBaseInfoTab");
+        var tableData = tableId.getModel().oData.modelData;
+        var tableDataNew =[];
+        for(var i=0;i<tableData.length;i++){
+            if((tableData[i].Zzysx.trim()=="")&&(tableData[i].Zxh.trim()=="")&&(tableData[i].Zcznr.trim()=="")){
+            }else{
+                tableDataNew.push(tableData[i]); 
+            }
+        }
+        //收集危险点
+        var idDangerousPointTab = sap.ui.getCore().byId("idDangerousPointTab");
+        var dangerousPointData = idDangerousPointTab.getModel().oData.dModelData;
+        var dangerousPointDataNew = [];
+        for(var j=0;j<dangerousPointData.length;j++){
+            if((dangerousPointData[j].Dangno.trim()=="")&&(dangerousPointData[j].Zztext.trim()=="")
+                &&(dangerousPointData[j].Zzremark.trim()=="")&&(dangerousPointData[j].Zzpltxt.trim()=="")){
+            }else{
+                dangerousPointDataNew.push(dangerousPointData[j]); 
+            }
+        }
         var payLoad ={
-            Zczph:dianQiCaoZuoPiaoHao,//ZCZPH
+            Zczph:"CZP"+gongChangId+LiuShuiId,//ZCZPH
             Estat:EstatId,//ESTAT
             Cuser:dianQiKaiPiaoRen,//CUSER
             Cdata:dianQiKaiPiaoRiQi,//CDATA
@@ -55,19 +79,28 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             Ztask:dianQiCaoZuoRenWu,//ZTASK操作任务
             Zczfs:dianQiCaoZuoXingZhi,//ZCZFS操作性质
             Znote:dianQiBeiZhu,//ZNOTE备注
-            Yxgroup:dianQiBanZu//YXGROUP运行班组编码
+            Yxgroup:dianQiBanZu,//YXGROUP运行班组编码
+            InfoTab:tableDataNew,//InfoTab
+            DangerousTab:dangerousPointDataNew//危险点分析
         };
-        console.log(payLoad);
-        //收集tab中的数据
-        var tableId = sap.ui.getCore().byId("BillBaseInfoTab");
-        var tableData = tableId.getModel().oData.modelData;
-        var tableDataNew =[];
-        for(var i=0;i<tableData.length;i++){
-            if((tableData[i].Zzysx.trim()=="")&&(tableData[i].Zxh.trim()=="")&&(tableData[i].Zcznr.trim()=="")){
-            }else{
-                tableDataNew.push(tableData[i]); 
-            }
+        
+        jQuery.sap.require("jquery.sap.storage");
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		var getStorage = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
+        if(getStorage){
+            getStorage.push(payLoad);
+            oStorage.put("ZPMOFFLINE_SRV.BillInfos",getStorage);
+        }else{
+            var dainQiBillIn = [];
+            dainQiBillIn.push(payLoad);
+            oStorage.put("ZPMOFFLINE_SRV.BillInfos",dainQiBillIn);
         }
+        
+        // oStorage.put("ZPMOFFLINE_SRV."+"_Info_"+payLoad.Zczph,tableDataNew);
+        // var s=window.localStorage;
+        // s.setItem("ZpmtOper001" objStr);//ZPMT_OPER
+        // var oJsonModel = new sap.ui.model.json.JSONModel(oData);
+        // oStorage.put(oJsonModel.getData().results[0].__metadata.type, oJsonModel.getData().results);
     //     var i;
     //     var header1 = "<center><h3>"+dianQiCaoZuoPiaoHao+"</h3></center><br/>";
         
@@ -88,40 +121,26 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
     //     wind.document.write(header1+table);
     //     wind.print();
     //     wind.close();
+    },
+    //收集桌面数据
+    uuid:function(len, radix){
+        var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
+        var uuid = [], i;
+        radix = radix || chars.length;
+        if (len) {
+          for (i = 0; i < len; i++) uuid[i] = chars[0 | Math.random()*radix];
+        } else {
+          var r;
+          uuid[8] = uuid[13] = uuid[18] = uuid[23] = '-';
+          uuid[14] = '4';
+          for (i = 0; i < 36; i++) {
+            if (!uuid[i]) {
+              r = 0 | Math.random()*16;
+              uuid[i] = chars[(i == 19) ? (r & 0x3) | 0x8 : r];
+            }
+          }
+        }
+        return uuid.join('');
     }
-/**
-* Called when a controller is instantiated and its View controls (if available) are already created.
-* Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
-* @memberOf com.zhenergy.bill.view.BillCreateInfoPage
-*/
-//	onInit: function() {
-//
-//	},
-
-/**
-* Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-* (NOT before the first rendering! onInit() is used for that one!).
-* @memberOf com.zhenergy.bill.view.BillCreateInfoPage
-*/
-//	onBeforeRendering: function() {
-//
-//	},
-
-/**
-* Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
-* This hook is the same one that SAPUI5 controls get after being rendered.
-* @memberOf com.zhenergy.bill.view.BillCreateInfoPage
-*/
-//	onAfterRendering: function() {
-//
-//	},
-
-/**
-* Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-* @memberOf com.zhenergy.bill.view.BillCreateInfoPage
-*/
-//	onExit: function() {
-//
-//	}
 
 });

@@ -4,16 +4,18 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCreateInfoTab", {
 	},
 	createContent : function(oController) {
 	    var aData = [];
-	        for(var i=0;i<150;i++){
-	            aData.push({Zxh:"",Zcznr:"",Zzysx:""});
-	        }
-	       // {DsCode:1,DsNameEn:"你好，吃饭了吗？",DsNameCn:"注意一下",DsSubdomain:"张三"},
-	       // {DsCode:1,DsNameEn:"你好，吃饭了吗？",DsNameCn:"注意一下",DsSubdomain:"张三"}
-	    
+	    var dangerousPointData=[];
+	    for(var i=0;i<150;i++){
+	       aData.push({Zxh:"",Zcznr:"",Zzysx:""});
+	    }
+	    for(var j=0;j<100;j++){
+	       dangerousPointData.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});//DANGNO  ZZTEXT ZZREMARK ZZPLTXT
+	    }    
 	    //Create a model and bind the table rows to this model
         var oModel = new sap.ui.model.json.JSONModel();
         oModel.setData({modelData: aData});
-        
+        var jModel = new sap.ui.model.json.JSONModel();
+        jModel.setData({dModelData:dangerousPointData});
 	    var oTabStrip1 = new sap.ui.commons.TabStrip("BillCreateInfoTabStrip01");
         oTabStrip1.setHeight("380px");
         //tab1
@@ -96,7 +98,7 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCreateInfoTab", {
         oTabStrip1.addTab(tab);
         //tab2
         var oTable3 = new sap.ui.table.Table({
-	        id:"dangerousPointTab",
+	        id:"idDangerousPointTab",
 	        visibleRowCount: 10,
             selectionMode: sap.ui.table.SelectionMode.Single,
             // navigationMode: sap.ui.table.NavigationMode.Paginator,
@@ -104,30 +106,30 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCreateInfoTab", {
         }); 
 	    oTable3.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "序号"}),
-        	template: new sap.ui.commons.TextField().bindProperty("value", "DsCode"),
+        	template: new sap.ui.commons.TextField().bindProperty("value", "Dangno"),
         	width: "50px",
         	hAlign: "Center"
         }));
         oTable3.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "危险点"}),
-        	template: new sap.ui.commons.TextArea({width:"100%"}).bindProperty("value", "DsNameEn"),
+        	template: new sap.ui.commons.TextArea({width:"100%"}).bindProperty("value", "Zztext"),
         	width: "240px",
         	hAlign: "Center"
         }));
         oTable3.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "危害后果"}),
-        	template: new sap.ui.commons.TextArea({width:"100%"}).bindProperty("value", "DsNameCn"),
+        	template: new sap.ui.commons.TextArea({width:"100%"}).bindProperty("value", "Zzremark"),
         	width: "200px",
         	hAlign: "Center"
         }));
         oTable3.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "控制措施"}),
-        	template: new sap.ui.commons.TextArea({width:"100%"}).bindProperty("value", "DsDomain"),
+        	template: new sap.ui.commons.TextArea({width:"100%"}).bindProperty("value", "Zzpltxt"),
         	width: "200px",
         	hAlign: "Center"
         }));
-        oTable3.setModel(oModel);
-        oTable3.bindRows("/modelData");
+        oTable3.setModel(jModel);
+        oTable3.bindRows("/dModelData");
         var tab3 = new sap.ui.commons.Tab({
             verticalScrolling:sap.ui.core.Scrolling.Hidden,
             horizontalScrolling:sap.ui.core.Scrolling.Hidden,
