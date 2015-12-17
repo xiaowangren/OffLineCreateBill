@@ -84,9 +84,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             Ztype:leiXingId,//ZTYPE
             Otype:dianQiCaozuoLeiXing,//OTYPE
             Unity:dianQiJiZu,//UNITY
-            Zduty:dianQiZhiBie,//ZDUTY
+            Dunum:dianQiZhiBie,//ZDUTY
             Rarea:dianQiYunXingQuYu,//RAREA
-            Bhgbz:gongChangId,//BHGBZ
+            Iwerk:gongChangId,//BHGBZ
             Sdate:Sdate,//SDATE操作开始日期
             Stime:Stime,//STIME操作开始时间
             Edate:Edate,//EDATE操作结束日期
