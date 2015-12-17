@@ -1,7 +1,6 @@
 sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
     onSubmitBillInfo:function(){
         var payLoad = this.collectData();
-        // console.log(payLoad);
         jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var getStorage = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
@@ -155,6 +154,22 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         if(dianQiZhiBie==undefined){
             dianQiZhiBie="";
         }
+        //还原日期格式
+        var Cdate = payLoad.Cdata;
+        var CdateStr="";
+        if(Cdate){
+            CdateStr = Cdate.substr(0,4)+"-"+Cdate.substr(4,2)+"-"+Cdate.substr(6,2);
+        }
+        var Sdate = payLoad.Sdate;
+        var SdateStr="";
+        if(Sdate){
+            SdateStr = Sdate.substr(0,4)+"-"+Sdate.substr(4,2)+"-"+Sdate.substr(6,2);
+        }
+        var Edate = payLoad.Edate;
+        var EdateStr="";
+        if(Edate){
+            EdateStr = Edate.substr(0,4)+"-"+Edate.substr(4,2)+"-"+Edate.substr(6,2);
+        }
         
         var tableHead = "<table>";
         tableHead+="<tr>"+
@@ -167,18 +182,17 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
                 +"<td>运行区域:</td><td>"+dianQiYunXingQuYu+"</td><td>机组:</td><td>"+dianQiJiZu+"</td><td>值别:</td><td>"+dianQiZhiBie+"</td><td>状态:</td><td>"+dianQiZhuangTai+"</td>"
                 +"</tr>"
                 +"<tr>"
-                +"<td>开票人:</td><td>"+payLoad.Cuser+"</td><td>开票日期:</td><td>"+payLoad.Cdata+"</td><td >操作任务:</td><td rowspan = '4' colspan='3'  ><textarea rows='5' cols='25'>"+Ztasktmp+"</textarea></td>"
+                +"<td>开票人:</td><td>"+payLoad.Cuser+"</td><td>开票日期:</td><td>"+CdateStr+"</td><td >操作任务:</td><td rowspan = '4' colspan='3'  ><textarea rows='5' cols='25'>"+Ztasktmp+"</textarea></td>"
                 +"</tr>"
                 +"<tr>"
-                +"<td>操作开始时间:</td><td>"+payLoad.Sdate+" "+payLoad.Stime+"</td><td>操作结束时间:</td><td>"+payLoad.Edate+" "+payLoad.Etime+"</td>"
+                +"<td>操作开始时间:</td><td>"+SdateStr+" "+payLoad.Stime+"</td><td>操作结束时间:</td><td>"+EdateStr+" "+payLoad.Etime+"</td>"
                 +"</tr>"
                 +"</table>";
         return tableHead;
         
     },
     onPrintBillInfo:function(){
-        var tableHead1 = "<center><h3>创建电气操作票</h3></center><br/>";
-
+        var tableHead1 = "<center><h3>创建电气操作票--操作内容</h3></center><br/>";
         var tableHead = this.onPrintBillHead();
         var payLoad = this.collectData();
         var InfoTab = payLoad.InfoTab;
