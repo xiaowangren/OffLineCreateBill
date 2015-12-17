@@ -1,5 +1,21 @@
 sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
     onSubmitBillInfo:function(){
+        var payLoad = this.collectData();
+        // console.log(payLoad);
+        jQuery.sap.require("jquery.sap.storage");
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		var getStorage = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
+        if(getStorage){
+            getStorage.push(payLoad);
+            oStorage.put("ZPMOFFLINE_SRV.BillInfos",getStorage);
+        }else{
+            var dainQiBillIn = [];
+            dainQiBillIn.push(payLoad);
+            oStorage.put("ZPMOFFLINE_SRV.BillInfos",dainQiBillIn);
+        }
+    },
+    //收集桌面数据
+    collectData:function(){
         // var dianQiCaoZuoPiaoHao = this.getView().byId("dianQiCaoZuoPiaoHao").getValue();
         var dianQiGongChang = this.getView().byId("dianQiGongChang").getValue();
         // var dianQiTianXieBuMen = this.getView().byId("dianQiTianXieBuMen").getSelectedKey();
@@ -83,46 +99,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             InfoTab:tableDataNew,//InfoTab
             DangerousTab:dangerousPointDataNew//危险点分析
         };
-        
-        jQuery.sap.require("jquery.sap.storage");
-		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-		var getStorage = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
-        if(getStorage){
-            getStorage.push(payLoad);
-            oStorage.put("ZPMOFFLINE_SRV.BillInfos",getStorage);
-        }else{
-            var dainQiBillIn = [];
-            dainQiBillIn.push(payLoad);
-            oStorage.put("ZPMOFFLINE_SRV.BillInfos",dainQiBillIn);
-        }
-        
-        // oStorage.put("ZPMOFFLINE_SRV."+"_Info_"+payLoad.Zczph,tableDataNew);
-        // var s=window.localStorage;
-        // s.setItem("ZpmtOper001" objStr);//ZPMT_OPER
-        // var oJsonModel = new sap.ui.model.json.JSONModel(oData);
-        // oStorage.put(oJsonModel.getData().results[0].__metadata.type, oJsonModel.getData().results);
-    //     var i;
-    //     var header1 = "<center><h3>"+dianQiCaoZuoPiaoHao+"</h3></center><br/>";
-        
-    //     var aData = [];
-	   //     for(var i=0;i<150;i++){
-	   //         aData.push({DsCode:"1",DsNameEn:"2",DsNameCn:"3",DsSubdomain:"顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶顶"});
-	   //     }
-	   // var oModel = new sap.ui.model.json.JSONModel();
-    //     oModel.setData({modelData: aData});
-    //     var data=oModel.getProperty("/modelData");
-    //     var table="<table>";
-    //     for(i=0;i<data.length;i++){
-    //         console.log(data[i].DsSubdomain.length);
-    //         table+="<tr><td style='border:1px solid black;'>"+i+"</td><td style='border:1px solid black;'>"+data[i].DsCode+"</td><td style='border:1px solid black;width:100px'><textarea rows='10' cols='50'>"+data[i].DsSubdomain+"</textarea></td></tr>";
-    //     }
-    //     table+="</table>";
-    //     var wind = window.open("", "printWindow", "height=768,width=1024,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no");
-    //     wind.document.write(header1+table);
-    //     wind.print();
-    //     wind.close();
+        return payLoad;
     },
-    //收集桌面数据
     uuid:function(len, radix){
         var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
         var uuid = [], i;
@@ -141,6 +119,117 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
           }
         }
         return uuid.join('');
+    },
+    onPrintBillHead:function(){
+        var payLoad = this.collectData();
+        var dianQiGongChang = this.getView().byId("dianQiGongChang").getValue();//工厂
+        var dianQiLeiXing = this.getView().byId("dianQiLeiXing").getValue();//类型
+        var dianQiBanZuValue = this.getView().byId("dianQiBanZu")._sTypedChars;//班组
+        var caoZuoLeiXing = this.getView().byId("dianQiCaozuoLeiXing")._sTypedChars;//操作类别
+        var dianQiCaoZuoXingZhi = this.getView().byId("dianQiCaoZuoXingZhi")._sTypedChars;//操作性质
+        var dianQiTianXieBuMen = this.getView().byId("dianQiTianXieBuMen")._sTypedChars;//填写部门
+        var dianQiYunXingQuYu = this.getView().byId("dianQiYunXingQuYu")._sTypedChars;//运营区域
+        var dianQiJiZu = this.getView().byId("dianQiJiZu")._sTypedChars;//机组
+        var dianQiZhiBie = this.getView().byId("dianQiZhiBie")._sTypedChars;//值别
+        var dianQiZhuangTai = this.getView().byId("dianQiZhuangTai").getValue();//状态
+        var Ztask = payLoad.Ztask;
+        var Ztasktmp=Ztask.replace(/\n/g,'');
+        if(dianQiBanZuValue==undefined){
+            dianQiBanZuValue="";
+        }
+        if(caoZuoLeiXing==undefined){
+            caoZuoLeiXing="";
+        }
+        if(dianQiCaoZuoXingZhi==undefined){
+            dianQiCaoZuoXingZhi="";
+        }
+        if(dianQiTianXieBuMen==undefined){
+            dianQiTianXieBuMen="";
+        }
+        if(dianQiYunXingQuYu==undefined){
+            dianQiYunXingQuYu="";
+        }
+        if(dianQiJiZu==undefined){
+            dianQiJiZu="";
+        }
+        if(dianQiZhiBie==undefined){
+            dianQiZhiBie="";
+        }
+        
+        var tableHead = "<table>";
+        tableHead+="<tr>"+
+                "<td width='80px'>操作票号:</td><td width='100px'>"+payLoad.Zczph+"</td><td width='80px'>工厂:</td><td width='200px'><textarea rows='2' cols='25'>"+dianQiGongChang+"</textarea></td><td width='100px'>填写部门:</td><td width='80px'><textarea rows='2' cols='20'>"+dianQiTianXieBuMen+"</textarea></td><td width='50px'>班组:</td><td width='100px'><textarea rows='2' cols='20'>"+dianQiBanZuValue+"</textarea></td>"
+                +"</tr>"
+                +"<tr>"
+                +"<td>类型:</td><td>"+dianQiLeiXing+"</td><td>操作类型:</td><td>"+caoZuoLeiXing+"</td><td>操作性质:</td><td>"+dianQiCaoZuoXingZhi+"</td>"
+                +"</tr>"
+                +"<tr>"
+                +"<td>运行区域:</td><td>"+dianQiYunXingQuYu+"</td><td>机组:</td><td>"+dianQiJiZu+"</td><td>值别:</td><td>"+dianQiZhiBie+"</td><td>状态:</td><td>"+dianQiZhuangTai+"</td>"
+                +"</tr>"
+                +"<tr>"
+                +"<td>开票人:</td><td>"+payLoad.Cuser+"</td><td>开票日期:</td><td>"+payLoad.Cdata+"</td><td >操作任务:</td><td rowspan = '4' colspan='3'  ><textarea rows='5' cols='25'>"+Ztasktmp+"</textarea></td>"
+                +"</tr>"
+                +"<tr>"
+                +"<td>操作开始时间:</td><td>"+payLoad.Sdate+" "+payLoad.Stime+"</td><td>操作结束时间:</td><td>"+payLoad.Edate+" "+payLoad.Etime+"</td>"
+                +"</tr>"
+                +"</table>";
+        return tableHead;
+        
+    },
+    onPrintBillInfo:function(){
+        var tableHead1 = "<center><h3>创建电气操作票</h3></center><br/>";
+
+        var tableHead = this.onPrintBillHead();
+        var payLoad = this.collectData();
+        var InfoTab = payLoad.InfoTab;
+        var i;
+        if(InfoTab.length!=0){
+            var table="<table>";
+            for(i=0;i<InfoTab.length;i++){
+                var Zcznr = InfoTab[i].Zcznr;
+                var Zcznrtmp=Zcznr.replace(/\n/g,'');
+                var Zzysx = InfoTab[i].Zzysx;
+                var Zzysxtmp=Zzysx.replace(/\n/g,'');
+                table+="<tr><td style='border:1px solid black;width:50px;'>"+InfoTab[i].Zxh+"</td><td style='border:1px solid black;width:300px;'><textarea rows='5' cols='50'>"+Zcznrtmp+"</textarea></td><td style='border:1px solid black;width:300px'><textarea rows='5' cols='50'>"+Zzysxtmp+"</textarea></td></tr>";
+            }
+            table+="</table>";
+        }
+        var wind = window.open("", "printWindow", "height=768,width=1024,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no");
+        if(table==undefined){
+            wind.document.write(tableHead1+tableHead);
+        }else{
+            wind.document.write(tableHead1+tableHead+table);
+        }
+        wind.print();
+        wind.close();
+    },
+    onPrintDangerousPoint:function(){
+        var tableHead1 = "<center><h3>创建电气操作票--危险点</h3></center><br/>";
+        var tableHead = this.onPrintBillHead();
+        var payLoad = this.collectData();
+        var DangerousTab = payLoad.DangerousTab;
+        var i;
+        if(DangerousTab.length!=0){
+            var table="<table>";
+            for(i=0;i<DangerousTab.length;i++){
+                var Zztext = DangerousTab[i].Zztext;
+                var Zztexttmp=Zztext.replace(/\n/g,'');
+                var Zzremark = DangerousTab[i].Zzremark;
+                var Zzremarktmp=Zzremark.replace(/\n/g,'');
+                var Zzpltxt = DangerousTab[i].Zzpltxt;
+                var Zzpltxttmp= Zzpltxt.replace(/\n/g,'');
+                table+="<tr><td style='border:1px solid black;width:50px;'>"+DangerousTab[i].Dangno+"</td><td style='border:1px solid black;width:300px;'><textarea rows='5' cols='50'>"+Zztexttmp+"</textarea></td><td style='border:1px solid black;width:300px'><textarea rows='5' cols='50'>"+Zzremarktmp+"</textarea></td><td style='border:1px solid black;width:300px'><textarea rows='5' cols='50'>"+Zzpltxttmp+"</textarea></td></tr>";
+            }
+            table+="</table>";
+        }
+        var wind = window.open("", "printWindow", "height=768,width=1024,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no");
+        if(table==undefined){
+            wind.document.write(tableHead1+tableHead);
+        }else{
+            wind.document.write(tableHead1+tableHead+table);
+        }
+        wind.print();
+        wind.close();
     }
 
 });
