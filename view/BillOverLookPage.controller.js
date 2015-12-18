@@ -6,66 +6,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 * @memberOf com.zhenergy.bill.view.BillOverLookPage
 */
 	onInit: function() {
-		// set mock model
-		var oTileData = {
-        	"TileCollection" : [
-        		{
-        		    "tid" : "t1",
-        			"icon" : "inbox",
-        // 			"number" : "89",
-        			"title" : "同步主数据",
-        			"info" : "最近更新:12.15 16:00",
-        			"infoState" : "Success",
-        			"onPress" : "onSyncMasterData"
-        		},        		
-
-        		{
-        		    "tid" : "t2",
-        		    "icon" : "order-status",
-        			"type" : "Create",
-        			"title" : "创建操作票",
-        			"infoState" : "Success"
-        		},
-        		{
-        		    "tid" : "t3",
-        			"icon" : "order-status",
-        			"number" : "2",
-        			"numberUnit" : "Outages",
-        			"title" : "修改操作票",
-        			"info" : "Production On Hold",
-        			"infoState" : "Error"
-        		},
-        		{
-        		    "tid" : "t4",
-        			"icon" : "hint",
-        			"number" : "20",
-        			"type" : "Monitor",
-        			"title" : "上传离线数据",
-        			"info" : "最近上传:12.15 16:00",
-        			"infoState" : "Success"
-        		},
-        		{
-        		    "tid" : "t5",
-        		    "icon" : "factory",
-        			"type" : "Create",
-        			"title" : "创建工作票",
-        			"infoState" : "Success"
-        		},
-        		{
-        		    "tid" : "t6",
-        			"icon" : "factory",
-        			"number" : "2",
-        			"numberUnit" : "Outages",
-        			"title" : "修改工作票",
-        			"info" : "Production On Hold",
-        			"infoState" : "Error"
-        		}
-        	]
-        };
-
-		var oModel =  new sap.ui.model.json.JSONModel();
-		oModel.setData(oTileData);
-		this.getView().setModel(oModel);
 
 	},
 
@@ -97,7 +37,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	onSyncMasterData: function() {
 		// //配置服务器
 		var sServiceUrl = "/sap/opu/odata/SAP/ZPMOFFLINE_SRV";
-		var oECCModel = new sap.ui.model.odata.v2.ODataModel(sServiceUrl, true);
+		var oECCModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
 		sap.ui.getCore().setModel(oECCModel);
 
 		//Storage  
@@ -108,11 +48,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
         //定义Read方法的执行方法
 		var mParameters = {};
  		mParameters['async'] = false;
- 		mParameters['urlParameters'] = [
- 		{"sap-client" : '200'},
- 		{"sap-user":"ac-louww"},
- 		{"sap-password" : "1qaz2wsx"}]
- 		;
 		mParameters['success'] = jQuery.proxy(function(oData,response) {
 	        var oJsonModel = new sap.ui.model.json.JSONModel(oData);
             //console.log(oJsonModel.getData().results[0].__metadata.type);
@@ -124,6 +59,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		    console.log(gCurrentModel + "read 失败");
 		}, this);
         //取数
+        //工厂
         gCurrentModel="WERKS";
 		oECCModel.read("/WERKSSet", mParameters);
 		//两票类型
@@ -159,24 +95,66 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		var syncLog = { lastUpdate : $.now() };
 		oStorage.put("ZPMSyncLog",syncLog);
 	},
-	onReadFromStorage: function() {
+	onUploadToEcc: function(){
 		//读取LOCAL STORAGE 中的数据,作为程序的下拉框主数据
 		//Storage  
 		jQuery.sap.require("jquery.sap.storage");
+		jQuery.sap.require("sap.m.MessageBox");
+		
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		//Check if there is data into the Storage
-		if (oStorage.get("ZN_Werks")) {
+		if (oStorage.get("ZPMOFFLINE_SRV.BillInfos")) {
+	        var sServiceUrl = "/sap/opu/odata/SAP/ZPMOFFLINE_SRV";
+	       // var sServiceUrl = "/sap/opu/odata/SAP/ZTEST_FLIGHT_SRV";
+		    var oECCModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
 			console.log("Data is from Storage!");
-			var oData = oStorage.get("ZN_Werks");
-			var oLocalModel = new sap.ui.model.json.JSONModel();
-			oLocalModel.setData(oData);
-			sap.ui.getCore().setModel(oLocalModel);
+			var oData = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
+			var oUploadModel = new sap.ui.model.json.JSONModel();
+			oUploadModel.setData(oData);
+			for(var i=0;i<oData.length;i++){
+			    var payLoad = oData[i];
+			    var createOp = oECCModel.createBatchOperation("/ZPMTOPERSet","POST",payLoad);
+			    oECCModel.addBatchChangeOperations([createOp]);
+			 //   payLoad.Cdata = null;
+			 //   payLoad.InfoTab = null;
+			 //   payLoad.DangerousTab = null;   
+			    console.log(payLoad);
+			 //   oECCModel.create("/ZPMTOPERSet", payLoad, {
+    //                 success : jQuery.proxy(function() {
+    //                     // sap.ui.getCore().byId("idSplitApp").app.backToPage("idPersonInfo");
+    //                     // this.initializeData();
+    //                     jQuery.sap.require("sap.m.MessageToast");
+    //                     sap.m.MessageToast.show("提交成功");
+    //                 }, this),
+    //                 error : jQuery.proxy(function() {
+    //                     sap.m.MessageToast.show("提交失败");
+    //                 }, this)                         
+    //             });
+
+			}
+			    oECCModel.submitBatch(
+                    function(data, response) {
+                        // sap.ui.getCore().byId("idSplitApp").app.backToPage("idPersonInfo");
+                        // this.initializeData();
+                        console.log(data);
+                        console.log(response);
+                        jQuery.sap.require("sap.m.MessageToast");
+                        sap.m.MessageToast.show("提交成功");
+                    }, 
+                    function(data) {
+                        sap.m.MessageToast.show("提交失败");
+                        console.log(data);
+                    },
+                    false
+                );
+			console.log("Submit end");
+// 			sap.ui.getCore().setModel(oUploadModel);
+            // sap.m.MessageBox.alert("单据上传成功");
+		}else{
+		    sap.m.MessageBox.alert("没有需要上传的数据");
 		}
-		jQuery.sap.require("sap.m.MessageBox");
-		sap.m.MessageBox.alert("缓存数据已读取");
-	},
-	onUploadToEcc: function(){
-	    
+		
+		
 	},
 	onNavigate: function(event){
         
@@ -184,8 +162,70 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	    
 	},
 	handlePrintPress: function(){
-	    var docDefinition = { content: 'This is an sample PDF printed with pdfMake' };
+	   // var docDefinition = { content: 'This is an sample PDF printed with pdfMake' };
+	    var docDefinition = {
+        	content: [
+        		{ text: '\u697c\u4f1f\u4f1f浙江浙能兰溪发电有限责任公司操作票风险预控票', style: 'header' },
+        		"test关联操作票号：                                 编号：",
+				{
+					style: 'tableExample',
+					color: '#444',
+					table: {
+				// 			widths: [ 200, 'auto', 'auto' ],
+							headerRows: 3,
+							// keepWithHeaderRows: 1,
+							body: [
+									[{ text: '操作任务：凝汽器半边隔离操作', style: 'tableHeader', colSpan: 3, alignment: 'left' }, {}, {}],
+									[{ text: '危险点及预防控制措施', style: 'tableHeader', colSpan: 3, alignment: 'center' }, {}, {}],
+									[{ text: 'Header 1', style: 'tableHeader', alignment: 'center' }, { text: 'Header 2', style: 'tableHeader', alignment: 'center' }, { text: 'Header 3', style: 'tableHeader', alignment: 'center' }],
+									[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+									[ { rowSpan: 3, text: 'rowSpan set to 3\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor' }, 'Sample value 2', 'Sample value 3' ],
+									[ '', 'Sample value 2', 'Sample value 3' ],
+									[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+									[ 'Sample value 1', { colSpan: 2, rowSpan: 2, text: 'Both:\nrowSpan and colSpan\ncan be defined at the same time' }, '' ],
+									[ 'Sample value 1', '', '' ],
+							]
+					}
+				},
+			],
+			styles: {
+        		header: {
+        			fontSize: 18,
+        			bold: true,
+        			alignment: 'center',
+        			margin: [0, 0, 0, 10]
+        		},
+        		subheader: {
+        			fontSize: 16,
+        			bold: true,
+        			margin: [0, 10, 0, 5]
+        		},
+        		tableExample: {
+        			margin: [0, 5, 0, 15]
+        		},
+        		tableHeader: {
+        			bold: true,
+        			fontSize: 13,
+        			color: 'black'
+        		}
+        	},
+        	  defaultStyle: {
+                font: 'Arial'
+              }
+        };
 	    // open the PDF in a new window
+	    window.pdfMake.fonts = {
+           Arial: {
+             normal: 'HYC7GFM.TTF',
+             bold: 'HYC7GFM.TTF',
+             italics: 'HYC7GFM.TTF',
+             bolditalics: 'HYC7GFM.TTF'
+            //  normal: 'Roboto-Regular.ttf',
+            //  bold: 'Roboto-Medium.ttf',
+            //  italics: 'Roboto-Regular.ttf'
+            //  bolditalics: 'fontFile4.ttf'
+           }
+        };
         window.pdfMake.createPdf(docDefinition).open();
         // print the PDF (not working in this version, will be added back in a couple of days)
         // pdfMake.createPdf(docDefinition).print();
