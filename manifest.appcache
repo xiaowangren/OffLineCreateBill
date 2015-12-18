@@ -1,0 +1,20 @@
+CACHE MANIFEST
+# Version 0.4
+CACHE:
+index.html
+#UI5  JS FILE
+resources/sap-ui-core.js
+resources/jquery.sap.trace.js
+resources/sap/ui/thirdparty/jquery-mobile-custom.js
+resources/sap/ui/core/library-preload.json
+resources/sap/m/library-preload.json
+pdfmake.min.js
+vfs_fonts.js
+#UI5 CSS FILE
+resources/sap/ui/core/themes/sap_bluecrystal/library.css
+resources/sap/m/themes/sap_bluec/library.css
+
+resources/sap/m/messagebundle_zh_CN.properties
+resources/sap/ui/core/messagebundle_zh_CN.properties
+resources/sap/m/messagebundle_en.properties
+resources/sap/ui/core/messagebundle_en.properties

@@ -2,6 +2,15 @@
   "welcomeFile": "index.html",
   "routes": [
     {
+      "path": "/sap/opu/odata",
+      "target": {
+        "type": "destination",
+        "name": "ECD",
+        "entryPath": "/sap/opu/odata"
+      },
+      "description": "ECD"
+    },
+    {
       "path": "/resources",
       "target": {
         "type": "service",
