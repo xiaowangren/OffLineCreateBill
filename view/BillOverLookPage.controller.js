@@ -115,9 +115,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			    var payLoad = oData[i];
 			    var createOp = oECCModel.createBatchOperation("/ZPMTOPERSet","POST",payLoad);
 			    oECCModel.addBatchChangeOperations([createOp]);
-			 //   payLoad.Cdata = null;
-			 //   payLoad.InfoTab = null;
-			 //   payLoad.DangerousTab = null;   
+
 			    console.log(payLoad);
 			 //   oECCModel.create("/ZPMTOPERSet", payLoad, {
     //                 success : jQuery.proxy(function() {
