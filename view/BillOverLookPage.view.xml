@@ -10,7 +10,7 @@
 		<TileContainer
 			id="container"
 			tileDelete="handleTileDelete"
-			
+			width="80%"
 			>
 			<StandardTile
 			    id="tileSync"
@@ -32,12 +32,22 @@
 				</customData>
 			</StandardTile>
 			<StandardTile
+			    id="tileQueryOT"
+				icon="sap-icon://order-status"
+				title="查询操作票"
+				infoState="Success"  
+				press="onQueryCaoZuoPiao">
+				<customData>
+					<core:CustomData key="targetPage" value="BillInitializationPage">
+					</core:CustomData>
+				</customData>
+			</StandardTile>
+			<StandardTile
 			    id="tileModifyOT"
 				icon="sap-icon://order-status"
-				number="20"
 				title="修改操作票"
 				infoState="Error"
-				press="onNavigate">
+				press="onUpdateCaoZuoPiao">
 				<customData>
 					<core:CustomData key="targetPage" value="BillInitializationPage">
 					</core:CustomData>
@@ -57,7 +67,18 @@
 				icon="sap-icon://factory"
 				title="创建工作票"
 				infoState="Success"
-				press="onNavigate">
+				press="onCreateGongZuoPiao">
+				<customData>
+					<core:CustomData key="targetPage" value="BillInitializationPage">
+					</core:CustomData>
+				</customData>
+			</StandardTile>
+			<StandardTile
+			    id="tileQueryWT"
+				icon="sap-icon://factory"
+				title="查询工作票"
+				infoState="Error"
+				press="onQueryGongZuoPiao">
 				<customData>
 					<core:CustomData key="targetPage" value="BillInitializationPage">
 					</core:CustomData>
@@ -66,32 +87,19 @@
 			<StandardTile
 			    id="tileModifyWT"
 				icon="sap-icon://factory"
-				number="20"
 				title="修改工作票"
 				infoState="Error"
-				press="onNavigate">
+				press="onUpdateGongZuoPiao">
 				<customData>
 					<core:CustomData key="targetPage" value="BillInitializationPage">
 					</core:CustomData>
 				</customData>
 			</StandardTile>
-			<!--<StandardTile-->
-			<!--    id="tileModifyOT"-->
-			<!--	icon="sap-icon://{icon}"-->
-			<!--	type="{type}"-->
-			<!--	number="{number}"-->
-			<!--	numberUnit="{numberUnit}"-->
-			<!--	title="{title}"-->
-			<!--	info="{info}"-->
-			<!--	infoState="{infoState}"-->
-			<!--	press=""-->
-			<!--	/>-->
 		</TileContainer>
 		<footer>
 			<Toolbar>
 				<ToolbarSpacer/>
 					<Button text="Print" press="handlePrintPress" />
-					<!--<Button text="Busy state" press="handleBusyPress" />-->
 				<ToolbarSpacer/>
 			</Toolbar>
 		</footer>

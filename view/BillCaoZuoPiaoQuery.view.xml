@@ -54,8 +54,15 @@
     		                <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
-    		                    <c:ComboBox id="zhuangTaiQuery1" items="{ path: '/banZu'}" width="95%">
-								    <core:ListItem key="{Yxgroup}" text="{Yxgroup}"></core:ListItem>
+    		     <!--               <c:ComboBox id="zhuangTaiQuery1" items="{ path: '/banZu'}" width="95%">-->
+								   <!-- <core:ListItem key="{Yxgroup}" text="{Yxgroup}"></core:ListItem>-->
+							    <!--</c:ComboBox>-->
+							    <c:ComboBox id="zhuangTaiQuery1" width="95%">
+    		                        <c:items>
+                                        <core:ListItem text="10 拟票" key="10"></core:ListItem>
+                                        <core:ListItem text="20 待上传" key="20"></core:ListItem>
+                                        <core:ListItem text="30 已上传" key="30"></core:ListItem>
+                                    </c:items>
 							    </c:ComboBox>
     		                </lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutRow>
@@ -146,7 +153,7 @@
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
-    		                <lay:MatrixLayoutCell colSpan="3">
+    		                <lay:MatrixLayoutCell colSpan="2">
 							    <c:TextField value="" id="caoZuoRenWuQuery" width="95%"></c:TextField>
     		                </lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutRow>
