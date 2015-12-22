@@ -126,9 +126,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 		    oLocalModel.setProperty("/jiZu",aFilter4);
 		}
 		sap.ui.getCore().setModel(oLocalModel);
-        if(idTicketSelect=="DQ"){
+        // if(idTicketSelect=="DQ"){
             sap.ui.getCore().byId("idBillApp").app.to("idBillCreateInfoPage");
 
-        }
+//        }
     }
 });

@@ -157,74 +157,108 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         //还原日期格式
         var Cdate = payLoad.Cdata;
         var CdateStr="";
-        if(Cdate){
-            CdateStr = Cdate.substr(0,4)+"-"+Cdate.substr(4,2)+"-"+Cdate.substr(6,2);
-        }
-        var Sdate = payLoad.Sdate;
-        var SdateStr="";
-        if(Sdate){
-            SdateStr = Sdate.substr(0,4)+"-"+Sdate.substr(4,2)+"-"+Sdate.substr(6,2);
-        }
+        // if(Cdate){
+        //     CdateStr = Cdate.substr(0,4)+"-"+Cdate.substr(4,2)+"-"+Cdate.substr(6,2);
+        // }
+        // var Sdate = payLoad.Sdate;
+        // var SdateStr="";
+        // if(Sdate){
+        //     SdateStr = Sdate.substr(0,4)+"-"+Sdate.substr(4,2)+"-"+Sdate.substr(6,2);
+        // }
         var Edate = payLoad.Edate;
         var EdateStr="";
         if(Edate){
             EdateStr = Edate.substr(0,4)+"-"+Edate.substr(4,2)+"-"+Edate.substr(6,2);
         }
-        
-        var tableHead = "<table>";
-        tableHead+="<tr>"+
-                "<td width='80px'>操作票号:</td><td width='100px'>"+payLoad.Zczph+"</td><td width='80px'>工厂:</td><td width='200px'><textarea rows='2' cols='25'>"+dianQiGongChang+"</textarea></td><td width='100px'>填写部门:</td><td width='80px'><textarea rows='2' cols='20'>"+dianQiTianXieBuMen+"</textarea></td><td width='50px'>班组:</td><td width='100px'><textarea rows='2' cols='20'>"+dianQiBanZuValue+"</textarea></td>"
-                +"</tr>"
-                +"<tr>"
-                +"<td>类型:</td><td>"+dianQiLeiXing+"</td><td>操作类型:</td><td>"+caoZuoLeiXing+"</td><td>操作性质:</td><td>"+dianQiCaoZuoXingZhi+"</td>"
-                +"</tr>"
-                +"<tr>"
-                +"<td>运行区域:</td><td>"+dianQiYunXingQuYu+"</td><td>机组:</td><td>"+dianQiJiZu+"</td><td>值别:</td><td>"+dianQiZhiBie+"</td><td>状态:</td><td>"+dianQiZhuangTai+"</td>"
-                +"</tr>"
-                +"<tr>"
-                +"<td>开票人:</td><td>"+payLoad.Cuser+"</td><td>开票日期:</td><td>"+CdateStr+"</td><td >操作任务:</td><td rowspan = '4' colspan='3'  ><textarea rows='5' cols='25'>"+Ztasktmp+"</textarea></td>"
-                +"</tr>"
-                +"<tr>"
-                +"<td>操作开始时间:</td><td>"+SdateStr+" "+payLoad.Stime+"</td><td>操作结束时间:</td><td>"+EdateStr+" "+payLoad.Etime+"</td>"
-                +"</tr>"
-                +"</table>";
+        var dianQiGongChangSplit = "";
+        if(dianQiGongChang){
+            dianQiGongChangSplit = dianQiGongChang.split(" ")[1];
+        }
+        var dianQiLeiXingSplit = "";
+        if(dianQiLeiXing){
+            dianQiLeiXingSplit = dianQiLeiXing.split(" ")[1];
+        }
+        var tableHead = "<center><h1>"+dianQiGongChangSplit+"<br/>";
+        tableHead+=dianQiLeiXingSplit+"</h1></center><br/>"; 
+        tableHead+="<div style='margin-left:70%;'>编号:</div>";
         return tableHead;
         
     },
     onPrintBillInfo:function(){
-        var tableHead1 = "<center><h3>创建电气操作票--操作内容</h3></center><br/>";
         var tableHead = this.onPrintBillHead();
         var payLoad = this.collectData();
         var InfoTab = payLoad.InfoTab;
         var i;
+        var Sdate = payLoad.Sdate;
+        var SdateStr="";
+        if(Sdate){
+            SdateStr = Sdate.substr(0,4)+"年"+Sdate.substr(4,2)+"月"+Sdate.substr(6,2)+"日";
+        }
+        var Edate = payLoad.Edate;
+        var EdateStr="";
+        if(Edate){
+            EdateStr = Edate.substr(0,4)+"年"+Edate.substr(4,2)+"月"+Edate.substr(6,2)+"日";
+        }
         if(InfoTab.length!=0){
+            var Znote = payLoad.Znote;
+            var Znotetmp=Znote.replace(/\n/g,'');
             var table="<table>";
+            table+="<tr><td style='border:1px solid black;' colspan='12'>"
+                    +"<h4>操作开始时间:"+SdateStr+" "+payLoad.Stime+"<br/>操作结束时间:"+EdateStr+" "+payLoad.Etime+"</h4>"
+                    +"</td></tr>";
+            table+="<tr><td style='border:1px solid black;' colspan='2' width='100px'>发令人:</td>"
+                    +"<td style='border:1px solid black;' colspan='2'><textarea rows='3' cols='28'></textarea></td>"
+                    +"<td style='border:1px solid black;' colspan='2' width='100px'>受令人:</td>"
+                    +"<td style='border:1px solid black;' colspan='2'><textarea rows='3' cols='21'></textarea></td>"
+                    +"<td style='border:1px solid black;' colspan='2' width='100px'>发令时间:</td>"
+                    +"<td style='border:1px solid black;' colspan='2'><textarea rows='3' cols='22'></textarea></td>"
+                    +"</tr>"
+                    +"<tr>"
+                    +"<td colspan='6' style='border:1px solid black;'><textarea rows='4' cols='56'>操作类型:</textarea></td><td colspan='6' style='border:1px solid black;'><textarea rows='4' cols='63'>单人操作:</textarea></td>"
+                    +"</tr>"
+            table+="<tr><td colspan='12' style='border:1px solid black;' colspan='3'><textarea rows='3' cols='125'>操作任务:"+Znotetmp+"</textarea></td></tr>";
+            table+="<tr><td style='border:1px solid black;' width='40px'></td><td style='border:1px solid black;'><center>序号</center></td><td style='border:1px solid black;'  colspan='7'><center>操作内容</center></td><td style='border:1px solid black;'  colspan='3'><center>注意事项</center></td></tr>";
+
             for(i=0;i<InfoTab.length;i++){
                 var Zcznr = InfoTab[i].Zcznr;
                 var Zcznrtmp=Zcznr.replace(/\n/g,'');
                 var Zzysx = InfoTab[i].Zzysx;
                 var Zzysxtmp=Zzysx.replace(/\n/g,'');
-                table+="<tr><td style='border:1px solid black;width:50px;'>"+InfoTab[i].Zxh+"</td><td style='border:1px solid black;width:300px;'><textarea rows='5' cols='50'>"+Zcznrtmp+"</textarea></td><td style='border:1px solid black;width:300px'><textarea rows='5' cols='50'>"+Zzysxtmp+"</textarea></td></tr>";
+                table+="<tr><td style='border:1px solid black;' width='40px'></td><td style='border:1px solid black;'><center>"+InfoTab[i].Zxh+"</center></td><td style='border:1px solid black;'  colspan='7'><textarea rows='4' cols='75'>"+Zcznrtmp+"</textarea></td><td style='border:1px solid black;'  colspan='3'><textarea rows='4' cols='31'>"+Zzysxtmp+"</textarea></td></tr>";
             }
+            table+="<tr><td colspan='12' style='border:1px solid black;' colspan='3'><textarea rows='3' cols='125'>备注:"+Znotetmp+"</textarea></td></tr>";
             table+="</table>";
+            table+="<div>"
+            table+="<span>操作人:</span>"
+            table+="<span style='margin-left:150px'>监护人:</span>"
+            table+="<span style='margin-left:150px'>值班负责人:</span>"
+            table+="<span style='margin-left:150px'>值长:</span>"
+            table+="</div>";
         }
         var wind = window.open("", "printWindow", "height=768,width=1024,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no");
         if(table==undefined){
-            wind.document.write(tableHead1+tableHead);
+            wind.document.write(tableHead);
         }else{
-            wind.document.write(tableHead1+tableHead+table);
+            wind.document.write(tableHead+table);
         }
         wind.print();
         wind.close();
     },
     onPrintDangerousPoint:function(){
-        var tableHead1 = "<center><h3>创建电气操作票--危险点</h3></center><br/>";
         var tableHead = this.onPrintBillHead();
         var payLoad = this.collectData();
         var DangerousTab = payLoad.DangerousTab;
         var i;
         if(DangerousTab.length!=0){
+            var Ztask = payLoad.Ztask;
+            var Ztasktmp=Ztask.replace(/\n/g,'');
+            var Znote = payLoad.Znote;
+            var Znotetmp=Znote.replace(/\n/g,'');
             var table="<table>";
+            table+="<tr><td colspan='5' style='border:1px solid black;' colspan='3'><textarea rows='5' cols='116'>操作任务:"+Ztasktmp+"</textarea></td></tr>";
+            table+="<tr><td colspan='5' style='border:1px solid black;'><center>危险点及预防控制措施</center></td></tr>";
+            table+="<tr><td style='border:1px solid black;width:80px;'>序号</td><td style='border:1px solid black;width:190px;'>危险点</td><td style='border:1px solid black;width:190px'>危险后果</td><td style='border:1px solid black;width:250px'>预防控制措施</td><td width='100px' style='border:1px solid black;'>执行情况</td></tr>";
+
             for(i=0;i<DangerousTab.length;i++){
                 var Zztext = DangerousTab[i].Zztext;
                 var Zztexttmp=Zztext.replace(/\n/g,'');
@@ -232,15 +266,23 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
                 var Zzremarktmp=Zzremark.replace(/\n/g,'');
                 var Zzpltxt = DangerousTab[i].Zzpltxt;
                 var Zzpltxttmp= Zzpltxt.replace(/\n/g,'');
-                table+="<tr><td style='border:1px solid black;width:50px;'>"+DangerousTab[i].Dangno+"</td><td style='border:1px solid black;width:300px;'><textarea rows='5' cols='50'>"+Zztexttmp+"</textarea></td><td style='border:1px solid black;width:300px'><textarea rows='5' cols='50'>"+Zzremarktmp+"</textarea></td><td style='border:1px solid black;width:300px'><textarea rows='5' cols='50'>"+Zzpltxttmp+"</textarea></td></tr>";
+                table+="<tr><td style='border:1px solid black;'>"+DangerousTab[i].Dangno+"</td><td style='border:1px solid black;'><textarea rows='5' cols='24'>"+Zztexttmp+"</textarea></td>"+
+                "<td style='border:1px solid black;'><textarea rows='5' cols='24'>"+Zzremarktmp+"</textarea></td><td style='border:1px solid black;'><textarea rows='5' cols='33'>"+Zzpltxttmp+"</textarea></td><td style='border:1px solid black;'></td></tr>";
             }
+            table+="<tr><td colspan='5' style='border:1px solid black;' colspan='3'><textarea rows='3' cols='116'>备注:"+Znotetmp+"</textarea></td></tr>";
             table+="</table>";
+            table+="<div>"
+            table+="<span>操作人:</span>"
+            table+="<span style='margin-left:150px'>监护人:</span>"
+            table+="<span style='margin-left:150px'>值班负责人:</span>"
+            table+="<span style='margin-left:150px'>值长:</span>"
+            table+="</div>";
         }
         var wind = window.open("", "printWindow", "height=768,width=1024,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no");
         if(table==undefined){
-            wind.document.write(tableHead1+tableHead);
+            wind.document.write(tableHead);
         }else{
-            wind.document.write(tableHead1+tableHead+table);
+            wind.document.write(tableHead+table);
         }
         wind.print();
         wind.close();

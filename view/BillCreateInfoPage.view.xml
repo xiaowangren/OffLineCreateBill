@@ -5,7 +5,7 @@
 	xmlns:c="sap.ui.commons"
 	xmlns="sap.m" controllerName="com.zhenergy.bill.view.BillCreateInfoPage" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page title="创建电气操作票">
+	<Page title="创建{/dianQiLeiXingValue}">
 		<content>
 		    <l:VerticalLayout class="BillCreateInfoPage_page_content_VerticalLayout">
 		        <lay:MatrixLayout width="40%" widths="15%,30%,25%,25%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1">
