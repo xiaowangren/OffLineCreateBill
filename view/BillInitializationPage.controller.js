@@ -22,35 +22,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 		}
 		sap.ui.getCore().setModel(oLocalModel);
 	},
-
-/**
-* Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-* (NOT before the first rendering! onInit() is used for that one!).
-* @memberOf com.zhenergy.bill.view.BillInitializationPage
-*/
-//	onBeforeRendering: function() {
-//
-//	},
-
-/**
-* Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
-* This hook is the same one that SAPUI5 controls get after being rendered.
-* @memberOf com.zhenergy.bill.view.BillInitializationPage
-*/
-//	onAfterRendering: function() {
-//
-//	},
-
-/**
-* Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-* @memberOf com.zhenergy.bill.view.BillInitializationPage
-*/
-//	onExit: function() {
-//
-//	}
     onExecute: function() {
       jQuery.sap.require("sap.m.MessageBox");
-// 		sap.m.MessageBox.alert("ZHIXING");
         //检查必填输入
         var idWerksSelect = this.getView().byId("idWerksSelect").getSelectedKey();
         var idTicketSelect = this.getView().byId("idTicketSelect").getSelectedKey();
@@ -126,9 +99,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 		    oLocalModel.setProperty("/jiZu",aFilter4);
 		}
 		sap.ui.getCore().setModel(oLocalModel);
-        // if(idTicketSelect=="DQ"){
             sap.ui.getCore().byId("idBillApp").app.to("idBillCreateInfoPage");
-
-//        }
     }
 });

@@ -8,14 +8,14 @@
 	<Page title="创建{/dianQiLeiXingValue}">
 		<content>
 		    <l:VerticalLayout class="BillCreateInfoPage_page_content_VerticalLayout">
-		        <lay:MatrixLayout width="40%" widths="15%,30%,25%,25%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1">
+		        <lay:MatrixLayout width="40%" widths="20%,25%,25%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1">
 		            <lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutCell>
 		                    <c:Button text="提交" press="onSubmitBillInfo"></c:Button>
 		                </lay:MatrixLayoutCell>
-		                <lay:MatrixLayoutCell>
-		                    <c:Button text="参考历史票/典型票"></c:Button>
-		                </lay:MatrixLayoutCell>
+		                <!--<lay:MatrixLayoutCell>-->
+		                <!--    <c:Button text="参考历史票/典型票"></c:Button>-->
+		                <!--</lay:MatrixLayoutCell>-->
 		                <lay:MatrixLayoutCell>
 		                    <c:Button text="试打印操作票" press="onPrintBillInfo"></c:Button>
 		                </lay:MatrixLayoutCell>
