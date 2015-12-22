@@ -1,10 +1,404 @@
 <core:View xmlns:core="sap.ui.core" 
 	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	xmlns:c="sap.ui.commons"
+	xmlns:lay="sap.ui.commons.layout"
 	xmlns="sap.m" controllerName="com.zhenergy.bill.view.BillCaoZuoPiaoQuery" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page title="操作票查询清单页面">
 		<content>
-		    
+		    <f:SimpleForm id="idCaoZuoPiaoQuery"
+				minWidth="1024"
+				maxContainerCols="4"
+				editable="true"
+				layout="ResponsiveGridLayout"
+				labelSpanL="3"
+				labelSpanM="3"
+				emptySpanL="4"
+				emptySpanM="4"
+				columnsL="1"
+				columnsM="1"
+				>
+				<f:content>
+					<lay:MatrixLayout width="70%" widths="20%,5%,25%,5%,10%,5%,25%">
+					    <lay:MatrixLayoutRow>
+					       <lay:MatrixLayoutCell>
+					        <Button text="执行" press="onCaoZuoPiaoQuery1"></Button>
+					       </lay:MatrixLayoutCell>
+					    </lay:MatrixLayoutRow>
+					    <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="工厂:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextField value="{/werkQuery}" editable="false" id="gongChangQuery"></c:TextField>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="操作票类型:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextField value="{/caoZuoLeiXingQuery}" editable="false" id="caoZuoPiaoLeiXingQuery"></c:TextField>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="操作票编号:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:ComboBox id="caoZuoHaoBianHao1" items="{ path: '/banZu'}" width="95%">
+								    <core:ListItem key="{Yxgroup}" text="{Yxgroup}"></core:ListItem>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="到"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:ComboBox id="caoZuoHaoBianHao2" items="{ path: '/banZu'}" width="95%">
+								    <core:ListItem key="{Yxgroup}" text="{Yxgroup}"></core:ListItem>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="状态:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:ComboBox id="zhuangTaiQuery1" items="{ path: '/banZu'}" width="95%">
+								    <core:ListItem key="{Yxgroup}" text="{Yxgroup}"></core:ListItem>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="到"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:ComboBox id="zhuangTaiQuery2" items="{ path: '/banZu'}" width="95%">
+								    <core:ListItem key="{Yxgroup}" text="{Yxgroup}"></core:ListItem>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="填写部门:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:ComboBox id="tianXieBuMenQuery1" items="{ path: '/tianxieBuMenQuery'}" width="95%">
+								    <core:ListItem key="{Appdep}" text="{Appdep} {Appdepdec}"></core:ListItem>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="到"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:ComboBox id="tianXieBuMenQuery2" items="{ path: '/tianxieBuMenQuery'}" width="95%">
+								    <core:ListItem key="{Appdep}" text="{Appdep} {Appdepdec}"></core:ListItem>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="专业:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:ComboBox id="zhuanYeQuery1" width="95%">
+    		                        <c:items>
+                                        <core:ListItem text="0001 汽机专业" key="0001"></core:ListItem>
+                                        <core:ListItem text="0002 电气专业" key="0002"></core:ListItem>
+                                        <core:ListItem text="0003 锅炉专业" key="0003"></core:ListItem>
+                                        <core:ListItem text="0004 化学专业" key="0004"></core:ListItem>
+                                        <core:ListItem text="0005 环保专业" key="0005"></core:ListItem>
+                                        <core:ListItem text="0006 燃料专业" key="0006"></core:ListItem>
+                                        <core:ListItem text="0007 热机专业" key="0007"></core:ListItem>
+                                    </c:items>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="到"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:ComboBox id="zhuanYeQuery2" width="95%">
+								    <c:items>
+                                        <core:ListItem text="0001 汽机专业" key="0001"></core:ListItem>
+                                        <core:ListItem text="0002 电气专业" key="0002"></core:ListItem>
+                                        <core:ListItem text="0003 锅炉专业" key="0003"></core:ListItem>
+                                        <core:ListItem text="0004 化学专业" key="0004"></core:ListItem>
+                                        <core:ListItem text="0005 环保专业" key="0005"></core:ListItem>
+                                        <core:ListItem text="0006 燃料专业" key="0006"></core:ListItem>
+                                        <core:ListItem text="0007 热机专业" key="0007"></core:ListItem>
+                                    </c:items>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="操作类型:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:ComboBox id="caoZuoLeiXingQuery1" width="95%">
+    		                        <c:items>
+                                        <core:ListItem text="1 单人操作" key="1"></core:ListItem>
+                                        <core:ListItem text="2 监护操作" key="2"></core:ListItem>
+                                    </c:items>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="到"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:ComboBox id="caoZuoLeiXingQuery2" width="95%">
+								    <c:items>
+                                        <core:ListItem text="1 单人操作" key="1"></core:ListItem>
+                                        <core:ListItem text="2 监护操作" key="2"></core:ListItem>
+                                    </c:items>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="机组:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:ComboBox id="jiZuQuery1" items="{ path: '/jiZuQuery'}" width="95%">
+								    <core:ListItem key="{Unity}" text="{Unity} {Untxt}"></core:ListItem>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="到"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+							    <c:ComboBox id="jiZuQuery2" items="{ path: '/jiZuQuery'}" width="95%">
+								    <core:ListItem key="{Unity}" text="{Unity} {Untxt}"></core:ListItem>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="值别:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:ComboBox id="zhiBieQuery1" items="{ path: '/ZhiBieQuery'}" width="95%">
+								    <core:ListItem key="{Dunum}" text="{Dunum} {Dutxt}"></core:ListItem>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="到"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+							    <c:ComboBox id="zhiBieQuery2" items="{ path: '/ZhiBieQuery'}" width="95%">
+								    <core:ListItem key="{Dunum}" text="{Dunum} {Dutxt}"></core:ListItem>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="班组:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:ComboBox id="banZuQuery1" items="{ path: '/banZuQuery'}" width="95%">
+								    <core:ListItem key="{Yxgroup}" text="{Yxgroup} {Yxgroupdec}"></core:ListItem>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="到"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+							    <c:ComboBox id="banZuQuery2" items="{ path: '/banZuQuery'}" width="95%">
+								    <core:ListItem key="{Yxgroup}" text="{Yxgroup} {Yxgroupdec}"></core:ListItem>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="操作性质:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+							    <c:ComboBox id="caoZuoXingZhiQuery1" width="95%">
+								    <c:items>
+                                        <core:ListItem text="1 一般操作" key="1"></core:ListItem>
+                                        <core:ListItem text="2 重大操作" key="2"></core:ListItem>
+                                    </c:items>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="到"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+							    <c:ComboBox id="caoZuoXingZhiQuery2" width="95%">
+								    <c:items>
+                                        <core:ListItem text="1 一般操作" key="1"></core:ListItem>
+                                        <core:ListItem text="2 重大操作" key="2"></core:ListItem>
+                                    </c:items>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="运行区域:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+							    <c:ComboBox id="yunXingQuYuQuery1" items="{ path: '/yunXingQuYuQuery'}" width="95%">
+								    <core:ListItem key="{Rarea}" text="{Rarea} {Rareadec}"></core:ListItem>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="到"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+							    <c:ComboBox id="yunXingQuYuQuery2" items="{ path: '/yunXingQuYuQuery'}" width="95%">
+								    <core:ListItem key="{Rarea}" text="{Rarea} {Rareadec}"></core:ListItem>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="开票日期:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+							    <DateTimeInput
+                				    width="95%"
+                        			type="DateTime"
+                        			displayFormat="yyyy-MM-dd"
+                        			valueFormat="yyyyMMdd"
+                        			 id="kaiPiaoRiQiQuery1" />
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="到"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <DateTimeInput
+                				    width="95%"
+                        			type="DateTime"
+                        			displayFormat="yyyy-MM-dd"
+                        			valueFormat="yyyyMMdd"
+                        			 id="kaiPiaoRiQiQuery2" />
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="开票人:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+							    <c:TextField value="" id="kaiPiaoRenQuery" width="95%"></c:TextField>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="操作任务:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell colSpan="3">
+							    <c:TextField value="" id="caoZuoRenWuQuery" width="95%"></c:TextField>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+                                <c:CheckBox text="不显示典型票" id="buXianShiDianXingPiaoQuery"></c:CheckBox>
+                            </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+                                <c:CheckBox text="不显示取消票" id="buXianShiQuXiaoPiaoQuery"></c:CheckBox>
+                            </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+    		                <lay:MatrixLayoutCell>
+                                <c:CheckBox text="不显示作废票" id="buXianShiZuoFeiPiaoQuery"></c:CheckBox>
+                            </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+					</lay:MatrixLayout>
+				</f:content>
+			</f:SimpleForm>
 		</content>
 	</Page>
 </core:View>
