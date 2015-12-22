@@ -15,15 +15,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
     },
     //收集桌面数据
     collectData:function(){
-        // var dianQiCaoZuoPiaoHao = this.getView().byId("dianQiCaoZuoPiaoHao").getValue();
         var dianQiGongChang = this.getView().byId("dianQiGongChang").getValue();
-        // var dianQiTianXieBuMen = this.getView().byId("dianQiTianXieBuMen").getSelectedKey();
         var dianQiBanZu = this.getView().byId("dianQiBanZu").getSelectedKey();
-        // var dianQiBuHeGe = this.getView().byId("dianQiBuHeGe").getChecked();
         var dianQiLeiXing = this.getView().byId("dianQiLeiXing").getValue();
         var dianQiCaozuoLeiXing = this.getView().byId("dianQiCaozuoLeiXing").getSelectedKey();
         var dianQiCaoZuoXingZhi = this.getView().byId("dianQiCaoZuoXingZhi").getSelectedKey();
-        // var dianQiXuYaoZhiZhangShenHe = this.getView().byId("dianQiXuYaoZhiZhangShenHe").getChecked();
         var dianQiYunXingQuYu = this.getView().byId("dianQiYunXingQuYu").getSelectedKey();
         var dianQiJiZu = this.getView().byId("dianQiJiZu").getSelectedKey();
         var dianQiZhiBie = this.getView().byId("dianQiZhiBie").getSelectedKey();
@@ -31,27 +27,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var dianQiKaiPiaoRen = this.getView().byId("dianQiKaiPiaoRen").getValue();
         var dianQiKaiPiaoRiQi = this.getView().byId("dianQiKaiPiaoRiQi").getValue();
         var dianQiCaoZuoRenWu = this.getView().byId("dianQiCaoZuoRenWu").getValue();
-        var dianQiCaoZuoKaiShiShiJian = this.getView().byId("dianQiCaoZuoKaiShiShiJian").getValue();
-        var dianQiCaoZuoJieShuShiJian = this.getView().byId("dianQiCaoZuoJieShuShiJian").getValue(); 
         var dianQiBeiZhu = this.getView().byId("dianQiBeiZhu").getValue();
         //处理数据
         var gongChangId = dianQiGongChang.substr(0,4);
         var leiXingId = dianQiLeiXing.substr(0,2);
         var EstatId = dianQiZhuangTai.substr(0,2);
-        var Sdate="";
-        var Stime="";
-        if(dianQiCaoZuoKaiShiShiJian!=""){
-            var dateTime = dianQiCaoZuoKaiShiShiJian.split(" ");
-            Sdate=dateTime[0];
-            Stime=dateTime[1];
-        }
-        var Edate="";
-        var Etime="";
-        if(dianQiCaoZuoJieShuShiJian!=""){
-            var dateTimeE = dianQiCaoZuoJieShuShiJian.split(" ");
-            Edate=dateTimeE[0];
-            Etime=dateTimeE[1];
-        }
         //生成操作票号(流水号)
         var LiuShuiId = this.uuid(8,10);
         //获取当前计算机名称（获取不到）
@@ -87,10 +67,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             Dunum:dianQiZhiBie,//ZDUTY
             Rarea:dianQiYunXingQuYu,//RAREA
             Iwerk:gongChangId,//BHGBZ
-            Sdate:Sdate,//SDATE操作开始日期
-            Stime:Stime,//STIME操作开始时间
-            Edate:Edate,//EDATE操作结束日期
-            Etime:Etime,//ETIME操作结束时间
             Ztask:dianQiCaoZuoRenWu,//ZTASK操作任务
             Zczfs:dianQiCaoZuoXingZhi,//ZCZFS操作性质
             Znote:dianQiBeiZhu,//ZNOTE备注
@@ -154,22 +130,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         if(dianQiZhiBie==undefined){
             dianQiZhiBie="";
         }
-        //还原日期格式
-        var Cdate = payLoad.Cdata;
-        var CdateStr="";
-        // if(Cdate){
-        //     CdateStr = Cdate.substr(0,4)+"-"+Cdate.substr(4,2)+"-"+Cdate.substr(6,2);
-        // }
-        // var Sdate = payLoad.Sdate;
-        // var SdateStr="";
-        // if(Sdate){
-        //     SdateStr = Sdate.substr(0,4)+"-"+Sdate.substr(4,2)+"-"+Sdate.substr(6,2);
-        // }
-        var Edate = payLoad.Edate;
-        var EdateStr="";
-        if(Edate){
-            EdateStr = Edate.substr(0,4)+"-"+Edate.substr(4,2)+"-"+Edate.substr(6,2);
-        }
         var dianQiGongChangSplit = "";
         if(dianQiGongChang){
             dianQiGongChangSplit = dianQiGongChang.split(" ")[1];
@@ -189,22 +149,12 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var payLoad = this.collectData();
         var InfoTab = payLoad.InfoTab;
         var i;
-        var Sdate = payLoad.Sdate;
-        var SdateStr="";
-        if(Sdate){
-            SdateStr = Sdate.substr(0,4)+"年"+Sdate.substr(4,2)+"月"+Sdate.substr(6,2)+"日";
-        }
-        var Edate = payLoad.Edate;
-        var EdateStr="";
-        if(Edate){
-            EdateStr = Edate.substr(0,4)+"年"+Edate.substr(4,2)+"月"+Edate.substr(6,2)+"日";
-        }
         if(InfoTab.length!=0){
             var Znote = payLoad.Znote;
             var Znotetmp=Znote.replace(/\n/g,'');
             var table="<table>";
             table+="<tr><td style='border:1px solid black;' colspan='12'>"
-                    +"<h4>操作开始时间:"+SdateStr+" "+payLoad.Stime+"<br/>操作结束时间:"+EdateStr+" "+payLoad.Etime+"</h4>"
+                    +"<h4>操作开始时间:<br/>操作结束时间:</h4>"
                     +"</td></tr>";
             table+="<tr><td style='border:1px solid black;' colspan='2' width='100px'>发令人:</td>"
                     +"<td style='border:1px solid black;' colspan='2'><textarea rows='3' cols='28'></textarea></td>"

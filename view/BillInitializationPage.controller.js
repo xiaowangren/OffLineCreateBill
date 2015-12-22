@@ -99,6 +99,24 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 		    oLocalModel.setProperty("/jiZu",aFilter4);
 		}
 		sap.ui.getCore().setModel(oLocalModel);
-            sap.ui.getCore().byId("idBillApp").app.to("idBillCreateInfoPage");
+        sap.ui.getCore().byId("idBillApp").app.to("idBillCreateInfoPage");
+    },
+    onCanKaoLiShiPiao:function(){
+        jQuery.sap.require("sap.m.MessageBox");
+        //检查必填输入
+        var idWerksSelect = this.getView().byId("idWerksSelect").getSelectedKey();
+        var idTicketSelect = this.getView().byId("idTicketSelect").getSelectedKey();
+        if(!idWerksSelect)
+        {
+            sap.m.MessageBox.alert("请选择工厂");
+            return;
+        }
+        if(!idTicketSelect){
+            sap.m.MessageBox.alert("请选择操作票类型");
+            return;
+        }
+        //跳转至查询页面
+        sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQuery");
+
     }
 });

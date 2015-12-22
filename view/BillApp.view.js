@@ -36,6 +36,14 @@ sap.ui.jsview("com.zhenergy.bill.view.BillApp", {
 		});
 		BillCreateInfoPage.addStyleClass("BillCreateInfoPage_page_content");
 		this.app.addPage(BillCreateInfoPage);
+		//注册操作票查询条件页面
+		var BillCaoZuoPiaoQuery = sap.ui.view({
+			id: "idBillCaoZuoPiaoQuery",
+			viewName: "com.zhenergy.bill.view.BillCaoZuoPiaoQuery",
+			type: sap.ui.core.mvc.ViewType.XML
+		});
+		this.app.addPage(BillCaoZuoPiaoQuery);
+		
 		return this.app;
 	}
 

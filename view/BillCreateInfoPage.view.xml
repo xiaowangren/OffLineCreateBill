@@ -137,12 +137,7 @@
 		                    <c:TextView  text="开票日期" ></c:TextView >
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <DateTimeInput
-                				    width="95%"
-                        			type="DateTime"
-                        			displayFormat="yyyy-MM-dd"
-                        			valueFormat="yyyyMMdd"
-                        			class="sapUiSmallMarginBottom" id="dianQiKaiPiaoRiQi"/>
+		                    <c:TextView  text="" id="dianQiKaiPiaoRiQi"></c:TextView >
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="操作任务"></c:TextView>
@@ -153,26 +148,26 @@
 		            </lay:MatrixLayoutRow>
 		            <lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextView text="操作开始时间"></c:TextView>
+		                    <!--<c:TextView text="操作开始时间"></c:TextView>-->
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-                				<DateTimeInput
-                				    width="95%"
-                        			type="DateTime"
-                        			displayFormat="yyyy-MM-dd HH:mm:ss"
-                        			valueFormat="yyyyMMdd HH:mm:ss"
-                        			class="sapUiSmallMarginBottom" id="dianQiCaoZuoKaiShiShiJian"/>
+                				<!--<DateTimeInput-->
+                				<!--    width="95%"-->
+                    <!--    			type="DateTime"-->
+                    <!--    			displayFormat="yyyy-MM-dd HH:mm:ss"-->
+                    <!--    			valueFormat="yyyyMMdd HH:mm:ss"-->
+                    <!--    			class="sapUiSmallMarginBottom" id="dianQiCaoZuoKaiShiShiJian"/>-->
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextView text="操作结束时间"></c:TextView>
+		                    <!--<c:TextView text="操作结束时间"></c:TextView>-->
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <DateTimeInput
-                				    width="95%"
-                        			type="DateTime"
-                        			displayFormat="yyyy-MM-dd HH:mm:ss"
-                        			valueFormat="yyyyMMdd HH:mm:ss"
-                        			class="sapUiSmallMarginBottom" id="dianQiCaoZuoJieShuShiJian" />
+		                    <!--<DateTimeInput-->
+                				  <!--  width="95%"-->
+                      <!--  			type="DateTime"-->
+                      <!--  			displayFormat="yyyy-MM-dd HH:mm:ss"-->
+                      <!--  			valueFormat="yyyyMMdd HH:mm:ss"-->
+                      <!--  			class="sapUiSmallMarginBottom" id="dianQiCaoZuoJieShuShiJian" />-->
 		                </lay:MatrixLayoutCell>
 
 		            </lay:MatrixLayoutRow>

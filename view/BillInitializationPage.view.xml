@@ -5,6 +5,8 @@
 			<l:VerticalLayout class="BillInitializationPage_page_content_VerticalLayout">
 				<lay:MatrixLayout class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1" width="40%" widths="15%,30%,25%,25%">
 					<lay:MatrixLayoutRow>
+					    <lay:MatrixLayoutCell>
+						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
 							<c:Button press="onExecute" text="执行"></c:Button>
 						</lay:MatrixLayoutCell>
@@ -13,8 +15,10 @@
                         </lay:MatrixLayoutCell>
 					</lay:MatrixLayoutRow>
 				</lay:MatrixLayout>
-				<lay:MatrixLayout class="BillInitializationPage_VerticalLayout_MatrixLayout_2" width="60%" widths="30%,70%">
+				<lay:MatrixLayout class="BillInitializationPage_VerticalLayout_MatrixLayout_2" width="60%" widths="15%,25%,60%">
 					<lay:MatrixLayoutRow>
+					    <lay:MatrixLayoutCell>
+						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
 							<c:TextView text="工厂"></c:TextView>
 						</lay:MatrixLayoutCell>
@@ -22,28 +26,15 @@
 							<c:ComboBox id="idWerksSelect" items="{ path: '/WERKS', sorter: { path: 'Iwerk' } }" width="50%">
 								<core:ListItem key="{Iwerk}" text="{Iwerk} {Name1}"></core:ListItem>
 							</c:ComboBox>
-							<!--<c:ComboBox width="35%">-->
-							<!--    <c:items>-->
-							<!--              <core:ListItem text="电气操作票" key="DQ"></core:ListItem>-->
-							<!--              <core:ListItem text="锅炉操作票" key="GL"></core:ListItem>-->
-							<!--              <core:ListItem text="环保操作票" key="HB"></core:ListItem>-->
-							<!--              <core:ListItem text="化学操作票" key="HX"></core:ListItem>-->
-							<!--              <core:ListItem text="汽机操作票" key="QJ"></core:ListItem>-->
-							<!--              <core:ListItem text="热控操作票" key="RK"></core:ListItem>-->
-							<!--              <core:ListItem text="燃料操作票" key="RL"></core:ListItem>-->
-							<!--              <core:ListItem text="典型操作票" key="ZS"></core:ListItem>-->
-							<!--          </c:items>-->
-							<!--</c:ComboBox>-->
 						</lay:MatrixLayoutCell>
 					</lay:MatrixLayoutRow>
 					<lay:MatrixLayoutRow>
+					    <lay:MatrixLayoutCell>
+						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
 							<c:TextView text="操作票类型"></c:TextView>
 						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
-							<!--<c:ComboBox items="{ path: '/TicketType', sorter: { path: 'Iwerk' } }" width="35%">-->
-							<!--	<core:ListItem key="{Iwerk}" text="{Iwerk} {Name1}"></core:ListItem>-->
-							<!--</c:ComboBox>-->
 							<c:ComboBox id="idTicketSelect"  width="30%">
 								<c:items>
 									<core:ListItem key="DQ" text="电气操作票"></core:ListItem>
