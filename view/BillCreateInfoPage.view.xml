@@ -131,13 +131,13 @@
 		                    <c:TextView text="开票人"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="" width="95%" id="dianQiKaiPiaoRen"></c:TextField>
+		                    <c:TextView  text="{/usrid}" id="dianQiKaiPiaoRen"></c:TextView >
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView  text="开票日期" ></c:TextView >
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextView  text="" id="dianQiKaiPiaoRiQi"></c:TextView >
+		                    <c:TextView  text="{/Begda}" id="dianQiKaiPiaoRiQi"></c:TextView >
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="操作任务"></c:TextView>

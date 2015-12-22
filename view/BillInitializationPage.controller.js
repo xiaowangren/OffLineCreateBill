@@ -44,6 +44,22 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 		//工厂
 		var idWerksSelectVaule = this.getView().byId("idWerksSelect")._sTypedChars;
 		oLocalModel.setProperty("/dianQiGongChang",idWerksSelectVaule);
+		//操作人
+		var usrid = jQuery.sap.getUriParameters().get("usrid").toUpperCase();
+		oLocalModel.setProperty("/usrid",usrid);
+		//转换时间
+	    var now = new Date();
+		var year = now.getFullYear(); 
+        var month =(now.getMonth() + 1).toString(); 
+        var day = (now.getDate()).toString(); 
+        if (month.length == 1) { 
+            month = "0" + month; 
+        } 
+        if (day.length == 1) { 
+            day = "0" + day; 
+        } 
+        var Begda = year+"-" + month +"-"+  day;
+        oLocalModel.setProperty("/Begda",Begda);
 		//类型
 		var idTicketSelectValue = this.getView().byId("idTicketSelect")._sTypedChars;
 		oLocalModel.setProperty("/dianQiLeiXing",idTicketSelect);
