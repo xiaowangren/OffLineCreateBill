@@ -1,6 +1,5 @@
 sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery", {
     onCaoZuoPiaoQuery1:function(){
-        alert("dd");
         //获取页面数据
         var gongChangQuery = this.getView().byId("gongChangQuery").getValue();//工厂
         var caoZuoPiaoLeiXingQuery = this.getView().byId("caoZuoPiaoLeiXingQuery").getValue();//操作票类型
@@ -32,7 +31,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery", {
         console.log(gongChangQuery+"=="+caoZuoPiaoLeiXingQuery+"--"+caoZuoHaoBianHaoStart+"=="+caoZuoHaoBianHaoEnd);
         //获取本地的数据，进行查询
         var abc=["0001","0002","0003","0004","0005","0006"];
-        var localStorageNew = [];
+        var localStorageNew = [{a:'1'},{b:'2'}];
         //筛选数据
         for(var i=0;i<abc.length;i++){
             if((abc[i]>=jiZuQueryStart&&abc[i]<=jiZuQueryEnd)){
@@ -41,6 +40,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery", {
         }
         
         //跳转至查询结果页面
+        var queryResultModel = new sap.ui.model.json.JSONModel();
+        queryResultModel.setProperty("/queryResultModel",localStorageNew);
+        sap.ui.getCore().setModel(queryResultModel);
+        sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQueryResult");
+
         
 
     }

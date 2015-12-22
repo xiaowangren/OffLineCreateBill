@@ -43,6 +43,13 @@ sap.ui.jsview("com.zhenergy.bill.view.BillApp", {
 			type: sap.ui.core.mvc.ViewType.XML
 		});
 		this.app.addPage(BillCaoZuoPiaoQuery);
+		//注册操作票查询结果页面
+		var BillCaoZuoPiaoQueryResult = sap.ui.view({
+			id: "idBillCaoZuoPiaoQueryResult",
+			viewName: "com.zhenergy.bill.view.BillCaoZuoPiaoQueryResult",
+			type: sap.ui.core.mvc.ViewType.JS
+		});
+		this.app.addPage(BillCaoZuoPiaoQueryResult);
 		
 		return this.app;
 	}
