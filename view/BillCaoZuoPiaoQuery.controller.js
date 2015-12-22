@@ -38,10 +38,23 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery", {
                 localStorageNew.push(abc[i]);
             }
         }
-        
+        //转换时间
+	    var now = new Date();
+		var year = now.getFullYear(); 
+        var month =(now.getMonth() + 1).toString(); 
+        var day = (now.getDate()).toString(); 
+        if (month.length == 1) { 
+            month = "0" + month; 
+        } 
+        if (day.length == 1) { 
+            day = "0" + day; 
+        } 
+        var Begda = year+"年" + month +"月"+  day +"日";
         //跳转至查询结果页面
         var queryResultModel = new sap.ui.model.json.JSONModel();
         queryResultModel.setProperty("/queryResultModel",localStorageNew);
+        queryResultModel.setProperty("/queryResultModelCount",localStorageNew.length);
+        queryResultModel.setProperty("/queryResultModelDate",Begda);
         sap.ui.getCore().setModel(queryResultModel);
         sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQueryResult");
 

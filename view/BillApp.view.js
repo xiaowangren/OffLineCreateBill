@@ -50,6 +50,13 @@ sap.ui.jsview("com.zhenergy.bill.view.BillApp", {
 			type: sap.ui.core.mvc.ViewType.JS
 		});
 		this.app.addPage(BillCaoZuoPiaoQueryResult);
+		//注册操作票更新页面
+		var BillUpdateInfoPage = sap.ui.view({
+			id: "idBillUpdateInfoPage",
+			viewName: "com.zhenergy.bill.view.BillUpdateInfoPage",
+			type: sap.ui.core.mvc.ViewType.XML
+		});
+		this.app.addPage(BillUpdateInfoPage);
 		
 		return this.app;
 	}
