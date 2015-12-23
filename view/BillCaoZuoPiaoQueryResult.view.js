@@ -27,13 +27,12 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResult", {
 	        title: "操作票查询:共"+"{/queryResultModelCount}"+"张，查询日期:"+"{/queryResultModelDate}",
 	        visibleRowCount: 18,
         	selectionMode: sap.ui.table.SelectionMode.Single,
-        	navigationMode: sap.ui.table.NavigationMode.Paginator,
+        // 	navigationMode: sap.ui.table.NavigationMode.Paginator,
         	fixedColumnCount: 0,
         	rowSelectionChange:function(oEvent){
         	    var rowContext = oEvent.getParameters().rowContext;
          	    var table = sap.ui.getCore().byId("caoZuoPiaoQueryResult");
          	    var idBiaoZhiCaoZuoPiaoQuery = sap.ui.getCore().byId("idBiaoZhiCaoZuoPiaoQuery").getText();
-         	    console.log(idBiaoZhiCaoZuoPiaoQuery);
          	    var model = table.getModel(); 
          	    var data  = model.getProperty(rowContext.sPath);
          	    if(idBiaoZhiCaoZuoPiaoQuery=="update"){//修改

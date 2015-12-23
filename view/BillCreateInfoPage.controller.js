@@ -24,8 +24,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var dianQiJiZu = this.getView().byId("dianQiJiZu").getSelectedKey();
         var dianQiZhiBie = this.getView().byId("dianQiZhiBie").getSelectedKey();
         var dianQiZhuangTai = this.getView().byId("dianQiZhuangTai").getValue();
-        var dianQiKaiPiaoRen = this.getView().byId("dianQiKaiPiaoRen").getValue();
-        var dianQiKaiPiaoRiQi = this.getView().byId("dianQiKaiPiaoRiQi").getValue();
+        var dianQiKaiPiaoRen = this.getView().byId("dianQiKaiPiaoRen").getText();
+        var dianQiKaiPiaoRiQi = this.getView().byId("dianQiKaiPiaoRiQi").getText();
         var dianQiCaoZuoRenWu = this.getView().byId("dianQiCaoZuoRenWu").getValue();
         var dianQiBeiZhu = this.getView().byId("dianQiBeiZhu").getValue();
         //处理数据

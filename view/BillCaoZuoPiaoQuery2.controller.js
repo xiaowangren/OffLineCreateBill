@@ -27,7 +27,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery2", {
         console.log(tianXieBuMenQuery2+";"+zhuanYeQuery2+";"+jiZuQuery2);
         console.log(banZuQuery2+";"+kaiPiaoRiQiQuery2+";"+kaiPiaoRenQuery2+";"+caoZuoRenWuQuery2);
         //过滤数据
-                //获取本地的数据，进行查询
+        //获取本地的数据，进行查询
         jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var aFilter = [];

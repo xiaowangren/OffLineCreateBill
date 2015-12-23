@@ -2,7 +2,7 @@
 	xmlns:mvc="sap.ui.core.mvc" 
 	xmlns="sap.m" controllerName="com.zhenergy.bill.view.BillDetailQueryInfoPage" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page title="显示">
+	<Page title="显示{}">
 		<content>
 		
 		</content>
