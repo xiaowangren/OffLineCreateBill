@@ -23,9 +23,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery2", {
         var kaiPiaoRiQiQuery2 = this.getView().byId("kaiPiaoRiQiQuery2").getValue();//开票日期
         var kaiPiaoRenQuery2 = this.getView().byId("kaiPiaoRenQuery2").getValue();//开票人
         var caoZuoRenWuQuery2 = this.getView().byId("caoZuoRenWuQuery2").getValue();//操作任务
-        console.log(gongChangQuery2+";"+ricketTypeQuery2+";"+zhuangTaiQuery2);
-        console.log(tianXieBuMenQuery2+";"+zhuanYeQuery2+";"+jiZuQuery2);
-        console.log(banZuQuery2+";"+kaiPiaoRiQiQuery2+";"+kaiPiaoRenQuery2+";"+caoZuoRenWuQuery2);
         //过滤数据
         //获取本地的数据，进行查询
         jQuery.sap.require("jquery.sap.storage");
@@ -34,12 +31,22 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery2", {
 		//Check if there is data into the Storage   筛选数据
 		if (oStorage.get("ZPMOFFLINE_SRV.BillInfos")) {
 			var oData1 = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
-			        console.log(oData1);
-			        for(var i=0;i<oData1.length;i++){
-			            if(oData1[i].Iwerk==gongChangQuery2&&oData1[i].Ztype==ricketTypeQuery2){
-			                aFilter.push(oData1[i]);
-			            }
-			        }
+			for(var i=0;i<oData1.length;i++){
+                if(this.checkhelp(oData1[i].Iwerk,gongChangQuery2)&&
+                   this.checkhelp(oData1[i].Ztype,ricketTypeQuery2)&&
+                   this.checkhelp(oData1[i].Estat,zhuangTaiQuery2)&&
+                   this.checkhelp(oData1[i].Appdep,tianXieBuMenQuery2)&&
+                   this.checkhelp(oData1[i].Prfty,zhuanYeQuery2)&&
+                   this.checkhelp(oData1[i].Unity,jiZuQuery2)&&
+                   this.checkhelp(oData1[i].Yxgroup,banZuQuery2)&&
+                   this.checkhelp(oData1[i].Cdata,kaiPiaoRiQiQuery2)&&
+                   this.checkhelp(oData1[i].Cuser,kaiPiaoRenQuery2)&&
+                   this.checkhelpIndex(oData1[i].Ztask,caoZuoRenWuQuery2)
+                   ){
+                    aFilter.push(oData1[i]);
+                }
+    
+            }        
 			    
 		}
         //转换时间
@@ -62,6 +69,26 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery2", {
         queryResultModel.setProperty("/queryResultModelDate",Begda);
         sap.ui.getCore().setModel(queryResultModel);
         sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQueryResult");
-    }
+    },		
+    checkhelp :function(data,key){
+		    if(!key){
+		        return true;
+		    }else{
+		        if(data==key){
+		            return true
+		        }
+		    }
+		    return false;
+	},
+	checkhelpIndex :function(data,key){
+		    if(!key){
+		        return true;
+		    }else{
+		        if(data.indexOf(key)>=0){
+		            return true;
+		        }
+		    }
+		    return false;
+		}
 
 });
