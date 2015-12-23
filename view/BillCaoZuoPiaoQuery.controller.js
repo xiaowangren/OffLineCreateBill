@@ -41,6 +41,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery", {
         var queryResultModel = new sap.ui.model.json.JSONModel();
         queryResultModel.setProperty("/queryResultModel",aFilter);
         queryResultModel.setProperty("/queryResultModelCount",aFilter.length);
+        queryResultModel.setProperty("/BiaoJi","update");
         queryResultModel.setProperty("/queryResultModelDate",Begda);
         sap.ui.getCore().setModel(queryResultModel);
         sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQueryResult");

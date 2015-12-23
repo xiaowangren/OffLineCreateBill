@@ -4,11 +4,11 @@
 	xmlns:l="sap.ui.layout"
 	xmlns:c="sap.ui.commons"
 	xmlns:lay="sap.ui.commons.layout"
-	xmlns="sap.m" controllerName="com.zhenergy.bill.view.BillCaoZuoPiaoQuery" 
+	xmlns="sap.m" controllerName="com.zhenergy.bill.view.BillCaoZuoPiaoQuery2" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page title="操作票查询清单页面">
 		<content>
-		    <f:SimpleForm id="idCaoZuoPiaoQuery"
+		    <f:SimpleForm id="idCaoZuoPiaoQuery2"
 				minWidth="1024"
 				maxContainerCols="4"
 				editable="true"
@@ -24,7 +24,7 @@
 					<lay:MatrixLayout width="70%" widths="20%,5%,25%,5%,10%,5%,25%">
 					    <lay:MatrixLayoutRow>
 					       <lay:MatrixLayoutCell>
-					        <Button text="执行" press="onCaoZuoPiaoQuery1"></Button>
+					        <Button text="执行" press="onCaoZuoPiaoQuery2"></Button>
 					       </lay:MatrixLayoutCell>
 					    </lay:MatrixLayoutRow>
 					    <lay:MatrixLayoutRow>
@@ -33,8 +33,11 @@
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
-    		                <lay:MatrixLayoutCell>
-    		                    <c:TextField value="{/werkQuery}" editable="false" id="gongChangQuery"></c:TextField>
+    		                <lay:MatrixLayoutCell colSpan="2">
+    		                    <!--<c:TextField value="{/werkQuery}" editable="false" id="gongChangQuery2"></c:TextField>-->
+    		                    <c:ComboBox items="{ path: '/WERKSQuery2'}" width="95%" id="gongChangQuery2" selectedKey="{/werkQuery}" editable="false">
+								    <core:ListItem key="{Iwerk}" text="{Iwerk} {Name1}"></core:ListItem>
+							    </c:ComboBox>
     		                </lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutRow id="caoZuoPiaoLeiXingQuerys">
@@ -44,7 +47,18 @@
     		                <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
-    		                    <c:TextField value="ZS" editable="false" id="caoZuoPiaoLeiXingQuery"></c:TextField>
+							    <c:ComboBox id="ricketTypeQuery2"  width="95%" selectedKey="{/caoZuoLeiXingQuery}" editable="false">
+								<c:items>
+									<core:ListItem key="DQ" text="DQ 电气操作票"></core:ListItem>
+									<core:ListItem key="GL" text="GL 锅炉操作票"></core:ListItem>
+									<core:ListItem key="HB" text="HB 环保操作票"></core:ListItem>
+									<core:ListItem key="HX" text="HX 化学操作票"></core:ListItem>
+									<core:ListItem key="QJ" text="QJ 汽机操作票"></core:ListItem>
+									<core:ListItem key="RK" text="RK 热控操作票"></core:ListItem>
+									<core:ListItem key="RL" text="RL 燃料操作票"></core:ListItem>
+									<core:ListItem key="ZS" text="ZS 典型操作票"></core:ListItem>
+								</c:items>
+							</c:ComboBox>
     		                </lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutRow>
@@ -57,7 +71,7 @@
     		     <!--               <c:ComboBox id="zhuangTaiQuery1" items="{ path: '/banZu'}" width="95%">-->
 								   <!-- <core:ListItem key="{Yxgroup}" text="{Yxgroup}"></core:ListItem>-->
 							    <!--</c:ComboBox>-->
-							    <c:ComboBox id="zhuangTaiQuery1" width="95%">
+							    <c:ComboBox id="zhuangTaiQuery2" width="95%">
     		                        <c:items>
                                         <core:ListItem text="10 拟票" key="10"></core:ListItem>
                                         <core:ListItem text="20 待上传" key="20"></core:ListItem>
@@ -73,7 +87,7 @@
     		                <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
-    		                    <c:ComboBox id="tianXieBuMenQuery1" items="{ path: '/tianxieBuMenQuery'}" width="95%">
+    		                    <c:ComboBox id="tianXieBuMenQuery2" items="{ path: '/tianxieBuMenQuery2'}" width="95%">
 								    <core:ListItem key="{Appdep}" text="{Appdep} {Appdepdec}"></core:ListItem>
 							    </c:ComboBox>
     		                </lay:MatrixLayoutCell>
@@ -85,7 +99,7 @@
     		                <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
-    		                    <c:ComboBox id="zhuanYeQuery1" width="95%">
+    		                    <c:ComboBox id="zhuanYeQuery2" width="95%">
     		                        <c:items>
                                         <core:ListItem text="0001 汽机专业" key="0001"></core:ListItem>
                                         <core:ListItem text="0002 电气专业" key="0002"></core:ListItem>
@@ -105,7 +119,7 @@
     		                <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
-    		                    <c:ComboBox id="jiZuQuery1" items="{ path: '/jiZuQuery'}" width="95%">
+    		                    <c:ComboBox id="jiZuQuery2" items="{ path: '/jiZuQuery2'}" width="95%">
 								    <core:ListItem key="{Unity}" text="{Unity} {Untxt}"></core:ListItem>
 							    </c:ComboBox>
     		                </lay:MatrixLayoutCell>
@@ -117,7 +131,7 @@
     		                <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
-    		                    <c:ComboBox id="banZuQuery1" items="{ path: '/banZuQuery'}" width="95%">
+    		                    <c:ComboBox id="banZuQuery2" items="{ path: '/banZuQuery2'}" width="95%">
 								    <core:ListItem key="{Yxgroup}" text="{Yxgroup} {Yxgroupdec}"></core:ListItem>
 							    </c:ComboBox>
     		                </lay:MatrixLayoutCell>
@@ -134,7 +148,7 @@
                         			type="DateTime"
                         			displayFormat="yyyy-MM-dd"
                         			valueFormat="yyyyMMdd"
-                        			 id="kaiPiaoRiQiQuery1" />
+                        			 id="kaiPiaoRiQiQuery2" />
     		                </lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutRow>
@@ -144,7 +158,7 @@
     		                <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
-							    <c:TextField value="" id="kaiPiaoRenQuery" width="95%"></c:TextField>
+							    <c:TextField value="" id="kaiPiaoRenQuery2" width="95%"></c:TextField>
     		                </lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutRow>
@@ -154,7 +168,7 @@
     		                <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell colSpan="2">
-							    <c:TextField value="" id="caoZuoRenWuQuery" width="95%"></c:TextField>
+							    <c:TextField value="" id="caoZuoRenWuQuery2" width="95%"></c:TextField>
     		                </lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutRow>
 					</lay:MatrixLayout>

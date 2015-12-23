@@ -24,13 +24,21 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResult", {
         	rowSelectionChange:function(oEvent){
         	    var rowContext = oEvent.getParameters().rowContext;
          	    var table = sap.ui.getCore().byId("caoZuoPiaoQueryResult");
+         	    var idBiaoZhiCaoZuoPiaoQuery = sap.ui.getCore().byId("idBiaoZhiCaoZuoPiaoQuery").getText();
          	    var model = table.getModel(); 
          	    var data  = model.getProperty(rowContext.sPath);
-         	    sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", rowContext);
-        		var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
-          	    var oModel = new sap.ui.model.json.JSONModel(data);
-			    page.setModel(oModel,"newCaoZuoPiaoUpdate");
-         	    
+         	    if(idBiaoZhiCaoZuoPiaoQuery=="update"){//修改
+         	        sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", rowContext);
+            		var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
+              	    var oModel = new sap.ui.model.json.JSONModel(data);
+    			    page.setModel(oModel,"newCaoZuoPiaoUpdate");
+         	    }else{//查询 idBillDetailQueryInfoPage
+         	        sap.ui.getCore().byId("idBillApp").app.to("idBillDetailQueryInfoPage", rowContext);
+            		var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillDetailQueryInfoPage");
+              	    var oModel = new sap.ui.model.json.JSONModel(data);
+    			    page.setModel(oModel,"newBillDetailQueryInfoPage");
+
+         	    }
         	}
         }); 
         oTable2.addColumn(new sap.ui.table.Column({
@@ -118,8 +126,14 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResult", {
         	hAlign: "Center"
         }));
         oTable2.bindRows("/queryResultModel");
-        
-        return oTable2;
+        var oTextView = new sap.ui.commons.TextView({id:"idBiaoZhiCaoZuoPiaoQuery"});
+        oTextView.setVisible(false);
+        oTextView.bindProperty("text", "/BiaoJi");
+        //布局
+        var oLayout = new sap.ui.layout.VerticalLayout("LayoutQueryCaoZuoPiao", {
+        	content: [oTable2, oTextView]
+        });
+        return oLayout;
 	}
 
 });

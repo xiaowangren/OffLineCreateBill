@@ -57,7 +57,27 @@ sap.ui.jsview("com.zhenergy.bill.view.BillApp", {
 			type: sap.ui.core.mvc.ViewType.XML
 		});
 		this.app.addPage(BillUpdateInfoPage);
-		
+		//注册查询--条件com.zhenergy.bill.view.QueryCaoZuoPiao2
+		var QueryCaoZuoPiao2 = sap.ui.view({
+			id: "idQueryCaoZuoPiao2",
+			viewName: "com.zhenergy.bill.view.QueryCaoZuoPiao2",
+			type: sap.ui.core.mvc.ViewType.XML
+		});
+		this.app.addPage(QueryCaoZuoPiao2);
+		//注册查询--条件com.zhenergy.bill.view.BillCaoZuoPiaoQuery2
+		var BillCaoZuoPiaoQuery2 = sap.ui.view({
+			id: "idBillCaoZuoPiaoQuery2",
+			viewName: "com.zhenergy.bill.view.BillCaoZuoPiaoQuery2",
+			type: sap.ui.core.mvc.ViewType.XML
+		});
+		this.app.addPage(BillCaoZuoPiaoQuery2);
+		//查询详情  BillDetailQueryInfoPage
+		var BillDetailQueryInfoPage = sap.ui.view({
+			id: "idBillDetailQueryInfoPage",
+			viewName: "com.zhenergy.bill.view.BillDetailQueryInfoPage",
+			type: sap.ui.core.mvc.ViewType.XML
+		});
+		this.app.addPage(BillDetailQueryInfoPage);
 		return this.app;
 	}
 

@@ -175,6 +175,20 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
         // pdfMake.createPdf(docDefinition).print();
         // download the PDF
         // window.pdfmake.createPdf(docDefinition).download();
+	},
+	onQueryCaoZuoPiao:function(){
+	    //工厂
+	    jQuery.sap.require("jquery.sap.storage");
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		var oLocalModelQuery2 = new sap.ui.model.json.JSONModel();
+		//工厂
+		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
+			var oData = oStorage.get("ZPMOFFLINE_SRV.WERKS");
+			oLocalModelQuery2.setProperty("/WERKSQuery2",oData);
+		}
+		sap.ui.getCore().setModel(oLocalModelQuery2);
+	    sap.ui.getCore().byId("idBillApp").app.to("idQueryCaoZuoPiao2");
+
 	}
 	
 });
