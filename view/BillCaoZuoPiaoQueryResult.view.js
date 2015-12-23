@@ -15,7 +15,7 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResult", {
 	createContent : function(oController) {
 	    var oButton1 = new sap.ui.commons.Button({
         	text : "返回",
-        	press : function() {alert('Alert from ' + oButton1.getText());}
+        	press : oController.onFanHui
         });
         var oButton2 = new sap.ui.commons.Button({
             id:"idBiaoZhiCaoZuoPiaoQuery",
