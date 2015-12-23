@@ -1,5 +1,7 @@
 sap.ui.controller("com.zhenergy.bill.view.QueryCaoZuoPiao2", {
-
+    onFanHui:function(){
+        sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage");
+    },
     onExecute: function() {
         var queryModel = new sap.ui.model.json.JSONModel();
         var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);

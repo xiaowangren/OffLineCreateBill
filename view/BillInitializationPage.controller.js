@@ -5,6 +5,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
 * @memberOf com.zhenergy.bill.view.BillInitializationPage
 */
+    onFanHui:function(){
+        sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage");
+    },
 	onInit: function() {
 		//读取LOCAL STORAGE 中的数据,作为程序的下拉框主数据
 		//Storage  
