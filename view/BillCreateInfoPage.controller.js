@@ -28,10 +28,57 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var dianQiKaiPiaoRiQi = this.getView().byId("dianQiKaiPiaoRiQi").getText();
         var dianQiCaoZuoRenWu = this.getView().byId("dianQiCaoZuoRenWu").getValue();
         var dianQiBeiZhu = this.getView().byId("dianQiBeiZhu").getValue();
+        var dianQiZhuanYe = this.getView().byId("dianQiZhuanYe").getSelectedKey();
+        //key-----value
+        var dianQiTianXieBuMen =this.getView().byId("dianQiTianXieBuMen")._sTypedChars;//填写部门
+        var dianQiBanZus =this.getView().byId("dianQiBanZu")._sTypedChars;//班组
+        var dianQiCaozuoLeiXings =this.getView().byId("dianQiCaozuoLeiXing")._sTypedChars;//操作类型
+        var dianQiCaoZuoXingZhis =this.getView().byId("dianQiCaoZuoXingZhi")._sTypedChars;//操作性质
+        var dianQiZhuanYes =this.getView().byId("dianQiZhuanYe")._sTypedChars;//专业
+        var dianQiYunXingQuYus =this.getView().byId("dianQiYunXingQuYu")._sTypedChars;//运行区域
+        var dianQiJiZus =this.getView().byId("dianQiJiZu")._sTypedChars;//机组
+        var dianQiZhiBies =this.getView().byId("dianQiZhiBie")._sTypedChars;//值别
         //处理数据
         var gongChangId = dianQiGongChang.substr(0,4);
         var leiXingId = dianQiLeiXing.substr(0,2);
         var EstatId = dianQiZhuangTai.substr(0,2);
+        var gongChangValue = dianQiGongChang.split(" ")[1];
+        var leiXingValue = dianQiLeiXing.split(" ")[1];
+        var EstatValue = dianQiZhuangTai.split(" ")[1];
+        var buMenId="";
+        var buMenValue="";
+        if(dianQiTianXieBuMen!=undefined){
+            buMenId = dianQiTianXieBuMen.split(" ")[0];
+            buMenValue = dianQiTianXieBuMen.split(" ")[1];
+        }
+        var dianQiBanZuValue = "";
+        if(dianQiBanZus!=undefined){
+            dianQiBanZuValue= dianQiBanZus.split(" ")[1];
+        }
+        var CaozuoLeiXingValue = "";
+        if(dianQiCaozuoLeiXings!=undefined){
+            CaozuoLeiXingValue = dianQiCaozuoLeiXings.split(" ")[1];
+        }
+        var CaoZuoXingZhiValue = "";
+        if(dianQiCaoZuoXingZhis!=undefined){
+            CaoZuoXingZhiValue = dianQiCaoZuoXingZhis.split(" ")[1];
+        }
+        var ZhuanYesValue = "";
+        if(dianQiZhuanYes!=undefined){
+            ZhuanYesValue = dianQiZhuanYes.split(" ")[1];
+        }
+        var YunXingQuYuValue="";
+        if(dianQiYunXingQuYus!=undefined){
+            YunXingQuYuValue = dianQiYunXingQuYus.split(" ")[1];
+        }
+        var dianQiJiZuValue="";
+        if(dianQiJiZus!=undefined){
+            dianQiJiZuValue = dianQiJiZus.split(" ")[1];
+        }
+        var dianQiZhiBieValue="";
+        if(dianQiZhiBies!=undefined){
+            dianQiZhiBieValue = dianQiZhiBies.split(" ")[1];
+        }
         //生成操作票号(流水号)
         var LiuShuiId = this.uuid(8,10);
         //获取当前计算机名称（获取不到）
@@ -61,6 +108,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             Estat:EstatId,//ESTAT
             Cuser:dianQiKaiPiaoRen,//CUSER
             Cdata:dianQiKaiPiaoRiQi,//CDATA
+            Appdep:buMenId,//填写部门
             Ztype:leiXingId,//ZTYPE
             Otype:dianQiCaozuoLeiXing,//OTYPE
             Unity:dianQiJiZu,//UNITY
@@ -71,6 +119,18 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             Zczfs:dianQiCaoZuoXingZhi,//ZCZFS操作性质
             Znote:dianQiBeiZhu,//ZNOTE备注
             Yxgroup:dianQiBanZu,//YXGROUP运行班组编码
+            Prfty:dianQiZhuanYe,//专业
+            Estxt:EstatValue,//状态value
+            Name1:gongChangValue,
+            Ztypedes:leiXingValue,
+            Appdepdec:buMenValue,
+            Yxgroupdec:dianQiBanZuValue,//班组Value
+            OtypeValue:CaozuoLeiXingValue,//操作类型value
+            ZczfsValue:CaoZuoXingZhiValue,//操作性质value
+            Prtxt:ZhuanYesValue,//专业Value
+            Rareadec:YunXingQuYuValue,//运行区域value
+            Untxt:dianQiJiZuValue,//机组Value
+            Dutxt:dianQiZhiBieValue,//值别Value
             InfoTab:tableDataNew,//InfoTab
             DangerousTab:dangerousPointDataNew//危险点分析
         };

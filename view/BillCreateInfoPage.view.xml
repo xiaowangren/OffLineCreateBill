@@ -86,8 +86,20 @@
 		                    </c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="专业"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
+		                    <c:ComboBox width="95%" id="dianQiZhuanYe">
+    		                        <c:items>
+                                        <core:ListItem text="0001 汽机专业" key="0001"></core:ListItem>
+                                        <core:ListItem text="0002 电气专业" key="0002"></core:ListItem>
+                                        <core:ListItem text="0003 锅炉专业" key="0003"></core:ListItem>
+                                        <core:ListItem text="0004 化学专业" key="0004"></core:ListItem>
+                                        <core:ListItem text="0005 环保专业" key="0005"></core:ListItem>
+                                        <core:ListItem text="0006 燃料专业" key="0006"></core:ListItem>
+                                        <core:ListItem text="0007 热机专业" key="0007"></core:ListItem>
+                                    </c:items>
+		                    </c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <!--<c:CheckBox text="需要值长审核" id="dianQiXuYaoZhiZhangShenHe"></c:CheckBox>-->

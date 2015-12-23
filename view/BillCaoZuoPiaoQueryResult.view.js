@@ -51,88 +51,88 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResult", {
         }); 
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "操作票号"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "a"),
-        	width: "100px",
+        	template: new sap.ui.commons.TextView().bindProperty("text", "Zczph"),
+        	width: "130px",
         	hAlign: "Center"
         }));
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "操作票类型"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "a"),
+        	template: new sap.ui.commons.TextView().bindProperty("text", "Ztypedes"),
         	width: "100px",
         	hAlign: "Center"
         }));
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "开票日期"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "a"),
+        	template: new sap.ui.commons.TextView().bindProperty("text", "Cdata"),
         	width: "100px",
         	hAlign: "Center"
         }));
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "开票人"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "a"),
+        	template: new sap.ui.commons.TextView().bindProperty("text", "Cuser"),
         	width: "100px",
         	hAlign: "Center"
         }));
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "部门"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "a"),
+        	template: new sap.ui.commons.TextView().bindProperty("text", "Appdepdec"),
         	width: "100px",
         	hAlign: "Center"
         }));
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "专业"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "a"),
+        	template: new sap.ui.commons.TextView().bindProperty("text", "Prtxt"),
         	width: "100px",
         	hAlign: "Center"
         }));
-        oTable2.addColumn(new sap.ui.table.Column({
-        	label: new sap.ui.commons.Label({text: "需要值长审核"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "a"),
-        	width: "120px",
-        	hAlign: "Center"
-        }));
+        // oTable2.addColumn(new sap.ui.table.Column({
+        // 	label: new sap.ui.commons.Label({text: "需要值长审核"}),
+        // // 	template: new sap.ui.commons.TextView().bindProperty("text", ""),
+        // 	width: "120px",
+        // 	hAlign: "Center"
+        // }));
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "操作类型"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "a"),
+        	template: new sap.ui.commons.TextView().bindProperty("text", "OtypeValue"),
         	width: "100px",
         	hAlign: "Center"
         }));
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "操作性质"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "a"),
+        	template: new sap.ui.commons.TextView().bindProperty("text", "ZczfsValue"),
         	width: "100px",
         	hAlign: "Center"
         }));
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "运行区域"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "a"),
+        	template: new sap.ui.commons.TextView().bindProperty("text", "Rareadec"),
         	width: "100px",
         	hAlign: "Center"
         }));
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "机组"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "a"),
+        	template: new sap.ui.commons.TextView().bindProperty("text", "Untxt"),
         	width: "100px",
         	hAlign: "Center"
         }));
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "值别"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "a"),
+        	template: new sap.ui.commons.TextView().bindProperty("text", "Dutxt"),
         	width: "100px",
         	hAlign: "Center"
         }));
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "班组"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "a"),
+        	template: new sap.ui.commons.TextView().bindProperty("text", "Yxgroupdec"),
         	width: "100px",
         	hAlign: "Center"
         }));
-        oTable2.addColumn(new sap.ui.table.Column({
-        	label: new sap.ui.commons.Label({text: "合格与否"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "a"),
-        	width: "100px",
-        	hAlign: "Center"
-        }));
+        // oTable2.addColumn(new sap.ui.table.Column({
+        // 	label: new sap.ui.commons.Label({text: "合格与否"}),
+        // // 	template: new sap.ui.commons.TextView().bindProperty("text", "a"),
+        // 	width: "100px",
+        // 	hAlign: "Center"
+        // }));
         oTable2.bindRows("/queryResultModel");
         var oPanel = new sap.ui.commons.Panel();
         oPanel.addButton(oButton1);

@@ -32,13 +32,15 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery2", {
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var aFilter = [];
 		//Check if there is data into the Storage   筛选数据
-		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00227")) {
-			var oData1 = oStorage.get("ZPMOFFLINE_SRV.ZPMT00227");
-			for(var i=0;i<oData1.length;i++){
-			    if(oData1[i].Werks==gongChangQuery2){
-			        aFilter.push(oData1[i]);
-			    }
-			}
+		if (oStorage.get("ZPMOFFLINE_SRV.BillInfos")) {
+			var oData1 = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
+			        console.log(oData1);
+			        for(var i=0;i<oData1.length;i++){
+			            if(oData1[i].Iwerk==gongChangQuery2&&oData1[i].Ztype==ricketTypeQuery2){
+			                aFilter.push(oData1[i]);
+			            }
+			        }
+			    
 		}
         //转换时间
 	    var now = new Date();
