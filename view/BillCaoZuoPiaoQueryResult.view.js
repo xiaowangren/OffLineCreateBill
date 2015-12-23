@@ -13,7 +13,15 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResult", {
 	* @memberOf com.zhenergy.bill.view.BillCaoZuoPiaoQueryResult
 	*/ 
 	createContent : function(oController) {
-	    
+	    var oButton1 = new sap.ui.commons.Button({
+        	text : "返回",
+        	press : function() {alert('Alert from ' + oButton1.getText());}
+        });
+        var oButton2 = new sap.ui.commons.Button({
+            id:"idBiaoZhiCaoZuoPiaoQuery",
+        	text : "{/BiaoJi}",
+        	visible:false
+        });
 	    var oTable2 = new sap.ui.table.Table({
 	        id:"caoZuoPiaoQueryResult",
 	        title: "操作票查询:共"+"{/queryResultModelCount}"+"张，查询日期:"+"{/queryResultModelDate}",
@@ -25,6 +33,7 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResult", {
         	    var rowContext = oEvent.getParameters().rowContext;
          	    var table = sap.ui.getCore().byId("caoZuoPiaoQueryResult");
          	    var idBiaoZhiCaoZuoPiaoQuery = sap.ui.getCore().byId("idBiaoZhiCaoZuoPiaoQuery").getText();
+         	    console.log(idBiaoZhiCaoZuoPiaoQuery);
          	    var model = table.getModel(); 
          	    var data  = model.getProperty(rowContext.sPath);
          	    if(idBiaoZhiCaoZuoPiaoQuery=="update"){//修改
@@ -126,14 +135,11 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResult", {
         	hAlign: "Center"
         }));
         oTable2.bindRows("/queryResultModel");
-        var oTextView = new sap.ui.commons.TextView({id:"idBiaoZhiCaoZuoPiaoQuery"});
-        oTextView.setVisible(false);
-        oTextView.bindProperty("text", "/BiaoJi");
-        //布局
-        var oLayout = new sap.ui.layout.VerticalLayout("LayoutQueryCaoZuoPiao", {
-        	content: [oTable2, oTextView]
-        });
-        return oLayout;
+        var oPanel = new sap.ui.commons.Panel();
+        oPanel.addButton(oButton1);
+        oPanel.addButton(oButton2);
+        oPanel.addContent(oTable2);
+        return oPanel;
 	}
 
 });
