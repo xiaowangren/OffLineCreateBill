@@ -1,6 +1,6 @@
 <core:View controllerName="com.zhenergy.bill.view.BillInitializationPage" xmlns:c="sap.ui.commons" xmlns:core="sap.ui.core"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:lay="sap.ui.commons.layout" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
-	<Page title="Title">
+	<Page title="选择工厂、操作票类型">
 		<content>
 			<l:VerticalLayout class="BillInitializationPage_page_content_VerticalLayout">
 				<lay:MatrixLayout class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1" width="40%" widths="15%,30%,25%,25%">
