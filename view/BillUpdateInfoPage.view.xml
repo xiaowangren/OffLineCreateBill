@@ -172,21 +172,21 @@
             					minScreenWidth="Tablet"
             					demandPopin="true"
             					width="30px"
-            					hAlign="Center" >
+            					 >
             					<Text text="序号" />
             				</Column>
             				<Column
             					minScreenWidth="Tablet"
             					demandPopin="true"
-            					width="240px"
-            					hAlign="Center" >
+            					width="320px"
+            					>
             					<Text text="操作内容" />
             				</Column>
             				<Column
             					minScreenWidth="Tablet"
             					demandPopin="true"
-            					width="100px"
-            					hAlign="Center" >
+            					width="120px"
+            					>
             					<Text text="注意事项" />
             				</Column>
             			</columns>
@@ -213,28 +213,28 @@
                 					minScreenWidth="Tablet"
                 					demandPopin="true"
                 					width="50px"
-                					hAlign="Center" >
+                					>
                 					<Text text="序号" />
                 				</Column>
                 				<Column
                 					minScreenWidth="Tablet"
                 					demandPopin="true"
-                					width="240px"
-                					hAlign="Center" >
+                					width="320px"
+                					>
                 					<Text text="危险点" />
                 				</Column>
                 				<Column
                 					minScreenWidth="Tablet"
                 					demandPopin="true"
-                					width="200px"
-                					hAlign="Center" >
+                					width="150px"
+                					 >
                 					<Text text="危害后果" />
                 				</Column>
                 				<Column
                 					minScreenWidth="Tablet"
                 					demandPopin="true"
-                					width="200px"
-                					hAlign="Center" >
+                					width="150px"
+                					>
                 					<Text text="控制措施" />
                 				</Column>
             			    </columns>
