@@ -53,7 +53,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
         gCurrentModel="ZPMV00005"; 
 		oECCModel.read("/ZPMV00005Set", mParameters);
 		//同步典型票  每次200条
-		this.onSyncZS(200, 0);
+		this.onSyncZS(200, 1800);
 
 		sap.m.MessageBox.alert("主数据下载完成");
 		//保存同步日志（最近同步时间）
@@ -73,25 +73,39 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		mParameters['success'] = jQuery.proxy(function(oData, response) {
 			//取返回的data
 			var oJsonModel = new sap.ui.model.json.JSONModel(oData);
+			var rawData = oJsonModel.getData().results;
+// 			var newData = [rawData.length];
+			if(rawData.length > 0){
+			    for(var i=0;i<rawData.length;i++){
+			        delete rawData[i]["__metadata"];
+			        delete rawData[i]["DangerousTab"];
+			        for(var j=0;j<rawData[i].InfoTab.results.length;j++){
+			           delete rawData[i].InfoTab.results[j]["__metadata"];
+			        }
+			     //   console.log(rawData[i]);
+			    }
+			}
             
 			var oOperModel = this.getView().getModel("/ZPMTOPERSet");
 			if (oJsonModel.getData().results.length > 0) {
 				if (oOperModel) {
 					//从view module中取暂存的数组
 					var oOperData = oOperModel.getData();
-					oOperData = oOperData.concat(oJsonModel.getData().results);
+				// 	oOperData = oOperData.concat(oJsonModel.getData().results);
+				    oOperData = oOperData.concat(rawData);
 					oOperModel.setData(oOperData);
 					console.log("Collection.concat");
 					console.log(oOperData.length);
 				} else {
 					//oOperModel 为空 新建JsonModule 增加到view中
 					oOperModel = new sap.ui.model.json.JSONModel();
-					var oOperData = oJsonModel.getData().results;
+				// 	var oOperData = oJsonModel.getData().results;
+				    var oOperData = rawData;
 					oOperModel.setData(oOperData);
 					this.getView().setModel(oOperModel, "/ZPMTOPERSet");
 					console.log("this.getView().setModel(oOperModel,'/ZPMTOPERSet')");
 				}
-				console.log(oJsonModel.getData().results[0].__metadata.type + "主数据已报存" + p_skip);
+				console.log("ZPMOFFLINE_SRV.ZPMTOPER" + "主数据已报存" + p_skip);
 				this.onSyncZS(p_top, p_skip + p_top);
 			} else {
 				oStorage.put("ZPMOFFLINE_SRV.ZPMTOPER", oOperModel.getData());
