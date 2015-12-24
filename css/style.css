@@ -2,7 +2,7 @@
     text-align:center;
 }
 .BillCreateInfoPage_page_content_VerticalLayout{
-    width: 90%;
+    /*width: 90%;*/
 }
 .BillCreateInfoPage_VerticalLayout_MatrixLayout_1{
     margin-top: 5px;
@@ -17,4 +17,7 @@
     top: 0;
     border-top: 0rem solid #009de0;
     z-index: 7;
+}
+.TextField{
+        text-align: left;
 }

@@ -23,6 +23,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery2", {
         var kaiPiaoRiQiQuery2 = this.getView().byId("kaiPiaoRiQiQuery2").getValue();//开票日期
         var kaiPiaoRenQuery2 = this.getView().byId("kaiPiaoRenQuery2").getValue();//开票人
         var caoZuoRenWuQuery2 = this.getView().byId("caoZuoRenWuQuery2").getValue();//操作任务
+        var UpdateLog2 = this.getView().byId("UpdateLog2").getText();
         //过滤数据
         //获取本地的数据，进行查询
         jQuery.sap.require("jquery.sap.storage");
@@ -66,6 +67,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery2", {
         queryResultModel.setProperty("/queryResultModel",aFilter);
         queryResultModel.setProperty("/queryResultModelCount",aFilter.length);
         queryResultModel.setProperty("/BiaoJi","query");
+        queryResultModel.setProperty("/UpdateLog2",UpdateLog2);
         queryResultModel.setProperty("/queryResultModelDate",Begda);
         sap.ui.getCore().setModel(queryResultModel);
         sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQueryResult");

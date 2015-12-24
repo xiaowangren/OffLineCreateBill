@@ -48,8 +48,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 		var idWerksSelectVaule = this.getView().byId("idWerksSelect")._sTypedChars;
 		oLocalModel.setProperty("/dianQiGongChang",idWerksSelectVaule);
 		//操作人
-		var usrid = jQuery.sap.getUriParameters().get("usrid").toUpperCase();
-		oLocalModel.setProperty("/usrid",usrid);
+// 		var usrid = jQuery.sap.getUriParameters().get("usrid").toUpperCase();
+// 		oLocalModel.setProperty("/usrid",usrid);
 		//转换时间
 	    var now = new Date();
 		var year = now.getFullYear(); 

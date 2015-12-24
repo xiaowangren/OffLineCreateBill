@@ -39,7 +39,7 @@
     		                <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell colSpan="2">
-    		                    <!--<c:TextField value="{/werkQuery}" editable="false" id="gongChangQuery2"></c:TextField>-->
+    		                    <c:TextView text="{/UpdateLog}"  id="UpdateLog2" visible="false"></c:TextView>
     		                    <c:ComboBox items="{ path: '/WERKSQuery2'}" width="95%" id="gongChangQuery2" selectedKey="{/werkQuery}" editable="false">
 								    <core:ListItem key="{Iwerk}" text="{Iwerk} {Name1}"></core:ListItem>
 							    </c:ComboBox>

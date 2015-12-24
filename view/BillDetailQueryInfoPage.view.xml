@@ -1,10 +1,264 @@
 <core:View xmlns:core="sap.ui.core" 
 	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:l="sap.ui.layout"
+	xmlns:lay="sap.ui.commons.layout"
+	xmlns:c="sap.ui.commons"
+	xmlns:t="sap.ui.table"
 	xmlns="sap.m" controllerName="com.zhenergy.bill.view.BillDetailQueryInfoPage" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page title="显示{}">
+	<Page title="显示{newBillDetailQueryInfoPage>/Ztypedes}">
 		<content>
-		
+		<l:VerticalLayout class="BillCreateInfoPage_page_content_VerticalLayout">
+		        <lay:MatrixLayout width="40%" widths="20%,25%,25%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1">
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:Button text="预览操作票" press="onPrintBillInfo"></c:Button>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:Button text="预览危险点" press="onPrintDangerousPoint"></c:Button>
+		                </lay:MatrixLayoutCell>
+		            </lay:MatrixLayoutRow>
+		        </lay:MatrixLayout>
+		        <lay:MatrixLayout widths="7%,12%,7%,25%,5%,10%,6%,12%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_2">
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="操作票号"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextField value="{newBillDetailQueryInfoPage>/Zczph}" width="95%" id="dianQiCaoZuoPiaoHao3" editable="false"></c:TextField>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="工厂"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextField value="{newBillDetailQueryInfoPage>/Iwerk} {newBillDetailQueryInfoPage>/Name1}" width="95%" id="dianQiGongChang3" editable="false" tooltip="{/dianQiGongChang}"></c:TextField>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="填写部门"></c:TextView>
+		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
+		                    <c:ComboBox id="dianQiTianXieBuMen3" items="{ path: '/tianxieBuMenQuery3'}" width="95%" selectedKey="{newBillDetailQueryInfoPage>/Appdep}" editable="false">
+								<core:ListItem key="{Appdep}" text="{Appdep} {Appdepdec}"></core:ListItem>
+							</c:ComboBox>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="班组"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:ComboBox id="dianQiBanZu3" items="{ path: '/banZuQuery3'}" width="95%" selectedKey="{newBillDetailQueryInfoPage>/Yxgroup}" editable="false">
+								<core:ListItem key="{Yxgroup}" text="{Yxgroup} {Yxgroupdec}"></core:ListItem>
+							</c:ComboBox>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <!--<c:CheckBox text="不合格" enabled ="false" id="dianQiBuHeGe"></c:CheckBox>-->
+		                </lay:MatrixLayoutCell>
+		            </lay:MatrixLayoutRow>
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="类型"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextField value="{newBillDetailQueryInfoPage>/Ztype} {newBillDetailQueryInfoPage>/Ztypedes}" width="95%" id="dianQiLeiXing3" editable="false" tooltip="{/dianQiLeiXing} {/dianQiLeiXingValue}"></c:TextField>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="操作类型"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:ComboBox width="95%" id="dianQiCaozuoLeiXing3" selectedKey="{newBillDetailQueryInfoPage>/Otype}" editable="false">
+		                        <c:items>
+                                    <core:ListItem text="1 单人操作" key="1"></core:ListItem>
+                                    <core:ListItem text="2 监护操作" key="2"></core:ListItem>
+                                </c:items>
+		                    </c:ComboBox>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="操作性质"></c:TextView>
+		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
+		                    <c:ComboBox width="95%" id="dianQiCaoZuoXingZhi3" selectedKey="{newBillDetailQueryInfoPage>/Zczfs}" editable="false">
+		                        <c:items>
+                                    <core:ListItem text="1 一般操作" key="1"></core:ListItem>
+                                    <core:ListItem text="2 重大操作" key="2"></core:ListItem>
+                                </c:items>
+		                    </c:ComboBox>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="专业"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:ComboBox width="95%" id="dianQiZhuanYe3"  selectedKey="{newBillDetailQueryInfoPage>/Prfty}" editable="false">
+    		                        <c:items>
+                                        <core:ListItem text="0001 汽机专业" key="0001"></core:ListItem>
+                                        <core:ListItem text="0002 电气专业" key="0002"></core:ListItem>
+                                        <core:ListItem text="0003 锅炉专业" key="0003"></core:ListItem>
+                                        <core:ListItem text="0004 化学专业" key="0004"></core:ListItem>
+                                        <core:ListItem text="0005 环保专业" key="0005"></core:ListItem>
+                                        <core:ListItem text="0006 燃料专业" key="0006"></core:ListItem>
+                                        <core:ListItem text="0007 热机专业" key="0007"></core:ListItem>
+                                    </c:items>
+		                    </c:ComboBox>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <!--<c:CheckBox text="需要值长审核" id="dianQiXuYaoZhiZhangShenHe"></c:CheckBox>-->
+		                </lay:MatrixLayoutCell>
+		            </lay:MatrixLayoutRow>
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="运行区域"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:ComboBox id="dianQiYunXingQuYu3" items="{ path: '/yunXingQuYuQuery3'}" width="95%" selectedKey="{newBillDetailQueryInfoPage>/Rarea}" editable="false">
+								<core:ListItem key="{Rarea}" text="{Rarea} {Rareadec}"></core:ListItem>
+							</c:ComboBox>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="机组"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:ComboBox id="dianQiJiZu3" items="{ path: '/jiZuQuery3'}" width="95%" selectedKey="{newBillDetailQueryInfoPage>/Unity}" editable="false">
+								<core:ListItem key="{Unity}" text="{Unity} {Untxt}"></core:ListItem>
+							</c:ComboBox>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="值别"></c:TextView>
+		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
+		                    <c:ComboBox id="dianQiZhiBie3" items="{ path: '/ZhiBieQuery3'}" width="95%" selectedKey="{newBillDetailQueryInfoPage>/Dunum}" editable="false">
+								<core:ListItem key="{Dunum}" text="{Dunum} {Dutxt}"></core:ListItem>
+							</c:ComboBox>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="状态"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextField value="{newBillDetailQueryInfoPage>/Estat} {newBillDetailQueryInfoPage>/Estxt}" width="95%" id="dianQiZhuangTai3" editable="false"></c:TextField>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
+		            </lay:MatrixLayoutRow>
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="开票人"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView  text="{newBillDetailQueryInfoPage>/Cuser}" id="dianQiKaiPiaoRen3"></c:TextView >
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView  text="开票日期" ></c:TextView >
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView  text="{newBillDetailQueryInfoPage>/Cdata}" id="dianQiKaiPiaoRiQi3"></c:TextView >
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="操作任务"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell rowSpan="2" colSpan="4">
+		                    <c:TextArea value="{newBillDetailQueryInfoPage>/Ztask}" rows="5" cols="55" id="dianQiCaoZuoRenWu3" editable="false"></c:TextArea>
+		                </lay:MatrixLayoutCell>
+		            </lay:MatrixLayoutRow>
+		        </lay:MatrixLayout>
+		        <!--<mvc:JSView viewName="com.zhenergy.bill.view.BillQueryInfoTab"/>-->
+		        <c:TabStrip height="380px">
+		            <c:Tab text="操作内容">
+		                <c:content>
+		                    <Table
+    		                    id="BillQueryBaseInfoTab"
+    			                    items="{newBillDetailQueryInfoPage>/InfoTab}" >
+    			                <columns>
+            				<Column
+            					minScreenWidth="Tablet"
+            					demandPopin="true"
+            					width="50px"
+            					hAlign="Center" >
+            					<Text text="序号" />
+            				</Column>
+            				<Column
+            					minScreenWidth="Tablet"
+            					demandPopin="true"
+            					width="240px"
+            					hAlign="Center" >
+            					<Text text="操作内容" />
+            				</Column>
+            				<Column
+            					minScreenWidth="Tablet"
+            					demandPopin="true"
+            					width="180px"
+            					hAlign="Center" >
+            					<Text text="注意事项" />
+            				</Column>
+            			</columns>
+            			<ColumnListItem type="Active">
+            				<cells>
+            					<Text
+            						text="{newBillDetailQueryInfoPage>Zxh}"/>
+            					<Text
+            						text="{newBillDetailQueryInfoPage>Zcznr}"/>
+            					<Text
+            						text="{newBillDetailQueryInfoPage>Zzysx}"/>
+            				</cells>
+            			</ColumnListItem>
+    		           </Table>
+		              </c:content>
+		            </c:Tab>
+		            <c:Tab text="危险点分析">
+		                <c:content>
+		                    <Table
+    		                    id="idQueryDangerousPointTab"
+    			                    items="{newBillDetailQueryInfoPage>/DangerousTab}" >
+    			                <columns>
+                				<Column
+                					minScreenWidth="Tablet"
+                					demandPopin="true"
+                					width="50px"
+                					hAlign="Center" >
+                					<Text text="序号" />
+                				</Column>
+                				<Column
+                					minScreenWidth="Tablet"
+                					demandPopin="true"
+                					width="240px"
+                					hAlign="Center" >
+                					<Text text="危险点" />
+                				</Column>
+                				<Column
+                					minScreenWidth="Tablet"
+                					demandPopin="true"
+                					width="200px"
+                					hAlign="Center" >
+                					<Text text="危害后果" />
+                				</Column>
+                				<Column
+                					minScreenWidth="Tablet"
+                					demandPopin="true"
+                					width="200px"
+                					hAlign="Center" >
+                					<Text text="控制措施" />
+                				</Column>
+            			    </columns>
+            			    <ColumnListItem type="Active">
+                				<cells>
+                					<Text
+                						text="{newBillDetailQueryInfoPage>Dangno}"/>
+                					<Text
+                						text="{newBillDetailQueryInfoPage>Zztext}"/>
+                					<Text
+                						text="{newBillDetailQueryInfoPage>Zzremark}"/>
+                					<Text
+                						text="{newBillDetailQueryInfoPage>Zzpltxt}"/>
+                				</cells>
+            			    </ColumnListItem>
+    		           </Table>
+		              </c:content>
+		            </c:Tab>
+		        </c:TabStrip>
+		        <lay:MatrixLayout width="100%" widths="5%,30%,25%,35%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1">
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="备注"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell colSpan="3">
+		                    <c:TextArea value="{newBillDetailQueryInfoPage>/Znote}" rows="4" cols="150" id="dianQiBeiZhu3" editable="false"></c:TextArea>
+		                </lay:MatrixLayoutCell>
+		            </lay:MatrixLayoutRow>
+		        </lay:MatrixLayout>
+		    </l:VerticalLayout>
 		</content>
 	</Page>
 </core:View>

@@ -35,6 +35,7 @@
 					</lay:MatrixLayoutRow>
 					<lay:MatrixLayoutRow>
 					    <lay:MatrixLayoutCell>
+					        <c:TextView text="{/UpdateLog}" id="UpdateLog" visible="false"> </c:TextView>
 						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
 							<c:TextView text="操作票类型"></c:TextView>
