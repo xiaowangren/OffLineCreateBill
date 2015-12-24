@@ -52,11 +52,59 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		//机组配置表
         gCurrentModel="ZPMV00005"; 
 		oECCModel.read("/ZPMV00005Set", mParameters);
-		
+		//同步典型票  每次200条
+		this.onSyncZS(200, 0);
+
 		sap.m.MessageBox.alert("主数据下载完成");
 		//保存同步日志（最近同步时间）
-		var syncLog = { lastUpdate : $.now() };
-		oStorage.put("ZPMSyncLog",syncLog);
+		var syncLog = {
+			lastUpdate: $.now()
+		};
+		oStorage.put("ZPMSyncLog", syncLog);
+	},
+	onSyncZS: function(p_top, p_skip) {
+		var oECCModel = sap.ui.getCore().getModel();
+		//Storage  
+		jQuery.sap.require("jquery.sap.storage");
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		//定义Read方法的执行方法
+		var mParameters = {};
+		mParameters['async'] = false;
+		mParameters['success'] = jQuery.proxy(function(oData, response) {
+			//取返回的data
+			var oJsonModel = new sap.ui.model.json.JSONModel(oData);
+            
+			var oOperModel = this.getView().getModel("/ZPMTOPERSet");
+			if (oJsonModel.getData().results.length > 0) {
+				if (oOperModel) {
+					//从view module中取暂存的数组
+					var oOperData = oOperModel.getData();
+					oOperData = oOperData.concat(oJsonModel.getData().results);
+					oOperModel.setData(oOperData);
+					console.log("Collection.concat");
+					console.log(oOperData.length);
+				} else {
+					//oOperModel 为空 新建JsonModule 增加到view中
+					oOperModel = new sap.ui.model.json.JSONModel();
+					var oOperData = oJsonModel.getData().results;
+					oOperModel.setData(oOperData);
+					this.getView().setModel(oOperModel, "/ZPMTOPERSet");
+					console.log("this.getView().setModel(oOperModel,'/ZPMTOPERSet')");
+				}
+				console.log(oJsonModel.getData().results[0].__metadata.type + "主数据已报存" + p_skip);
+				this.onSyncZS(p_top, p_skip + p_top);
+			} else {
+				oStorage.put("ZPMOFFLINE_SRV.ZPMTOPER", oOperModel.getData());
+				//没有后续数据的时候，统一写入Storage
+				console.log("Storage put success" + oOperModel.getData().length);
+			}
+		}, this);
+		mParameters['error'] = jQuery.proxy(function(data) {
+			var oJsonModel = new sap.ui.model.json.JSONModel(data);
+			console.log("Read /ZPMTOPERSet?$expand=InfoTab 调用失败");
+		}, this);
+        //调用请求，递归调用
+		oECCModel.read("/ZPMTOPERSet?$expand=InfoTab&$top=" + p_top + "&$skip=" + p_skip, mParameters);
 	},
 	onUploadToEcc: function(){
 		//读取LOCAL STORAGE 中的数据,作为程序的下拉框主数据
