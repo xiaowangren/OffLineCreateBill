@@ -15,6 +15,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery", {
         //获取页面数据
         var gongChangQuery = this.getView().byId("gongChangQuery").getValue();//工厂
         var caoZuoPiaoLeiXingQuery = this.getView().byId("caoZuoPiaoLeiXingQuery").getValue();//操作票类型
+        var idTicketSelect = this.getView().byId("idTicketSelect").getValue();
         var zhuangTaiQueryStart = this.getView().byId("zhuangTaiQuery1").getSelectedKey();//状态
         var tianXieBuMenQueryStart = this.getView().byId("tianXieBuMenQuery1").getSelectedKey();//填写部门
         var zhuanYeQueryStart = this.getView().byId("zhuanYeQuery1").getSelectedKey();//专业
@@ -25,6 +26,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery", {
         var caoZuoRenWuQuery = this.getView().byId("caoZuoRenWuQuery").getValue();//操作任务
         // console.log(gongChangQuery+";"+caoZuoPiaoLeiXingQuery+";"+zhuangTaiQueryStart+";"+tianXieBuMenQueryStart+";"+zhuanYeQueryStart+";"+jiZuQueryStart+";"+banZuQueryStart+";"+kaiPiaoRiQiQueryStart+";"+kaiPiaoRenQuery+";"+caoZuoRenWuQuery);
         //获取本地的数据，进行查询
+        //取出工厂号
+        var gongChangQueryId = gongChangQuery.substr(0,4);
         jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var aFilterData = [];
@@ -32,7 +35,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery", {
 		if (oStorage.get("ZPMOFFLINE_SRV.ZPMTOPER")) {
 			var oData1 = oStorage.get("ZPMOFFLINE_SRV.ZPMTOPER");
 			for(var i=0;i<oData1.length;i++){
-                if(this.checkhelp(oData1[i].Iwerk,gongChangQuery)&&
+                if(this.checkhelp(oData1[i].Iwerk,gongChangQueryId)&&
                    this.checkhelp(oData1[i].Ztype,caoZuoPiaoLeiXingQuery)&&
                    this.checkhelp(oData1[i].Estat,zhuangTaiQueryStart)&&
                    this.checkhelp(oData1[i].Appdep,tianXieBuMenQueryStart)&&
@@ -121,6 +124,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery", {
         queryResultModel.setProperty("/queryResultModelCount",aFilterData.length);
         queryResultModel.setProperty("/BiaoJi","update");
         queryResultModel.setProperty("/queryResultModelDate",Begda);
+        queryResultModel.setProperty("/queryGongChang",gongChangQuery);
+        queryResultModel.setProperty("/queryLeiXing",idTicketSelect);
         sap.ui.getCore().setModel(queryResultModel);
         sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQueryResult");
 

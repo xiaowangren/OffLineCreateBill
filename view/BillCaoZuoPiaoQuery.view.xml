@@ -39,7 +39,7 @@
     		                <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
-    		                    <c:TextField value="{/werkQuery}" editable="false" id="gongChangQuery"></c:TextField>
+    		                    <c:TextField value="{/idWerksSelectVaule}" id="gongChangQuery" editable="false"></c:TextField>
     		                </lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutRow id="caoZuoPiaoLeiXingQuerys">
@@ -49,7 +49,9 @@
     		                <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
-    		                    <c:TextField value="ZS" editable="false" id="caoZuoPiaoLeiXingQuery"></c:TextField>
+    		                    <c:TextField value="{/caoZuoLeiXingQuery}" visible="false" id="idTicketSelect"></c:TextField>
+    		                    <c:TextField value="ZS 典型操作票" editable="false" ></c:TextField>
+    		                    <c:TextField value="ZS" editable="false" id="caoZuoPiaoLeiXingQuery" visible="false"></c:TextField>
     		                </lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutRow>

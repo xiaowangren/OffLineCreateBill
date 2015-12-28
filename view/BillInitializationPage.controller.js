@@ -127,6 +127,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
         //检查必填输入
         var idWerksSelect = this.getView().byId("idWerksSelect").getSelectedKey();
         var idTicketSelect = this.getView().byId("idTicketSelect").getSelectedKey();
+        var idWerksSelectVaule = this.getView().byId("idWerksSelect")._sTypedChars;
+// 		var idTicketSelectValue = this.getView().byId("idTicketSelect")._sTypedChars;
+
+
         if(!idWerksSelect)
         {
             sap.m.MessageBox.alert("请选择工厂");
@@ -138,6 +142,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
         }
         queryModel.setProperty("/werkQuery",idWerksSelect);
         queryModel.setProperty("/caoZuoLeiXingQuery",idTicketSelect);
+        queryModel.setProperty("/idWerksSelectVaule",idWerksSelectVaule);
+        // queryModel.setProperty("/idTicketSelectValue",idTicketSelectValue);
         //填写部门
 		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00229")) {
 			var oData3 = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229");

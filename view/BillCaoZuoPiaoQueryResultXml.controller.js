@@ -7,6 +7,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
  	    var table = this.getView().byId("caoZuoPiaoQueryResult");
  	    var idBiaoZhiCaoZuoPiaoQuery = this.getView().byId("idBiaoZhiCaoZuoPiaoQuery").getText();
  	    var idUpdateLog2 = this.getView().byId("idUpdateLog2").getText();
+ 	    var queryGongChang = this.getView().byId("queryGongChang").getText();
+ 	    var queryLeiXing = this.getView().byId("queryLeiXing").getText();
  	    var model = table.getModel(); 
  	    var data  = model.getProperty(rowContext.sPath);
  	    var Iwerk = data.Iwerk;
@@ -61,13 +63,49 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
 			var oData = oStorage.get("ZPMOFFLINE_SRV.ZPMT00204");
 			queryModel3.setProperty("/ZhiBieQuery3",oData);
 		}
-        sap.ui.getCore().setModel(queryModel3);
+		//工厂
+		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
+			var oData5 = oStorage.get("ZPMOFFLINE_SRV.WERKS");
+			queryModel3.setProperty("/WERKSQuery3",oData5);
+		}
+		
+        
   	    var datas = "";
   	    if(data.DangerousTab==undefined){
+  	        data.Werks = queryGongChang;
+  	        data.Ztype = queryLeiXing;
   	        datas = this.onDataMuBan(data);
   	    }else{
   	        datas = this.onData(data);
   	    }
+  	    //标题
+  	    var ZtypeBiaoTi="";
+		if(datas.Ztype=="DQ"){
+		    ZtypeBiaoTi = "电气操作票";
+		}
+		if(datas.Ztype=="GL"){
+		    ZtypeBiaoTi = "锅炉操作票";
+		}
+		if(datas.Ztype=="HB"){
+		    ZtypeBiaoTi = "环保操作票";
+		}
+		if(datas.Ztype=="HX"){
+		    ZtypeBiaoTi = "化学操作票";
+		}
+		if(datas.Ztype=="QJ"){
+		    ZtypeBiaoTi = "汽机操作票";
+		}
+		if(datas.Ztype=="RK"){
+		    ZtypeBiaoTi = "热控操作票";
+		}
+		if(datas.Ztype=="RL"){
+		    ZtypeBiaoTi = "燃料操作票";
+		}
+		if(datas.Ztype=="ZS"){
+		    ZtypeBiaoTi = "典型操作票";
+		}
+		queryModel3.setProperty("/biaoTi",ZtypeBiaoTi);
+		sap.ui.getCore().setModel(queryModel3);
  	    var oModel = new sap.ui.model.json.JSONModel(datas); 
 		if(idBiaoZhiCaoZuoPiaoQuery=="update"){//模板创建
  	        sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoMoBanCreate", rowContext);
@@ -93,7 +131,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
 		for(var j=0;j<InfoTabLength;j++){
 		    InfoDataNew.push(InfoTab[j]);
 		}
-		for(var i=0;i<150-InfoTabLength;i++){
+		for(var i=0;i<250-InfoTabLength;i++){
 		    InfoDataNew.push({Zxh:"",Zcznr:"",Zzysx:""});
 		}
 		data.InfoTab=InfoDataNew;
@@ -122,13 +160,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
 		}
 		data.InfoTab.results=InfoDataNew;
 // 		//危险点分析
-// 		var DangerousTab = data.DangerousTab.results;
-// 		var DangerousTabNew = [];
-
-// 		for(var n=0;n<150-DangerousTabLength;n++){
-// 		    DangerousTabNew.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
-// 		}
-// 		data.DangerousTab=DangerousTabNew;
+		var DangerousTabNew = [];
+		for(var n=0;n<250;n++){
+		    DangerousTabNew.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
+		}
         //转换时间
 	    var now = new Date();
 		var year = now.getFullYear(); 
@@ -142,35 +177,24 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
         } 
         var Begda = year+"年" + month +"月"+  day +"日";
         var payLoad ={
-            Zczph:data.Zczph,//ZCZPH
+            Zczph:"",//ZCZPH
             Estat:10,//ESTAT
-            Cuser:"",//CUSER
+            Cuser:data.Cuser,//CUSER
             Cdata:Begda,//CDATA
             Appdep:data.Appdep,//填写部门
-            Ztype:"",//ZTYPE
+            Ztype:data.Ztype,//ZTYPE
             Otype:data.Otype,//OTYPE
             Unity:data.Unity,//UNITY
             Dunum:data.Dunum,//ZDUTY
             Rarea:data.Rarea,//RAREA
-            Iwerk:"",//BHGBZ
+            Iwerk:data.Iwerk,//BHGBZ
             Ztask:data.Ztask,//ZTASK操作任务
             Zczfs:data.Zczfs,//ZCZFS操作性质
             Znote:data.Znote,//ZNOTE备注
             Yxgroup:data.Yxgroup,//YXGROUP运行班组编码
             Prfty:data.Prfty,//专业
-            // Estxt:EstatValue,//状态value
-            // Name1:gongChangValue,
-            // Ztypedes:leiXingValue,
-            // Appdepdec:buMenValue,
-            // Yxgroupdec:dianQiBanZuValue,//班组Value
-            // OtypeValue:CaozuoLeiXingValue,//操作类型value
-            // ZczfsValue:CaoZuoXingZhiValue,//操作性质value
-            // Prtxt:ZhuanYesValue,//专业Value
-            // Rareadec:YunXingQuYuValue,//运行区域value
-            // Untxt:dianQiJiZuValue,//机组Value
-            // Dutxt:dianQiZhiBieValue,//值别Value
             InfoTab:data.InfoTab.results,//InfoTab
-            DangerousTab:[]//危险点分析
+            DangerousTab:DangerousTabNew//危险点分析
         };
 	    return payLoad;
     }

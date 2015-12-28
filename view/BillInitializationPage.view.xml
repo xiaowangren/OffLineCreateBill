@@ -40,14 +40,14 @@
 						<lay:MatrixLayoutCell>
 							<c:ComboBox id="idTicketSelect"  width="30%">
 								<c:items>
-									<core:ListItem key="DQ" text="电气操作票"></core:ListItem>
-									<core:ListItem key="GL" text="锅炉操作票"></core:ListItem>
-									<core:ListItem key="HB" text="环保操作票"></core:ListItem>
-									<core:ListItem key="HX" text="化学操作票"></core:ListItem>
-									<core:ListItem key="QJ" text="汽机操作票"></core:ListItem>
-									<core:ListItem key="RK" text="热控操作票"></core:ListItem>
-									<core:ListItem key="RL" text="燃料操作票"></core:ListItem>
-									<core:ListItem key="ZS" text="典型操作票"></core:ListItem>
+									<core:ListItem key="DQ" text="DQ 电气操作票"></core:ListItem>
+									<core:ListItem key="GL" text="GL 锅炉操作票"></core:ListItem>
+									<core:ListItem key="HB" text="HB 环保操作票"></core:ListItem>
+									<core:ListItem key="HX" text="HX 化学操作票"></core:ListItem>
+									<core:ListItem key="QJ" text="QJ 汽机操作票"></core:ListItem>
+									<core:ListItem key="RK" text="RK 热控操作票"></core:ListItem>
+									<core:ListItem key="RL" text="RL 燃料操作票"></core:ListItem>
+									<core:ListItem key="ZS" text="ZS 典型操作票"></core:ListItem>
 								</c:items>
 							</c:ComboBox>
 						</lay:MatrixLayoutCell>

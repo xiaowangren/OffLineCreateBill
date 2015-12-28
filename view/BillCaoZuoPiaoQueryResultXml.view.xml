@@ -10,6 +10,8 @@
 		    <m:Button text = "返回主页" press="onFanHui"></m:Button>
 		    <m:Button text = "{/BiaoJi}" id="idBiaoZhiCaoZuoPiaoQuery" visible="false"></m:Button>
 		    <m:Button text = "{/UpdateLog2}" id="idUpdateLog2" visible="false"></m:Button>
+		    <m:Button text = "{/queryGongChang}" id="queryGongChang" visible="false"></m:Button>
+		    <m:Button text = "{/queryLeiXing}" id="queryLeiXing" visible="false"></m:Button>
 		    <Table
                 id="caoZuoPiaoQueryResult"
                 visibleRowCount="10"
