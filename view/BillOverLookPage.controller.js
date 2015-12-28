@@ -109,8 +109,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 				this.onSyncZS(p_top, p_skip + p_top);
 			} else {
 				oStorage.put("ZPMOFFLINE_SRV.ZPMTOPER", oOperModel.getData());
+				console.log(oOperModel.getData());
 				//没有后续数据的时候，统一写入Storage
 				console.log("Storage put success" + oOperModel.getData().length);
+				console.log(oOperModel.getData());
 			}
 		}, this);
 		mParameters['error'] = jQuery.proxy(function(data) {

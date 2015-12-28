@@ -43,11 +43,19 @@ sap.ui.jsview("com.zhenergy.bill.view.BillApp", {
 			type: sap.ui.core.mvc.ViewType.XML
 		});
 		this.app.addPage(BillCaoZuoPiaoQuery);
+// 		//注册操作票查询结果页面
+// 		var BillCaoZuoPiaoQueryResult = sap.ui.view({
+// 			id: "idBillCaoZuoPiaoQueryResult",
+// 			viewName: "com.zhenergy.bill.view.BillCaoZuoPiaoQueryResult",
+// 			type: sap.ui.core.mvc.ViewType.JS
+// 		});
+// 		this.app.addPage(BillCaoZuoPiaoQueryResult);
+		//BillCaoZuoPiaoQueryResultXml
 		//注册操作票查询结果页面
 		var BillCaoZuoPiaoQueryResult = sap.ui.view({
 			id: "idBillCaoZuoPiaoQueryResult",
-			viewName: "com.zhenergy.bill.view.BillCaoZuoPiaoQueryResult",
-			type: sap.ui.core.mvc.ViewType.JS
+			viewName: "com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml",
+			type: sap.ui.core.mvc.ViewType.XML
 		});
 		this.app.addPage(BillCaoZuoPiaoQueryResult);
 		//注册操作票更新页面
@@ -78,6 +86,13 @@ sap.ui.jsview("com.zhenergy.bill.view.BillApp", {
 			type: sap.ui.core.mvc.ViewType.XML
 		});
 		this.app.addPage(BillDetailQueryInfoPage);
+		//注册模板创建com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate
+		var BillCaoZuoPiaoMoBanCreate = sap.ui.view({
+			id: "idBillCaoZuoPiaoMoBanCreate",
+			viewName: "com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate",
+			type: sap.ui.core.mvc.ViewType.XML
+		});
+		this.app.addPage(BillCaoZuoPiaoMoBanCreate);
 		return this.app;
 	}
 

@@ -95,21 +95,8 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResult", {
         			queryModel3.setProperty("/ZhiBieQuery3",oData);
         		}
                 sap.ui.getCore().setModel(queryModel3);
-    
-         	    if(idBiaoZhiCaoZuoPiaoQuery=="update"){//修改
-         	        sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", rowContext);
-            		var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
-              	    var oModel = new sap.ui.model.json.JSONModel(data);
-    			    page.setModel(oModel,"newCaoZuoPiaoUpdate");
-         	    }else if(idUpdateLog2!="UpdateLog"){//查询 idBillDetailQueryInfoPage
-         	        sap.ui.getCore().byId("idBillApp").app.to("idBillDetailQueryInfoPage", rowContext);
-            		var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillDetailQueryInfoPage");
-              	    var oModel = new sap.ui.model.json.JSONModel(data);
-    			    page.setModel(oModel,"newBillDetailQueryInfoPage");
-         	    }else{//修改本地数据
-         	        sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", rowContext);
-            		var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
-            		var InfoTab = data.InfoTab;
+                
+                var InfoTab = data.InfoTab;
             		var InfoDataNew = [];
             		var InfoTabLength = data.InfoTab.length;
             		for(var j=0;j<InfoTabLength;j++){
@@ -131,6 +118,18 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResult", {
             		}
             		data.DangerousTab=DangerousTabNew;
               	    var oModel = new sap.ui.model.json.JSONModel(data);
+              	    
+         	    if(idBiaoZhiCaoZuoPiaoQuery=="update"){//模板创建
+         	        sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoMoBanCreate", rowContext);
+            		var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillCaoZuoPiaoMoBanCreate");
+    			    page.setModel(oModel,"newCaoZuoPiaoUpdateMuBan");
+         	    }else if(idUpdateLog2!="UpdateLog"){//查询 idBillDetailQueryInfoPage
+         	        sap.ui.getCore().byId("idBillApp").app.to("idBillDetailQueryInfoPage", rowContext);
+            		var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillDetailQueryInfoPage");
+    			    page.setModel(oModel,"newBillDetailQueryInfoPage");
+         	    }else{//修改本地数据
+         	        sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", rowContext);
+            		var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
     			    page.setModel(oModel,"newBillDetailUpdateInfoPage");
          	        
          	    }
@@ -172,12 +171,6 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResult", {
         	width: "100px",
         	hAlign: "Center"
         }));
-        // oTable2.addColumn(new sap.ui.table.Column({
-        // 	label: new sap.ui.commons.Label({text: "需要值长审核"}),
-        // // 	template: new sap.ui.commons.TextView().bindProperty("text", ""),
-        // 	width: "120px",
-        // 	hAlign: "Center"
-        // }));
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "操作类型"}),
         	template: new sap.ui.commons.TextView().bindProperty("text", "OtypeValue"),
@@ -214,12 +207,6 @@ sap.ui.jsview("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResult", {
         	width: "100px",
         	hAlign: "Center"
         }));
-        // oTable2.addColumn(new sap.ui.table.Column({
-        // 	label: new sap.ui.commons.Label({text: "合格与否"}),
-        // // 	template: new sap.ui.commons.TextView().bindProperty("text", "a"),
-        // 	width: "100px",
-        // 	hAlign: "Center"
-        // }));
         oTable2.bindRows("/queryResultModel");
         var oPanel = new sap.ui.commons.Panel();
         oPanel.addButton(oButton1);
