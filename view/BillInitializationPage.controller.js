@@ -45,33 +45,22 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var oLocalModel = new sap.ui.model.json.JSONModel();
 		//工厂
-		var idWerksSelectVaule = this.getView().byId("idWerksSelect")._sTypedChars;
-		oLocalModel.setProperty("/dianQiGongChang",idWerksSelectVaule);
+// 		var idWerksSelectVaule = this.getView().byId("idWerksSelect")._sTypedChars;
+// 		oLocalModel.setProperty("/dianQiGongChang",idWerksSelectVaule);
 		//操作人
 // 		var usrid = jQuery.sap.getUriParameters().get("usrid").toUpperCase();
 // 		oLocalModel.setProperty("/usrid",usrid);
-		//转换时间
-	    var now = new Date();
-		var year = now.getFullYear(); 
-        var month =(now.getMonth() + 1).toString(); 
-        var day = (now.getDate()).toString(); 
-        if (month.length == 1) { 
-            month = "0" + month; 
-        } 
-        if (day.length == 1) { 
-            day = "0" + day; 
-        } 
-        var Begda = year+"-" + month +"-"+  day;
-        oLocalModel.setProperty("/Begda",Begda);
+		
+        // oLocalModel.setProperty("/Begda",Begda);
 		//类型
-		var idTicketSelectValue = this.getView().byId("idTicketSelect")._sTypedChars;
-		oLocalModel.setProperty("/dianQiLeiXing",idTicketSelect);
-		oLocalModel.setProperty("/dianQiLeiXingValue",idTicketSelectValue);
+// 		var idTicketSelectValue = this.getView().byId("idTicketSelect")._sTypedChars;
+// 		oLocalModel.setProperty("/dianQiLeiXing",idTicketSelect);
+// 		oLocalModel.setProperty("/dianQiLeiXingValue",idTicketSelectValue);
 		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00204")) {
 			var oData = oStorage.get("ZPMOFFLINE_SRV.ZPMT00204");
 			oLocalModel.setProperty("/ZhiBie",oData);
 		}
-		sap.ui.getCore().setModel(oLocalModel);
+// 		sap.ui.getCore().setModel(oLocalModel);
 		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00227")) {
 			var oData1 = oStorage.get("ZPMOFFLINE_SRV.ZPMT00227");
 			var aFilter = [];
@@ -82,7 +71,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 			}
 		    oLocalModel.setProperty("/yunXingQuYu",aFilter);
 		}
-		sap.ui.getCore().setModel(oLocalModel);
+// 		sap.ui.getCore().setModel(oLocalModel);
 		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00283")) {
 			var oData2 = oStorage.get("ZPMOFFLINE_SRV.ZPMT00283");
 			var aFilter2 = [];
@@ -93,7 +82,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 			}
 		    oLocalModel.setProperty("/banZu",aFilter2);
 		}
-		sap.ui.getCore().setModel(oLocalModel);
+// 		sap.ui.getCore().setModel(oLocalModel);
 		//填写部门
 		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00229")) {
 			var oData3 = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229");
@@ -105,7 +94,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 			}
 		    oLocalModel.setProperty("/tianxieBuMen",aFilter3);
 		}
-		sap.ui.getCore().setModel(oLocalModel);
+// 		sap.ui.getCore().setModel(oLocalModel);
 		//机组配置表
 		if (oStorage.get("ZPMOFFLINE_SRV.ZPMV00005")) {
 			var oData4 = oStorage.get("ZPMOFFLINE_SRV.ZPMV00005");
@@ -117,8 +106,18 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 			}
 		    oLocalModel.setProperty("/jiZu",aFilter4);
 		}
+		//工厂
+		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
+			var oData5 = oStorage.get("ZPMOFFLINE_SRV.WERKS");
+			oLocalModel.setProperty("/WERKS",oData5);
+		}
+		
+		var datas = this.onData(idTicketSelect,idWerksSelect);
 		sap.ui.getCore().setModel(oLocalModel);
-        sap.ui.getCore().byId("idBillApp").app.to("idBillCreateInfoPage");
+		var oModelS = new sap.ui.model.json.JSONModel(datas); 
+		sap.ui.getCore().byId("idBillApp").app.to("idBillCreateInfoPage", datas);
+        var page = sap.ui.getCore().byId("idBillApp").app.to("idBillCreateInfoPage");
+        page.setModel(oModelS,"newCaoZuoPiaoCreate");
     },
     onCanKaoLiShiPiao:function(){
         var queryModel = new sap.ui.model.json.JSONModel();
@@ -196,5 +195,50 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
         //跳转至查询页面
         sap.ui.getCore().setModel(queryModel);
         sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQuery");
+    },
+    onData:function(idTicketSelect,idWerksSelect){
+        //转换时间
+	    var now = new Date();
+		var year = now.getFullYear(); 
+        var month =(now.getMonth() + 1).toString(); 
+        var day = (now.getDate()).toString(); 
+        if (month.length == 1) { 
+            month = "0" + month; 
+        } 
+        if (day.length == 1) { 
+            day = "0" + day; 
+        } 
+        var Begda = year+"-" + month +"-"+  day;
+        //操作内容
+		var InfoDataNewC = [];
+		for(var a=0;a<250;a++){
+		    InfoDataNewC.push({Zxh:"",Zcznr:"",Zzysx:""});
+		}
+        //危险点分析
+		var DangerousTabNewC = [];
+		for(var g=0;g<250;g++){
+		    DangerousTabNewC.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
+		}
+        var payLoads ={
+            Zczph:"",//ZCZPH
+            Estat:10,//ESTAT
+            Cuser:"",//CUSER
+            Cdata:Begda,//CDATA
+            Appdep:"",//填写部门
+            Ztype:idTicketSelect,//ZTYPE
+            Otype:"",//OTYPE
+            Unity:"",//UNITY
+            Dunum:"",//ZDUTY
+            Rarea:"",//RAREA
+            Iwerk:idWerksSelect,//BHGBZ
+            Ztask:"",//ZTASK操作任务
+            Zczfs:"",//ZCZFS操作性质
+            Znote:"",//ZNOTE备注
+            Yxgroup:"",//YXGROUP运行班组编码
+            Prfty:"",//专业
+            InfoTab:InfoDataNewC,//InfoTab
+            DangerousTab:DangerousTabNewC//危险点分析
+        };
+        return payLoads;
     }
 });

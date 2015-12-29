@@ -1,17 +1,62 @@
 sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
     onSubmitBillInfo:function(){
-        var payLoad = this.collectData();
+        // var payLoad = this.collectData();
+        
+        var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
+        var tableData = newCaoZuoPiaoCreate.InfoTab;
+        var BillInfoNew =[];
+        for(var i=0;i<tableData.length;i++){
+            if((tableData[i].Zzysx.trim()=="")&&(tableData[i].Zxh.trim()=="")&&(tableData[i].Zcznr.trim()=="")){
+            }else{
+                BillInfoNew.push(tableData[i]); 
+            }
+        }
+        newCaoZuoPiaoCreate.InfoTab = BillInfoNew;
+        var dangerousPointData = newCaoZuoPiaoCreate.DangerousTab;
+        var dangerousPointDataNew = [];
+        for(var j=0;j<dangerousPointData.length;j++){
+            if((dangerousPointData[j].Dangno.trim()=="")&&(dangerousPointData[j].Zztext.trim()=="")
+                &&(dangerousPointData[j].Zzremark.trim()=="")&&(dangerousPointData[j].Zzpltxt.trim()=="")){
+            }else{
+                dangerousPointDataNew.push(dangerousPointData[j]); 
+            }
+        }
+        newCaoZuoPiaoCreate.DangerousTab=dangerousPointDataNew;
+        //生成操作票号
+        var LiuShuiId = this.uuid(8,10);
+        var Zczph = "CZP"+newCaoZuoPiaoCreate.Iwerk+LiuShuiId;
+        newCaoZuoPiaoCreate.Zczph = Zczph;
+        //存入缓存
         jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var getStorage = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
         if(getStorage){
-            getStorage.push(payLoad);
+            getStorage.push(newCaoZuoPiaoCreate);
             oStorage.put("ZPMOFFLINE_SRV.BillInfos",getStorage);
         }else{
             var dainQiBillIn = [];
-            dainQiBillIn.push(payLoad);
+            dainQiBillIn.push(newCaoZuoPiaoCreate);
             oStorage.put("ZPMOFFLINE_SRV.BillInfos",dainQiBillIn);
         }
+        
+        //根据票号查
+        var getStorageNew = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
+        var newCaoZuoPiao = "";
+        if(getStorageNew){
+            for(var x=0;x<getStorageNew.length;x++){
+                if(getStorageNew[x].Zczph==Zczph){
+                    newCaoZuoPiao = getStorageNew[x];
+                }
+            }
+        }
+        console.log(newCaoZuoPiao);
+        newCaoZuoPiao.InfoTab=tableData;
+        newCaoZuoPiao.DangerousTab=dangerousPointData;
+        var oModel = new sap.ui.model.json.JSONModel(newCaoZuoPiao);
+        sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", newCaoZuoPiao);
+    	var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
+		page.setModel(oModel,"newBillDetailUpdateInfoPage");
+        sap.m.MessageBox.alert("保存成功");
     },
     //收集桌面数据
     collectData:function(){

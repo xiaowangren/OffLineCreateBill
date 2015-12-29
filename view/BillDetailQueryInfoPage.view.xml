@@ -143,8 +143,15 @@
 		                    <c:TextView text="状态"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="10 拟票" width="95%" editable="false"></c:TextField>
-		                    <c:TextField value="{newBillDetailQueryInfoPage>/Estat} " width="95%" id="dianQiZhuangTai3" editable="false" visible="false"></c:TextField>
+		                    <!--<c:TextField value="10 拟票" width="95%" editable="false"></c:TextField>-->
+		                    <!--<c:TextField value="{newBillDetailQueryInfoPage>/Estat} " width="95%" id="dianQiZhuangTai3" editable="false" visible="false"></c:TextField>-->
+		                    <c:ComboBox width="95%" id="dianQiZhuangTai3"  selectedKey="{newBillDetailQueryInfoPage>/Estat}" editable="false">
+    		                        <c:items>
+                                        <core:ListItem text="10 拟票" key="10"></core:ListItem>
+                                        <core:ListItem text="20 待上传" key="20"></core:ListItem>
+                                        <core:ListItem text="30 已上传" key="30"></core:ListItem>
+                                    </c:items>
+		                    </c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutCell>
