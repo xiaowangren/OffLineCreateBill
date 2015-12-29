@@ -131,38 +131,59 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		//Check if there is data into the Storage
 		if (oStorage.get("ZPMOFFLINE_SRV.BillInfos")) {
-	        var sServiceUrl = "/sap/opu/odata/SAP/ZPMOFFLINE_SRV";
+	        var sServiceUrl = "/sap/opu/odata/SAP/ZPMUPLOAD_SRV";
 	       // var sServiceUrl = "/sap/opu/odata/SAP/ZTEST_FLIGHT_SRV";
 		    var oECCModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
 			console.log("Data is from Storage!");
 			var oData = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
-			var oUploadModel = new sap.ui.model.json.JSONModel();
-			oUploadModel.setData(oData);
+// 			var oUploadModel = new sap.ui.model.json.JSONModel();
+// 			oUploadModel.setData(oData);
 			for(var i=0;i<oData.length;i++){
 			    var payLoad = oData[i];
+			    delete payLoad["Zczph"];
+			    delete payLoad["Cdata"];
+			    delete payLoad["Estxt"];
+			    delete payLoad["Name1"];
+			    delete payLoad["Ztypedes"];
+			    delete payLoad["Appdepdec"];
+			    delete payLoad["Yxgroupdec"];
+			    delete payLoad["OtypeValue"];
+			    delete payLoad["ZczfsValue"];
+			    delete payLoad["Prtxt"];
+			    delete payLoad["Rareadec"];
+			    delete payLoad["Untxt"];
+			    delete payLoad["Dutxt"];
+			    
 			    var createOp = oECCModel.createBatchOperation("/ZPMTOPERSet","POST",payLoad);
 			    oECCModel.addBatchChangeOperations([createOp]);
 			}
-			    oECCModel.submitBatch(
-                    function(data, response) {
-                        // sap.ui.getCore().byId("idSplitApp").app.backToPage("idPersonInfo");
-                        // this.initializeData();
-                        console.log(data);
-                        console.log(response);
-                        jQuery.sap.require("sap.m.MessageToast");
-                        sap.m.MessageToast.show("提交成功");
-                    }, 
-                    function(data) {
-                        sap.m.MessageToast.show("提交失败");
-                        console.log(data);
-                    },
-                    false
-                );
+		    oECCModel.submitBatch(
+                function(data, response) {
+                    // sap.ui.getCore().byId("idSplitApp").app.backToPage("idPersonInfo");
+                    // this.initializeData();
+                    console.log("success data： ");
+                    console.log(data);
+                    console.log("success response： ");
+                    console.log(response);
+                    // for(var i=0;i<oData.length;i++){
+                        
+                        
+                    //     // oData[i].Zczph = 
+                    
+                    // }
+                    jQuery.sap.require("sap.m.MessageToast");
+                    sap.m.MessageToast.show("操作票上传成功");
+                }, 
+                function(data) {
+                    sap.m.MessageToast.show("操作票上传失败");
+                    console.log("操作票上传失败");
+                    // console.log(data);
+                },
+                false
+            );
 		}else{
 		    sap.m.MessageBox.alert("没有需要上传的数据");
 		}
-		
-		
 	},
 	onNavigate: function(event){
         
