@@ -173,7 +173,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
         if (day.length == 1) { 
             day = "0" + day; 
         } 
-        var Begda = year+"年" + month +"月"+  day +"日";
+        var Begda = year+"-" + month +"-"+  day;
         var payLoad ={
             Zczph:"",//ZCZPH
             Estat:10,//ESTAT
