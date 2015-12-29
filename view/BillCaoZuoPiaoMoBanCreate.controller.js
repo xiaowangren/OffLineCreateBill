@@ -1,6 +1,8 @@
 sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
+    onFanHui:function(){
+        sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage");
+    },
     onCreateBillInfo:function(){
-        
         var newCaoZuoPiaoUpdateMuBan = this.getView().getModel("newCaoZuoPiaoUpdateMuBan").getData(); 
         var tableData = newCaoZuoPiaoUpdateMuBan.InfoTab;
         var BillInfoNew =[];

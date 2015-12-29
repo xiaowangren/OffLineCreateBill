@@ -9,8 +9,11 @@
 	<Page title="修改{/biaoTi}">
 		<content>
 		<l:VerticalLayout class="BillCreateInfoPage_page_content_VerticalLayout">
-		        <lay:MatrixLayout width="40%" widths="20%,25%,25%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1">
+		        <lay:MatrixLayout width="60%" widths="20%,20%,20%,25%,25%">
 		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:Button text="返回首页" press="onFanHui"></c:Button>
+		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:Button text="保存" press="onUpdateBillInfo"></c:Button>
 		                </lay:MatrixLayoutCell>

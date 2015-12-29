@@ -1,4 +1,7 @@
 sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
+    onFanHui:function(){
+        sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage");
+    },
     onSubmitBillInfo:function(){
         // var payLoad = this.collectData();
         
@@ -49,7 +52,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
                 }
             }
         }
-        console.log(newCaoZuoPiao);
         //处理各操作项
         var queryModel3 = new sap.ui.model.json.JSONModel();
 

@@ -1,4 +1,7 @@
 sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
+    onFanHui:function(){
+       sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage"); 
+    },
     onUpdateBillInfo:function(){
 	    var newBillDetailUpdateInfoPage = this.getView().getModel("newBillDetailUpdateInfoPage").getData(); 
         var tableData = newBillDetailUpdateInfoPage.InfoTab;
@@ -135,8 +138,50 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
 
     },
     onCancleBillInfo:function(){
-        sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage");
-        sap.m.MessageBox.alert("取消成功");
+        //重新填充页面
+        var newBillDetailUpdateInfoPage = this.getView().getModel("newBillDetailUpdateInfoPage").getData(); 
+        var Zczph = newBillDetailUpdateInfoPage.Zczph;
+        jQuery.sap.require("jquery.sap.storage");
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+        var getStorageNew = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
+        var newCaoZuoPiao = "";
+        if(getStorageNew){
+            for(var x=0;x<getStorageNew.length;x++){
+                if(getStorageNew[x].Zczph==Zczph){
+                    newCaoZuoPiao = getStorageNew[x];
+                }
+            }
+        }
+        var tableData=[];
+        var InfoTab = newCaoZuoPiao.InfoTab;
+        if(InfoTab){
+            for(var i=0;i<InfoTab.length;i++){
+                tableData.push(InfoTab[i]);
+            }
+            for(var j=0;j<250-InfoTab.length;j++){
+                tableData.push({Zxh:"",Zcznr:"",Zzysx:""});
+            }
+        }
+        newCaoZuoPiao.InfoTab=tableData;
+
+        var dangerousPointData=[];
+        var DangerousTab = newCaoZuoPiao.DangerousTab;
+        if(DangerousTab){
+            for(var m=0;m<DangerousTab.length;m++){
+                dangerousPointData.push(DangerousTab[m]);
+            }
+            for(var n=0;n<250-DangerousTab.length;n++){
+                dangerousPointData.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
+            }
+        }
+        newCaoZuoPiao.DangerousTab=dangerousPointData;
+        var oModel = new sap.ui.model.json.JSONModel(newCaoZuoPiao);
+        sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", newCaoZuoPiao);
+    	var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
+		page.setModel(oModel,"newBillDetailUpdateInfoPage");
+        
+        // sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage");
+        // sap.m.MessageBox.alert("取消成功");
     }
 
 
