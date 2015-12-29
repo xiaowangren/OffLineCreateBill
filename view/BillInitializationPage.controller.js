@@ -30,6 +30,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
         //检查必填输入
         var idWerksSelect = this.getView().byId("idWerksSelect").getSelectedKey();
         var idTicketSelect = this.getView().byId("idTicketSelect").getSelectedKey();
+        var idUser = this.getView().byId("idUser").getValue();
+
         if(!idWerksSelect)
         {
             sap.m.MessageBox.alert("请选择工厂");
@@ -53,13 +55,13 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 		
         // oLocalModel.setProperty("/Begda",Begda);
 		//类型
-		var idTicketSelectValue = this.getView().byId("idTicketSelect")._sTypedChars;
+// 		var idTicketSelectValue = this.getView().byId("idTicketSelect")._sTypedChars;
 // 		oLocalModel.setProperty("/dianQiLeiXing",idTicketSelect);
-        var idTicket = "";
-        if(idTicketSelectValue!=undefined){
-           idTicket = idTicketSelectValue.split(" ")[1];
-        }
-		oLocalModel.setProperty("/dianQiLeiXingValue",idTicket);
+        // var idTicket = "";
+        // if(idTicketSelectValue!=undefined){
+        //   idTicket = idTicketSelectValue.split(" ")[1];
+        // }
+// 		oLocalModel.setProperty("/dianQiLeiXingValue",idTicket);
 		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00204")) {
 			var oData = oStorage.get("ZPMOFFLINE_SRV.ZPMT00204");
 			oLocalModel.setProperty("/ZhiBie",oData);
@@ -115,14 +117,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 			var oData5 = oStorage.get("ZPMOFFLINE_SRV.WERKS");
 			oLocalModel.setProperty("/WERKS",oData5);
 		}
-		//工厂
-		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
-			var oData6 = oStorage.get("ZPMOFFLINE_SRV.WERKS");
-			oLocalModel.setProperty("/WERKSQuery3",oData6);
-		}
-		
-		
-		var datas = this.onData(idTicketSelect,idWerksSelect);
+		var datas = this.onData(idTicketSelect,idWerksSelect,idUser);
 		sap.ui.getCore().setModel(oLocalModel);
 		var oModelS = new sap.ui.model.json.JSONModel(datas); 
 		sap.ui.getCore().byId("idBillApp").app.to("idBillCreateInfoPage", datas);
@@ -206,7 +201,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
         sap.ui.getCore().setModel(queryModel);
         sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQuery");
     },
-    onData:function(idTicketSelect,idWerksSelect){
+    onData:function(idTicketSelect,idWerksSelect,idUser){
         //转换时间
 	    var now = new Date();
 		var year = now.getFullYear(); 
@@ -232,7 +227,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
         var payLoads ={
             Zczph:"",//ZCZPH
             Estat:10,//ESTAT
-            Cuser:"",//CUSER
+            Cuser:idUser,//CUSER
             Cdata:Begda,//CDATA
             Appdep:"",//填写部门
             Ztype:idTicketSelect,//ZTYPE

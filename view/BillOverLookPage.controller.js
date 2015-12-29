@@ -196,6 +196,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			var oData = oStorage.get("ZPMOFFLINE_SRV.WERKS");
 			oLocalModel.setProperty("/WERKS",oData);
 		}
+		//用户，工厂
+		var UserIwerk = this.onQuChuUser();
+		oLocalModel.setProperty("/Iwerk",UserIwerk.Iwerk);
+		oLocalModel.setProperty("/User",UserIwerk.Cuser);
 		sap.ui.getCore().setModel(oLocalModel);
 	    
 	},
@@ -297,6 +301,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		}
 		oLocalModelQuery4.setProperty("/UpdateLog","UpdateLog");
 		sap.ui.getCore().setModel(oLocalModelQuery4);
+	},
+	onQuChuUser:function(){
+	    return {Cuser:"zhang3",Iwerk:"2081"};
 	}
 	
 });
