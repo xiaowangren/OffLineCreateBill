@@ -286,7 +286,7 @@
 		                    <c:TextView text="备注"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell colSpan="3">
-		                    <c:TextArea value="{newCaoZuoPiaoCreate>Znote}" rows="4" cols="150" id="dianQiBeiZhu"></c:TextArea>
+		                    <c:TextArea value="{newCaoZuoPiaoCreate>/Znote}" rows="4" cols="150" id="dianQiBeiZhu"></c:TextArea>
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>

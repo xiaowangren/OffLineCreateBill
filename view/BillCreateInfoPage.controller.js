@@ -50,6 +50,92 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             }
         }
         console.log(newCaoZuoPiao);
+        //处理各操作项
+        var queryModel3 = new sap.ui.model.json.JSONModel();
+
+        //填写部门
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00229")) {
+			var oData3 = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229");
+			var aFilter3 = [];
+			for(var m=0;m<oData3.length;m++){
+			    if(oData3[m].Werks==newCaoZuoPiaoCreate.Iwerk){
+			        aFilter3.push(oData3[m]);
+			    }
+			}
+		    queryModel3.setProperty("/tianxieBuMenQuery3",aFilter3);
+		}
+		//班组
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00283")) {
+			var oData2 = oStorage.get("ZPMOFFLINE_SRV.ZPMT00283");
+			var aFilter2 = [];
+			for(var q=0;q<oData2.length;q++){
+			    if(oData2[q].Werks==newCaoZuoPiaoCreate.Iwerk){
+			        aFilter2.push(oData2[q]);
+			    }
+			}
+		    queryModel3.setProperty("/banZuQuery3",aFilter2);
+		}
+		//运行区域
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00227")) {
+			var oData1 = oStorage.get("ZPMOFFLINE_SRV.ZPMT00227");
+			var aFilter = [];
+			for(var w=0;w<oData1.length;w++){
+			    if(oData1[w].Werks==newCaoZuoPiaoCreate.Iwerk){
+			        aFilter.push(oData1[w]);
+			    }
+			}
+		    queryModel3.setProperty("/yunXingQuYuQuery3",aFilter);
+		}
+		//机组
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMV00005")) {
+			var oData4 = oStorage.get("ZPMOFFLINE_SRV.ZPMV00005");
+			var aFilter4 = [];
+			for(var n=0;n<oData4.length;n++){
+			    if(oData4[n].Werks==newCaoZuoPiaoCreate.Iwerk){
+			        aFilter4.push(oData4[n]);
+			    }
+			}
+		    queryModel3.setProperty("/jiZuQuery3",aFilter4);
+		}
+		//值别
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00204")) {
+			var oData = oStorage.get("ZPMOFFLINE_SRV.ZPMT00204");
+			queryModel3.setProperty("/ZhiBieQuery3",oData);
+		}
+		//工厂
+		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
+			var oData5 = oStorage.get("ZPMOFFLINE_SRV.WERKS");
+			queryModel3.setProperty("/WERKSQuery3",oData5);
+		}
+		//标题
+		var Ztype = newCaoZuoPiaoCreate.Ztype;
+  	    var ZtypeBiaoTi="";
+		if(Ztype=="DQ"){
+		    ZtypeBiaoTi = "电气操作票";
+		}
+		if(Ztype=="GL"){
+		    ZtypeBiaoTi = "锅炉操作票";
+		}
+		if(Ztype=="HB"){
+		    ZtypeBiaoTi = "环保操作票";
+		}
+		if(Ztype=="HX"){
+		    ZtypeBiaoTi = "化学操作票";
+		}
+		if(Ztype=="QJ"){
+		    ZtypeBiaoTi = "汽机操作票";
+		}
+		if(Ztype=="RK"){
+		    ZtypeBiaoTi = "热控操作票";
+		}
+		if(Ztype=="RL"){
+		    ZtypeBiaoTi = "燃料操作票";
+		}
+		if(Ztype=="ZS"){
+		    ZtypeBiaoTi = "典型操作票";
+		}
+		queryModel3.setProperty("/biaoTi",ZtypeBiaoTi);
+		sap.ui.getCore().setModel(queryModel3);
         newCaoZuoPiao.InfoTab=tableData;
         newCaoZuoPiao.DangerousTab=dangerousPointData;
         var oModel = new sap.ui.model.json.JSONModel(newCaoZuoPiao);
