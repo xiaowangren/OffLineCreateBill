@@ -127,7 +127,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		//Storage  
 		jQuery.sap.require("jquery.sap.storage");
 		jQuery.sap.require("sap.m.MessageBox");
-		
+		jQuery.sap.require("sap.m.MessageToast");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		//Check if there is data into the Storage
 		if (oStorage.get("ZPMOFFLINE_SRV.BillInfos")) {
@@ -138,9 +138,14 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			var oData = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
 // 			var oUploadModel = new sap.ui.model.json.JSONModel();
 // 			oUploadModel.setData(oData);
+            var uploadCount = 0;
 			for(var i=0;i<oData.length;i++){
+			    if(oData[i]["statusText"] == "Created"){
+			        continue;
+			    }
+			    uploadCount = uploadCount + 1;
 			    var payLoad = oData[i];
-			    delete payLoad["Zczph"];
+			 //   delete payLoad["Zczph"];
 			    delete payLoad["Cdata"];
 			    delete payLoad["Estxt"];
 			    delete payLoad["Name1"];
@@ -153,30 +158,42 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			    delete payLoad["Rareadec"];
 			    delete payLoad["Untxt"];
 			    delete payLoad["Dutxt"];
-			    
 			    var createOp = oECCModel.createBatchOperation("/ZPMTOPERSet","POST",payLoad);
 			    oECCModel.addBatchChangeOperations([createOp]);
+			}
+			if(uploadCount == 0){
+                sap.m.MessageToast.show("没有需要上传的数据");
+                return;
 			}
 		    oECCModel.submitBatch(
                 function(data, response) {
                     // sap.ui.getCore().byId("idSplitApp").app.backToPage("idPersonInfo");
                     // this.initializeData();
-                    console.log("success data： ");
-                    console.log(data);
-                    console.log("success response： ");
-                    console.log(response);
-                    // for(var i=0;i<oData.length;i++){
-                        
-                        
-                    //     // oData[i].Zczph = 
-                    
-                    // }
-                    jQuery.sap.require("sap.m.MessageToast");
+                    // console.log("success data： ");
+                    // console.log(data);
+                    // console.log("success response： ");
+                    // console.log(response);
+                    for(var i=0;i<data.__batchResponses.length;i++){
+                        var respData = data.__batchResponses[i];
+                        var l_zczph = respData.__changeResponses[0].data.Zczph;
+                        var l_zzzczph = respData.__changeResponses[0].data.Zlybnum;
+                        // oData[i].Zczph = 
+                        //更新返回状态到oStorage
+                        for(var j=0;j<oData.length;j++){
+                            if(oData[j].Zczph == l_zczph){
+                                oData[j]["statusText"] = respData.__changeResponses[0].statusText;
+                                oData[j]["Zlybnum"] = l_zzzczph;
+                            }
+                        }
+                    }
+                    // console.log("Updated data： ");
+                    // console.log(oData);
+                    oStorage.put("ZPMOFFLINE_SRV.BillInfos",oData);
                     sap.m.MessageToast.show("操作票上传成功");
                 }, 
                 function(data) {
                     sap.m.MessageToast.show("操作票上传失败");
-                    console.log("操作票上传失败");
+                    // console.log("操作票上传失败");
                     // console.log(data);
                 },
                 false
