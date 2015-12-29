@@ -24,12 +24,12 @@
 					<lay:MatrixLayout width="70%" widths="20%,5%,25%,5%,10%,5%,25%">
 					    <lay:MatrixLayoutRow>
 					       <lay:MatrixLayoutCell>
-					            <Button text="返回上一页" press="onFanHui"></Button>
+					            <c:Button text="返回上一页" press="onFanHui"></c:Button>
 					       </lay:MatrixLayoutCell>
 					       <lay:MatrixLayoutCell>
 					       </lay:MatrixLayoutCell>
 					       <lay:MatrixLayoutCell>
-					       		<Button text="执行" press="onCaoZuoPiaoQuery2"></Button>
+					       		<c:Button text="执行" press="onCaoZuoPiaoQuery2"></c:Button>
 					       </lay:MatrixLayoutCell>
 					    </lay:MatrixLayoutRow>
 					    <lay:MatrixLayoutRow>
