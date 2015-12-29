@@ -6,16 +6,16 @@
 	xmlns:t="sap.ui.table"
 	xmlns="sap.m" controllerName="com.zhenergy.bill.view.BillDetailQueryInfoPage" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page title="显示{newBillDetailQueryInfoPage>/Ztypedes}">
+	<Page title="显示{/biaoTi}">
 		<content>
 		<l:VerticalLayout class="BillCreateInfoPage_page_content_VerticalLayout">
 		        <lay:MatrixLayout width="40%" widths="20%,25%,25%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1">
 		            <lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutCell>
-		                    <c:Button text="预览操作票" press="onPrintBillInfo"></c:Button>
+		                    <c:Button text="打印操作票" press="onPrintBillInfo"></c:Button>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:Button text="预览危险点" press="onPrintDangerousPoint"></c:Button>
+		                    <c:Button text="打印危险点" press="onPrintDangerousPoint"></c:Button>
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>
@@ -31,7 +31,10 @@
 		                    <c:TextView text="工厂"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="{newBillDetailQueryInfoPage>/Iwerk} {newBillDetailQueryInfoPage>/Name1}" width="95%" id="dianQiGongChang3" editable="false" tooltip="{/dianQiGongChang}"></c:TextField>
+		                    <c:ComboBox id="dianQiGongChang3" items="{ path: '/WERKSQuery3'}" width="95%" selectedKey="{newBillDetailQueryInfoPage>/Iwerk}" editable="false" tooltip="{newBillDetailQueryInfoPage>/Name1}">
+								<core:ListItem key="{Iwerk}" text="{Iwerk} {Name1}"></core:ListItem>
+							</c:ComboBox>
+		                    <!--<c:TextField value="{newBillDetailQueryInfoPage>/Iwerk} {newBillDetailQueryInfoPage>/Name1}" width="95%" id="dianQiGongChang3" editable="false" tooltip="{/dianQiGongChang}"></c:TextField>-->
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="填写部门"></c:TextView>
@@ -57,7 +60,19 @@
 		                    <c:TextView text="类型"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="{newBillDetailQueryInfoPage>/Ztype} {newBillDetailQueryInfoPage>/Ztypedes}" width="95%" id="dianQiLeiXing3" editable="false" tooltip="{/dianQiLeiXing} {/dianQiLeiXingValue}"></c:TextField>
+		                    <c:ComboBox id="dianQiLeiXing3"  width="95%" selectedKey="{newBillDetailQueryInfoPage>/Ztype}" editable="false" >
+								<c:items>
+									<core:ListItem key="DQ" text="DQ 电气操作票"></core:ListItem>
+									<core:ListItem key="GL" text="GL 锅炉操作票"></core:ListItem>
+									<core:ListItem key="HB" text="HB 环保操作票"></core:ListItem>
+									<core:ListItem key="HX" text="HX 化学操作票"></core:ListItem>
+									<core:ListItem key="QJ" text="QJ 汽机操作票"></core:ListItem>
+									<core:ListItem key="RK" text="RK 热控操作票"></core:ListItem>
+									<core:ListItem key="RL" text="RL 燃料操作票"></core:ListItem>
+									<core:ListItem key="ZS" text="ZS 典型操作票"></core:ListItem>
+								</c:items>
+							</c:ComboBox>
+		                    <!--<c:TextField value="{newBillDetailQueryInfoPage>/Ztype} {newBillDetailQueryInfoPage>/Ztypedes}" width="95%" id="dianQiLeiXing3" editable="false" tooltip="{/dianQiLeiXing} {/dianQiLeiXingValue}"></c:TextField>-->
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="操作类型"></c:TextView>
@@ -128,7 +143,8 @@
 		                    <c:TextView text="状态"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="{newBillDetailQueryInfoPage>/Estat} {newBillDetailQueryInfoPage>/Estxt}" width="95%" id="dianQiZhuangTai3" editable="false"></c:TextField>
+		                    <c:TextField value="10 拟票" width="95%" editable="false"></c:TextField>
+		                    <c:TextField value="{newBillDetailQueryInfoPage>/Estat} " width="95%" id="dianQiZhuangTai3" editable="false" visible="false"></c:TextField>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutCell>
