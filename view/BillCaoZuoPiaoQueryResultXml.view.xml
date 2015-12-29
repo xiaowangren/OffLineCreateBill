@@ -7,7 +7,7 @@
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<m:Page title="操作票查询:共{/queryResultModelCount}张，查询日期:{/queryResultModelDate}">
 		<m:content>
-		    <m:Button text = "返回主页" press="onFanHui"></m:Button>
+		    <c:Button text = "返回首页" press="onFanHui"></c:Button>
 		    <m:Button text = "{/BiaoJi}" id="idBiaoZhiCaoZuoPiaoQuery" visible="false"></m:Button>
 		    <m:Button text = "{/UpdateLog2}" id="idUpdateLog2" visible="false"></m:Button>
 		    <m:Button text = "{/queryGongChang}" id="queryGongChang" visible="false"></m:Button>

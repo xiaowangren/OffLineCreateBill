@@ -8,7 +8,7 @@
 					    <lay:MatrixLayoutCell>
 						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
-							<c:Button press="onFanHui" text="返回主页"></c:Button>
+							<c:Button press="onFanHui" text="返回首页"></c:Button>
 						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
 							<c:Button press="onExecute" text="执行"></c:Button>
@@ -26,7 +26,8 @@
 							<c:TextView text="工厂"></c:TextView>
 						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
-							<c:ComboBox id="idWerksSelect" items="{ path: '/WERKS', sorter: { path: 'Iwerk' } }" width="50%">
+						    <c:TextField value="{/User}" visible="false" id="idUser"></c:TextField>
+							<c:ComboBox id="idWerksSelect" items="{ path: '/WERKS', sorter: { path: 'Iwerk' } }" width="64%" selectedKey="{/Iwerk}" editable="false">
 								<core:ListItem key="{Iwerk}" text="{Iwerk} {Name1}"></core:ListItem>
 							</c:ComboBox>
 						</lay:MatrixLayoutCell>

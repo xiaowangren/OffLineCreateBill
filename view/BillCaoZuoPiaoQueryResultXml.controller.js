@@ -68,8 +68,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
 			var oData5 = oStorage.get("ZPMOFFLINE_SRV.WERKS");
 			queryModel3.setProperty("/WERKSQuery3",oData5);
 		}
-		
-        
   	    var datas = "";
   	    if(data.DangerousTab==undefined){
   	        data.Werks = queryGongChang;
@@ -142,7 +140,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
 		for(var m=0;m<DangerousTabLength;m++){
 		    DangerousTabNew.push(DangerousTab[m]);
 		}
-		for(var n=0;n<150-DangerousTabLength;n++){
+		for(var n=0;n<250-DangerousTabLength;n++){
 		    DangerousTabNew.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
 		}
 		data.DangerousTab=DangerousTabNew;
@@ -155,7 +153,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
 		for(var j=0;j<InfoTabLength;j++){
 		    InfoDataNew.push(InfoTab[j]);
 		}
-		for(var i=0;i<150-InfoTabLength;i++){
+		for(var i=0;i<250-InfoTabLength;i++){
 		    InfoDataNew.push({Zxh:"",Zcznr:"",Zzysx:""});
 		}
 		data.InfoTab.results=InfoDataNew;
@@ -175,7 +173,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
         if (day.length == 1) { 
             day = "0" + day; 
         } 
-        var Begda = year+"年" + month +"月"+  day +"日";
+        var Begda = year+"-" + month +"-"+  day;
         var payLoad ={
             Zczph:"",//ZCZPH
             Estat:10,//ESTAT

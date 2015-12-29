@@ -9,8 +9,11 @@
 	<Page title="创建{/biaoTi}">
 		<content>
 		<l:VerticalLayout class="BillCreateInfoPage_page_content_VerticalLayout">
-		        <lay:MatrixLayout width="40%" widths="20%,25%,25%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1">
+		        <lay:MatrixLayout width="60%" widths="20%,20%,20%,25%,25%" >
 		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                    <c:Button text="返回首页" press="onFanHui"></c:Button>
+		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:Button text="保存" press="onCreateBillInfo"></c:Button>
 		                </lay:MatrixLayoutCell>
@@ -150,8 +153,16 @@
 		                    <c:TextView text="状态"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="10 拟票" width="95%" editable="false"></c:TextField>
-		                    <c:TextField value="{newCaoZuoPiaoUpdateMuBan>/Estat} " width="95%" id="dianQiZhuangTai4" editable="false" visible="false"></c:TextField>
+		                    <!--<c:TextField value="10 拟票" width="95%" editable="false"></c:TextField>-->
+		                    <!--<c:TextField value="{newCaoZuoPiaoUpdateMuBan>/Estat} " width="95%" id="dianQiZhuangTai4" editable="false" visible="false"></c:TextField>-->
+		                    <c:ComboBox width="95%" id="dianQiZhuangTai4"  selectedKey="{newCaoZuoPiaoUpdateMuBan>/Estat}" editable="false">
+    		                        <c:items>
+                                        <core:ListItem text="10 拟票" key="10"></core:ListItem>
+                                        <core:ListItem text="20 待上传" key="20"></core:ListItem>
+                                        <core:ListItem text="30 已上传" key="30"></core:ListItem>
+                                    </c:items>
+		                    </c:ComboBox>
+		                    
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutCell>

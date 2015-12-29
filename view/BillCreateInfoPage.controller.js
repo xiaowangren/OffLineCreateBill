@@ -1,17 +1,150 @@
 sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
+    onFanHui:function(){
+        sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage");
+    },
     onSubmitBillInfo:function(){
-        var payLoad = this.collectData();
+        // var payLoad = this.collectData();
+        
+        var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
+        var tableData = newCaoZuoPiaoCreate.InfoTab;
+        var BillInfoNew =[];
+        for(var i=0;i<tableData.length;i++){
+            if((tableData[i].Zzysx.trim()=="")&&(tableData[i].Zxh.trim()=="")&&(tableData[i].Zcznr.trim()=="")){
+            }else{
+                BillInfoNew.push(tableData[i]); 
+            }
+        }
+        newCaoZuoPiaoCreate.InfoTab = BillInfoNew;
+        var dangerousPointData = newCaoZuoPiaoCreate.DangerousTab;
+        var dangerousPointDataNew = [];
+        for(var j=0;j<dangerousPointData.length;j++){
+            if((dangerousPointData[j].Dangno.trim()=="")&&(dangerousPointData[j].Zztext.trim()=="")
+                &&(dangerousPointData[j].Zzremark.trim()=="")&&(dangerousPointData[j].Zzpltxt.trim()=="")){
+            }else{
+                dangerousPointDataNew.push(dangerousPointData[j]); 
+            }
+        }
+        newCaoZuoPiaoCreate.DangerousTab=dangerousPointDataNew;
+        //生成操作票号
+        var LiuShuiId = this.uuid(8,10);
+        var Zczph = "CZP"+newCaoZuoPiaoCreate.Iwerk+LiuShuiId;
+        newCaoZuoPiaoCreate.Zczph = Zczph;
+        //存入缓存
         jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var getStorage = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
         if(getStorage){
-            getStorage.push(payLoad);
+            getStorage.push(newCaoZuoPiaoCreate);
             oStorage.put("ZPMOFFLINE_SRV.BillInfos",getStorage);
         }else{
             var dainQiBillIn = [];
-            dainQiBillIn.push(payLoad);
+            dainQiBillIn.push(newCaoZuoPiaoCreate);
             oStorage.put("ZPMOFFLINE_SRV.BillInfos",dainQiBillIn);
         }
+        
+        //根据票号查
+        var getStorageNew = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
+        var newCaoZuoPiao = "";
+        if(getStorageNew){
+            for(var x=0;x<getStorageNew.length;x++){
+                if(getStorageNew[x].Zczph==Zczph){
+                    newCaoZuoPiao = getStorageNew[x];
+                }
+            }
+        }
+        //处理各操作项
+        var queryModel3 = new sap.ui.model.json.JSONModel();
+
+        //填写部门
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00229")) {
+			var oData3 = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229");
+			var aFilter3 = [];
+			for(var m=0;m<oData3.length;m++){
+			    if(oData3[m].Werks==newCaoZuoPiaoCreate.Iwerk){
+			        aFilter3.push(oData3[m]);
+			    }
+			}
+		    queryModel3.setProperty("/tianxieBuMenQuery3",aFilter3);
+		}
+		//班组
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00283")) {
+			var oData2 = oStorage.get("ZPMOFFLINE_SRV.ZPMT00283");
+			var aFilter2 = [];
+			for(var q=0;q<oData2.length;q++){
+			    if(oData2[q].Werks==newCaoZuoPiaoCreate.Iwerk){
+			        aFilter2.push(oData2[q]);
+			    }
+			}
+		    queryModel3.setProperty("/banZuQuery3",aFilter2);
+		}
+		//运行区域
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00227")) {
+			var oData1 = oStorage.get("ZPMOFFLINE_SRV.ZPMT00227");
+			var aFilter = [];
+			for(var w=0;w<oData1.length;w++){
+			    if(oData1[w].Werks==newCaoZuoPiaoCreate.Iwerk){
+			        aFilter.push(oData1[w]);
+			    }
+			}
+		    queryModel3.setProperty("/yunXingQuYuQuery3",aFilter);
+		}
+		//机组
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMV00005")) {
+			var oData4 = oStorage.get("ZPMOFFLINE_SRV.ZPMV00005");
+			var aFilter4 = [];
+			for(var n=0;n<oData4.length;n++){
+			    if(oData4[n].Werks==newCaoZuoPiaoCreate.Iwerk){
+			        aFilter4.push(oData4[n]);
+			    }
+			}
+		    queryModel3.setProperty("/jiZuQuery3",aFilter4);
+		}
+		//值别
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00204")) {
+			var oData = oStorage.get("ZPMOFFLINE_SRV.ZPMT00204");
+			queryModel3.setProperty("/ZhiBieQuery3",oData);
+		}
+		//工厂
+		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
+			var oData5 = oStorage.get("ZPMOFFLINE_SRV.WERKS");
+			queryModel3.setProperty("/WERKSQuery3",oData5);
+		}
+		//标题
+		var Ztype = newCaoZuoPiaoCreate.Ztype;
+  	    var ZtypeBiaoTi="";
+		if(Ztype=="DQ"){
+		    ZtypeBiaoTi = "电气操作票";
+		}
+		if(Ztype=="GL"){
+		    ZtypeBiaoTi = "锅炉操作票";
+		}
+		if(Ztype=="HB"){
+		    ZtypeBiaoTi = "环保操作票";
+		}
+		if(Ztype=="HX"){
+		    ZtypeBiaoTi = "化学操作票";
+		}
+		if(Ztype=="QJ"){
+		    ZtypeBiaoTi = "汽机操作票";
+		}
+		if(Ztype=="RK"){
+		    ZtypeBiaoTi = "热控操作票";
+		}
+		if(Ztype=="RL"){
+		    ZtypeBiaoTi = "燃料操作票";
+		}
+		if(Ztype=="ZS"){
+		    ZtypeBiaoTi = "典型操作票";
+		}
+		queryModel3.setProperty("/biaoTi",ZtypeBiaoTi);
+		sap.ui.getCore().setModel(queryModel3);
+        newCaoZuoPiao.InfoTab=tableData;
+        newCaoZuoPiao.DangerousTab=dangerousPointData;
+        var oModel = new sap.ui.model.json.JSONModel(newCaoZuoPiao);
+        sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", newCaoZuoPiao);
+    	var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
+		page.setModel(oModel,"newBillDetailUpdateInfoPage");
+        sap.m.MessageBox.alert("保存成功");
     },
     //收集桌面数据
     collectData:function(){
