@@ -24,7 +24,7 @@
 					<lay:MatrixLayout width="70%" widths="20%,5%,25%,5%,10%,5%,25%">
 					    <lay:MatrixLayoutRow>
 					       <lay:MatrixLayoutCell>
-					            <c:Button text="返回上一页" press="onFanHui"></c:Button>
+					            <c:Button text="返回首页" press="onFanHui"></c:Button>
 					       </lay:MatrixLayoutCell>
 					       <lay:MatrixLayoutCell>
 					       </lay:MatrixLayoutCell>
