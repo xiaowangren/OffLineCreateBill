@@ -106,6 +106,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery2", {
 			var oData = oStorage.get("ZPMOFFLINE_SRV.ZPMT00204");
 			queryResultModel.setProperty("/ZhiBieQuery3",oData);
 		}
+		console.log(aFilter[0]);
         //跳转至查询结果页面
         queryResultModel.setProperty("/queryResultModel",aFilter);
         queryResultModel.setProperty("/queryResultModelCount",aFilter.length);
