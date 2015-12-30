@@ -1,6 +1,6 @@
 sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	onSyncMasterData: function() {
-		// //配置服务器
+		//配置服务器
 		var sServiceUrl = "/sap/opu/odata/SAP/ZPMOFFLINE_SRV";
 		var oECCModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
 		sap.ui.getCore().setModel(oECCModel);
@@ -9,7 +9,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		jQuery.sap.require("sap.m.MessageBox");
-		var gCurrentModel;
+
         //定义Read方法的执行方法
 		var mParameters = {};
  		mParameters['async'] = false;
@@ -19,38 +19,28 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			console.log(oJsonModel.getData().results[0].__metadata.type + "主数据已报存");
 		}, this);
 		mParameters['error'] = jQuery.proxy(function(data) {
-		    console.log(gCurrentModel + "read 失败");
+		    console.log("Read 失败");
 		}, this);
         //取数
         //工厂
-        gCurrentModel="WERKS";
 		oECCModel.read("/WERKSSet", mParameters);
 		//两票类型
-        gCurrentModel="TicketType";
 		oECCModel.read("/TicketTypeSet", mParameters);
 		//值别
-        gCurrentModel="ZPMT00204"; 
 		oECCModel.read("/ZPMT00204Set", mParameters);
 		//运行区域
-        gCurrentModel="ZPMT00227"; 
 		oECCModel.read("/ZPMT00227Set", mParameters);
 		//工作票班组
-        gCurrentModel="ZPMT00228"; 
 		oECCModel.read("/ZPMT00228Set", mParameters);
 		//申请部门
-        gCurrentModel="ZPMT00229"; 
 		oECCModel.read("/ZPMT00229Set", mParameters);
 		//工作票单位
-        gCurrentModel="ZPMT00229C"; 
 		oECCModel.read("/ZPMT00229CSet", mParameters);
 		//工作票检修专业
-        gCurrentModel="ZPMT00230"; 
 		oECCModel.read("/ZPMT00230Set", mParameters);
 		//操作票班组
-        gCurrentModel="ZPMT00283"; 
 		oECCModel.read("/ZPMT00283Set", mParameters);
 		//机组配置表
-        gCurrentModel="ZPMV00005"; 
 		oECCModel.read("/ZPMV00005Set", mParameters);
 		//同步典型票  每次200条
 		this.onSyncZS(200, 1800);
