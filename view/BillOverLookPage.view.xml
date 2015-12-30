@@ -7,6 +7,7 @@
 		showHeader="true"
 		enableScrolling="false" >
 		<!--tiles="{/TileCollection}"-->
+						<!--info="最近更新:12.15 16:00"-->
 		<TileContainer
 			id="container"
 			tileDelete="handleTileDelete"
@@ -16,7 +17,7 @@
 			    id="tileSync"
 				icon="sap-icon://inbox"
 				title="同步主数据"
-				info="最近更新:12.15 16:00"
+				info="最近更新:{/lastSyncLog}"
 				infoState="Success"
 				press="onSyncMasterData"
 				/>
@@ -53,12 +54,14 @@
 					</core:CustomData>
 				</customData>
 			</StandardTile>
+			<!--info="最近上传:12.15 16:00"-->
 			<StandardTile
 			    id="tileUpload"
 				icon="sap-icon://hint"
 				type="Monitor"
 				title="上传离线数据"
-				info="最近上传:12.15 16:00"
+				
+				info="最近上传:{/lastUpload}"
 				infoState="Success"
 				press="onUploadToEcc"
 				/>
