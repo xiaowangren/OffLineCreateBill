@@ -64,6 +64,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		this.onReadLogDate();
 	},
 	onSyncZS: function(p_top, p_skip) {
+	    //调用ECC Odata Service的model
 		var oECCModel = sap.ui.getCore().getModel();
 		//Storage  
 		jQuery.sap.require("jquery.sap.storage");
@@ -75,7 +76,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			//取返回的data
 			var oJsonModel = new sap.ui.model.json.JSONModel(oData);
 			var rawData = oJsonModel.getData().results;
-// 			var newData = [rawData.length];
+			//清理rawData,降低存储大小
 			if(rawData.length > 0){
 			    for(var i=0;i<rawData.length;i++){
 			        delete rawData[i]["__metadata"];
@@ -83,44 +84,41 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			        for(var j=0;j<rawData[i].InfoTab.results.length;j++){
 			           delete rawData[i].InfoTab.results[j]["__metadata"];
 			        }
-			     //   console.log(rawData[i]);
 			    }
 			}
-            
+            //数据没有保存到storage前保存在view的model中，取出来然后继续添加，如果第一次，新建model
 			var oOperModel = this.getView().getModel("/ZPMTOPERSet");
-			if (oJsonModel.getData().results.length > 0) {
+			if (rawData.length > 0) {
 				if (oOperModel) {
 					//从view module中取暂存的数组
 					var oOperData = oOperModel.getData();
-				// 	oOperData = oOperData.concat(oJsonModel.getData().results);
 				    oOperData = oOperData.concat(rawData);
 					oOperModel.setData(oOperData);
-					console.log("Collection.concat");
-					console.log(oOperData.length);
+				// 	console.log("Collection.concat");
+				// 	console.log(oOperData.length);
 				} else {
 					//oOperModel 为空 新建JsonModule 增加到view中
 					oOperModel = new sap.ui.model.json.JSONModel();
-				// 	var oOperData = oJsonModel.getData().results;
 				    var oOperData = rawData;
 					oOperModel.setData(oOperData);
 					this.getView().setModel(oOperModel, "/ZPMTOPERSet");
-					console.log("this.getView().setModel(oOperModel,'/ZPMTOPERSet')");
+				// 	console.log("新建view model：/ZPMTOPERSet ");
 				}
-				console.log("ZPMOFFLINE_SRV.ZPMTOPER" + "主数据已报存" + p_skip);
+				// console.log("ZPMOFFLINE_SRV.ZPMTOPER" + "主数据已报存" + p_skip);
+				//递归调用
 				this.onSyncZS(p_top, p_skip + p_top);
 			} else {
+			    //没有后续数据的时候，统一写入Storage
 				oStorage.put("ZPMOFFLINE_SRV.ZPMTOPER", oOperModel.getData());
-				console.log(oOperModel.getData());
-				//没有后续数据的时候，统一写入Storage
-				console.log("Storage put success" + oOperModel.getData().length);
-				console.log(oOperModel.getData());
+				// console.log(oOperModel.getData());
+				console.log("ZPMOFFLINE_SRV.ZPMTOPER" + "典型票已报存：" +  oOperModel.getData().length);
 			}
 		}, this);
 		mParameters['error'] = jQuery.proxy(function(data) {
 			var oJsonModel = new sap.ui.model.json.JSONModel(data);
 			console.log("Read /ZPMTOPERSet?$expand=InfoTab 调用失败");
 		}, this);
-        //调用请求，递归调用
+        //调用请求
 		oECCModel.read("/ZPMTOPERSet?$expand=InfoTab&$top=" + p_top + "&$skip=" + p_skip, mParameters);
 	},
 	onUploadToEcc: function(){
