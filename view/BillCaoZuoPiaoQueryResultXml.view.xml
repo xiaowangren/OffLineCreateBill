@@ -36,7 +36,7 @@
 							<c:ComboBox width="95%" selectedKey="{Estat}" editable="false">
 								<c:items>
 									<core:ListItem key="10" text="拟票"></core:ListItem>
-									<core:ListItem key="20" text="待上传"></core:ListItem>
+									<core:ListItem key="25" text="生产领导已批准"></core:ListItem>
 									<core:ListItem key="30" text="已上传"></core:ListItem>
 								</c:items>
 							</c:ComboBox>
@@ -177,7 +177,7 @@
 						<template>
         					<c:ComboBox width="95%" selectedKey="{statusText}" editable="false">
                                 <c:items>
-                                    <core:ListItem text="未上传" key=""></core:ListItem>
+                                    <core:ListItem text="未上传" key="unCreated"></core:ListItem>
                                     <core:ListItem text="已上传" key="Created"></core:ListItem>
                                 </c:items>
                             </c:ComboBox>

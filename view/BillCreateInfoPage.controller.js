@@ -6,6 +6,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         // var payLoad = this.collectData();
         
         var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
+        console.log(newCaoZuoPiaoCreate);
         var tableData = newCaoZuoPiaoCreate.InfoTab;
         var BillInfoNew =[];
         for(var i=0;i<tableData.length;i++){
@@ -253,17 +254,19 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             Znote:dianQiBeiZhu,//ZNOTE备注
             Yxgroup:dianQiBanZu,//YXGROUP运行班组编码
             Prfty:dianQiZhuanYe,//专业
-            Estxt:EstatValue,//状态value
-            Name1:gongChangValue,
-            Ztypedes:leiXingValue,
-            Appdepdec:buMenValue,
-            Yxgroupdec:dianQiBanZuValue,//班组Value
-            OtypeValue:CaozuoLeiXingValue,//操作类型value
-            ZczfsValue:CaoZuoXingZhiValue,//操作性质value
-            Prtxt:ZhuanYesValue,//专业Value
-            Rareadec:YunXingQuYuValue,//运行区域value
-            Untxt:dianQiJiZuValue,//机组Value
-            Dutxt:dianQiZhiBieValue,//值别Value
+            statusText:"unCreated",
+            Zlybnum:"",
+            // Estxt:EstatValue,//状态value
+            // Name1:gongChangValue,
+            // Ztypedes:leiXingValue,
+            // Appdepdec:buMenValue,
+            // Yxgroupdec:dianQiBanZuValue,//班组Value
+            // OtypeValue:CaozuoLeiXingValue,//操作类型value
+            // ZczfsValue:CaoZuoXingZhiValue,//操作性质value
+            // Prtxt:ZhuanYesValue,//专业Value
+            // Rareadec:YunXingQuYuValue,//运行区域value
+            // Untxt:dianQiJiZuValue,//机组Value
+            // Dutxt:dianQiZhiBieValue,//值别Value
             InfoTab:tableDataNew,//InfoTab
             DangerousTab:dangerousPointDataNew//危险点分析
         };
