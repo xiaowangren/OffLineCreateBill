@@ -154,7 +154,7 @@
            <!--             			displayFormat="yyyy-MM-dd"-->
            <!--             			valueFormat="yyyy-MM-dd"-->
            <!--             			 id="kaiPiaoRiQiQuery2" />-->
-                                <c:DatePicker width="95%" id="kaiPiaoRiQiQuery2" ></c:DatePicker>
+                                <c:DatePicker width="95%" id="kaiPiaoRiQiQuery2" locale="zh-CN"></c:DatePicker><!--en-US-->
     		                </lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutRow>
