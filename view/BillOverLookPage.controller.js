@@ -134,19 +134,12 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			    }
 			    uploadCount = uploadCount + 1;
 			    var payLoad = oData[i];
-			 //   delete payLoad["Zczph"];
-			    delete payLoad["Cdata"];
-			    delete payLoad["Estxt"];
-			    delete payLoad["Name1"];
-			    delete payLoad["Ztypedes"];
-			    delete payLoad["Appdepdec"];
-			    delete payLoad["Yxgroupdec"];
-			    delete payLoad["OtypeValue"];
-			    delete payLoad["ZczfsValue"];
-			    delete payLoad["Prtxt"];
-			    delete payLoad["Rareadec"];
-			    delete payLoad["Untxt"];
-			    delete payLoad["Dutxt"];
+			    console.log(payLoad);
+			    //delete payLoad["Zczph"];         //删除json中的字段
+			    //payLoad.Cdata = "2015-12-30";
+			    var tmpDate = payLoad.Cdata;
+			    payLoad.Cdata = tmpDate.substring(0,4) + tmpDate.substring(5,7) + tmpDate.substring(8,10);
+                //添加创建请求
 			    var createOp = oECCModel.createBatchOperation("/ZPMTOPERSet","POST",payLoad);
 			    oECCModel.addBatchChangeOperations([createOp]);
 			}
@@ -159,9 +152,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
                     // sap.ui.getCore().byId("idSplitApp").app.backToPage("idPersonInfo");
                     // this.initializeData();
                     // console.log("success data： ");
-                    // console.log(data);
+                     console.log(data);
                     // console.log("success response： ");
-                    // console.log(response);
+                     console.log(response);
                     for(var i=0;i<data.__batchResponses.length;i++){
                         var respData = data.__batchResponses[i];
                         var l_zczph = respData.__changeResponses[0].data.Zczph;
@@ -186,8 +179,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
                 }, 
                 function(data) {
                     sap.m.MessageToast.show("操作票上传失败");
-                    // console.log("操作票上传失败");
-                    // console.log(data);
                 },
                 false
             );
@@ -374,6 +365,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 
 		var oJsonModel = new sap.ui.model.json.JSONModel(oData);
 		this.getView().setModel(oJsonModel);
+	},
+	handleSelectWerks:function(){
+	    
+	    
+	    
 	}
 
 	

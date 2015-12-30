@@ -103,6 +103,7 @@
 			<Toolbar>
 				<ToolbarSpacer/>
 					<Button text="Print" press="handlePrintPress" />
+					<Button text="设定工厂" press="handleSelectWerks" />
 				<ToolbarSpacer/>
 			</Toolbar>
 		</footer>
