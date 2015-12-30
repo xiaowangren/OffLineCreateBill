@@ -12,6 +12,7 @@
 		    <m:Button text = "{/UpdateLog2}" id="idUpdateLog2" visible="false"></m:Button>
 		    <m:Button text = "{/queryGongChang}" id="queryGongChang" visible="false"></m:Button>
 		    <m:Button text = "{/queryLeiXing}" id="queryLeiXing" visible="false"></m:Button>
+		    <m:Button text = "{/idUser}" id="idUser3" visible="false"></m:Button>
 		    <Table
                 id="caoZuoPiaoQueryResult"
                 visibleRowCount="10"
@@ -24,6 +25,29 @@
 						<m:Label text="操作票号" />
 						<template>
 							<m:Text text="{Zczph}" tooltip="{Zczph}"/>
+						</template>
+					</Column>
+			</columns>
+			<columns>
+					<Column width="11rem">
+						<m:Label text="状态" />
+						<template>
+							<!--<m:Text text="{Estat}" tooltip="{Estat}"/>-->
+							<c:ComboBox width="95%" selectedKey="{Estat}" editable="false">
+								<c:items>
+									<core:ListItem key="10" text="拟票"></core:ListItem>
+									<core:ListItem key="20" text="待上传"></core:ListItem>
+									<core:ListItem key="30" text="已上传"></core:ListItem>
+								</c:items>
+							</c:ComboBox>
+						</template>
+					</Column>
+			</columns>
+			<columns>
+					<Column width="30rem">
+						<m:Label text="操作任务" />
+						<template>
+							<m:Text text="{Ztask}" tooltip="{Ztask}"/>
 						</template>
 					</Column>
 			</columns>

@@ -9,6 +9,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
  	    var idUpdateLog2 = this.getView().byId("idUpdateLog2").getText();
  	    var queryGongChang = this.getView().byId("queryGongChang").getText();
  	    var queryLeiXing = this.getView().byId("queryLeiXing").getText();
+ 	    var idUser3 = this.getView().byId("idUser3").getText();
  	    var model = table.getModel(); 
  	    var data  = model.getProperty(rowContext.sPath);
  	    var Iwerk = data.Iwerk;
@@ -72,6 +73,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
   	    if(data.DangerousTab==undefined){
   	        data.Werks = queryGongChang;
   	        data.Ztype = queryLeiXing;
+  	        data.Cuser = idUser3;
   	        datas = this.onDataMuBan(data);
   	    }else{
   	        datas = this.onData(data);

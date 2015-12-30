@@ -197,6 +197,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 			}
 		    queryModel.setProperty("/yunXingQuYuQuery",aFilter);
 		}
+		var idUser = this.getView().byId("idUser").getValue();
+        queryModel.setProperty("/idUser",idUser);
         //跳转至查询页面
         sap.ui.getCore().setModel(queryModel);
         sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQuery");

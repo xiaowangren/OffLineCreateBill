@@ -297,7 +297,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
         // window.pdfmake.createPdf(docDefinition).download();
 	},
 	onQueryCaoZuoPiao:function(){
-	    //工厂
 	    jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var oLocalModelQuery2 = new sap.ui.model.json.JSONModel();
@@ -306,13 +305,17 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			var oData = oStorage.get("ZPMOFFLINE_SRV.WERKS");
 			oLocalModelQuery2.setProperty("/WERKSQuery2",oData);
 		}
+		var UserIwerk = this.onQuChuUser();
+		oLocalModelQuery2.setProperty("/Iwerk2",UserIwerk.Iwerk);
+		oLocalModelQuery2.setProperty("/User2",UserIwerk.Cuser);
+		oLocalModelQuery2.setProperty("/UpdateLog","");
 		sap.ui.getCore().setModel(oLocalModelQuery2);
-	    sap.ui.getCore().byId("idBillApp").app.to("idQueryCaoZuoPiao2");
+		
+	    sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQuery2");//   idQueryCaoZuoPiao2
 
 	},
 	onUpdateCaoZuoPiao:function(){
-	    sap.ui.getCore().byId("idBillApp").app.to("idQueryCaoZuoPiao2");
-	    //工厂
+	    sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQuery2");// idQueryCaoZuoPiao2
 	    jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var oLocalModelQuery4 = new sap.ui.model.json.JSONModel();
@@ -321,6 +324,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			var oData = oStorage.get("ZPMOFFLINE_SRV.WERKS");
 			oLocalModelQuery4.setProperty("/WERKSQuery2",oData);
 		}
+		//用户，工厂
+		var UserIwerk = this.onQuChuUser();
+		oLocalModelQuery4.setProperty("/Iwerk2",UserIwerk.Iwerk);
+		oLocalModelQuery4.setProperty("/User2",UserIwerk.Cuser);
 		oLocalModelQuery4.setProperty("/UpdateLog","UpdateLog");
 		sap.ui.getCore().setModel(oLocalModelQuery4);
 	},
