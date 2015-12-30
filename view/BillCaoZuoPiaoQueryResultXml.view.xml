@@ -173,11 +173,22 @@
 			</columns>
 			<columns>
 					<Column width="11rem">
-						<m:Label text="班组" />
+						<m:Label text="是否已上传" />
 						<template>
-							<c:ComboBox id="dianQiBanZuQuerya" items="{ path: '/banZuQuery3'}" width="95%" selectedKey="{Yxgroup}" editable="false">
-        						<core:ListItem key="{Yxgroup}" text="{Yxgroupdec}"></core:ListItem>
-        					</c:ComboBox>
+        					<c:ComboBox width="95%" selectedKey="{statusText}" editable="false">
+                                <c:items>
+                                    <core:ListItem text="未上传" key=""></core:ListItem>
+                                    <core:ListItem text="已上传" key="Created"></core:ListItem>
+                                </c:items>
+                            </c:ComboBox>
+						</template>
+					</Column>
+			</columns>
+			<columns>
+					<Column width="11rem">
+						<m:Label text="ECC编号" />
+						<template>
+        					<m:Text text="{Zlybnum}" tooltip="{Zlybnum}"/>
 						</template>
 					</Column>
 			</columns>

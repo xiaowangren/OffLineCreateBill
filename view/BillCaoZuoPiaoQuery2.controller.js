@@ -21,6 +21,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery2", {
         var kaiPiaoRenQuery2 = this.getView().byId("kaiPiaoRenQuery2").getValue();//开票人
         var caoZuoRenWuQuery2 = this.getView().byId("caoZuoRenWuQuery2").getValue();//操作任务
         var UpdateLog2 = this.getView().byId("UpdateLog2").getText();
+        console.log(kaiPiaoRiQiQuery2);
         //过滤数据
         //获取本地的数据，进行查询
         jQuery.sap.require("jquery.sap.storage");
