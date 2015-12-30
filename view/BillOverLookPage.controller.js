@@ -190,6 +190,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
                     // console.log(oData);
                     oStorage.put("ZPMOFFLINE_SRV.BillInfos",oData);
                     sap.m.MessageToast.show("操作票上传成功");
+                    var uploadLog = {
+            			lastUpload: $.now()
+            		};
+            		oStorage.put("ZPMUploadLog", uploadLog);
                 }, 
                 function(data) {
                     sap.m.MessageToast.show("操作票上传失败");
