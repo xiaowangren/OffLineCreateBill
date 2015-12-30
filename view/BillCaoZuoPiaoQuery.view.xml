@@ -38,8 +38,9 @@
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
-    		                <lay:MatrixLayoutCell>
-    		                    <c:TextField value="{/idWerksSelectVaule}" id="gongChangQuery" editable="false"></c:TextField>
+    		                <lay:MatrixLayoutCell colSpan="2">
+    		                    <c:TextField value="{/idUser}" id="idUser2" editable="false" visible="false"></c:TextField>
+    		                    <c:TextField value="{/idWerksSelectVaule}" id="gongChangQuery" editable="false" tooltip="{/idWerksSelectVaule}" width="95%"></c:TextField>
     		                </lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutRow id="caoZuoPiaoLeiXingQuerys">

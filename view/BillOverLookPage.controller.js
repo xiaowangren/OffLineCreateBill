@@ -320,6 +320,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			var oData = oStorage.get("ZPMOFFLINE_SRV.WERKS");
 			oLocalModelQuery4.setProperty("/WERKSQuery2",oData);
 		}
+		//用户，工厂
+		var UserIwerk = this.onQuChuUser();
+		oLocalModelQuery4.setProperty("/Iwerk",UserIwerk.Iwerk);
+		oLocalModelQuery4.setProperty("/User",UserIwerk.Cuser);
 		oLocalModelQuery4.setProperty("/UpdateLog","UpdateLog");
 		sap.ui.getCore().setModel(oLocalModelQuery4);
 	},

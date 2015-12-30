@@ -23,7 +23,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery", {
         // var banZuQueryStart = this.getView().byId("banZuQuery1").getSelectedKey();//班组
         var kaiPiaoRiQiQueryStart = this.getView().byId("kaiPiaoRiQiQuery1").getValue();//开始日期
         var kaiPiaoRenQuery = this.getView().byId("kaiPiaoRenQuery").getValue();//开票人
-        var caoZuoRenWuQuery = this.getView().byId("caoZuoRenWuQuery").getValue();//操作任务
+        var caoZuoRenWuQuery = this.getView().byId("caoZuoRenWuQuery").getValue();//操作任务idUser2
+        var idUser2 = this.getView().byId("idUser2").getValue();
         // console.log(gongChangQuery+";"+caoZuoPiaoLeiXingQuery+";"+zhuangTaiQueryStart+";"+tianXieBuMenQueryStart+";"+zhuanYeQueryStart+";"+jiZuQueryStart+";"+banZuQueryStart+";"+kaiPiaoRiQiQueryStart+";"+kaiPiaoRenQuery+";"+caoZuoRenWuQuery);
         //获取本地的数据，进行查询
         //取出工厂号
@@ -125,6 +126,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery", {
         queryResultModel.setProperty("/queryResultModelDate",Begda);
         queryResultModel.setProperty("/queryGongChang",gongChangQuery);
         queryResultModel.setProperty("/queryLeiXing",idTicketSelect);
+        queryResultModel.setProperty("/idUser", idUser2);
         sap.ui.getCore().setModel(queryResultModel);
         sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQueryResult");
 

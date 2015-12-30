@@ -12,6 +12,7 @@
 		    <m:Button text = "{/UpdateLog2}" id="idUpdateLog2" visible="false"></m:Button>
 		    <m:Button text = "{/queryGongChang}" id="queryGongChang" visible="false"></m:Button>
 		    <m:Button text = "{/queryLeiXing}" id="queryLeiXing" visible="false"></m:Button>
+		    <m:Button text = "{/idUser}" id="idUser3" visible="false"></m:Button>
 		    <Table
                 id="caoZuoPiaoQueryResult"
                 visibleRowCount="10"
