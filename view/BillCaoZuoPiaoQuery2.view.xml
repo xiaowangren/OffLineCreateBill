@@ -40,7 +40,7 @@
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell colSpan="2">
     		                    <c:TextView text="{/UpdateLog}"  id="UpdateLog2" visible="false"></c:TextView>
-    		                    <c:ComboBox items="{ path: '/WERKSQuery2'}" width="95%" id="gongChangQuery2" selectedKey="{/werkQuery}" editable="false">
+    		                    <c:ComboBox items="{ path: '/WERKSQuery2'}" width="95%" id="gongChangQuery2" selectedKey="{/Iwerk2}" editable="false">
 								    <core:ListItem key="{Iwerk}" text="{Iwerk} {Name1}"></core:ListItem>
 							    </c:ComboBox>
     		                </lay:MatrixLayoutCell>
@@ -52,7 +52,7 @@
     		                <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
-							    <c:ComboBox id="ricketTypeQuery2"  width="95%" selectedKey="{/caoZuoLeiXingQuery}" editable="false">
+							    <c:ComboBox id="ricketTypeQuery2"  width="95%" selectedKey="{/caoZuoLeiXingQuery}" >
 								<c:items>
 									<core:ListItem key="DQ" text="DQ 电气操作票"></core:ListItem>
 									<core:ListItem key="GL" text="GL 锅炉操作票"></core:ListItem>

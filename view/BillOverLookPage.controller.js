@@ -307,12 +307,14 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		var UserIwerk = this.onQuChuUser();
 		oLocalModelQuery2.setProperty("/Iwerk2",UserIwerk.Iwerk);
 		oLocalModelQuery2.setProperty("/User2",UserIwerk.Cuser);
+		oLocalModelQuery2.setProperty("/UpdateLog","");
 		sap.ui.getCore().setModel(oLocalModelQuery2);
-	    sap.ui.getCore().byId("idBillApp").app.to("idQueryCaoZuoPiao2");
+		
+	    sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQuery2");//   idQueryCaoZuoPiao2
 
 	},
 	onUpdateCaoZuoPiao:function(){
-	    sap.ui.getCore().byId("idBillApp").app.to("idQueryCaoZuoPiao2");
+	    sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQuery2");// idQueryCaoZuoPiao2
 	    jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var oLocalModelQuery4 = new sap.ui.model.json.JSONModel();
