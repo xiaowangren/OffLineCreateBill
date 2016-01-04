@@ -4,6 +4,40 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
     },
     onCreateBillInfo:function(){
         var newCaoZuoPiaoUpdateMuBan = this.getView().getModel("newCaoZuoPiaoUpdateMuBan").getData(); 
+        //校验数据合法性
+        if(newCaoZuoPiaoUpdateMuBan.Appdep==""){
+            sap.m.MessageBox.alert("填写部门必填");
+            return;
+        }
+        if(newCaoZuoPiaoUpdateMuBan.Yxgroup==""){
+            sap.m.MessageBox.alert("班组必填");
+            return;
+        }
+        if(newCaoZuoPiaoUpdateMuBan.Otype==""){
+            sap.m.MessageBox.alert("操作类型必填");
+            return;
+        }
+        if(newCaoZuoPiaoUpdateMuBan.Zczfs==""){
+            sap.m.MessageBox.alert("操作性质必填");
+            return;
+        }
+        if(newCaoZuoPiaoUpdateMuBan.Rarea==""){
+            sap.m.MessageBox.alert("运行区域必填");
+            return;
+        }
+        if(newCaoZuoPiaoUpdateMuBan.Unity==""){
+            sap.m.MessageBox.alert("机组必填");
+            return;
+        }
+        if(newCaoZuoPiaoUpdateMuBan.Cuser.trim()==""){
+            sap.m.MessageBox.alert("开票人必填");
+            return;
+        }
+        if(newCaoZuoPiaoUpdateMuBan.Ztask.trim()==""){
+            sap.m.MessageBox.alert("操作任务必填");
+            return;
+        }
+        
         var tableData = newCaoZuoPiaoUpdateMuBan.InfoTab;
         var BillInfoNew =[];
         for(var i=0;i<tableData.length;i++){

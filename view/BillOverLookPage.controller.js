@@ -522,7 +522,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		sap.ui.getCore().setModel(oLocalModelQuery4);
 	},
 	onQuChuUser:function(){
-	    return {Cuser:"zhang3",Iwerk:"2081"};
+	    return {Cuser:"",Iwerk:"2081"};
 	},
 	onInit: function() {
 	    this.onReadLogDate();
