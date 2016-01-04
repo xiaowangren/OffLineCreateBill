@@ -206,70 +206,96 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	},
 	handlePrintPress: function(){
 	   // var docDefinition = { content: 'This is an sample PDF printed with pdfMake' };
-	    var docDefinition = {
-        	content: [
-        		{ text: '\u697c\u4f1f\u4f1f浙江浙能兰溪发电有限责任公司操作票风险预控票', style: 'header' },
-        		"test关联操作票号：                                 编号：",
+	   
+	   var oBody = 	[
+                    //表头一
+				// 	[{ text: '操作任务：凝汽器半边隔离操作', style: 'tableHeader', colSpan: 5, alignment: 'left' }, {}, {},{},{}],
+					//表头二
+				// 	[{ text: '危险点及预防控制措施', style: 'tableHeader', colSpan: 5, alignment: 'center' }, {}, {},{},{}],
+					//表头三
+					[{ text: '序号', style: 'tableHeader', alignment: 'center' }, 
+					    { text: '危险点', style: 'tableHeader', alignment: 'center' },
+					    { text: '危险后果', style: 'tableHeader', alignment: 'center' },
+					    { text: '预防控制措施', style: 'tableHeader', alignment: 'center' },
+					    { text: '执行情况\n(√)', style: 'tableHeader', alignment: 'center' }]
+	   ];
+  		for(var i=1;i<60;i++){
+  		    var line = [ ''+i, '危险点危险点危险点危险点危险点危险点危险点'+i, 'Make sure that your program is extensible to be used to evaluate any other infix expressions.','预防控制措施','' ];
+		    oBody.push(line);
+		}
+        var tableEnd = [{text:'备注:',colSpan: 5},{},{},{},{}];
+        oBody.push(tableEnd);
+        
+        var docDefinition = {
+            content: [
+                { text: '浙江浙能兰溪发电有限责任公司操作票风险预控票', style: 'header' },
+                "关联操作票号：                                 编号：",
+                {
+                    style: 'tableExample',
+					color: '#444',
+					table: { 
+					    	widths: ['100%'],
+					    	body:[
+					    	        [{ text: '操作任务：凝汽器半边隔离操作', style: 'tableHeader', alignment: 'left' }],
+                            	    [{ text: '危险点及预防控制措施', style: 'tableHeader',  alignment: 'center' }]
+                    		]
+					}
+                },
 				{
 					style: 'tableExample',
 					color: '#444',
 					table: {
-				// 			widths: [ 200, 'auto', 'auto' ],
-							headerRows: 3,
-							// keepWithHeaderRows: 1,
-							body: [
-									[{ text: '操作任务：凝汽器半边隔离操作', style: 'tableHeader', colSpan: 3, alignment: 'left' }, {}, {}],
-									[{ text: '危险点及预防控制措施', style: 'tableHeader', colSpan: 3, alignment: 'center' }, {}, {}],
-									[{ text: 'Header 1', style: 'tableHeader', alignment: 'center' }, { text: 'Header 2', style: 'tableHeader', alignment: 'center' }, { text: 'Header 3', style: 'tableHeader', alignment: 'center' }],
-									[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-									[ { rowSpan: 3, text: 'rowSpan set to 3\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor' }, 'Sample value 2', 'Sample value 3' ],
-									[ '', 'Sample value 2', 'Sample value 3' ],
-									[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-									[ 'Sample value 1', { colSpan: 2, rowSpan: 2, text: 'Both:\nrowSpan and colSpan\ncan be defined at the same time' }, '' ],
-									[ 'Sample value 1', '', '' ],
-							]
+							widths: [20, 200, '*', '*',50],
+							headerRows: 1,
+							keepWithHeaderRows: 1,
+							body: oBody
 					}
 				},
+				{text:"操作人：      监护人：        值班负责人：        值长：          "}
 			],
 			styles: {
         		header: {
         			fontSize: 18,
-        			bold: true,
+        			bold: false,
         			alignment: 'center',
+        			color: 'black',
         			margin: [0, 0, 0, 10]
         		},
         		subheader: {
-        			fontSize: 16,
-        			bold: true,
+        			fontSize: 12,
+        			bold: false,
         			margin: [0, 10, 0, 5]
         		},
         		tableExample: {
-        			margin: [0, 5, 0, 15]
+        		    fontSize: 12,
+        			margin: [0, 0, 0, 0]
         		},
         		tableHeader: {
-        			bold: true,
-        			fontSize: 13,
+        			bold: false,
+        			fontSize: 12,
         			color: 'black'
         		}
         	},
-        	  defaultStyle: {
-                font: 'Arial'
+            defaultStyle: {
+                font: 'simfang'
               }
         };
 	    // open the PDF in a new window
-	    window.pdfMake.fonts = {
+	    pdfMake.fonts = {
+           simfang: {
+             normal: 'simfang.ttf',
+             bold: 'simfang.ttf',
+             italics: 'simfang.ttf',
+             bolditalics: 'simfang.ttf'
+           },           
            Arial: {
-             normal: 'HYC7GFM.TTF',
-             bold: 'HYC7GFM.TTF',
-             italics: 'HYC7GFM.TTF',
-             bolditalics: 'HYC7GFM.TTF'
-            //  normal: 'Roboto-Regular.ttf',
-            //  bold: 'Roboto-Medium.ttf',
-            //  italics: 'Roboto-Regular.ttf'
-            //  bolditalics: 'fontFile4.ttf'
+             normal: 'Arial.ttf',
+             bold: 'Arial.ttf',
+             italics: 'Arial.ttf',
+             bolditalics: 'Arial.ttf'
            }
         };
-        window.pdfMake.createPdf(docDefinition).open();
+         window.pdfMake.createPdf(docDefinition).open();
         // print the PDF (not working in this version, will be added back in a couple of days)
         // pdfMake.createPdf(docDefinition).print();
         // download the PDF
@@ -367,9 +393,13 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		this.getView().setModel(oJsonModel);
 	},
 	handleSelectWerks:function(){
-	    
-	    
-	    
+    	if (! this._oDialog) {
+			this._oDialog = sap.ui.xmlfragment("sap.m.sample.SelectDialog.Dialog", this);
+			this._oDialog.setModel(this.getView().getModel());
+		}
+    	// toggle compact style
+		jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._oDialog);
+		this._oDialog.open();
 	}
 
 	
