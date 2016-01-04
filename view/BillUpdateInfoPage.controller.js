@@ -4,6 +4,39 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
     },
     onUpdateBillInfo:function(){
 	    var newBillDetailUpdateInfoPage = this.getView().getModel("newBillDetailUpdateInfoPage").getData(); 
+        //校验数据合法性
+        if(newBillDetailUpdateInfoPage.Appdep==""){
+            sap.m.MessageBox.alert("填写部门必填");
+            return;
+        }
+        if(newBillDetailUpdateInfoPage.Yxgroup==""){
+            sap.m.MessageBox.alert("班组必填");
+            return;
+        }
+        if(newBillDetailUpdateInfoPage.Otype==""){
+            sap.m.MessageBox.alert("操作类型必填");
+            return;
+        }
+        if(newBillDetailUpdateInfoPage.Zczfs==""){
+            sap.m.MessageBox.alert("操作性质必填");
+            return;
+        }
+        if(newBillDetailUpdateInfoPage.Rarea==""){
+            sap.m.MessageBox.alert("运行区域必填");
+            return;
+        }
+        if(newBillDetailUpdateInfoPage.Unity==""){
+            sap.m.MessageBox.alert("机组必填");
+            return;
+        }
+        if(newBillDetailUpdateInfoPage.Cuser.trim()==""){
+            sap.m.MessageBox.alert("开票人必填");
+            return;
+        }
+        if(newBillDetailUpdateInfoPage.Ztask.trim()==""){
+            sap.m.MessageBox.alert("操作任务必填");
+            return;
+        }
         var tableData = newBillDetailUpdateInfoPage.InfoTab;
         var BillInfoNew =[];
         for(var i=0;i<tableData.length;i++){

@@ -7,6 +7,40 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         
         var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
         console.log(newCaoZuoPiaoCreate);
+        //校验数据合法性
+        if(newCaoZuoPiaoCreate.Appdep==""){
+            sap.m.MessageBox.alert("填写部门必填");
+            return;
+        }
+        if(newCaoZuoPiaoCreate.Yxgroup==""){
+            sap.m.MessageBox.alert("班组必填");
+            return;
+        }
+        if(newCaoZuoPiaoCreate.Otype==""){
+            sap.m.MessageBox.alert("操作类型必填");
+            return;
+        }
+        if(newCaoZuoPiaoCreate.Zczfs==""){
+            sap.m.MessageBox.alert("操作性质必填");
+            return;
+        }
+        if(newCaoZuoPiaoCreate.Rarea==""){
+            sap.m.MessageBox.alert("运行区域必填");
+            return;
+        }
+        if(newCaoZuoPiaoCreate.Unity==""){
+            sap.m.MessageBox.alert("机组必填");
+            return;
+        }
+        if(newCaoZuoPiaoCreate.Cuser.trim()==""){
+            sap.m.MessageBox.alert("开票人必填");
+            return;
+        }
+        if(newCaoZuoPiaoCreate.Ztask.trim()==""){
+            sap.m.MessageBox.alert("操作任务必填");
+            return;
+        }
+        
         var tableData = newCaoZuoPiaoCreate.InfoTab;
         var BillInfoNew =[];
         for(var i=0;i<tableData.length;i++){
