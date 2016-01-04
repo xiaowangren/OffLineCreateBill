@@ -172,7 +172,8 @@
 		                    <c:TextView text="开票人"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextView  text="{newCaoZuoPiaoUpdateMuBan>/Cuser}" id="dianQiKaiPiaoRen4"></c:TextView >
+		                    <c:TextField value="{newCaoZuoPiaoUpdateMuBan>/Cuser}" id="dianQiKaiPiaoRen4"></c:TextField>
+		                    <!--<c:TextView  text="{newCaoZuoPiaoUpdateMuBan>/Cuser}" id="dianQiKaiPiaoRen4"></c:TextView >-->
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView  text="开票日期" ></c:TextView >
