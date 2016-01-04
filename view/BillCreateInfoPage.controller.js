@@ -6,6 +6,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         // var payLoad = this.collectData();
         
         var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
+        console.log(newCaoZuoPiaoCreate);
         var tableData = newCaoZuoPiaoCreate.InfoTab;
         var BillInfoNew =[];
         for(var i=0;i<tableData.length;i++){
@@ -216,7 +217,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var LiuShuiId = this.uuid(8,10);
         //获取当前计算机名称（获取不到）
         //收集操作内容tab中的数据
-        var tableId = sap.ui.getCore().byId("BillBaseInfoTab");
+        var tableId = sap.ui.getCore().byId("BillCreateBaseInfoTab");
         var tableData = tableId.getModel().oData.modelData;
         var tableDataNew =[];
         for(var i=0;i<tableData.length;i++){
@@ -253,17 +254,19 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             Znote:dianQiBeiZhu,//ZNOTE备注
             Yxgroup:dianQiBanZu,//YXGROUP运行班组编码
             Prfty:dianQiZhuanYe,//专业
-            Estxt:EstatValue,//状态value
-            Name1:gongChangValue,
-            Ztypedes:leiXingValue,
-            Appdepdec:buMenValue,
-            Yxgroupdec:dianQiBanZuValue,//班组Value
-            OtypeValue:CaozuoLeiXingValue,//操作类型value
-            ZczfsValue:CaoZuoXingZhiValue,//操作性质value
-            Prtxt:ZhuanYesValue,//专业Value
-            Rareadec:YunXingQuYuValue,//运行区域value
-            Untxt:dianQiJiZuValue,//机组Value
-            Dutxt:dianQiZhiBieValue,//值别Value
+            statusText:"unCreated",
+            Zlybnum:"",
+            // Estxt:EstatValue,//状态value
+            // Name1:gongChangValue,
+            // Ztypedes:leiXingValue,
+            // Appdepdec:buMenValue,
+            // Yxgroupdec:dianQiBanZuValue,//班组Value
+            // OtypeValue:CaozuoLeiXingValue,//操作类型value
+            // ZczfsValue:CaoZuoXingZhiValue,//操作性质value
+            // Prtxt:ZhuanYesValue,//专业Value
+            // Rareadec:YunXingQuYuValue,//运行区域value
+            // Untxt:dianQiJiZuValue,//机组Value
+            // Dutxt:dianQiZhiBieValue,//值别Value
             InfoTab:tableDataNew,//InfoTab
             DangerousTab:dangerousPointDataNew//危险点分析
         };
@@ -338,38 +341,60 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         
     },
     onPrintBillInfo:function(){
-        var tableHead = this.onPrintBillHead();
-        var payLoad = this.collectData();
+        //var tableHead = this.onPrintBillHead();
+        // var payLoad = this.collectData();
+        // var InfoTab = payLoad.InfoTab;
+        var dianQiGongChang = this.getView().byId("dianQiGongChang").getValue();//工厂
+        var dianQiGongChangSplit = "";
+        if(dianQiGongChang){
+            dianQiGongChangSplit = dianQiGongChang.split(" ")[1];
+        }
+        var dianQiLeiXing = this.getView().byId("dianQiLeiXing").getValue();//类型
+        var dianQiLeiXingSplit = "";
+        if(dianQiLeiXing){
+            dianQiLeiXingSplit = dianQiLeiXing.split(" ")[1];
+        }
+        // var tableHead = "<center><h1>"+dianQiGongChangSplit+"<br/>";
+        // tableHead+=dianQiLeiXingSplit+"</h1></center><br/>"; 
+        var table="<html><head><title>"+dianQiGongChangSplit+dianQiLeiXingSplit+"</title></head>";
+        table+="<body><div style='margin-left:70%;'>编号:</div>";
+        var payLoad = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
         var InfoTab = payLoad.InfoTab;
         var i;
         if(InfoTab.length!=0){
             var Znote = payLoad.Znote;
             var Znotetmp=Znote.replace(/\n/g,'');
-            var table="<table>";
+            table+="<table width='900px'>";
             table+="<tr><td style='border:1px solid black;' colspan='12'>"
-                    +"<h4>操作开始时间:<br/>操作结束时间:</h4>"
+                    +"<h3>操作开始时间:<br/>操作结束时间:</h3>"
                     +"</td></tr>";
-            table+="<tr><td style='border:1px solid black;' colspan='2' width='100px'>发令人:</td>"
-                    +"<td style='border:1px solid black;' colspan='2'><textarea rows='3' cols='28'></textarea></td>"
-                    +"<td style='border:1px solid black;' colspan='2' width='100px'>受令人:</td>"
-                    +"<td style='border:1px solid black;' colspan='2'><textarea rows='3' cols='21'></textarea></td>"
-                    +"<td style='border:1px solid black;' colspan='2' width='100px'>发令时间:</td>"
-                    +"<td style='border:1px solid black;' colspan='2'><textarea rows='3' cols='22'></textarea></td>"
+            table+="<tr><td style='border:1px solid black;' colspan='2' width='50px'><h3>发令人:</h3></td>"
+                    +"<td style='border:1px solid black;' colspan='2' width='60px'></td>"
+                    +"<td style='border:1px solid black;' colspan='2' width='50px'><h3>受令人:</h3></td>"
+                    +"<td style='border:1px solid black;' colspan='2' width='60px'></td>"
+                    +"<td style='border:1px solid black;' colspan='2' width='50px'><h3>发令时间:</h3></td>"
+                    +"<td style='border:1px solid black;' colspan='2' width='60px'></td>"
                     +"</tr>"
                     +"<tr>"
-                    +"<td colspan='6' style='border:1px solid black;'><textarea rows='4' cols='56'>操作类型:</textarea></td><td colspan='6' style='border:1px solid black;'><textarea rows='4' cols='63'>单人操作:</textarea></td>"
+                    +"<td colspan='6' style='border:1px solid black;'><h3>操作类型:</h3></td><td colspan='6' style='border:1px solid black;'><h3>单人操作</h3></td>"
                     +"</tr>"
-            table+="<tr><td colspan='12' style='border:1px solid black;' colspan='3'><textarea rows='3' cols='125'>操作任务:"+Znotetmp+"</textarea></td></tr>";
-            table+="<tr><td style='border:1px solid black;' width='40px'></td><td style='border:1px solid black;'><center>序号</center></td><td style='border:1px solid black;'  colspan='7'><center>操作内容</center></td><td style='border:1px solid black;'  colspan='3'><center>注意事项</center></td></tr>";
-
-            for(i=0;i<InfoTab.length;i++){
-                var Zcznr = InfoTab[i].Zcznr;
-                var Zcznrtmp=Zcznr.replace(/\n/g,'');
-                var Zzysx = InfoTab[i].Zzysx;
-                var Zzysxtmp=Zzysx.replace(/\n/g,'');
-                table+="<tr><td style='border:1px solid black;' width='40px'></td><td style='border:1px solid black;'><center>"+InfoTab[i].Zxh+"</center></td><td style='border:1px solid black;'  colspan='7'><textarea rows='4' cols='75'>"+Zcznrtmp+"</textarea></td><td style='border:1px solid black;'  colspan='3'><textarea rows='4' cols='31'>"+Zzysxtmp+"</textarea></td></tr>";
+            table+="<tr><td colspan='12' style='border:1px solid black;' colspan='3'><h3>操作任务:"+Znotetmp+"</h3></td></tr>";
+            table+="<tr><td style='border:1px solid black;' width='40px' ><h3>√</h3></td><td style='border:1px solid black;'><center><h3>序号</h3></center></td><td style='border:1px solid black;'  colspan='7'><h3><center>操作内容</center></h3></td><td style='border:1px solid black;'  colspan='3'><h3><center>注意事项</center></h3></td></tr>";
+            var tableDataNew =[];
+            for(var i=0;i<InfoTab.length;i++){
+                if((InfoTab[i].Zzysx.trim()=="")&&(InfoTab[i].Zxh.trim()=="")&&(InfoTab[i].Zcznr.trim()=="")){
+                }else{
+                    tableDataNew.push(InfoTab[i]); 
+                }
             }
-            table+="<tr><td colspan='12' style='border:1px solid black;' colspan='3'><textarea rows='3' cols='125'>备注:"+Znotetmp+"</textarea></td></tr>";
+            for(i=0;i<tableDataNew.length;i++){
+                var Zcznr = tableDataNew[i].Zcznr;
+                var Zcznrtmp=Zcznr.replace(/\n/g,'');
+                var Zzysx = tableDataNew[i].Zzysx;
+                var Zzysxtmp=Zzysx.replace(/\n/g,'');
+                table+="<tr><td style='border:1px solid black;' width='40px'></td><td style='border:1px solid black;'><center>"+tableDataNew[i].Zxh+"</center></td><td style='border:1px solid black;'  colspan='7'>"+Zcznrtmp+"</td><td style='border:1px solid black;'  colspan='3'>"+Zzysxtmp+"</td></tr>";
+            }
+            table+="<tr><td colspan='12' style='border:1px solid black;' colspan='3'><h3>备注:"+Znotetmp+"</h3></td></tr>";
             table+="</table>";
             table+="<div>"
             table+="<span>操作人:</span>"
@@ -377,13 +402,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             table+="<span style='margin-left:150px'>值班负责人:</span>"
             table+="<span style='margin-left:150px'>值长:</span>"
             table+="</div>";
+            
         }
-        var wind = window.open("", "printWindow", "height=768,width=1024,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no");
-        if(table==undefined){
-            wind.document.write(tableHead);
-        }else{
-            wind.document.write(tableHead+table);
-        }
+        table+"</body></html>";
+        var wind = window.open();
+        wind.document.write(table);
         wind.print();
         wind.close();
     },
@@ -421,7 +444,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             table+="<span style='margin-left:150px'>值长:</span>"
             table+="</div>";
         }
-        var wind = window.open("", "printWindow", "height=768,width=1024,top=0,left=0,toolbar=no,menubar=no,scrollbars=no, resizable=no,location=no, status=no");
+        var wind = window.open();
         if(table==undefined){
             wind.document.write(tableHead);
         }else{

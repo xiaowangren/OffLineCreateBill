@@ -17,10 +17,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery2", {
         var ricketTypeQuery2 = this.getView().byId("ricketTypeQuery2").getSelectedKey();//操作票类型
         var zhuangTaiQuery2 = this.getView().byId("zhuangTaiQuery2").getSelectedKey();//状态
         var zhuanYeQuery2 = this.getView().byId("zhuanYeQuery2").getSelectedKey();//专业
-        var kaiPiaoRiQiQuery2 = this.getView().byId("kaiPiaoRiQiQuery2").getValue();//开票日期
+        var kaiPiaoRiQiQuery2 = this.getView().byId("kaiPiaoRiQiQuery2").getYyyymmdd();//开票日期
         var kaiPiaoRenQuery2 = this.getView().byId("kaiPiaoRenQuery2").getValue();//开票人
         var caoZuoRenWuQuery2 = this.getView().byId("caoZuoRenWuQuery2").getValue();//操作任务
         var UpdateLog2 = this.getView().byId("UpdateLog2").getText();
+        kaiPiaoRiQiQuery2 = kaiPiaoRiQiQuery2.substr(0,4)+"-"+kaiPiaoRiQiQuery2.substr(4,2)+"-"+kaiPiaoRiQiQuery2.substr(6,2);
         //过滤数据
         //获取本地的数据，进行查询
         jQuery.sap.require("jquery.sap.storage");
@@ -106,8 +107,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery2", {
 			var oData = oStorage.get("ZPMOFFLINE_SRV.ZPMT00204");
 			queryResultModel.setProperty("/ZhiBieQuery3",oData);
 		}
-		console.log(aFilter[0]);
         //跳转至查询结果页面
+        console.log(aFilter);
         queryResultModel.setProperty("/queryResultModel",aFilter);
         queryResultModel.setProperty("/queryResultModelCount",aFilter.length);
         queryResultModel.setProperty("/BiaoJi","query");
@@ -135,6 +136,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery2", {
 		        }
 		    }
 		    return false;
-		}
+	}
+	
 
 });

@@ -116,6 +116,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
     		var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillDetailQueryInfoPage");
 		    page.setModel(oModel,"newBillDetailQueryInfoPage");
  	    }else{//修改本地数据
+ 	        var statusText = datas.statusText;
+ 	        if(statusText=="Created"){
+ 	            sap.m.MessageBox.alert("数据已上传，无法进行修改");
+ 	            return;
+ 	        }
  	        sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", rowContext);
     		var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
 		    page.setModel(oModel,"newBillDetailUpdateInfoPage");
@@ -146,6 +151,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
 		    DangerousTabNew.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
 		}
 		data.DangerousTab=DangerousTabNew;
+		data.statusText="unCreated";
+        data.Zlybnum="";
 	    return data;
     },
     onDataMuBan:function(data){//重新封装数据格式
@@ -178,7 +185,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
         var Begda = year+"-" + month +"-"+  day;
         var payLoad ={
             Zczph:"",//ZCZPH
-            Estat:10,//ESTAT
+            Estat:"10",//ESTAT
             Cuser:data.Cuser,//CUSER
             Cdata:Begda,//CDATA
             Appdep:data.Appdep,//填写部门
@@ -193,6 +200,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
             Znote:data.Znote,//ZNOTE备注
             Yxgroup:data.Yxgroup,//YXGROUP运行班组编码
             Prfty:data.Prfty,//专业
+            statusText:"unCreated",
+            Zlybnum:"",
             InfoTab:data.InfoTab.results,//InfoTab
             DangerousTab:DangerousTabNew//危险点分析
         };

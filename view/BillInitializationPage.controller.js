@@ -228,7 +228,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 		}
         var payLoads ={
             Zczph:"",//ZCZPH
-            Estat:10,//ESTAT
+            Estat:"10",//ESTAT
             Cuser:idUser,//CUSER
             Cdata:Begda,//CDATA
             Appdep:"",//填写部门
@@ -243,6 +243,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
             Znote:"",//ZNOTE备注
             Yxgroup:"",//YXGROUP运行班组编码
             Prfty:"",//专业
+            statusText:"unCreated",
+            Zlybnum:"",
             InfoTab:InfoDataNewC,//InfoTab
             DangerousTab:DangerousTabNewC//危险点分析
         };

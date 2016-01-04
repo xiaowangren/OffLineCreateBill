@@ -137,12 +137,13 @@
     		                <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
-							    <DateTimeInput
-                				    width="95%"
-                        			type="DateTime"
-                        			displayFormat="yyyy-MM-dd"
-                        			valueFormat="yyyy-MM-dd"
-                        			 id="kaiPiaoRiQiQuery1" />
+							    <!--<DateTimeInput-->
+           <!--     				    width="95%"-->
+           <!--             			type="DateTime"-->
+           <!--             			displayFormat="yyyy-MM-dd"-->
+           <!--             			valueFormat="yyyy-MM-dd"-->
+           <!--             			 id="kaiPiaoRiQiQuery1" />-->
+                                <c:DatePicker width="95%" id="kaiPiaoRiQiQuery1" ></c:DatePicker>
     		                </lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutRow>

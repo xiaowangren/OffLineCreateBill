@@ -25,6 +25,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery", {
         var kaiPiaoRenQuery = this.getView().byId("kaiPiaoRenQuery").getValue();//开票人
         var caoZuoRenWuQuery = this.getView().byId("caoZuoRenWuQuery").getValue();//操作任务idUser2
         var idUser2 = this.getView().byId("idUser2").getValue();
+        kaiPiaoRiQiQueryStart = kaiPiaoRiQiQueryStart.substr(0,4)+"-"+kaiPiaoRiQiQueryStart.substr(4,2)+"-"+kaiPiaoRiQiQueryStart.substr(6,2);
+
         // console.log(gongChangQuery+";"+caoZuoPiaoLeiXingQuery+";"+zhuangTaiQueryStart+";"+tianXieBuMenQueryStart+";"+zhuanYeQueryStart+";"+jiZuQueryStart+";"+banZuQueryStart+";"+kaiPiaoRiQiQueryStart+";"+kaiPiaoRenQuery+";"+caoZuoRenWuQuery);
         //获取本地的数据，进行查询
         //取出工厂号
