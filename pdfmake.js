@@ -16123,8 +16123,8 @@
 	'use strict';
 
 // 	var WORD_RE = /([^ ,\/!.?:;\-\n]*[ ,\/!.?:;\-]*)|\n/g;                                      //LOUWEIWEI
-// 	var WORD_RE =  /(?[\u4e00-\u9fa5])?|[\d]+|([^ ,\/!.?:;-\n，。：]*|[^\u4e00-\u9fa5])[ ,\/!.?:;)-，。：]?|\n/g;
-    var WORD_RE = /([\u4e00-\u9fa5])|([^ ,\/!.?:;\-\n，。：]*[ ,\/!.?:;\-，。：\u4e00-\u9fa5]*)|\n/g; 
+// 	var WORD_RE = /(?[\u4e00-\u9fa5])?|[\d]+|([^ ,\/!.?:;-\n，。：]*|[^\u4e00-\u9fa5])[ ,\/!.?:;)-，。：]?|\n/g;
+    var WORD_RE = /([0-9a-zA-Z\u4e00-\u9fa5])|([^ ,\/!.?:;\-\n，。：、]*[ ,\/!.?:;\-，。：、\u4e00-\u9fa5]*)|\n/g; 
 	// /\S*\s*/g to be considered (I'm not sure however - we shouldn't split 'aaa !!!!')
 
 	var LEADING = /^(\s)+/g;
@@ -16226,7 +16226,7 @@
 			array = text.match(WORD_RE);
 		}
 		//LOUWEIWEI
-		console.log(array);
+ 		console.log(array);
 		// i < l - 1, because the last match is always an empty string
 		// other empty strings however are treated as new-lines
 		for(var i = 0, l = array.length; i < l - 1; i++) {

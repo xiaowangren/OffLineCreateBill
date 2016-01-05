@@ -486,6 +486,327 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         }
         wind.print();
         wind.close();
+    },
+    onGetIwerkText:function(Iwerk){
+        var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+        var werks = oStorage.get("ZPMOFFLINE_SRV.WERKS");
+        for(var i=0;i<werks.length;i++){
+            if(werks[i].Iwerk == Iwerk){
+                return werks[i].Name1;
+            }
+        }
+    },
+    onGetTicketTypeText:function(Ztype){
+        var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+        var oTickets = oStorage.get("ZPMOFFLINE_SRV.TicketType");
+        for(var i=0;i<oTickets.length;i++){
+            if(oTickets[i].Ztype == Ztype){
+                return oTickets[i].Ztypedes;
+            }
+        }
+    },
+    onPDFPrintCZP:function(modelData){
+        if(modelData == undefined){
+            modelData = this.getView().getModel("BillCreateInfoPage").getData();
+        }
+        var payLoad = modelData;
+        //console.log(payLoad);
+        var dianQiGongChang = this.onGetIwerkText(payLoad.Iwerk);
+        var dianQiLeiXing = this.onGetTicketTypeText(payLoad.Ztype);
+        var dianQiCaoZuoPiaoHao = payLoad.Zczph;
+        if(payLoad.Otype=='1'){
+            var caoZuoLeiXing ="单人操作";
+        }else if(payLoad.Otype=='2'){
+            var caoZuoLeiXing ="监护操作";
+        }
+        var Ztasktmp=payLoad.Ztask.replace(/\n/g,'');       //操作任务
+        //操作票内容
+        var InfoTab = payLoad.InfoTab;
+        var tableDataNew =[];
+        for(var i=0;i<InfoTab.length;i++){
+            if((InfoTab[i].Zzysx.trim()=="")&&(InfoTab[i].Zxh.trim()=="")&&(InfoTab[i].Zcznr.trim()=="")){
+            }else{
+                tableDataNew.push(InfoTab[i]); 
+            }
+        }
+        
+        var oBody = [
+        	[{ text: '√', style: 'tableHeader', alignment: 'center' },
+			    { text: '序号', style: 'tableHeader', alignment: 'center' }, 
+			    { text: '操作内容', style: 'tableHeader', alignment: 'center' },
+			    { text: '注意事项', style: 'tableHeader', alignment: 'center' }
+			]
+	   ];
+	   for(var i=0;i<tableDataNew.length;i++){
+	        var Zcznr = tableDataNew[i].Zcznr;
+            var Zcznrtmp=Zcznr.replace(/\n/g,'');       //操作内容
+            var Zzysx = tableDataNew[i].Zzysx;
+            var Zzysxtmp=Zzysx.replace(/\n/g,'');       //注意事项
+  		    var line = ['', ''+i, Zcznrtmp,Zzysxtmp];
+		    oBody.push(line);
+	   }
+        var tableEnd = [{text:'备注:\n \n \n ',colSpan: 4},{},{},{}];
+        oBody.push(tableEnd);
+        
+        //Document内容，主表在上方已经组装
+        var docDefinition = {
+            header: function(currentPage, pageCount) {
+                // you can apply any logic and return any valid pdfmake element
+                var Header = [{ text: dianQiGongChang+'\n'+dianQiLeiXing, style: 'header',alignment: 'center' }];
+                
+                if( currentPage == 1 ){
+                    var line1 = {text:'  ',style:'subheader'};
+                    Header.push(line1);
+                }else{
+                    var line1 = {text:'上接：'+dianQiCaoZuoPiaoHao+'-'+(currentPage-1),style:'subheader'};
+                    Header.push(line1);
+                }
+                var line2 = {text:'编号：'+dianQiCaoZuoPiaoHao+'-'+currentPage,style:'subheader',alignment:'right'};
+                Header.push(line2);
+                // console.log(Header);
+                var headTableBody = [];
+                if(currentPage == 1){
+                    var headTableLine1 = [{ text: '操作开始时间：     年     月     日     时     分', style: 'tableHeader', alignment: 'left' }];
+                    headTableBody.push(headTableLine1);
+                }else if(currentPage == pageCount){
+                    var headTableLine1 = [{ text: '操作结束时间：     年     月     日     时     分', style: 'tableHeader', alignment: 'left' }];
+                    headTableBody.push(headTableLine1);
+                }else{
+                    var headTableLine1 = [{ text: '   ', style: 'tableHeader', alignment: 'left' }];
+                    headTableBody.push(headTableLine1);
+                }
+                var headTableLine2 = [{ text: '操作任务：'+Ztasktmp, style: 'tableHeader',  alignment: 'left' }];
+                headTableBody.push(headTableLine2);
+                var table =  [               {
+                    style: 'headTable',
+					color: '#444',
+					table: { 
+					    	widths: ['100%'],
+					    	body:headTableBody
+					}
+                }];
+                Header.push(table);
+                return Header;
+                // return { text: 'simple text', alignment: (currentPage % 2) ? 'left' : 'right' };
+              },
+            footer: function(currentPage, pageCount) { 
+                  if(currentPage < pageCount){
+                      var footer = {text:'下接:'+dianQiCaoZuoPiaoHao+'-'+(currentPage+1),style:'subheader',alignment:'right'};
+                  }
+                  return footer; 
+                 
+            },
+            pageMargins: [ 40, 145, 40, 60 ],        //页面边距，对Header不起作用
+            content: [
+                {
+                    style: 'bodyTable',
+					color: '#444',
+					table: { 
+					    	widths: ['16.67%','16.67%','16.67%','16.67%','16.67%','16.67%'],
+					    	body:[  //发令人和操作类型两行，固定行
+                                [{ text: '发令人\n  \n  ', style: 'tableHeader', alignment: 'left' },'',{text:'受令人'},'',{text:'发令时间'},{text:'________年\n___月___日\n___时___分'}],
+                                [{ text: '操作类型\n  \n  ', style: 'tableHeader', colSpan:3, alignment: 'left' },{},{},
+                                 { text: caoZuoLeiXing, style: 'tableHeader',  colSpan:3, alignment: 'left' },{},{}
+                                ]
+                    		]
+					}
+                },
+				{
+					style: 'bodyTable',
+					color: '#444',
+					table: {
+							widths: [20,25, 320, '*'],
+							headerRows: 1,
+							keepWithHeaderRows: 1,
+							//dontBreakRows: true,
+							body: oBody                     //动态组装主表内容
+					}
+				},
+				{text:"操作人：          监护人：            值班负责人：            值长：          "}
+			],
+			styles: {
+        		header: {
+        			fontSize: 18,
+        			bold: false,
+        			alignment: 'center',
+        			color: 'black',
+        			margin: [0, 40, 0, 10]
+        		},
+        		subheader: {
+        			fontSize: 12,
+        			bold: false,
+        			margin: [40, 0, 40, 0]
+        		},
+        		headTable: {
+        		    fontSize: 12,
+        			margin: [40, 0,40, 0]
+        		},
+        		bodyTable: {
+        		    fontSize: 12,
+        			margin: [0, 0, 0, 0]
+        		},
+        		tableHeader: {
+        			bold: false,
+        			fontSize: 12,
+        			color: 'black'
+        		}
+        	},
+            defaultStyle: {
+                font: 'simfang'
+              }
+        };
+	    pdfMake.fonts = {
+           simfang: {
+             normal: 'simfang.ttf',
+             bold: 'simfang.ttf',
+             italics: 'simfang.ttf',
+             bolditalics: 'simfang.ttf'
+           }
+        };
+        // open the PDF in a new window
+         window.pdfMake.createPdf(docDefinition).open();
+        // print the PDF (not working in this version, will be added back in a couple of days)
+        // pdfMake.createPdf(docDefinition).print();
+        // download the PDF
+        // window.pdfmake.createPdf(docDefinition).download();
+    },
+    onPDFPrintDangerous:function(modelData){
+        if(modelData == undefined){
+            modelData = this.getView().getModel("BillCreateInfoPage").getData();
+        }
+        var payLoad = modelData;
+        //console.log(payLoad);
+        var dianQiGongChang = this.onGetIwerkText(payLoad.Iwerk);
+        var dianQiLeiXing = this.onGetTicketTypeText(payLoad.Ztype);
+        var dianQiCaoZuoPiaoHao = payLoad.Zczph;
+        if(payLoad.Otype=='1'){
+            var caoZuoLeiXing ="单人操作";
+        }else if(payLoad.Otype=='2'){
+            var caoZuoLeiXing ="监护操作";
+        }
+        var Ztasktmp=payLoad.Ztask.replace(/\n/g,'');       //操作任务
+        //操作票内容
+        var DangerousTab = payLoad.DangerousTab;
+        var tableDataNew =[];
+        for(var i=0;i<DangerousTab.length;i++){
+            if((DangerousTab[i].Dangno.trim()=="")&&(DangerousTab[i].Zzpltxt.trim()=="")&&(DangerousTab[i].Zzremark.trim()=="")&&(DangerousTab[i].Zztext.trim()=="")){
+            }else{
+                tableDataNew.push(DangerousTab[i]); 
+            }
+        }
+	   var oBody = 	[
+                    //表头一
+					[{ text: '序号', style: 'tableHeader', alignment: 'center' }, 
+					    { text: '危险点', style: 'tableHeader', alignment: 'center' },
+					    { text: '危险后果', style: 'tableHeader', alignment: 'center' },
+					    { text: '预防控制措施', style: 'tableHeader', alignment: 'center' },
+					    { text: '执行情况\n(√)', style: 'tableHeader', alignment: 'center' }]
+	   ];
+  		for(var i=1;i<tableDataNew.length;i++){
+  		    var line = [ tableDataNew[i].Dangno,tableDataNew[i].Zztext,tableDataNew[i].Zzremark,tableDataNew[i].Zzpltxt,'' ];
+		    oBody.push(line);
+		}
+        var tableEnd = [{text:'备注:\n\n\n',colSpan: 5},{},{},{},{}];
+        oBody.push(tableEnd);
+        
+        var docDefinition = {
+              header: function(currentPage, pageCount) {
+                // you can apply any logic and return any valid pdfmake element
+                var Header = [{ text: dianQiGongChang+'\n'+'操作票风险预控票', style: 'header',alignment: 'center' }];
+                
+                if( currentPage == 1 ){
+                    var line1 = {text:'关联操作票号：'+dianQiCaoZuoPiaoHao,style:'subheader'};
+                    Header.push(line1);
+                }else{
+                    var line1 = {text:'上接：'+(currentPage-1),style:'subheader'};
+                    Header.push(line1);
+                }
+                var line2 = {text:'编号：'+dianQiCaoZuoPiaoHao,style:'subheader',alignment:'right'};
+                Header.push(line2);
+                console.log(Header);
+                var table =  [               {
+                    style: 'headTable',
+					color: '#444',
+					table: { 
+					    	widths: ['100%'],
+					    	body:[
+					    	        [{ text: '操作任务：'+Ztasktmp, style: 'tableHeader', alignment: 'left' }],
+                            	    [{ text: '危险点及预防控制措施', style: 'tableHeader',  alignment: 'center' }]
+                    		]
+					}
+                }];
+                Header.push(table);
+                return Header;
+                // return { text: 'simple text', alignment: (currentPage % 2) ? 'left' : 'right' };
+              },
+            footer: function(currentPage, pageCount) { 
+                  if(currentPage < pageCount){
+                      var footer = {text:'下接:'+(currentPage+1),style:'subheader',alignment:'right'};
+                  }
+                  return footer; 
+                 
+            },
+            pageMargins: [ 40, 145, 40, 60 ],
+
+            content: [
+				{
+					style: 'tableExample',
+					color: '#444',
+					table: {
+							widths: [20, 200, '*', '*',50],
+							headerRows: 1,
+							keepWithHeaderRows: 1,
+				// 			dontBreakRows: true,
+							body: oBody                     //主表内容
+					}
+				},
+				{text:"操作人：        监护人：          值班负责人：          值长：(根据需要)"}
+			],
+			styles: {
+        		header: {
+        			fontSize: 18,
+        			bold: false,
+        			alignment: 'center',
+        			color: 'black',
+        			margin: [0, 40, 0, 10]
+        		},
+        		subheader: {
+        			fontSize: 12,
+        			bold: false,
+        			margin: [40, 0, 40, 0]
+        		},
+        		headTable: {
+        		    fontSize: 12,
+        			margin: [40, 0,40, 0]
+        		},
+        		tableExample: {
+        		    fontSize: 12,
+        			margin: [0, 0, 0, 0]
+        		},
+        		tableHeader: {
+        			bold: false,
+        			fontSize: 12,
+        			color: 'black'
+        		}
+        	},
+            defaultStyle: {
+                font: 'simfang'
+              }
+        };
+	    pdfMake.fonts = {
+           simfang: {
+             normal: 'simfang.ttf',
+             bold: 'simfang.ttf',
+             italics: 'simfang.ttf',
+             bolditalics: 'simfang.ttf'
+           }
+        };
+        // open the PDF in a new window
+         window.pdfMake.createPdf(docDefinition).open();
+        // print the PDF (not working in this version, will be added back in a couple of days)
+        // pdfMake.createPdf(docDefinition).print();
+        // download the PDF
+        // window.pdfmake.createPdf(docDefinition).download();
     }
 
 });

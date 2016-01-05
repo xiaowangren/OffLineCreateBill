@@ -3,17 +3,25 @@ sap.ui.controller("com.zhenergy.bill.view.BillDetailQueryInfoPage", {
         sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage");
     },
     onPrintBillInfo:function(){
-        var oTarget = this.getView();
-        if (oTarget) {
-            var $domTarget = oTarget.$()[0],
-            sTargetContent = $domTarget.innerHTML,
-            sOriginalContent = document.body.innerHTML;
-            document.body.innerHTML = sTargetContent;
-            window.print();
-                document.body.innerHTML = sOriginalContent;
-        } else {
-            jQuery.sap.log.error("onPrint needs a valid target container [view|data:targetId=\"SID\"]");
-        }
+        // console.log("显示页面打印操作票");
+        var modelData = this.getView().getModel("newBillDetailQueryInfoPage").getData();
+        sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage").onPDFPrintCZP(modelData);
+        // var oTarget = this.getView();
+        // if (oTarget) {
+        //     var $domTarget = oTarget.$()[0],
+        //     sTargetContent = $domTarget.innerHTML,
+        //     sOriginalContent = document.body.innerHTML;
+        //     document.body.innerHTML = sTargetContent;
+        //     window.print();
+        //         document.body.innerHTML = sOriginalContent;
+        // } else {
+        //     jQuery.sap.log.error("onPrint needs a valid target container [view|data:targetId=\"SID\"]");
+        // }
+    },
+    onPrintDangerousPoint:function(){
+        // console.log("显示页面打印危险点");
+        var modelData = this.getView().getModel("newBillDetailQueryInfoPage").getData();
+        sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage").onPDFPrintDangerous(modelData);
     }
 /**
 * Called when a controller is instantiated and its View controls (if available) are already created.
