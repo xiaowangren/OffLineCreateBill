@@ -22,8 +22,10 @@
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>
-		        <lay:MatrixLayout widths="6%,15%,7%,22%,5%,15%,4%,12%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_2">
+		        <lay:MatrixLayout widths="1%,6%,15%,7%,22%,5%,15%,4%,12%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_2">
 		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="操作票号"></c:TextView>
 		                </lay:MatrixLayoutCell>
@@ -59,6 +61,8 @@
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="类型"></c:TextView>
 		                </lay:MatrixLayoutCell>
@@ -120,6 +124,8 @@
 		            </lay:MatrixLayoutRow>
 		            <lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="运行区域"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
@@ -160,6 +166,8 @@
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="开票人"></c:TextView>
 		                </lay:MatrixLayoutCell>
