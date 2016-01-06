@@ -213,7 +213,7 @@
             			<ColumnListItem type="Active">
             				<cells>
             					<c:TextField
-            					    value="{newBillDetailQueryInfoPage>Zxh}" editable="false" width="100%" tooltip="{newBillDetailQueryInfoPage>Zxh}"/>
+            					    value="{newBillDetailQueryInfoPage>Zxh}" editable="false" width="100%" />
             					<c:TextView
             						text="{newBillDetailQueryInfoPage>Zcznr}"  width="100%" tooltip="{newBillDetailQueryInfoPage>Zcznr}"/>
             					<c:TextView
@@ -261,7 +261,7 @@
             			    <ColumnListItem type="Active">
                 				<cells>
                 					<c:TextField
-                						value="{newBillDetailQueryInfoPage>Dangno}" editable="false" width="100%" tooltip="{newBillDetailQueryInfoPage>Dangno}"/>
+                						value="{newBillDetailQueryInfoPage>Dangno}" editable="false" width="100%"/>
                 					<c:TextView
                 						text="{newBillDetailQueryInfoPage>Zztext}" editable="false" width="100%" tooltip="{newBillDetailQueryInfoPage>Zztext}"/>
                 					<c:TextView

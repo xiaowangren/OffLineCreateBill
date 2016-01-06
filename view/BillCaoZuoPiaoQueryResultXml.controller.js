@@ -134,6 +134,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
 		var InfoDataNew = [];
 		var InfoTabLength = data.InfoTab.length;
 		for(var j=0;j<InfoTabLength;j++){
+		    //将编号字符串改为数字
+		    InfoTab[j].Zxh = parseInt(InfoTab[j].Zxh);
 		    InfoDataNew.push(InfoTab[j]);
 		}
 		for(var i=0;i<250-InfoTabLength;i++){
@@ -145,6 +147,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
 		var DangerousTabNew = [];
 		var DangerousTabLength = data.DangerousTab.length;
 		for(var m=0;m<DangerousTabLength;m++){
+		    DangerousTab[m].Zxh = parseInt(DangerousTab[m].Dangno);
 		    DangerousTabNew.push(DangerousTab[m]);
 		}
 		for(var n=0;n<250-DangerousTabLength;n++){
@@ -160,6 +163,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
 		var InfoDataNew = [];
 		var InfoTabLength = data.InfoTab.results.length;
 		for(var j=0;j<InfoTabLength;j++){
+		    InfoTab[j].Zxh = parseInt(InfoTab[j].Zxh);
 		    InfoDataNew.push(InfoTab[j]);
 		}
 		for(var i=0;i<250-InfoTabLength;i++){

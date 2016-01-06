@@ -6,7 +6,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         // var payLoad = this.collectData();
         
         var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
-        console.log(newCaoZuoPiaoCreate);
         //校验数据合法性
         if(newCaoZuoPiaoCreate.Appdep==""){
             sap.m.MessageBox.alert("填写部门必填");

@@ -45,6 +45,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
         var tableData = newCaoZuoPiaoUpdateMuBan.InfoTab;
         var BillInfoNew =[];
         for(var i=0;i<tableData.length;i++){
+            tableData[i].Zxh = ""+tableData[i].Zxh;
             if((tableData[i].Zzysx.trim()=="")&&(tableData[i].Zxh.trim()=="")&&(tableData[i].Zcznr.trim()=="")){
             }else{
                 BillInfoNew.push(tableData[i]); 
@@ -89,7 +90,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
                 }
             }
         }
-        console.log(newCaoZuoPiao);
+        // console.log(newCaoZuoPiao);
         newCaoZuoPiao.InfoTab=tableData;
         newCaoZuoPiao.DangerousTab=dangerousPointData;
 

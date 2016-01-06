@@ -25,7 +25,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery2", {
             kaiPiaoRiQiQuery2 = kaiPiaoRiQiQuery2.substr(0,4)+"-"+kaiPiaoRiQiQuery2.substr(4,2)+"-"+kaiPiaoRiQiQuery2.substr(6,2);
         }
         
-        console.log(kaiPiaoRiQiQuery2);
         //过滤数据
         //获取本地的数据，进行查询
         jQuery.sap.require("jquery.sap.storage");
@@ -112,7 +111,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery2", {
 			queryResultModel.setProperty("/ZhiBieQuery3",oData);
 		}
         //跳转至查询结果页面
-        console.log(aFilter);
         queryResultModel.setProperty("/queryResultModel",aFilter);
         queryResultModel.setProperty("/queryResultModelCount",aFilter.length);
         queryResultModel.setProperty("/BiaoJi","query");
