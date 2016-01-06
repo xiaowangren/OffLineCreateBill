@@ -505,6 +505,17 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             }
         }
     },
+    getByteLen:function(val){ 
+        var len = 0; 
+        for (var i = 0; i < val.length; i++) { 
+            if (val[i].match(/[^x00-xff]/ig) != null){ //全角 
+                len += 2; 
+            }else{
+                len += 1;
+            }
+        }
+        return len; 
+    },
     onPDFPrintCZP:function(modelData){
         if(modelData == undefined){
             modelData = this.getView().getModel("BillCreateInfoPage").getData();
@@ -514,6 +525,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var payLoad = modelData;
         //console.log(payLoad);
         var dianQiGongChang = this.onGetIwerkText(payLoad.Iwerk);
+        if(!(dianQiGongChang == undefined)){
+            console.log(dianQiGongChang);
+            dianQiGongChang = dianQiGongChang.replace(/物资工厂/, '');
+        }
         var dianQiLeiXing = this.onGetTicketTypeText(payLoad.Ztype);
         var dianQiCaoZuoPiaoHao = payLoad.Zczph;
         if(payLoad.Otype=='1'){
@@ -522,6 +537,12 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             var caoZuoLeiXing ="监护操作";
         }
         var Ztasktmp=payLoad.Ztask.replace(/\n/g,'');       //操作任务
+        var taskLen = this.getByteLen(Ztasktmp);
+        if(taskLen <= 74){
+            Ztasktmp = Ztasktmp +"\n \n ";
+        }else if(taskLen <= 158){
+            Ztasktmp = Ztasktmp + "\n ";
+        }
         //操作票内容
         var InfoTab = payLoad.InfoTab;
         var tableDataNew =[];
@@ -540,11 +561,12 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
 			]
 	   ];
 	   for(var i=0;i<tableDataNew.length;i++){
+	       var l_seq = tableDataNew[i].Zseq.replace(/^0+/,'');            //操作票序号 去除前导零
 	        var Zcznr = tableDataNew[i].Zcznr;
             var Zcznrtmp=Zcznr.replace(/\n/g,'');       //操作内容
             var Zzysx = tableDataNew[i].Zzysx;
             var Zzysxtmp=Zzysx.replace(/\n/g,'');       //注意事项
-  		    var line = ['', tableDataNew[i].Zseq, Zcznrtmp,Zzysxtmp];
+  		    var line = ['', l_seq, Zcznrtmp,Zzysxtmp];
 		    oBody.push(line);
 	   }
         var tableEnd = [{text:'备注:\n \n \n ',colSpan: 4},{},{},{}];
@@ -598,7 +620,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
                   return footer; 
                  
             },
-            pageMargins: [ 40, 145, 40, 60 ],        //页面边距，对Header不起作用
+            pageMargins: [ 40, 169, 40, 60 ],        //页面边距，对Header不起作用
             content: [
                 {
                     style: 'bodyTable',
@@ -606,7 +628,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
 					table: { 
 					    	widths: ['16.67%','16.67%','16.67%','16.67%','16.67%','16.67%'],
 					    	body:[  //发令人和操作类型两行，固定行
-                                [{ text: '发令人\n  \n  ', style: 'tableHeader', alignment: 'left' },'',{text:'受令人'},'',{text:'发令时间'},{text:'________年\n___月___日\n___时___分'}],
+                                [{ text: '发令人\n  \n  ', style: 'tableHeader', alignment: 'left' },'',{text:'受令人'},'',{text:'发令时间'},{text:'________年\n___月___日\n___时___分',alignment:'right'}],
                                 [{ text: '操作类型\n  \n  ', style: 'tableHeader', colSpan:3, alignment: 'left' },{},{},
                                  { text: caoZuoLeiXing, style: 'tableHeader',  colSpan:3, alignment: 'left' },{},{}
                                 ]
@@ -624,7 +646,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
 							body: oBody                     //动态组装主表内容
 					}
 				},
-				{text:"操作人：          监护人：            值班负责人：            值长：          "}
+				{text:"操作人：          监护人：            值班负责人：            值长：(根据需要) "}
 			],
 			styles: {
         		header: {
@@ -679,6 +701,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var payLoad = modelData;
         //console.log(payLoad);
         var dianQiGongChang = this.onGetIwerkText(payLoad.Iwerk);
+        if(!(dianQiGongChang == undefined)){
+            console.log(dianQiGongChang);
+            dianQiGongChang = dianQiGongChang.replace(/物资工厂/, '');
+        }
         var dianQiLeiXing = this.onGetTicketTypeText(payLoad.Ztype);
         var dianQiCaoZuoPiaoHao = payLoad.Zczph;
         if(payLoad.Otype=='1'){
@@ -687,6 +713,12 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             var caoZuoLeiXing ="监护操作";
         }
         var Ztasktmp=payLoad.Ztask.replace(/\n/g,'');       //操作任务
+        var taskLen = this.getByteLen(Ztasktmp);
+        if(taskLen <= 74){
+            Ztasktmp = Ztasktmp +"\n \n ";
+        }else if(taskLen <= 158){
+            Ztasktmp = Ztasktmp + "\n ";
+        }
         //操作票内容
         var DangerousTab = payLoad.DangerousTab;
         var tableDataNew =[];
@@ -704,8 +736,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
 					    { text: '预防控制措施', style: 'tableHeader', alignment: 'center' },
 					    { text: '执行情况\n(√)', style: 'tableHeader', alignment: 'center' }]
 	   ];
-  		for(var i=1;i<tableDataNew.length;i++){
-  		    var line = [ tableDataNew[i].Dangno,tableDataNew[i].Zztext,tableDataNew[i].Zzremark,tableDataNew[i].Zzpltxt,'' ];
+  		for(var i=0;i<tableDataNew.length;i++){
+  		    var l_seq = tableDataNew[i].Dangno.replace(/^0+/,'');            //危险点序号 去除前导零
+  		    var line = [ l_seq,tableDataNew[i].Zztext,tableDataNew[i].Zzremark,tableDataNew[i].Zzpltxt,'' ];
 		    oBody.push(line);
 		}
         var tableEnd = [{text:'备注:\n\n\n',colSpan: 5},{},{},{},{}];
@@ -720,10 +753,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
                     var line1 = {text:'关联操作票号：'+dianQiCaoZuoPiaoHao,style:'subheader'};
                     Header.push(line1);
                 }else{
-                    var line1 = {text:'上接：'+(currentPage-1),style:'subheader'};
+                    var line1 = {text:'上接：'+dianQiCaoZuoPiaoHao+'-'+(currentPage-1),style:'subheader'};
                     Header.push(line1);
                 }
-                var line2 = {text:'编号：'+dianQiCaoZuoPiaoHao,style:'subheader',alignment:'right'};
+                var line2 = {text:'编号：'+dianQiCaoZuoPiaoHao+'-'+currentPage,style:'subheader',alignment:'right'};
                 Header.push(line2);
                 console.log(Header);
                 var table =  [               {
@@ -733,6 +766,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
 					    	widths: ['100%'],
 					    	body:[
 					    	        [{ text: '操作任务：'+Ztasktmp, style: 'tableHeader', alignment: 'left' }],
+					    	      //  [{ text: '操作任务：1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890', style: 'tableHeader',rowSpan:2, alignment: 'left' }],
                             	    [{ text: '危险点及预防控制措施', style: 'tableHeader',  alignment: 'center' }]
                     		]
 					}
@@ -743,12 +777,12 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
               },
             footer: function(currentPage, pageCount) { 
                   if(currentPage < pageCount){
-                      var footer = {text:'下接:'+(currentPage+1),style:'subheader',alignment:'right'};
+                      var footer = {text:'下接:'+dianQiCaoZuoPiaoHao+'-'+(currentPage+1),style:'subheader',alignment:'right'};
                   }
                   return footer; 
                  
             },
-            pageMargins: [ 40, 145, 40, 60 ],
+            pageMargins: [ 40, 169, 40, 60 ],
 
             content: [
 				{
