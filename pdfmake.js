@@ -16226,7 +16226,7 @@
 			array = text.match(WORD_RE);
 		}
 		//LOUWEIWEI
- 		console.log(array);
+//  		console.log(array);
 		// i < l - 1, because the last match is always an empty string
 		// other empty strings however are treated as new-lines
 		for(var i = 0, l = array.length; i < l - 1; i++) {
