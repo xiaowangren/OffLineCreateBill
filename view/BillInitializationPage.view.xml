@@ -14,7 +14,7 @@
 							<c:Button press="onExecute" text="执行"></c:Button>
 						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
-                            <c:Button text="参考历史票/典型票" press="onCanKaoLiShiPiao"></c:Button>
+                            <c:Button text="参考典型票" press="onCanKaoLiShiPiao"></c:Button>
                         </lay:MatrixLayoutCell>
 					</lay:MatrixLayoutRow>
 				</lay:MatrixLayout>

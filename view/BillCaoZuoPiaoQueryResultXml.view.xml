@@ -18,6 +18,7 @@
                 visibleRowCount="10"
                 navigationMode="Paginator"
                 selectionMode="Single"
+                selectionBehavior="Row"
                 rowSelectionChange="onChange"
                 rows="{path: '/queryResultModel', sorter: { path: 'Zczph', descending: true}}" >
             <columns>

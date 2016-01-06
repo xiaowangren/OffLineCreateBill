@@ -28,7 +28,7 @@
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>
-		        <lay:MatrixLayout widths="7%,12%,7%,25%,5%,10%,6%,12%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_2">
+		        <lay:MatrixLayout widths="6%,15%,7%,22%,5%,15%,4%,12%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_2">
 		            <lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="操作票号"></c:TextView>
@@ -48,7 +48,7 @@
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="填写部门"></c:TextView>
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
-		                    <c:ComboBox id="dianQiTianXieBuMen4" items="{ path: '/tianxieBuMenQuery3'}" width="95%" selectedKey="{newBillDetailUpdateInfoPage>/Appdep}">
+		                    <c:ComboBox id="dianQiTianXieBuMen4" items="{ path: '/tianxieBuMenQuery3'}" width="68%" selectedKey="{newBillDetailUpdateInfoPage>/Appdep}">
 								<core:ListItem key="{Appdep}" text="{Appdep} {Appdepdec}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
@@ -87,7 +87,7 @@
 		                    <c:TextView text="操作类型"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox width="95%" id="dianQiCaozuoLeiXing4" selectedKey="{newBillDetailUpdateInfoPage>/Otype}">
+		                    <c:ComboBox width="47%" id="dianQiCaozuoLeiXing4" selectedKey="{newBillDetailUpdateInfoPage>/Otype}">
 		                        <c:items>
                                     <core:ListItem text="1 单人操作" key="1"></core:ListItem>
                                     <core:ListItem text="2 监护操作" key="2"></core:ListItem>
@@ -97,7 +97,7 @@
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="操作性质"></c:TextView>
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
-		                    <c:ComboBox width="95%" id="dianQiCaoZuoXingZhi4" selectedKey="{newBillDetailUpdateInfoPage>/Zczfs}">
+		                    <c:ComboBox width="68%" id="dianQiCaoZuoXingZhi4" selectedKey="{newBillDetailUpdateInfoPage>/Zczfs}">
 		                        <c:items>
                                     <core:ListItem text="1 一般操作" key="1"></core:ListItem>
                                     <core:ListItem text="2 重大操作" key="2"></core:ListItem>
@@ -129,7 +129,7 @@
 		                    <c:TextView text="运行区域"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox id="dianQiYunXingQuYu4" items="{ path: '/yunXingQuYuQuery3'}" width="95%" selectedKey="{newBillDetailUpdateInfoPage>/Rarea}">
+		                    <c:ComboBox id="dianQiYunXingQuYu4" items="{ path: '/yunXingQuYuQuery3'}" width="65%" selectedKey="{newBillDetailUpdateInfoPage>/Rarea}">
 								<core:ListItem key="{Rarea}" text="{Rarea} {Rareadec}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
@@ -137,14 +137,14 @@
 		                    <c:TextView text="机组"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox id="dianQiJiZu4" items="{ path: '/jiZuQuery3'}" width="95%" selectedKey="{newBillDetailUpdateInfoPage>/Unity}" >
+		                    <c:ComboBox id="dianQiJiZu4" items="{ path: '/jiZuQuery3'}" width="47%" selectedKey="{newBillDetailUpdateInfoPage>/Unity}" >
 								<core:ListItem key="{Unity}" text="{Unity} {Untxt}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="值别"></c:TextView>
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
-		                    <c:ComboBox id="dianQiZhiBie4" items="{ path: '/ZhiBieQuery3'}" width="95%" selectedKey="{newBillDetailUpdateInfoPage>/Dunum}">
+		                    <c:ComboBox id="dianQiZhiBie4" items="{ path: '/ZhiBieQuery3'}" width="68%" selectedKey="{newBillDetailUpdateInfoPage>/Dunum}">
 								<core:ListItem key="{Dunum}" text="{Dunum} {Dutxt}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
@@ -169,7 +169,7 @@
 		                    <c:TextView text="开票人"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="{newBillDetailUpdateInfoPage>/Cuser}" id="dianQiKaiPiaoRen4"></c:TextField>
+		                    <c:TextField value="{newBillDetailUpdateInfoPage>/Cuser}" id="dianQiKaiPiaoRen4" width="65%"></c:TextField>
 		                    <!--<c:TextView  text="{newBillDetailUpdateInfoPage>/Cuser}" id="dianQiKaiPiaoRen4"></c:TextView >-->
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
@@ -182,12 +182,12 @@
 		                    <c:TextView text="操作任务"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell rowSpan="2" colSpan="4">
-		                    <c:TextArea value="{newBillDetailUpdateInfoPage>/Ztask}" rows="5" cols="55" id="dianQiCaoZuoRenWu4"></c:TextArea>
+		                    <c:TextArea value="{newBillDetailUpdateInfoPage>/Ztask}" rows="3" cols="60" id="dianQiCaoZuoRenWu4"></c:TextArea>
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>
 		        <!--<mvc:JSView viewName="com.zhenergy.bill.view.BillQueryInfoTab"/>-->
-		        <c:TabStrip height="380px">
+		        <c:TabStrip height="410px">
 		            <c:Tab text="操作内容">
 		                <c:content>
 		                    <Table
@@ -197,7 +197,7 @@
             				<Column
             					minScreenWidth="Tablet"
             					demandPopin="true"
-            					width="30px"
+            					width="6px"
             					 >
             					<Text text="序号" />
             				</Column>
@@ -238,7 +238,7 @@
                 				<Column
                 					minScreenWidth="Tablet"
                 					demandPopin="true"
-                					width="50px"
+                					width="20px"
                 					>
                 					<Text text="序号" />
                 				</Column>
@@ -286,7 +286,7 @@
 		                    <c:TextView text="备注"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell colSpan="3">
-		                    <c:TextArea value="{newBillDetailUpdateInfoPage>/Znote}" rows="4" cols="150" id="dianQiBeiZhu4"></c:TextArea>
+		                    <c:TextArea value="{newBillDetailUpdateInfoPage>/Znote}" rows="2" cols="150" id="dianQiBeiZhu4"></c:TextArea>
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>
