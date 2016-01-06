@@ -32,6 +32,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             sap.m.MessageBox.alert("机组必填");
             return;
         }
+        if(newCaoZuoPiaoCreate.Dunum==""){
+            sap.m.MessageBox.alert("值别必填");
+            return;
+        }
         if(newCaoZuoPiaoCreate.Cuser.trim()==""){
             sap.m.MessageBox.alert("开票人必填");
             return;
@@ -272,7 +276,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             }
         }
         var payLoad ={
-            Zczph:leiXingId+gongChangId+LiuShuiId,//ZCZPH
+            Zczph:leiXingId+"_"+gongChangId+"_"+LiuShuiId,//ZCZPH
             Estat:EstatId,//ESTAT
             Cuser:dianQiKaiPiaoRen,//CUSER
             Cdata:dianQiKaiPiaoRiQi,//CDATA

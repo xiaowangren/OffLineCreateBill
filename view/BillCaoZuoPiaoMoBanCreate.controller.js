@@ -29,6 +29,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
             sap.m.MessageBox.alert("机组必填");
             return;
         }
+        if(newCaoZuoPiaoUpdateMuBan.Dunum==""){
+            sap.m.MessageBox.alert("值别必填");
+            return;
+        }
         if(newCaoZuoPiaoUpdateMuBan.Cuser.trim()==""){
             sap.m.MessageBox.alert("开票人必填");
             return;
@@ -59,7 +63,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
         newCaoZuoPiaoUpdateMuBan.DangerousTab=dangerousPointDataNew;
         //生成操作票号
         var LiuShuiId = this.uuid(8,10);
-        var Zczph = newCaoZuoPiaoUpdateMuBan.Ztype+newCaoZuoPiaoUpdateMuBan.Iwerk+LiuShuiId;
+        var Zczph = newCaoZuoPiaoUpdateMuBan.Ztype+"_"+newCaoZuoPiaoUpdateMuBan.Iwerk+"_"+LiuShuiId;
         newCaoZuoPiaoUpdateMuBan.Zczph = Zczph;
         //存入缓存
         jQuery.sap.require("jquery.sap.storage");

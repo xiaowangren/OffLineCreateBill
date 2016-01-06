@@ -29,6 +29,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
             sap.m.MessageBox.alert("机组必填");
             return;
         }
+        if(newBillDetailUpdateInfoPage.Dunum==""){
+            sap.m.MessageBox.alert("值别必填");
+            return;
+        }
         if(newBillDetailUpdateInfoPage.Cuser.trim()==""){
             sap.m.MessageBox.alert("开票人必填");
             return;
