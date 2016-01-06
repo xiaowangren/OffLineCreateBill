@@ -20,12 +20,12 @@
 		                <lay:MatrixLayoutCell>
 		                    <c:Button text="取消" press="onCancleBillInfo"></c:Button>
 		                </lay:MatrixLayoutCell>
-		                <lay:MatrixLayoutCell>
-		                    <c:Button text="打印操作票" press="onPrintBillInfo"></c:Button>
-		                </lay:MatrixLayoutCell>
-		                <lay:MatrixLayoutCell>
-		                    <c:Button text="打印危险点" press="onPrintDangerousPoint"></c:Button>
-		                </lay:MatrixLayoutCell>
+		                <!--<lay:MatrixLayoutCell>-->
+		                <!--    <c:Button text="打印操作票" press="onPrintBillInfo"></c:Button>-->
+		                <!--</lay:MatrixLayoutCell>-->
+		                <!--<lay:MatrixLayoutCell>-->
+		                <!--    <c:Button text="打印危险点" press="onPrintDangerousPoint"></c:Button>-->
+		                <!--</lay:MatrixLayoutCell>-->
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>
 		        <lay:MatrixLayout widths="7%,12%,7%,25%,5%,10%,6%,12%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_2">

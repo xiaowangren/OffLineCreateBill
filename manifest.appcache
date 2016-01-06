@@ -8,8 +8,8 @@ resources/jquery.sap.trace.js
 resources/sap/ui/thirdparty/jquery-mobile-custom.js
 resources/sap/ui/core/library-preload.json
 resources/sap/m/library-preload.json
-pdfmake.js
-vfs_fonts.js
+/sap/public/bc/bsp/pdfmake/pdfmake.js
+/sap/public/bc/bsp/pdfmake/vfs_fonts.js
 #UI5 CSS FILE
 resources/sap/ui/core/themes/sap_bluecrystal/library.css
 resources/sap/m/themes/sap_bluec/library.css

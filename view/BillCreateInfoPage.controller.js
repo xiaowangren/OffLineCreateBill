@@ -544,7 +544,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             var Zcznrtmp=Zcznr.replace(/\n/g,'');       //操作内容
             var Zzysx = tableDataNew[i].Zzysx;
             var Zzysxtmp=Zzysx.replace(/\n/g,'');       //注意事项
-  		    var line = ['', ''+i, Zcznrtmp,Zzysxtmp];
+  		    var line = ['', tableDataNew[i].Zseq, Zcznrtmp,Zzysxtmp];
 		    oBody.push(line);
 	   }
         var tableEnd = [{text:'备注:\n \n \n ',colSpan: 4},{},{},{}];
