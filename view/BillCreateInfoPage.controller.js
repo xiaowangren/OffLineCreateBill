@@ -508,7 +508,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
     getByteLen:function(val){ 
         var len = 0; 
         for (var i = 0; i < val.length; i++) { 
-            if (val[i].match(/[^x00-xff]/ig) != null){ //全角 
+            if (val[i].match(/[^x00-xff]/ig) != null){ //全角2  半角1 
                 len += 2; 
             }else{
                 len += 1;
