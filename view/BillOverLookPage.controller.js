@@ -134,10 +134,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			    }
 			    uploadCount = uploadCount + 1;
 			    var payLoad = oData[i];
-			    console.log(payLoad);
+			    delete payLoad["statusText"];
 			    //delete payLoad["Zczph"];         //删除json中的字段
-			    //payLoad.Cdata = "2015-12-30";
-			    var tmpDate = payLoad.Cdata;
+			    var tmpDate = payLoad.Cdata;       //把10位日期转换为8位
 			    payLoad.Cdata = tmpDate.substring(0,4) + tmpDate.substring(5,7) + tmpDate.substring(8,10);
                 //添加创建请求
 			    var createOp = oECCModel.createBatchOperation("/ZPMTOPERSet","POST",payLoad);

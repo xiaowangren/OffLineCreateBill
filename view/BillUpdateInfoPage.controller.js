@@ -215,6 +215,16 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
         
         // sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage");
         // sap.m.MessageBox.alert("取消成功");
+    },
+    onPrintBillInfo:function(){
+        // console.log("显示页面打印操作票");
+        var modelData = this.getView().getModel("newBillDetailUpdateInfoPage").getData();
+        sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage").onPDFPrintCZP(modelData);
+    },
+    onPrintDangerousPoint:function(){
+        // console.log("显示页面打印危险点");
+        var modelData = this.getView().getModel("newBillDetailUpdateInfoPage").getData();
+        sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage").onPDFPrintDangerous(modelData);
     }
 
 

@@ -508,6 +508,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
     onPDFPrintCZP:function(modelData){
         if(modelData == undefined){
             modelData = this.getView().getModel("BillCreateInfoPage").getData();
+            // console.log("onPDFPrintCZP");
+            // console.log(modelData);
         }
         var payLoad = modelData;
         //console.log(payLoad);

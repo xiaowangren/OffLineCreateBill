@@ -3,7 +3,7 @@
 	xmlns="sap.m" controllerName="com.zhenergy.bill.view.BillOverLookPage" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<Page
-	    title="两票离线打印平台"
+	    title="两票离线处理平台"
 		showHeader="true"
 		enableScrolling="false" >
 		<!--tiles="{/TileCollection}"-->
@@ -33,17 +33,6 @@
 				</customData>
 			</StandardTile>
 			<StandardTile
-			    id="tileQueryOT"
-				icon="sap-icon://order-status"
-				title="查询操作票"
-				infoState="Success"  
-				press="onQueryCaoZuoPiao">
-				<customData>
-					<core:CustomData key="targetPage" value="BillInitializationPage">
-					</core:CustomData>
-				</customData>
-			</StandardTile>
-			<StandardTile
 			    id="tileModifyOT"
 				icon="sap-icon://order-status"
 				title="修改操作票"
@@ -54,6 +43,18 @@
 					</core:CustomData>
 				</customData>
 			</StandardTile>
+			<StandardTile
+			    id="tileQueryOT"
+				icon="sap-icon://order-status"
+				title="查询操作票"
+				infoState="Success"  
+				press="onQueryCaoZuoPiao">
+				<customData>
+					<core:CustomData key="targetPage" value="BillInitializationPage">
+					</core:CustomData>
+				</customData>
+			</StandardTile>
+
 			<!--info="最近上传:12.15 16:00"-->
 			<StandardTile
 			    id="tileUpload"
@@ -77,17 +78,6 @@
 				</customData>
 			</StandardTile>
 			<StandardTile
-			    id="tileQueryWT"
-				icon="sap-icon://factory"
-				title="查询工作票"
-				infoState="Error"
-				press="onQueryGongZuoPiao">
-				<customData>
-					<core:CustomData key="targetPage" value="BillInitializationPage">
-					</core:CustomData>
-				</customData>
-			</StandardTile>
-			<StandardTile
 			    id="tileModifyWT"
 				icon="sap-icon://factory"
 				title="修改工作票"
@@ -98,15 +88,26 @@
 					</core:CustomData>
 				</customData>
 			</StandardTile>
+			<StandardTile
+			    id="tileQueryWT"
+				icon="sap-icon://factory"
+				title="查询工作票"
+				infoState="Error"
+				press="onQueryGongZuoPiao">
+				<customData>
+					<core:CustomData key="targetPage" value="BillInitializationPage">
+					</core:CustomData>
+				</customData>
+			</StandardTile>
 		</TileContainer>
-		<footer>
-			<Toolbar>
-				<ToolbarSpacer/>
-					<Button text="操作票打印" press="handlePrintPressCZP" />
-					<Button text="危险点打印" press="handlePrintPress" />
-					<Button text="设定工厂" press="handleSelectWerks" />
-				<ToolbarSpacer/>
-			</Toolbar>
-		</footer>
+		<!--<footer>-->
+		<!--	<Toolbar>-->
+		<!--		<ToolbarSpacer/>-->
+		<!--			<Button text="操作票打印" press="handlePrintPressCZP" />-->
+		<!--			<Button text="危险点打印" press="handlePrintPress" />-->
+		<!--			<Button text="设定工厂" press="handleSelectWerks" />-->
+		<!--		<ToolbarSpacer/>-->
+		<!--	</Toolbar>-->
+		<!--</footer>-->
 	</Page>
 </core:View>
