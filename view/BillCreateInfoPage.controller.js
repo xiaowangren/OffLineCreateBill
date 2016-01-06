@@ -62,7 +62,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         newCaoZuoPiaoCreate.DangerousTab=dangerousPointDataNew;
         //生成操作票号
         var LiuShuiId = this.uuid(8,10);
-        var Zczph = "CZP"+newCaoZuoPiaoCreate.Iwerk+LiuShuiId;
+        var Zczph = newCaoZuoPiaoCreate.Ztype+newCaoZuoPiaoCreate.Iwerk+LiuShuiId;
         newCaoZuoPiaoCreate.Zczph = Zczph;
         //存入缓存
         jQuery.sap.require("jquery.sap.storage");
@@ -272,7 +272,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             }
         }
         var payLoad ={
-            Zczph:"CZP"+gongChangId+LiuShuiId,//ZCZPH
+            Zczph:leiXingId+gongChangId+LiuShuiId,//ZCZPH
             Estat:EstatId,//ESTAT
             Cuser:dianQiKaiPiaoRen,//CUSER
             Cdata:dianQiKaiPiaoRiQi,//CDATA

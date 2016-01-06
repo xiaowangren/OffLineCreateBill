@@ -59,7 +59,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
         newCaoZuoPiaoUpdateMuBan.DangerousTab=dangerousPointDataNew;
         //生成操作票号
         var LiuShuiId = this.uuid(8,10);
-        var Zczph = "CZP"+newCaoZuoPiaoUpdateMuBan.Iwerk+LiuShuiId;
+        var Zczph = newCaoZuoPiaoUpdateMuBan.Ztype+newCaoZuoPiaoUpdateMuBan.Iwerk+LiuShuiId;
         newCaoZuoPiaoUpdateMuBan.Zczph = Zczph;
         //存入缓存
         jQuery.sap.require("jquery.sap.storage");
