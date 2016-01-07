@@ -6,39 +6,39 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
         var newCaoZuoPiaoUpdateMuBan = this.getView().getModel("newCaoZuoPiaoUpdateMuBan").getData(); 
         //校验数据合法性
         if(newCaoZuoPiaoUpdateMuBan.Appdep==""){
-            sap.m.MessageBox.alert("填写部门必填");
+            sap.m.MessageBox.alert("填写部门必填",{title: "提示"});
             return;
         }
         if(newCaoZuoPiaoUpdateMuBan.Yxgroup==""){
-            sap.m.MessageBox.alert("班组必填");
+            sap.m.MessageBox.alert("班组必填",{title: "提示"});
             return;
         }
         if(newCaoZuoPiaoUpdateMuBan.Otype==""){
-            sap.m.MessageBox.alert("操作类型必填");
+            sap.m.MessageBox.alert("操作类型必填",{title: "提示"});
             return;
         }
         if(newCaoZuoPiaoUpdateMuBan.Zczfs==""){
-            sap.m.MessageBox.alert("操作性质必填");
+            sap.m.MessageBox.alert("操作性质必填",{title: "提示"});
             return;
         }
         if(newCaoZuoPiaoUpdateMuBan.Rarea==""){
-            sap.m.MessageBox.alert("运行区域必填");
+            sap.m.MessageBox.alert("运行区域必填",{title: "提示"});
             return;
         }
         if(newCaoZuoPiaoUpdateMuBan.Unity==""){
-            sap.m.MessageBox.alert("机组必填");
+            sap.m.MessageBox.alert("机组必填",{title: "提示"});
             return;
         }
         if(newCaoZuoPiaoUpdateMuBan.Dunum==""){
-            sap.m.MessageBox.alert("值别必填");
+            sap.m.MessageBox.alert("值别必填",{title: "提示"});
             return;
         }
         if(newCaoZuoPiaoUpdateMuBan.Cuser.trim()==""){
-            sap.m.MessageBox.alert("开票人必填");
+            sap.m.MessageBox.alert("开票人必填",{title: "提示"});
             return;
         }
         if(newCaoZuoPiaoUpdateMuBan.Ztask.trim()==""){
-            sap.m.MessageBox.alert("操作任务必填");
+            sap.m.MessageBox.alert("操作任务必填",{title: "提示"});
             return;
         }
         

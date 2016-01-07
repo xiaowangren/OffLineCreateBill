@@ -45,7 +45,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		//同步典型票  每次200条
 		this.onSyncZS(200, 1800);
 
-		sap.m.MessageBox.alert("主数据下载完成");
+		sap.m.MessageBox.alert("主数据下载完成",{title: "提示"});
 		//保存同步日志（最近同步时间）
 		var syncLog = {
 			lastUpdate: $.now()
@@ -182,7 +182,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
                 false
             );
 		}else{
-		    sap.m.MessageBox.alert("没有需要上传的数据");
+		    sap.m.MessageBox.alert("没有需要上传的数据",{title: "提示"});
 		}
 	},
 	onNavigate: function(event){

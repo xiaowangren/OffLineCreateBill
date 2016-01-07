@@ -34,11 +34,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 
         if(!idWerksSelect)
         {
-            sap.m.MessageBox.alert("请选择工厂");
+            sap.m.MessageBox.alert("请选择工厂",{title: "提示"});
             return;
         }
         if(!idTicketSelect){
-            sap.m.MessageBox.alert("请选择操作票类型");
+            sap.m.MessageBox.alert("请选择操作票类型",{title: "提示"});
             return;
         }
         
@@ -137,11 +137,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 
         if(!idWerksSelect)
         {
-            sap.m.MessageBox.alert("请选择工厂");
+            sap.m.MessageBox.alert("请选择工厂",{title: "提示"});
             return;
         }
         if(!idTicketSelect){
-            sap.m.MessageBox.alert("请选择操作票类型");
+            sap.m.MessageBox.alert("请选择操作票类型",{title: "提示"});
             return;
         }
         queryModel.setProperty("/werkQuery",idWerksSelect);
