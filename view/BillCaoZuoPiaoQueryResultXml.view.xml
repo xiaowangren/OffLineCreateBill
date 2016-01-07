@@ -2,7 +2,6 @@
 	xmlns:mvc="sap.ui.core.mvc" 
 	xmlns:c="sap.ui.commons"
 	xmlns="sap.ui.table"
-	
 	xmlns:m="sap.m" controllerName="com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<m:Page title="操作票查询:共{/queryResultModelCount}张，查询日期:{/queryResultModelDate}">
@@ -20,7 +19,7 @@
                 selectionMode="Single"
                 selectionBehavior="Row"
                 rowSelectionChange="onChange"
-                rows="{path: '/queryResultModel', sorter: { path: 'Zczph', descending: true}}" >
+                rows="{path: '/queryResultModel', sorter: { path: 'Cdata', descending: true}}" >
             <columns>
 					<Column width="11rem">
 						<m:Label text="操作票号" />
@@ -94,7 +93,7 @@
 					</Column>
 			</columns>
 			<columns>
-					<Column width="9rem">
+					<Column width="9rem" sortProperty="Cdata">
 						<m:Label text="开票日期" />
 						<template>
 							<m:Text text="{Cdata}" tooltip="{Cdata}"/>
