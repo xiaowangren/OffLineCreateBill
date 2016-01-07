@@ -55,13 +55,13 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 		
         // oLocalModel.setProperty("/Begda",Begda);
 		//类型
-// 		var idTicketSelectValue = this.getView().byId("idTicketSelect")._sTypedChars;
-// 		oLocalModel.setProperty("/dianQiLeiXing",idTicketSelect);
-        // var idTicket = "";
-        // if(idTicketSelectValue!=undefined){
-        //   idTicket = idTicketSelectValue.split(" ")[1];
-        // }
-// 		oLocalModel.setProperty("/dianQiLeiXingValue",idTicket);
+		var idTicketSelectValue = this.getView().byId("idTicketSelect")._sTypedChars;
+		oLocalModel.setProperty("/dianQiLeiXing",idTicketSelect);
+        var idTicket = "";
+        if(idTicketSelectValue!=undefined){
+          idTicket = idTicketSelectValue.split(" ")[1];
+        }
+		oLocalModel.setProperty("/dianQiLeiXingValue",idTicket);
 		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00204")) {
 			var oData = oStorage.get("ZPMOFFLINE_SRV.ZPMT00204");
 			oLocalModel.setProperty("/ZhiBie",oData);
