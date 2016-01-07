@@ -20,8 +20,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
 			oLocalModel.setProperty("/WERKS",oData);
 		}
 		if (oStorage.get("ZPMOFFLINE_SRV.TicketType")) {
-			var oData = oStorage.get("ZPMOFFLINE_SRV.TicketType");
-			oLocalModel.setProperty("/TicketType",oData);
+			var oDataT = oStorage.get("ZPMOFFLINE_SRV.TicketType");
+			oLocalModel.setProperty("/TicketType",oDataT);
 		}
 		sap.ui.getCore().setModel(oLocalModel);
 	},
@@ -133,8 +133,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
         var idTicketSelect = this.getView().byId("idTicketSelect").getSelectedKey();
         var idWerksSelectVaule = this.getView().byId("idWerksSelect")._sTypedChars;
 // 		var idTicketSelectValue = this.getView().byId("idTicketSelect")._sTypedChars;
-
-
         if(!idWerksSelect)
         {
             sap.m.MessageBox.alert("请选择工厂",{title: "提示"});
@@ -144,6 +142,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
             sap.m.MessageBox.alert("请选择操作票类型",{title: "提示"});
             return;
         }
+        //工厂
+		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
+			var oData5 = oStorage.get("ZPMOFFLINE_SRV.WERKS");
+			queryModel.setProperty("/WERKS",oData5);
+		}
         queryModel.setProperty("/werkQuery",idWerksSelect);
         queryModel.setProperty("/caoZuoLeiXingQuery",idTicketSelect);
         queryModel.setProperty("/idWerksSelectVaule",idWerksSelectVaule);

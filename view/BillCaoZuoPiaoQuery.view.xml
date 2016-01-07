@@ -40,7 +40,11 @@
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell colSpan="2">
     		                    <c:TextField value="{/idUser}" id="idUser2" editable="false" visible="false"></c:TextField>
-    		                    <c:TextField value="{/idWerksSelectVaule}" id="gongChangQuery" editable="false" tooltip="{/idWerksSelectVaule}" width="95%"></c:TextField>
+    		                    <!--<c:TextField value="{/idWerksSelectVaule}" id="gongChangQuery"  tooltip="{/idWerksSelectVaule}" width="95%"></c:TextField>-->
+    		                    <c:ComboBox id="gongChangQuery" items="{ path: '/WERKS', sorter: { path: 'Iwerk' } }" width="64%" selectedKey="{/werkQuery}" editable="false">
+								<core:ListItem key="{Iwerk}" text="{Iwerk} {Name1}"></core:ListItem>
+							</c:ComboBox>
+    		                    
     		                </lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutRow id="caoZuoPiaoLeiXingQuerys">

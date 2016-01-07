@@ -13,7 +13,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery", {
     },
     onCaoZuoPiaoQuery1:function(){
         //获取页面数据
-        var gongChangQuery = this.getView().byId("gongChangQuery").getValue();//工厂
+        var gongChangQuery = this.getView().byId("gongChangQuery").getSelectedKey();//工厂
         var caoZuoPiaoLeiXingQuery = this.getView().byId("caoZuoPiaoLeiXingQuery").getValue();//操作票类型
         var idTicketSelect = this.getView().byId("idTicketSelect").getValue();
         var zhuangTaiQueryStart = this.getView().byId("zhuangTaiQuery1").getSelectedKey();//状态
