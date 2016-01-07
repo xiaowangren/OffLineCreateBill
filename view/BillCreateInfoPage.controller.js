@@ -6,7 +6,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         // var payLoad = this.collectData();
         
         var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
-        console.log(newCaoZuoPiaoCreate);
         //校验数据合法性
         if(newCaoZuoPiaoCreate.Appdep==""){
             sap.m.MessageBox.alert("填写部门必填");
@@ -30,6 +29,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         }
         if(newCaoZuoPiaoCreate.Unity==""){
             sap.m.MessageBox.alert("机组必填");
+            return;
+        }
+        if(newCaoZuoPiaoCreate.Dunum==""){
+            sap.m.MessageBox.alert("值别必填");
             return;
         }
         if(newCaoZuoPiaoCreate.Cuser.trim()==""){
@@ -62,7 +65,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         newCaoZuoPiaoCreate.DangerousTab=dangerousPointDataNew;
         //生成操作票号
         var LiuShuiId = this.uuid(8,10);
-        var Zczph = "CZP"+newCaoZuoPiaoCreate.Iwerk+LiuShuiId;
+        var Zczph = newCaoZuoPiaoCreate.Ztype+newCaoZuoPiaoCreate.Iwerk+LiuShuiId;
         newCaoZuoPiaoCreate.Zczph = Zczph;
         //存入缓存
         jQuery.sap.require("jquery.sap.storage");
@@ -272,7 +275,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             }
         }
         var payLoad ={
-            Zczph:"CZP"+gongChangId+LiuShuiId,//ZCZPH
+            Zczph:leiXingId+"_"+gongChangId+"_"+LiuShuiId,//ZCZPH
             Estat:EstatId,//ESTAT
             Cuser:dianQiKaiPiaoRen,//CUSER
             Cdata:dianQiKaiPiaoRiQi,//CDATA

@@ -27,8 +27,10 @@
 		                <!--</lay:MatrixLayoutCell>-->
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>
-		        <lay:MatrixLayout widths="7%,12%,7%,25%,5%,10%,6%,12%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_2">
+		        <lay:MatrixLayout widths="1%,6%,15%,7%,22%,5%,15%,4%,12%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_2">
 		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="操作票号"></c:TextView>
 		                </lay:MatrixLayoutCell>
@@ -47,7 +49,7 @@
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="填写部门"></c:TextView>
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
-		                    <c:ComboBox id="dianQiTianXieBuMen" items="{ path: '/tianxieBuMen', sorter: { path: 'Appdep' }}" width="95%" selectedKey="{newCaoZuoPiaoCreate>/Appdep}">
+		                    <c:ComboBox id="dianQiTianXieBuMen" items="{ path: '/tianxieBuMen', sorter: { path: 'Appdep' }}" width="68%" selectedKey="{newCaoZuoPiaoCreate>/Appdep}">
 								<core:ListItem key="{Appdep}" text="{Appdep} {Appdepdec}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
@@ -64,6 +66,8 @@
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="类型"></c:TextView>
 		                </lay:MatrixLayoutCell>
@@ -86,7 +90,7 @@
 		                    <c:TextView text="操作类型"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox width="95%" id="dianQiCaozuoLeiXing" selectedKey="{newCaoZuoPiaoCreate>/Otype}">
+		                    <c:ComboBox width="47%" id="dianQiCaozuoLeiXing" selectedKey="{newCaoZuoPiaoCreate>/Otype}">
 		                        <c:items>
                                     <core:ListItem text="1 单人操作" key="1"></core:ListItem>
                                     <core:ListItem text="2 监护操作" key="2"></core:ListItem>
@@ -96,7 +100,7 @@
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="操作性质"></c:TextView>
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
-		                    <c:ComboBox width="95%" id="dianQiCaoZuoXingZhi" selectedKey="{newCaoZuoPiaoCreate>/Zczfs}">
+		                    <c:ComboBox width="68%" id="dianQiCaoZuoXingZhi" selectedKey="{newCaoZuoPiaoCreate>/Zczfs}">
 		                        <c:items>
                                     <core:ListItem text="1 一般操作" key="1"></core:ListItem>
                                     <core:ListItem text="2 重大操作" key="2"></core:ListItem>
@@ -125,10 +129,12 @@
 		            </lay:MatrixLayoutRow>
 		            <lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="运行区域"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox id="dianQiYunXingQuYu" items="{ path: '/yunXingQuYu', sorter: { path: 'Rarea' }}" width="95%" selectedKey="{newCaoZuoPiaoCreate>/Rarea}">
+		                    <c:ComboBox id="dianQiYunXingQuYu" items="{ path: '/yunXingQuYu', sorter: { path: 'Rarea' }}" width="65%" selectedKey="{newCaoZuoPiaoCreate>/Rarea}">
 								<core:ListItem key="{Rarea}" text="{Rarea} {Rareadec}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
@@ -136,14 +142,14 @@
 		                    <c:TextView text="机组"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox id="dianQiJiZu" items="{ path: '/jiZu', sorter: { path: 'Unity' }}" width="95%" selectedKey="{newCaoZuoPiaoCreate>/Unity}">
+		                    <c:ComboBox id="dianQiJiZu" items="{ path: '/jiZu', sorter: { path: 'Unity' }}" width="47%" selectedKey="{newCaoZuoPiaoCreate>/Unity}">
 								<core:ListItem key="{Unity}" text="{Unity} {Untxt}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="值别"></c:TextView>
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
-		                    <c:ComboBox id="dianQiZhiBie" items="{ path: '/ZhiBie', sorter: { path: 'Dunum' }}" width="95%" selectedKey="{newCaoZuoPiaoCreate>/Dunum}">
+		                    <c:ComboBox id="dianQiZhiBie" items="{ path: '/ZhiBie', sorter: { path: 'Dunum' }}" width="68%" selectedKey="{newCaoZuoPiaoCreate>/Dunum}">
 								<core:ListItem key="{Dunum}" text="{Dunum} {Dutxt}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
@@ -159,10 +165,12 @@
 		            </lay:MatrixLayoutRow>
 		            <lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="开票人"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="{newCaoZuoPiaoCreate>/Cuser}" id="dianQiKaiPiaoRen"></c:TextField>
+		                    <c:TextField value="{newCaoZuoPiaoCreate>/Cuser}" id="dianQiKaiPiaoRen" width="65%"></c:TextField>
 		                    <!--<c:TextView  text="{newCaoZuoPiaoCreate>/Cuser}" id="dianQiKaiPiaoRen"></c:TextView >-->
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
@@ -175,7 +183,7 @@
 		                    <c:TextView text="操作任务"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell rowSpan="2" colSpan="4">
-		                    <c:TextArea value="{newCaoZuoPiaoCreate>/Ztask}" rows="5" cols="55" id="dianQiCaoZuoRenWu" ></c:TextArea>
+		                    <c:TextArea value="{newCaoZuoPiaoCreate>/Ztask}" rows="3" cols="60" id="dianQiCaoZuoRenWu" ></c:TextArea>
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		            <lay:MatrixLayoutRow>
@@ -191,7 +199,7 @@
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>
 		        
-		        <c:TabStrip height="380px">
+		        <c:TabStrip height="410px">
 		            <c:Tab text="操作内容">
 		                <c:content>
 		                    <Table
@@ -201,7 +209,7 @@
             				<Column
             					minScreenWidth="Tablet"
             					demandPopin="true"
-            					width="30px"
+            					width="6px"
             					 >
             					<Text text="序号" />
             				</Column>
@@ -242,7 +250,7 @@
                 				<Column
                 					minScreenWidth="Tablet"
                 					demandPopin="true"
-                					width="50px"
+                					width="20px"
                 					>
                 					<Text text="序号" />
                 				</Column>
@@ -290,7 +298,7 @@
 		                    <c:TextView text="备注"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell colSpan="3">
-		                    <c:TextArea value="{newCaoZuoPiaoCreate>/Znote}" rows="4" cols="150" id="dianQiBeiZhu"></c:TextArea>
+		                    <c:TextArea value="{newCaoZuoPiaoCreate>/Znote}" rows="2" cols="150" id="dianQiBeiZhu"></c:TextArea>
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>

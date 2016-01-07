@@ -29,6 +29,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
             sap.m.MessageBox.alert("机组必填");
             return;
         }
+        if(newBillDetailUpdateInfoPage.Dunum==""){
+            sap.m.MessageBox.alert("值别必填");
+            return;
+        }
         if(newBillDetailUpdateInfoPage.Cuser.trim()==""){
             sap.m.MessageBox.alert("开票人必填");
             return;
@@ -40,6 +44,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
         var tableData = newBillDetailUpdateInfoPage.InfoTab;
         var BillInfoNew =[];
         for(var i=0;i<tableData.length;i++){
+            tableData[i].Zxh = ""+tableData[i].Zxh;
             if((tableData[i].Zzysx.trim()=="")&&(tableData[i].Zxh.trim()=="")&&(tableData[i].Zcznr.trim()=="")){
             }else{
                 BillInfoNew.push(tableData[i]); 
@@ -124,7 +129,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
                 }
             }
             oStorage.put("ZPMOFFLINE_SRV.BillInfos",getStorage);
-            //返回上一页，提示成功
+            //提示成功
             //根据票号查
             var getStorageNew = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
             var newCaoZuoPiao = "";
@@ -165,7 +170,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
             sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", newCaoZuoPiao);
         	var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
     		page.setModel(oModel,"newBillDetailUpdateInfoPage");
-            // sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage");
             sap.m.MessageBox.alert("修改保存成功");
         }
 

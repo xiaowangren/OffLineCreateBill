@@ -1,6 +1,6 @@
 sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
     onFanHui:function(){
-        sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQueryResult");//idBillOverLookPage 
+        sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage");//idBillOverLookPage 
     },
     onCreateBillInfo:function(){
         var newCaoZuoPiaoUpdateMuBan = this.getView().getModel("newCaoZuoPiaoUpdateMuBan").getData(); 
@@ -29,6 +29,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
             sap.m.MessageBox.alert("机组必填");
             return;
         }
+        if(newCaoZuoPiaoUpdateMuBan.Dunum==""){
+            sap.m.MessageBox.alert("值别必填");
+            return;
+        }
         if(newCaoZuoPiaoUpdateMuBan.Cuser.trim()==""){
             sap.m.MessageBox.alert("开票人必填");
             return;
@@ -41,6 +45,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
         var tableData = newCaoZuoPiaoUpdateMuBan.InfoTab;
         var BillInfoNew =[];
         for(var i=0;i<tableData.length;i++){
+            tableData[i].Zxh = ""+tableData[i].Zxh;
             if((tableData[i].Zzysx.trim()=="")&&(tableData[i].Zxh.trim()=="")&&(tableData[i].Zcznr.trim()=="")){
             }else{
                 BillInfoNew.push(tableData[i]); 
@@ -59,7 +64,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
         newCaoZuoPiaoUpdateMuBan.DangerousTab=dangerousPointDataNew;
         //生成操作票号
         var LiuShuiId = this.uuid(8,10);
-        var Zczph = "CZP"+newCaoZuoPiaoUpdateMuBan.Iwerk+LiuShuiId;
+        var Zczph = newCaoZuoPiaoUpdateMuBan.Ztype+"_"+newCaoZuoPiaoUpdateMuBan.Iwerk+"_"+LiuShuiId;
         newCaoZuoPiaoUpdateMuBan.Zczph = Zczph;
         //存入缓存
         jQuery.sap.require("jquery.sap.storage");
@@ -85,7 +90,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
                 }
             }
         }
-        console.log(newCaoZuoPiao);
+        // console.log(newCaoZuoPiao);
         newCaoZuoPiao.InfoTab=tableData;
         newCaoZuoPiao.DangerousTab=dangerousPointData;
 

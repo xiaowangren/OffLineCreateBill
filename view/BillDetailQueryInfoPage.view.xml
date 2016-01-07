@@ -22,8 +22,10 @@
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>
-		        <lay:MatrixLayout widths="7%,12%,7%,25%,5%,10%,6%,12%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_2">
+		        <lay:MatrixLayout widths="1%,6%,15%,7%,22%,5%,15%,4%,12%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_2">
 		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="操作票号"></c:TextView>
 		                </lay:MatrixLayoutCell>
@@ -42,7 +44,7 @@
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="填写部门"></c:TextView>
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
-		                    <c:ComboBox id="dianQiTianXieBuMen3" items="{ path: '/tianxieBuMenQuery3'}" width="95%" selectedKey="{newBillDetailQueryInfoPage>/Appdep}" editable="false">
+		                    <c:ComboBox id="dianQiTianXieBuMen3" items="{ path: '/tianxieBuMenQuery3'}" width="68%" selectedKey="{newBillDetailQueryInfoPage>/Appdep}" editable="false">
 								<core:ListItem key="{Appdep}" text="{Appdep} {Appdepdec}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
@@ -59,6 +61,8 @@
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="类型"></c:TextView>
 		                </lay:MatrixLayoutCell>
@@ -81,7 +85,7 @@
 		                    <c:TextView text="操作类型"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox width="95%" id="dianQiCaozuoLeiXing3" selectedKey="{newBillDetailQueryInfoPage>/Otype}" editable="false">
+		                    <c:ComboBox width="47%" id="dianQiCaozuoLeiXing3" selectedKey="{newBillDetailQueryInfoPage>/Otype}" editable="false">
 		                        <c:items>
                                     <core:ListItem text="1 单人操作" key="1"></core:ListItem>
                                     <core:ListItem text="2 监护操作" key="2"></core:ListItem>
@@ -91,7 +95,7 @@
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="操作性质"></c:TextView>
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
-		                    <c:ComboBox width="95%" id="dianQiCaoZuoXingZhi3" selectedKey="{newBillDetailQueryInfoPage>/Zczfs}" editable="false">
+		                    <c:ComboBox width="68%" id="dianQiCaoZuoXingZhi3" selectedKey="{newBillDetailQueryInfoPage>/Zczfs}" editable="false">
 		                        <c:items>
                                     <core:ListItem text="1 一般操作" key="1"></core:ListItem>
                                     <core:ListItem text="2 重大操作" key="2"></core:ListItem>
@@ -120,10 +124,12 @@
 		            </lay:MatrixLayoutRow>
 		            <lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="运行区域"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox id="dianQiYunXingQuYu3" items="{ path: '/yunXingQuYuQuery3'}" width="95%" selectedKey="{newBillDetailQueryInfoPage>/Rarea}" editable="false">
+		                    <c:ComboBox id="dianQiYunXingQuYu3" items="{ path: '/yunXingQuYuQuery3'}" width="65%" selectedKey="{newBillDetailQueryInfoPage>/Rarea}" editable="false">
 								<core:ListItem key="{Rarea}" text="{Rarea} {Rareadec}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
@@ -131,14 +137,14 @@
 		                    <c:TextView text="机组"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox id="dianQiJiZu3" items="{ path: '/jiZuQuery3'}" width="95%" selectedKey="{newBillDetailQueryInfoPage>/Unity}" editable="false">
+		                    <c:ComboBox id="dianQiJiZu3" items="{ path: '/jiZuQuery3'}" width="47%" selectedKey="{newBillDetailQueryInfoPage>/Unity}" editable="false">
 								<core:ListItem key="{Unity}" text="{Unity} {Untxt}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="值别"></c:TextView>
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
-		                    <c:ComboBox id="dianQiZhiBie3" items="{ path: '/ZhiBieQuery3'}" width="95%" selectedKey="{newBillDetailQueryInfoPage>/Dunum}" editable="false">
+		                    <c:ComboBox id="dianQiZhiBie3" items="{ path: '/ZhiBieQuery3'}" width="68%" selectedKey="{newBillDetailQueryInfoPage>/Dunum}" editable="false">
 								<core:ListItem key="{Dunum}" text="{Dunum} {Dutxt}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
@@ -161,10 +167,12 @@
 		            </lay:MatrixLayoutRow>
 		            <lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="开票人"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextView  text="{newBillDetailQueryInfoPage>/Cuser}" id="dianQiKaiPiaoRen3"></c:TextView >
+		                    <c:TextView  text="{newBillDetailQueryInfoPage>/Cuser}" id="dianQiKaiPiaoRen3" width="65%"></c:TextView >
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView  text="开票日期" ></c:TextView >
@@ -176,12 +184,12 @@
 		                    <c:TextView text="操作任务"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell rowSpan="2" colSpan="4">
-		                    <c:TextArea value="{newBillDetailQueryInfoPage>/Ztask}" rows="5" cols="55" id="dianQiCaoZuoRenWu3" editable="false"></c:TextArea>
+		                    <c:TextArea value="{newBillDetailQueryInfoPage>/Ztask}" rows="3" cols="60" id="dianQiCaoZuoRenWu3" editable="false"></c:TextArea>
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>
 		        <!--<mvc:JSView viewName="com.zhenergy.bill.view.BillQueryInfoTab"/>-->
-		        <c:TabStrip height="380px">
+		        <c:TabStrip height="410px">
 		            <c:Tab text="操作内容">
 		                <c:content>
 		                    <Table
@@ -191,7 +199,7 @@
             				<Column
             					minScreenWidth="Tablet"
             					demandPopin="true"
-            					width="50px"
+            					width="6px"
             					 >
             					<Text text="序号" />
             				</Column>
@@ -213,11 +221,11 @@
             			<ColumnListItem type="Active">
             				<cells>
             					<c:TextField
-            					    value="{newBillDetailQueryInfoPage>Zxh}" editable="false" width="100%" tooltip="{newBillDetailQueryInfoPage>Zxh}"/>
-            					<c:TextField
-            						value="{newBillDetailQueryInfoPage>Zcznr}" editable="false" width="100%" tooltip="{newBillDetailQueryInfoPage>Zcznr}"/>
-            					<c:TextField
-            						value="{newBillDetailQueryInfoPage>Zzysx}" editable="false" width="100%" tooltip="{newBillDetailQueryInfoPage>Zzysx}"/>
+            					    value="{newBillDetailQueryInfoPage>Zxh}" editable="false" width="100%" />
+            					<c:TextView
+            						text="{newBillDetailQueryInfoPage>Zcznr}"  width="100%" tooltip="{newBillDetailQueryInfoPage>Zcznr}"/>
+            					<c:TextView
+            						text="{newBillDetailQueryInfoPage>Zzysx}" width="100%" tooltip="{newBillDetailQueryInfoPage>Zzysx}"/>
             				</cells>
             			</ColumnListItem>
     		           </Table>
@@ -232,7 +240,7 @@
                 				<Column
                 					minScreenWidth="Tablet"
                 					demandPopin="true"
-                					width="50px"
+                					width="20px"
                 					>
                 					<Text text="序号" />
                 				</Column>
@@ -261,13 +269,13 @@
             			    <ColumnListItem type="Active">
                 				<cells>
                 					<c:TextField
-                						value="{newBillDetailQueryInfoPage>Dangno}" editable="false" width="100%" tooltip="{newBillDetailQueryInfoPage>Dangno}"/>
-                					<c:TextField
-                						value="{newBillDetailQueryInfoPage>Zztext}" editable="false" width="100%" tooltip="{newBillDetailQueryInfoPage>Zztext}"/>
-                					<c:TextField
-                						value="{newBillDetailQueryInfoPage>Zzremark}" editable="false" width="100%" tooltip="{newBillDetailQueryInfoPage>Zzremark}"/>
-                					<c:TextField
-                						value="{newBillDetailQueryInfoPage>Zzpltxt}" editable="false" width="100%" tooltip="{newBillDetailQueryInfoPage>Zzpltxt}"/>
+                						value="{newBillDetailQueryInfoPage>Dangno}" editable="false" width="100%"/>
+                					<c:TextView
+                						text="{newBillDetailQueryInfoPage>Zztext}" editable="false" width="100%" tooltip="{newBillDetailQueryInfoPage>Zztext}"/>
+                					<c:TextView
+                						text="{newBillDetailQueryInfoPage>Zzremark}" editable="false" width="100%" tooltip="{newBillDetailQueryInfoPage>Zzremark}"/>
+                					<c:TextView
+                						text="{newBillDetailQueryInfoPage>Zzpltxt}" editable="false" width="100%" tooltip="{newBillDetailQueryInfoPage>Zzpltxt}"/>
                 				</cells>
             			    </ColumnListItem>
     		           </Table>
@@ -280,7 +288,7 @@
 		                    <c:TextView text="备注"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell colSpan="3">
-		                    <c:TextArea value="{newBillDetailQueryInfoPage>/Znote}" rows="4" cols="150" id="dianQiBeiZhu3" editable="false"></c:TextArea>
+		                    <c:TextArea value="{newBillDetailQueryInfoPage>/Znote}" rows="2" cols="150" id="dianQiBeiZhu3" editable="false"></c:TextArea>
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>

@@ -21,3 +21,8 @@
 .TextField{
         text-align: left;
 }
+.sapMListTblCell{
+    padding: .1rem .5rem;
+    vertical-align: top;
+    font-size: 0.875rem;
+}
