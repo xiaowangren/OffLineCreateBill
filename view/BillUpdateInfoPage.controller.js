@@ -41,6 +41,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
             sap.m.MessageBox.alert("操作任务必填",{title: "提示"});
             return;
         }
+        newBillDetailUpdateInfoPage.Cuser = newBillDetailUpdateInfoPage.Cuser.trim().toUpperCase();                         
         var tableData = newBillDetailUpdateInfoPage.InfoTab;
         var BillInfoNew =[];
         for(var i=0;i<tableData.length;i++){

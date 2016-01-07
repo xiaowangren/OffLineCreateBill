@@ -2,7 +2,6 @@
 	xmlns:mvc="sap.ui.core.mvc" 
 	xmlns:c="sap.ui.commons"
 	xmlns="sap.ui.table"
-	
 	xmlns:m="sap.m" controllerName="com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
 	<m:Page title="操作票查询:共{/queryResultModelCount}张，查询日期:{/queryResultModelDate}">
@@ -20,7 +19,7 @@
                 selectionMode="Single"
                 selectionBehavior="Row"
                 rowSelectionChange="onChange"
-                rows="{path: '/queryResultModel', sorter: { path: 'Zczph', descending: true}}" >
+                rows="{path: '/queryResultModel', sorter: { path: 'Cdata', descending: true}}" >
             <columns>
 					<Column width="11rem">
 						<m:Label text="操作票号" />
@@ -30,7 +29,7 @@
 					</Column>
 			</columns>
 			<columns>
-					<Column width="11rem">
+					<Column width="9rem">
 						<m:Label text="状态" />
 						<template>
 							<!--<m:Text text="{Estat}" tooltip="{Estat}"/>-->
@@ -53,7 +52,7 @@
 					</Column>
 			</columns>
 			<columns>
-					<Column width="11rem">
+					<Column width="7rem">
 						<m:Label text="操作票类型" />
 						<template>
 							<!--<m:Text text="{Zczph}"/>-->
@@ -73,107 +72,7 @@
 					</Column>
 			</columns>
 			<columns>
-					<Column width="11rem">
-						<m:Label text="开票日期" />
-						<template>
-							<m:Text text="{Cdata}" tooltip="{Cdata}"/>
-						</template>
-					</Column>
-			</columns>
-			<columns>
-					<Column width="11rem">
-						<m:Label text="开票人" />
-						<template>
-							<m:Text text="{Cuser}" tooltip="{Cuser}"/>
-						</template>
-					</Column>
-			</columns>
-			<columns>
-					<Column width="11rem">
-						<m:Label text="部门" />
-						<template>
-							<c:ComboBox id="dianQiTianXieBuMenQuerya" items="{ path: '/tianxieBuMenQuery3', sorter: { path: 'Appdep' } }" width="95%" selectedKey="{Appdep}" editable="false">
-								<core:ListItem key="{Appdep}" text="{Appdepdec}"></core:ListItem>
-						</c:ComboBox>
-						</template>
-					</Column>
-			</columns>
-			<columns>
-					<Column width="11rem">
-						<m:Label text="专业" />
-						<template>
-        					<c:ComboBox width="95%" id="dianQiZhuanYeQuerya"  selectedKey="{Prfty}" editable="false">
-        	                        <c:items>
-                                        <core:ListItem text="汽机专业" key="0001"></core:ListItem>
-                                        <core:ListItem text="电气专业" key="0002"></core:ListItem>
-                                        <core:ListItem text="锅炉专业" key="0003"></core:ListItem>
-                                        <core:ListItem text="化学专业" key="0004"></core:ListItem>
-                                        <core:ListItem text="环保专业" key="0005"></core:ListItem>
-                                        <core:ListItem text="燃料专业" key="0006"></core:ListItem>
-                                        <core:ListItem text="热机专业" key="0007"></core:ListItem>
-                                    </c:items>
-                            </c:ComboBox>
-						</template>
-					</Column>
-			</columns>
-			<columns>
-					<Column width="11rem">
-						<m:Label text="操作类型" />
-						<template>
-        					<c:ComboBox width="95%" id="dianQiCaozuoLeiXingQuerya" selectedKey="{Otype}" editable="false">
-                                <c:items>
-                                    <core:ListItem text="单人操作" key="1"></core:ListItem>
-                                    <core:ListItem text="监护操作" key="2"></core:ListItem>
-                                </c:items>
-                            </c:ComboBox>
-						</template>
-					</Column>
-			</columns>
-			<columns>
-					<Column width="11rem">
-						<m:Label text="操作性质" />
-						<template>
-        					<c:ComboBox width="95%" id="dianQiCaoZuoXingZhiQuerya" selectedKey="{Zczfs}" editable="false">
-                                <c:items>
-                                    <core:ListItem text="一般操作" key="1"></core:ListItem>
-                                    <core:ListItem text="重大操作" key="2"></core:ListItem>
-                                </c:items>
-                            </c:ComboBox>
-						</template>
-					</Column>
-			</columns>
-			<columns>
-					<Column width="11rem">
-						<m:Label text="运行区域" />
-						<template>
-        					<c:ComboBox id="dianQiYunXingQuYuQuerya" items="{ path: '/yunXingQuYuQuery3'}" width="95%" selectedKey="{Rarea}" editable="false">
-        						<core:ListItem key="{Rarea}" text="{Rareadec}"></core:ListItem>
-        					</c:ComboBox>
-						</template>
-					</Column>
-			</columns>
-			<columns>
-					<Column width="11rem">
-						<m:Label text="机组" />
-						<template>
-        					 <c:ComboBox id="dianQiJiZuQuerya" items="{ path: '/jiZuQuery3'}" width="95%" selectedKey="{Unity}" editable="false">
-        						<core:ListItem key="{Unity}" text="{Untxt}"></core:ListItem>
-        					</c:ComboBox>
-						</template>
-					</Column>
-			</columns>
-			<columns>
-					<Column width="11rem">
-						<m:Label text="值别" />
-						<template>
-        					<c:ComboBox id="dianQiZhiBieQuerya" items="{ path: '/ZhiBieQuery3'}" width="95%" selectedKey="{Dunum}" editable="false">
-        						<core:ListItem key="{Dunum}" text="{Dutxt}"></core:ListItem>
-        					</c:ComboBox>
-						</template>
-					</Column>
-			</columns>
-			<columns>
-					<Column width="11rem">
+					<Column width="6rem">
 						<m:Label text="是否已上传" />
 						<template>
         					<c:ComboBox width="95%" selectedKey="{statusText}" editable="false">
@@ -193,6 +92,107 @@
 						</template>
 					</Column>
 			</columns>
+			<columns>
+					<Column width="9rem" sortProperty="Cdata">
+						<m:Label text="开票日期" />
+						<template>
+							<m:Text text="{Cdata}" tooltip="{Cdata}"/>
+						</template>
+					</Column>
+			</columns>
+			<columns>
+					<Column width="9rem">
+						<m:Label text="开票人" />
+						<template>
+							<m:Text text="{Cuser}" tooltip="{Cuser}"/>
+						</template>
+					</Column>
+			</columns>
+			<columns>
+					<Column width="11rem">
+						<m:Label text="部门" />
+						<template>
+							<c:ComboBox id="dianQiTianXieBuMenQuerya" items="{ path: '/tianxieBuMenQuery3', sorter: { path: 'Appdep' } }" width="95%" selectedKey="{Appdep}" editable="false">
+								<core:ListItem key="{Appdep}" text="{Appdepdec}"></core:ListItem>
+						</c:ComboBox>
+						</template>
+					</Column>
+			</columns>
+			<columns>
+					<Column width="7rem">
+						<m:Label text="专业" />
+						<template>
+        					<c:ComboBox width="95%" id="dianQiZhuanYeQuerya"  selectedKey="{Prfty}" editable="false">
+        	                        <c:items>
+                                        <core:ListItem text="汽机专业" key="0001"></core:ListItem>
+                                        <core:ListItem text="电气专业" key="0002"></core:ListItem>
+                                        <core:ListItem text="锅炉专业" key="0003"></core:ListItem>
+                                        <core:ListItem text="化学专业" key="0004"></core:ListItem>
+                                        <core:ListItem text="环保专业" key="0005"></core:ListItem>
+                                        <core:ListItem text="燃料专业" key="0006"></core:ListItem>
+                                        <core:ListItem text="热机专业" key="0007"></core:ListItem>
+                                    </c:items>
+                            </c:ComboBox>
+						</template>
+					</Column>
+			</columns>
+			<columns>
+					<Column width="7rem">
+						<m:Label text="操作类型" />
+						<template>
+        					<c:ComboBox width="95%" id="dianQiCaozuoLeiXingQuerya" selectedKey="{Otype}" editable="false">
+                                <c:items>
+                                    <core:ListItem text="单人操作" key="1"></core:ListItem>
+                                    <core:ListItem text="监护操作" key="2"></core:ListItem>
+                                </c:items>
+                            </c:ComboBox>
+						</template>
+					</Column>
+			</columns>
+			<columns>
+					<Column width="7rem">
+						<m:Label text="操作性质" />
+						<template>
+        					<c:ComboBox width="95%" id="dianQiCaoZuoXingZhiQuerya" selectedKey="{Zczfs}" editable="false">
+                                <c:items>
+                                    <core:ListItem text="一般操作" key="1"></core:ListItem>
+                                    <core:ListItem text="重大操作" key="2"></core:ListItem>
+                                </c:items>
+                            </c:ComboBox>
+						</template>
+					</Column>
+			</columns>
+			<columns>
+					<Column width="8rem">
+						<m:Label text="运行区域" />
+						<template>
+        					<c:ComboBox id="dianQiYunXingQuYuQuerya" items="{ path: '/yunXingQuYuQuery3'}" width="95%" selectedKey="{Rarea}" editable="false">
+        						<core:ListItem key="{Rarea}" text="{Rareadec}"></core:ListItem>
+        					</c:ComboBox>
+						</template>
+					</Column>
+			</columns>
+			<columns>
+					<Column width="9rem">
+						<m:Label text="机组" />
+						<template>
+        					 <c:ComboBox id="dianQiJiZuQuerya" items="{ path: '/jiZuQuery3'}" width="95%" selectedKey="{Unity}" editable="false">
+        						<core:ListItem key="{Unity}" text="{Untxt}"></core:ListItem>
+        					</c:ComboBox>
+						</template>
+					</Column>
+			</columns>
+			<columns>
+					<Column width="5rem">
+						<m:Label text="值别" />
+						<template>
+        					<c:ComboBox id="dianQiZhiBieQuerya" items="{ path: '/ZhiBieQuery3'}" width="95%" selectedKey="{Dunum}" editable="false">
+        						<core:ListItem key="{Dunum}" text="{Dutxt}"></core:ListItem>
+        					</c:ComboBox>
+						</template>
+					</Column>
+			</columns>
+			
     	</Table>
 		    
 		</m:content>

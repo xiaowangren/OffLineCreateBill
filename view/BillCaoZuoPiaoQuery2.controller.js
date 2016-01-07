@@ -44,9 +44,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery2", {
                    ){
                     aFilter.push(oData1[i]);
                 }
-    
             }        
-			    
 		}
         //转换时间
 	    var now = new Date();

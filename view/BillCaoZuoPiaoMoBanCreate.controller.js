@@ -41,7 +41,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
             sap.m.MessageBox.alert("操作任务必填",{title: "提示"});
             return;
         }
-        
+        newCaoZuoPiaoUpdateMuBan.Cuser = newCaoZuoPiaoUpdateMuBan.Cuser.trim().toUpperCase();
         var tableData = newCaoZuoPiaoUpdateMuBan.InfoTab;
         var BillInfoNew =[];
         for(var i=0;i<tableData.length;i++){
