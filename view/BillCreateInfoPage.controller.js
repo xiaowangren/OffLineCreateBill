@@ -538,9 +538,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         }
         var Ztasktmp=payLoad.Ztask.replace(/\n/g,'');       //操作任务
         var taskLen = this.getByteLen(Ztasktmp);
-        if(taskLen <= 74){
+        if(taskLen <= 62){
             Ztasktmp = Ztasktmp +"\n \n ";
-        }else if(taskLen <= 158){
+        }else if(taskLen <= 134){
             Ztasktmp = Ztasktmp + "\n ";
         }
         //操作票内容
@@ -561,12 +561,12 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
 			]
 	   ];
 	   for(var i=0;i<tableDataNew.length;i++){
-	       var l_seq = tableDataNew[i].Zseq.replace(/^0+/,'');            //操作票序号 去除前导零
+	       var l_seq = tableDataNew[i].Zxh.replace(/^0+/,'');            //操作票序号 去除前导零
 	        var Zcznr = tableDataNew[i].Zcznr;
             var Zcznrtmp=Zcznr.replace(/\n/g,'');       //操作内容
             var Zzysx = tableDataNew[i].Zzysx;
             var Zzysxtmp=Zzysx.replace(/\n/g,'');       //注意事项
-  		    var line = ['', l_seq, Zcznrtmp,Zzysxtmp];
+  		    var line = ['', {text:l_seq, alignment:'center'}, Zcznrtmp,Zzysxtmp];
 		    oBody.push(line);
 	   }
         var tableEnd = [{text:'备注:\n \n \n ',colSpan: 4},{},{},{}];
@@ -589,17 +589,20 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
                 Header.push(line2);
                 // console.log(Header);
                 var headTableBody = [];
-                if(currentPage == 1){
-                    var headTableLine1 = [{ text: '操作开始时间：     年     月     日     时     分', style: 'tableHeader', alignment: 'left' }];
+                if(pageCount == 1){
+                    var headTableLine1 = [{ text: '操作开始时间：     年     月     日     时     分\n操作结束时间：     年     月     日     时     分', style: 'tableHeader', alignment: 'left' }];
                     headTableBody.push(headTableLine1);
-                }else if(currentPage == pageCount){
-                    var headTableLine1 = [{ text: '操作结束时间：     年     月     日     时     分', style: 'tableHeader', alignment: 'left' }];
+                }else if(currentPage == 1 && pageCount>1){
+                    var headTableLine1 = [{ text: '操作开始时间：     年     月     日     时     分\n ', style: 'tableHeader', alignment: 'left' }];
+                    headTableBody.push(headTableLine1);
+                }else if(currentPage == pageCount && pageCount>1){
+                    var headTableLine1 = [{ text: '操作结束时间：     年     月     日     时     分\n ', style: 'tableHeader', alignment: 'left' }];
                     headTableBody.push(headTableLine1);
                 }else{
-                    var headTableLine1 = [{ text: '   ', style: 'tableHeader', alignment: 'left' }];
+                    var headTableLine1 = [{ text: '  \n  ', style: 'tableHeader', alignment: 'left' }];
                     headTableBody.push(headTableLine1);
                 }
-                var headTableLine2 = [{ text: '操作任务：'+Ztasktmp, style: 'tableHeader',  alignment: 'left' }];
+                var headTableLine2 = [{ text: '操作任务：'+Ztasktmp, style: 'taskHeader',  alignment: 'left' }];
                 headTableBody.push(headTableLine2);
                 var table =  [               {
                     style: 'headTable',
@@ -620,7 +623,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
                   return footer; 
                  
             },
-            pageMargins: [ 40, 169, 40, 60 ],        //页面边距，对Header不起作用
+            pageMargins: [ 40, 187, 40, 60 ],        //页面边距，对Header不起作用
             content: [
                 {
                     style: 'bodyTable',
@@ -673,6 +676,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         			bold: false,
         			fontSize: 12,
         			color: 'black'
+        		},
+        		taskHeader: {
+        			bold: false,
+        			fontSize: 14,
+        			color: 'black'
         		}
         	},
             defaultStyle: {
@@ -714,9 +722,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         }
         var Ztasktmp=payLoad.Ztask.replace(/\n/g,'');       //操作任务
         var taskLen = this.getByteLen(Ztasktmp);
-        if(taskLen <= 74){
+        if(taskLen <= 62){
             Ztasktmp = Ztasktmp +"\n \n ";
-        }else if(taskLen <= 158){
+        }else if(taskLen <= 134){
             Ztasktmp = Ztasktmp + "\n ";
         }
         //操作票内容
@@ -738,7 +746,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
 	   ];
   		for(var i=0;i<tableDataNew.length;i++){
   		    var l_seq = tableDataNew[i].Dangno.replace(/^0+/,'');            //危险点序号 去除前导零
-  		    var line = [ l_seq,tableDataNew[i].Zztext,tableDataNew[i].Zzremark,tableDataNew[i].Zzpltxt,'' ];
+  		    var line = [{text:l_seq, alignment:'center'},tableDataNew[i].Zztext,tableDataNew[i].Zzremark,tableDataNew[i].Zzpltxt,'' ];
 		    oBody.push(line);
 		}
         var tableEnd = [{text:'备注:\n\n\n',colSpan: 5},{},{},{},{}];
@@ -765,8 +773,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
 					table: { 
 					    	widths: ['100%'],
 					    	body:[
-					    	        [{ text: '操作任务：'+Ztasktmp, style: 'tableHeader', alignment: 'left' }],
-					    	      //  [{ text: '操作任务：1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890', style: 'tableHeader',rowSpan:2, alignment: 'left' }],
+					    	        [{ text: '操作任务：'+Ztasktmp, style: 'taskHeader', alignment: 'left' }],
+					    	      //  [{ text: '操作任务：一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五一二三四五', style: 'taskHeader',alignment: 'left' }],
                             	    [{ text: '危险点及预防控制措施', style: 'tableHeader',  alignment: 'center' }]
                     		]
 					}
@@ -782,7 +790,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
                   return footer; 
                  
             },
-            pageMargins: [ 40, 169, 40, 60 ],
+            pageMargins: [ 40, 175, 40, 60 ],
 
             content: [
 				{
@@ -822,6 +830,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         		tableHeader: {
         			bold: false,
         			fontSize: 12,
+        			color: 'black'
+        		},
+        		taskHeader: {
+        			bold: false,
+        			fontSize: 14,
         			color: 'black'
         		}
         	},
