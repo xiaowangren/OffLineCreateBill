@@ -12,6 +12,13 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
  	    var idUser3 = this.getView().byId("idUser3").getText();
  	    var model = table.getModel(); 
  	    var data  = model.getProperty(rowContext.sPath);
+ 	    jQuery.sap.require("sap.m.MessageBox");
+ 	    if(idUpdateLog2=="UpdateLog"&&idBiaoZhiCaoZuoPiaoQuery!="update"){
+ 	        if(data.statusText=="Created"){
+ 	            sap.m.MessageBox.alert("该票已上传，不允许修改！");
+ 	            return;
+ 	        }
+ 	    }
  	    var Iwerk = data.Iwerk;
  	    var queryModel3 = new sap.ui.model.json.JSONModel();
         var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
@@ -116,18 +123,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
     		var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillDetailQueryInfoPage");
 		    page.setModel(oModel,"newBillDetailQueryInfoPage");
  	    }else{//修改本地数据
- 	        var statusText = datas.statusText;
- 	        if(statusText=="Created"){
- 	            sap.m.MessageBox.alert("数据已上传，无法进行修改");
- 	            return;
- 	        }
  	        sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", rowContext);
     		var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
 		    page.setModel(oModel,"newBillDetailUpdateInfoPage");
  	        
  	    }
-		
- 	    
     },
     onData:function(data){
         var InfoTab = data.InfoTab;
@@ -154,7 +154,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
 		    DangerousTabNew.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
 		}
 		data.DangerousTab=DangerousTabNew;
-		data.statusText="unCreated";
         data.Zlybnum="";
 	    return data;
     },

@@ -29,7 +29,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
             sap.m.MessageBox.alert("机组必填",{title: "提示"});
             return;
         }
-        if(newCaoZuoPiaoUpdateMuBan.Dunum==""){
+        if(newCaoZuoPiaoUpdateMuBan.Dunum==""||newCaoZuoPiaoUpdateMuBan.Dunum=="0000"){
             sap.m.MessageBox.alert("值别必填",{title: "提示"});
             return;
         }
