@@ -68,37 +68,6 @@
 		                </lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutRow>
     		                <lay:MatrixLayoutCell>
-    		                    <c:TextView text="状态:"></c:TextView>
-    		                </lay:MatrixLayoutCell>
-    		                <lay:MatrixLayoutCell>
-    		                </lay:MatrixLayoutCell>
-    		                <lay:MatrixLayoutCell>
-    		     <!--               <c:ComboBox id="zhuangTaiQuery1" items="{ path: '/banZu'}" width="95%">-->
-								   <!-- <core:ListItem key="{Yxgroup}" text="{Yxgroup}"></core:ListItem>-->
-							    <!--</c:ComboBox>-->
-							    <c:ComboBox id="zhuangTaiQuery2" width="95%">
-    		                        <c:items>
-                                        <core:ListItem text="10 拟票" key="10"></core:ListItem>
-                                        <core:ListItem text="20 待上传" key="20"></core:ListItem>
-                                        <core:ListItem text="30 已上传" key="30"></core:ListItem>
-                                    </c:items>
-							    </c:ComboBox>
-    		                </lay:MatrixLayoutCell>
-		                </lay:MatrixLayoutRow>
-		         <!--       <lay:MatrixLayoutRow>-->
-    		     <!--           <lay:MatrixLayoutCell>-->
-    		     <!--               <c:TextView text="填写部门:"></c:TextView>-->
-    		     <!--           </lay:MatrixLayoutCell>-->
-    		     <!--           <lay:MatrixLayoutCell>-->
-    		     <!--           </lay:MatrixLayoutCell>-->
-    		     <!--           <lay:MatrixLayoutCell>-->
-    		     <!--               <c:ComboBox id="tianXieBuMenQuery2" items="{ path: '/tianxieBuMenQuery2'}" width="95%">-->
-								   <!-- <core:ListItem key="{Appdep}" text="{Appdep} {Appdepdec}"></core:ListItem>-->
-							    <!--</c:ComboBox>-->
-    		     <!--           </lay:MatrixLayoutCell>-->
-		         <!--       </lay:MatrixLayoutRow>-->
-		                <lay:MatrixLayoutRow>
-    		                <lay:MatrixLayoutCell>
     		                    <c:TextView text="专业:"></c:TextView>
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
@@ -117,30 +86,6 @@
 							    </c:ComboBox>
     		                </lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutRow>
-		         <!--       <lay:MatrixLayoutRow>-->
-    		     <!--           <lay:MatrixLayoutCell>-->
-    		     <!--               <c:TextView text="机组:"></c:TextView>-->
-    		     <!--           </lay:MatrixLayoutCell>-->
-    		     <!--           <lay:MatrixLayoutCell>-->
-    		     <!--           </lay:MatrixLayoutCell>-->
-    		     <!--           <lay:MatrixLayoutCell>-->
-    		     <!--               <c:ComboBox id="jiZuQuery2" items="{ path: '/jiZuQuery2'}" width="95%">-->
-								   <!-- <core:ListItem key="{Unity}" text="{Unity} {Untxt}"></core:ListItem>-->
-							    <!--</c:ComboBox>-->
-    		     <!--           </lay:MatrixLayoutCell>-->
-		         <!--       </lay:MatrixLayoutRow>-->
-		         <!--       <lay:MatrixLayoutRow>-->
-    		     <!--           <lay:MatrixLayoutCell>-->
-    		     <!--               <c:TextView text="班组:"></c:TextView>-->
-    		     <!--           </lay:MatrixLayoutCell>-->
-    		     <!--           <lay:MatrixLayoutCell>-->
-    		     <!--           </lay:MatrixLayoutCell>-->
-    		     <!--           <lay:MatrixLayoutCell>-->
-    		     <!--               <c:ComboBox id="banZuQuery2" items="{ path: '/banZuQuery2'}" width="95%">-->
-								   <!-- <core:ListItem key="{Yxgroup}" text="{Yxgroup} {Yxgroupdec}"></core:ListItem>-->
-							    <!--</c:ComboBox>-->
-    		     <!--           </lay:MatrixLayoutCell>-->
-		         <!--       </lay:MatrixLayoutRow>-->
 		                <lay:MatrixLayoutRow>
     		                <lay:MatrixLayoutCell>
     		                    <c:TextView text="开票日期:"></c:TextView>
@@ -148,12 +93,6 @@
     		                <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
-							    <!--<DateTimeInput-->
-           <!--     				    width="95%"-->
-           <!--             			type="DateTime"-->
-           <!--             			displayFormat="yyyy-MM-dd"-->
-           <!--             			valueFormat="yyyy-MM-dd"-->
-           <!--             			 id="kaiPiaoRiQiQuery2" />-->
                                 <c:DatePicker width="95%" id="kaiPiaoRiQiQuery2" locale="zh-CN"></c:DatePicker><!--en-US-->
     		                </lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutRow>

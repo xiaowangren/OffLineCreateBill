@@ -16,11 +16,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery", {
         var gongChangQuery = this.getView().byId("gongChangQuery").getSelectedKey();//工厂
         var caoZuoPiaoLeiXingQuery = this.getView().byId("caoZuoPiaoLeiXingQuery").getValue();//操作票类型
         var idTicketSelect = this.getView().byId("idTicketSelect").getValue();
-        var zhuangTaiQueryStart = this.getView().byId("zhuangTaiQuery1").getSelectedKey();//状态
-        // var tianXieBuMenQueryStart = this.getView().byId("tianXieBuMenQuery1").getSelectedKey();//填写部门
         var zhuanYeQueryStart = this.getView().byId("zhuanYeQuery1").getSelectedKey();//专业
-        // var jiZuQueryStart = this.getView().byId("jiZuQuery1").getSelectedKey();//机组
-        // var banZuQueryStart = this.getView().byId("banZuQuery1").getSelectedKey();//班组
         var kaiPiaoRiQiQueryStart = this.getView().byId("kaiPiaoRiQiQuery1").getValue();//开始日期
         var kaiPiaoRenQuery = this.getView().byId("kaiPiaoRenQuery").getValue();//开票人
         var caoZuoRenWuQuery = this.getView().byId("caoZuoRenWuQuery").getValue();//操作任务idUser2
@@ -41,11 +37,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery", {
 			for(var i=0;i<oData1.length;i++){
                 if(this.checkhelp(oData1[i].Iwerk,gongChangQueryId)&&
                    this.checkhelp(oData1[i].Ztype,caoZuoPiaoLeiXingQuery)&&
-                   this.checkhelp(oData1[i].Estat,zhuangTaiQueryStart)&&
-                //   this.checkhelp(oData1[i].Appdep,tianXieBuMenQueryStart)&&
                    this.checkhelp(oData1[i].Prfty,zhuanYeQueryStart)&&
-                //   this.checkhelp(oData1[i].Unity,jiZuQueryStart)&&
-                //   this.checkhelp(oData1[i].Yxgroup,banZuQueryStart)&&
                    this.checkhelp(oData1[i].Cdata,kaiPiaoRiQiQueryStart)&&
                    this.checkhelp(oData1[i].Cuser,kaiPiaoRenQuery)&&
                    this.checkhelpIndex(oData1[i].Ztask,caoZuoRenWuQuery)

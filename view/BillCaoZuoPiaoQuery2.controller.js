@@ -1,21 +1,11 @@
 sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery2", {
     onFanHui:function(oEvent){
         sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage");
-//         jQuery.sap.require("jquery.sap.storage");
-// 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-// 		var oLocalModelQuery2 = new sap.ui.model.json.JSONModel();
-// 		//工厂
-// 		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
-// 			var oData = oStorage.get("ZPMOFFLINE_SRV.WERKS");
-// 			oLocalModelQuery2.setProperty("/WERKSQuery2",oData);
-// 		}
-// 		sap.ui.getCore().setModel(oLocalModelQuery2);
     },
     onCaoZuoPiaoQuery2:function(){
         //收集数据
         var gongChangQuery2 = this.getView().byId("gongChangQuery2").getSelectedKey();//工厂
         var ricketTypeQuery2 = this.getView().byId("ricketTypeQuery2").getSelectedKey();//操作票类型
-        var zhuangTaiQuery2 = this.getView().byId("zhuangTaiQuery2").getSelectedKey();//状态
         var zhuanYeQuery2 = this.getView().byId("zhuanYeQuery2").getSelectedKey();//专业
         var kaiPiaoRiQiQuery2 = this.getView().byId("kaiPiaoRiQiQuery2").getYyyymmdd();//开票日期
         var kaiPiaoRenQuery2 = this.getView().byId("kaiPiaoRenQuery2").getValue();//开票人
@@ -36,7 +26,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery2", {
 			for(var i=0;i<oData1.length;i++){
                 if(this.checkhelp(oData1[i].Iwerk,gongChangQuery2)&&
                    this.checkhelp(oData1[i].Ztype,ricketTypeQuery2)&&
-                   this.checkhelp(oData1[i].Estat,zhuangTaiQuery2)&&
                    this.checkhelp(oData1[i].Prfty,zhuanYeQuery2)&&
                    this.checkhelp(oData1[i].Cdata,kaiPiaoRiQiQuery2)&&
                    this.checkhelp(oData1[i].Cuser,kaiPiaoRenQuery2)&&
