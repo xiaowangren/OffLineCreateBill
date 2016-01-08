@@ -550,6 +550,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var InfoTab = payLoad.InfoTab;
         var tableDataNew =[];
         for(var i=0;i<InfoTab.length;i++){
+            InfoTab[i].Zxh = ""+InfoTab[i].Zxh;
             if((InfoTab[i].Zzysx.trim()=="")&&(InfoTab[i].Zxh.trim()=="")&&(InfoTab[i].Zcznr.trim()=="")){
             }else{
                 tableDataNew.push(InfoTab[i]); 
