@@ -182,7 +182,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", newCaoZuoPiao);
     	var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
 		page.setModel(oModel,"newBillDetailUpdateInfoPage");
-        sap.m.MessageBox.alert("保存成功");
+        sap.m.MessageBox.alert("保存成功",{title: "提示"});
     },
     //收集桌面数据
     collectData:function(){

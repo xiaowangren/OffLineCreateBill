@@ -15,7 +15,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
  	    jQuery.sap.require("sap.m.MessageBox");
  	    if(idUpdateLog2=="UpdateLog"&&idBiaoZhiCaoZuoPiaoQuery!="update"){
  	        if(data.statusText=="Created"){
- 	            sap.m.MessageBox.alert("该票已上传，不允许修改！");
+ 	            sap.m.MessageBox.alert("该票已上传，不允许修改！",{title: "提示"});
  	            return;
  	        }
  	    }
