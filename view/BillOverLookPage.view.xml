@@ -7,7 +7,6 @@
 		showHeader="true"
 		enableScrolling="false" >
 		<!--tiles="{/TileCollection}"-->
-						<!--info="最近更新:12.15 16:00"-->
 		<TileContainer
 			id="container"
 			tileDelete="handleTileDelete"
@@ -27,10 +26,10 @@
 				title="创建操作票"
 				infoState="Success"  
 				press="onNavigate">
-				<customData>
-					<core:CustomData key="targetPage" value="BillInitializationPage">
-					</core:CustomData>
-				</customData>
+				<!--<customData>-->
+				<!--	<core:CustomData key="targetPage" value="BillInitializationPage">-->
+				<!--	</core:CustomData>-->
+				<!--</customData>-->
 			</StandardTile>
 			<StandardTile
 			    id="tileModifyOT"
@@ -38,10 +37,10 @@
 				title="修改操作票"
 				infoState="Error"
 				press="onUpdateCaoZuoPiao">
-				<customData>
-					<core:CustomData key="targetPage" value="BillInitializationPage">
-					</core:CustomData>
-				</customData>
+				<!--<customData>-->
+				<!--	<core:CustomData key="targetPage" value="BillInitializationPage">-->
+				<!--	</core:CustomData>-->
+				<!--</customData>-->
 			</StandardTile>
 			<StandardTile
 			    id="tileQueryOT"
@@ -49,22 +48,19 @@
 				title="查询操作票"
 				infoState="Success"  
 				press="onQueryCaoZuoPiao">
-				<customData>
-					<core:CustomData key="targetPage" value="BillInitializationPage">
-					</core:CustomData>
-				</customData>
+				<!--<customData>-->
+				<!--	<core:CustomData key="targetPage" value="BillInitializationPage">-->
+				<!--	</core:CustomData>-->
+				<!--</customData>-->
 			</StandardTile>
-
-			<!--info="最近上传:12.15 16:00"-->
 			<StandardTile
 			    id="tileUpload"
 				icon="sap-icon://hint"
 				type="Monitor"
 				title="上传离线数据"
-				
 				info="最近上传:{/lastUpload}"
 				infoState="Success"
-				press="onUploadToEcc"
+				press="onOpenUploadPanel"
 				/>
 			<StandardTile
 			    id="tileCreateWT"
@@ -100,14 +96,15 @@
 				</customData>
 			</StandardTile>
 		</TileContainer>
-		<!--<footer>-->
-		<!--	<Toolbar>-->
-		<!--		<ToolbarSpacer/>-->
-		<!--			<Button text="操作票打印" press="handlePrintPressCZP" />-->
-		<!--			<Button text="危险点打印" press="handlePrintPress" />-->
-		<!--			<Button text="设定工厂" press="handleSelectWerks" />-->
-		<!--		<ToolbarSpacer/>-->
-		<!--	</Toolbar>-->
-		<!--</footer>-->
+		<footer>
+			<Toolbar>
+				<ToolbarSpacer/>
+					<!--<Button text="操作票打印" press="handlePrintPressCZP" />-->
+					<!--<Button text="危险点打印" press="handlePrintPress" />-->
+					<Button text="设定工厂" press="handleSelectWerks" visible="{/IwerkButtonVisible}"/>
+					<Text text="{/G_IWERK}"/>
+				<ToolbarSpacer/>
+			</Toolbar>
+		</footer>
 	</Page>
 </core:View>

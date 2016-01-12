@@ -38,6 +38,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var oUploadData = oStorage.get("ZPMUploadLog");
 		var oSyncData = oStorage.get("ZPMSyncLog");
+		var oG_IwerkData = oStorage.get("ZPMOFFLINE_SRV.G_IWERK");
 		var oData = {};
 		
 		if(oSyncData){//同步主数据时间
@@ -52,28 +53,47 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		}else{
 		    oData["lastUpload"] = "00/00 00:00:00";
 		}
-
+		if(oG_IwerkData){
+            oData["G_IWERK"] = oG_IwerkData.Iwerk + ' '+oG_IwerkData.Name1.replace(/物资工厂/, '');
+            oData["IwerkButtonVisible"] = false;
+		}else{
+		    oData["IwerkButtonVisible"] = true;
+		}
 		var oJsonModel = new sap.ui.model.json.JSONModel(oData);
 		this.getView().setModel(oJsonModel);
 	},
 	onSyncMasterData: function() {
+	   
+        jQuery.sap.require("jquery.sap.storage");
+		jQuery.sap.require("sap.m.MessageBox");
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		 //检查是否已经选择了工厂
+		var oG_IwerkData = oStorage.get("ZPMOFFLINE_SRV.G_IWERK");
+	   if(!oG_IwerkData){
+	       sap.m.MessageBox.alert("请设定工厂",{title: "提示"});
+	       return;
+	   } 
 		//配置服务器
 		var sServiceUrl = "/sap/opu/odata/SAP/ZPMOFFLINE_SRV";
 		var oECCModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
-		sap.ui.getCore().setModel(oECCModel);
+// 		sap.ui.getCore().setModel(oECCModel);   //会覆盖其它使用了getCore的Model，引起其他自动请求
 
-		//Storage  
-		jQuery.sap.require("jquery.sap.storage");
-		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-		jQuery.sap.require("sap.m.MessageBox");
 
         //定义Read方法的执行方法
 		var mParameters = {};
  		mParameters['async'] = false;
 		mParameters['success'] = jQuery.proxy(function(oData,response) {
 	        var oJsonModel = new sap.ui.model.json.JSONModel(oData);
-            oStorage.put(oJsonModel.getData().results[0].__metadata.type, oJsonModel.getData().results);
-			console.log(oJsonModel.getData().results[0].__metadata.type + "主数据已报存");
+            var rawData = oJsonModel.getData().results;
+			//清理rawData,降低存储大小
+			if(rawData.length > 0){
+			    var typeName = oJsonModel.getData().results[0].__metadata.type;
+			    for(var i=0;i<rawData.length;i++){
+			        delete rawData[i]["__metadata"];
+			    }
+			    oStorage.put(typeName, rawData);
+			    console.log(typeName + "主数据已报存");
+			}
 		}, this);
 		mParameters['error'] = jQuery.proxy(function(data) {
 		    console.log("Read 失败");
@@ -100,7 +120,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		//机组配置表
 		oECCModel.read("/ZPMV00005Set", mParameters);
 		//同步典型票  每次200条
-		this.onSyncZS(200, 1800);
+		this.onSyncZS(oECCModel,200, 0);
 
 		sap.m.MessageBox.alert("主数据下载完成",{title: "提示"});
 		//保存同步日志（最近同步时间）
@@ -110,12 +130,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		oStorage.put("ZPMSyncLog", syncLog);
 		this.onReadLogDate();
 	},
-	onSyncZS: function(p_top, p_skip) {
-	    //调用ECC Odata Service的model
-		var oECCModel = sap.ui.getCore().getModel();
+	onSyncZS: function(oECCModel,p_top, p_skip) {
 		//Storage  
 		jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		var oG_IwerkData = oStorage.get("ZPMOFFLINE_SRV.G_IWERK");
 		//定义Read方法的执行方法
 		var mParameters = {};
 		mParameters['async'] = false;
@@ -133,6 +152,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			        }
 			    }
 			}
+			console.log(rawData);
             //数据没有保存到storage前保存在view的model中，取出来然后继续添加，如果第一次，新建model
 			var oOperModel = this.getView().getModel("/ZPMTOPERSet");
 			if (rawData.length > 0) {
@@ -149,7 +169,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 					this.getView().setModel(oOperModel, "/ZPMTOPERSet");
 				}
 				//递归调用
-				this.onSyncZS(p_top, p_skip + p_top);
+				this.onSyncZS(oECCModel,p_top, p_skip + p_top);
 			} else {
 			    //没有后续数据的时候，统一写入Storage
 				oStorage.put("ZPMOFFLINE_SRV.ZPMTOPER", oOperModel.getData());
@@ -161,7 +181,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			console.log("Read /ZPMTOPERSet?$expand=InfoTab 调用失败");
 		}, this);
         //调用请求
-		oECCModel.read("/ZPMTOPERSet?$expand=InfoTab&$top=" + p_top + "&$skip=" + p_skip, mParameters);
+        var reqURL = "/ZPMTOPERSet?$expand=InfoTab&$top=" + p_top + "&$skip=" + p_skip+"&$filter=Iwerk eq '" + oG_IwerkData.Iwerk+"'";
+        // console.log(reqURL);
+		oECCModel.read(reqURL, mParameters);
 	},
 	onUploadToEcc: function(){
 		//读取LOCAL STORAGE 中的数据,作为程序的下拉框主数据
@@ -283,13 +305,99 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	    return {Cuser:"",Iwerk:"2081"};
 	},
 
+// 	handleSelectWerks:function(){
+//     	if (! this._oDialog) {
+// 			this._oDialog = sap.ui.xmlfragment("sap.m.sample.SelectDialog.Dialog", this);
+// 			this._oDialog.setModel(this.getView().getModel());
+// 		}
+//     	// toggle compact style
+// 		jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._oDialog);
+// 		this._oDialog.open();
+// 	},
+	onOpenUploadPanel:function(){
+	     sap.ui.getCore().byId("idBillApp").app.to("idBillUpload");
+	},
 	handleSelectWerks:function(){
-    	if (! this._oDialog) {
-			this._oDialog = sap.ui.xmlfragment("sap.m.sample.SelectDialog.Dialog", this);
-			this._oDialog.setModel(this.getView().getModel());
-		}
-    	// toggle compact style
-		jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._oDialog);
-		this._oDialog.open();
+	    jQuery.sap.require("sap.ui.ux3.ToolPopup");
+	    var openButton = this.getView().byId("idWerksButton");
+        var oValueHelpDialog = new sap.ui.ux3.ToolPopup({
+            modal: false,
+            inverted: true,                          // disable color inversion
+            title: "选择工厂",
+            opener:  openButton,             // locate dialog next to this field 
+            closed: function (oEvent) {
+                //设定选中的工厂
+                var oContext = oHelpTable.getContextByIndex(oHelpTable.getSelectedIndex());
+                if (oContext) {
+                    var oSel = oContext.getModel().getProperty(oContext.getPath());
+                    //Storage  
+            		jQuery.sap.require("jquery.sap.storage");
+            		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+            		oStorage.put("ZPMOFFLINE_SRV.G_IWERK",oSel); //将选中的工厂设为全局变量存到oStorage中
+            		this.onReadLogDate();                       //重新更新显示
+                }
+            }
+        });
+          var oHelpTable = new sap.ui.table.Table({
+                selectionMode: sap.ui.table.SelectionMode.Single,
+                visibleRowCount: 7,
+                width: "300pt"
+          });
+         
+          oHelpTable.addColumn(
+                new sap.ui.table.Column({
+                        label: new sap.ui.commons.Label({text: "工厂"}),
+                        template: new sap.ui.commons.TextView().bindProperty("text", "Iwerk"),
+                        sortProperty: "Iwerk",
+                        filterProperty: "Iwerk"
+                        
+                })
+          );
+          oHelpTable.addColumn(
+                new sap.ui.table.Column({
+                        label: new sap.ui.commons.Label({text: "描述"}),
+                        template: new sap.ui.commons.TextView().bindProperty("text", "Name1"),
+                        sortProperty: "Name1",
+                        filterProperty: "Name1"
+                })
+          );
+         oValueHelpDialog.addContent(oHelpTable);
+         var oHelpModel = new sap.ui.model.json.JSONModel();
+         var werksData ={"werks": [{"Iwerk":"2031","Name1":"浙江浙能电力股份有限公司萧山发电厂物资工厂"},
+                                   {"Iwerk":"2051","Name1":"浙江浙能电力股份有限公司台州发电厂物资工厂"},
+                                   {"Iwerk":"2131","Name1":"浙江浙能嘉兴发电有限公司物资工厂"},
+                                   {"Iwerk":"2161","Name1":"浙江浙能长兴发电有限公司物资工厂"},
+                                   {"Iwerk":"2181","Name1":"浙江浙能绍兴滨海热电有限责任公司物资工厂"},
+                                   {"Iwerk":"2081","Name1":"浙江浙能兰溪发电有限责任公司物资工厂"},
+                                   {"Iwerk":"2111","Name1":"浙江浙能台州第二发电有限责任公司物资工厂"},
+                                   {"Iwerk":"2121","Name1":"淮浙煤电有限责任公司凤台发电分公司物资工厂"},
+                                   {"Iwerk":"2331","Name1":"浙江浙能嘉华发电有限公司物资工厂"},
+                                   {"Iwerk":"2341","Name1":"浙江浙能北仑发电有限公司物资工厂"},
+                                   {"Iwerk":"2351","Name1":"浙江浙能镇海天然气发电有限责任公司物资工厂"},
+                                   {"Iwerk":"2361","Name1":"浙江浙能镇海燃气热电有限责任公司物资工厂"},
+                                   {"Iwerk":"2401","Name1":"浙江浙能绍兴滨海热力有限公司物资工厂"},
+                                   {"Iwerk":"2191","Name1":"浙江浙能镇海发电有限责任公司物资工厂"},
+                                   {"Iwerk":"2221","Name1":"浙江浙能温州发电有限公司物资工厂"},
+                                   {"Iwerk":"2251","Name1":"浙江浙能乐清发电有限责任公司物资工厂"},
+                                   {"Iwerk":"2261","Name1":"浙江浙能中煤舟山煤电有限责任公司物资工厂"},
+                                   {"Iwerk":"2271","Name1":"浙能阿克苏热电有限公司物资工厂"},
+                                   {"Iwerk":"2281","Name1":"宁夏枣泉发电有限责任公司物资工厂"},
+                                   {"Iwerk":"2291","Name1":"浙江浙能镇海联合发电有限公司物资工厂"},
+                                   {"Iwerk":"2301","Name1":"浙江浙能金华燃机发电有限责任公司物资工厂"},
+                                   {"Iwerk":"2311","Name1":"浙江浙能常山天然气发电有限公司物资工厂"},
+                                   {"Iwerk":"2321","Name1":"温州燃机发电有限公司物资工厂"},
+                                   {"Iwerk":"2391","Name1":"浙江浙能绍兴滨海热力有限公司物资工厂"}
+                        ]};
+        oHelpModel.setData(werksData);
+        oHelpTable.setModel(oHelpModel);
+        oHelpTable.bindAggregation("rows", "/werks");
+        var oOkButton = new sap.ui.commons.Button({
+            text: "确定",
+            press: function (oEvent) {
+                       oEvent.getSource().getParent().close();
+            }
+        });
+        oValueHelpDialog.addButton(oOkButton);
+        oValueHelpDialog.open(sap.ui.core.Popup.Dock.Center, sap.ui.core.Popup.Dock.Center);
 	}
 });

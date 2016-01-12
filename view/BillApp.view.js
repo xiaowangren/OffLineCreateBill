@@ -93,6 +93,13 @@ sap.ui.jsview("com.zhenergy.bill.view.BillApp", {
 			type: sap.ui.core.mvc.ViewType.XML
 		});
 		this.app.addPage(BillCaoZuoPiaoMoBanCreate);
+		//注册上传页面
+		var BillUpload = sap.ui.view({
+			id: "idBillUpload",
+			viewName: "com.zhenergy.bill.view.BillUpload",
+			type: sap.ui.core.mvc.ViewType.JS
+		});
+		this.app.addPage(BillUpload);
 		return this.app;
 	}
 
