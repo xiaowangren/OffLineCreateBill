@@ -176,8 +176,20 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
 		}
 		queryModel3.setProperty("/biaoTi",ZtypeBiaoTi);
 		sap.ui.getCore().setModel(queryModel3);
-        newCaoZuoPiao.InfoTab=tableData;
-        newCaoZuoPiao.DangerousTab=dangerousPointData;
+		if(newCaoZuoPiao.InfoTab.length==0){//重新构造10个空白行
+		    var InfoDataNewC = [];
+    		for(var a=0;a<10;a++){
+    		    InfoDataNewC.push({Zxh:"",Zcznr:"",Zzysx:""});
+    		}
+    		newCaoZuoPiao.InfoTab = InfoDataNewC;
+		}
+		if(newCaoZuoPiao.DangerousTab.length==0){
+		    var DangerousTabNewC = [];
+    		for(var g=0;g<10;g++){
+    		    DangerousTabNewC.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
+    		}
+    		newCaoZuoPiao.DangerousTab = DangerousTabNewC;
+		}
         var oModel = new sap.ui.model.json.JSONModel(newCaoZuoPiao);
         sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", newCaoZuoPiao);
     	var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
@@ -860,6 +872,69 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         // pdfMake.createPdf(docDefinition).print();
         // download the PDF
         // window.pdfmake.createPdf(docDefinition).download();
+    },
+    onAddInfo:function(oEvent){
+        //获取index
+        var index = this.onAddDaleteIndex(oEvent);
+        var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
+        var InfoTab = newCaoZuoPiaoCreate.InfoTab;
+        var Info = {Zxh:"",Zcznr:"",Zzysx:""};
+        Array.prototype.insert = function (index, item) {
+            this.splice(index, 0, item);
+        };
+        InfoTab.insert(index+1, Info);
+        this.onrefresh("idBillCreateInfoPage", newCaoZuoPiaoCreate);
+    },
+    onDeleteInfo:function(oEvent){
+        //获取index
+        var index = this.onAddDaleteIndex(oEvent);
+        var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
+        var InfoTab = newCaoZuoPiaoCreate.InfoTab;
+        Array.prototype.baoremove = function(dx) 
+        { 
+            if(isNaN(dx)||dx>this.length){return false;} 
+            this.splice(dx,1); 
+        }
+        InfoTab.baoremove(index);
+        this.onrefresh("idBillCreateInfoPage", newCaoZuoPiaoCreate);
+    },
+    onAddDangerous:function(oEvent){
+        //获取index
+        var index = this.onAddDaleteIndex(oEvent);
+        var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
+        var DangerousTab = newCaoZuoPiaoCreate.DangerousTab;
+        var dangerous = {Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""};
+        Array.prototype.insert = function (index, item) {
+            this.splice(index, 0, item);
+        };
+        DangerousTab.insert(index+1, dangerous);
+        this.onrefresh("idBillCreateInfoPage", newCaoZuoPiaoCreate);
+    },
+    onDeleteDangerous:function(oEvent){
+        //获取index
+        var index = this.onAddDaleteIndex(oEvent);
+        var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
+        var DangerousTab = newCaoZuoPiaoCreate.DangerousTab;
+        Array.prototype.baoremove = function(dx) 
+        { 
+            if(isNaN(dx)||dx>this.length){return false;} 
+            this.splice(dx,1); 
+        }
+        DangerousTab.baoremove(index);
+        this.onrefresh("idBillCreateInfoPage", newCaoZuoPiaoCreate);
+    },
+    onAddDaleteIndex:function(oEvent){
+        var source = oEvent.getSource();
+        var sPath = source.oPropagatedProperties.oBindingContexts.newCaoZuoPiaoCreate.sPath;
+        var splits = sPath.split("/");
+        var index = parseInt(splits[2]);
+        return index;
+    },
+    onrefresh:function(pageId,model){
+        var oModel = new sap.ui.model.json.JSONModel(model);
+        sap.ui.getCore().byId("idBillApp").app.to(pageId, model);
+        var page = sap.ui.getCore().byId("idBillApp").app.getPage(pageId);
+    	page.setModel(oModel,"newCaoZuoPiaoCreate"); 
     }
 
 });
