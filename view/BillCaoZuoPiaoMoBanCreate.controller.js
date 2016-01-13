@@ -44,18 +44,20 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
         newCaoZuoPiaoUpdateMuBan.Cuser = newCaoZuoPiaoUpdateMuBan.Cuser.trim().toUpperCase();
         var tableData = newCaoZuoPiaoUpdateMuBan.InfoTab;
         var BillInfoNew =[];
+        console.log(tableData);
         for(var i=0;i<tableData.length;i++){
             tableData[i].Zxh = ""+tableData[i].Zxh;
-            if((tableData[i].Zzysx.trim()=="")&&(tableData[i].Zxh.trim()=="")&&(tableData[i].Zcznr.trim()=="")){
+            if((tableData[i].Zzysx.trim()=="")&&(tableData[i].Zxh=="")&&(tableData[i].Zcznr.trim()=="")){
             }else{
                 BillInfoNew.push(tableData[i]); 
             }
+
         }
         newCaoZuoPiaoUpdateMuBan.InfoTab = BillInfoNew;
         var dangerousPointData = newCaoZuoPiaoUpdateMuBan.DangerousTab;
         var dangerousPointDataNew = [];
         for(var j=0;j<dangerousPointData.length;j++){
-            if((dangerousPointData[j].Dangno.trim()=="")&&(dangerousPointData[j].Zztext.trim()=="")
+            if((dangerousPointData[j].Dangno=="")&&(dangerousPointData[j].Zztext.trim()=="")
                 &&(dangerousPointData[j].Zzremark.trim()=="")&&(dangerousPointData[j].Zzpltxt.trim()=="")){
             }else{
                 dangerousPointDataNew.push(dangerousPointData[j]); 
@@ -120,40 +122,69 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
           }
         }
         return uuid.join('');
+    },
+    onAddInfo:function(oEvent){
+        //获取index
+        var index = this.onAddDaleteIndex(oEvent);
+        var newCaoZuoPiaoUpdateMuBan = this.getView().getModel("newCaoZuoPiaoUpdateMuBan").getData(); 
+        var InfoTab = newCaoZuoPiaoUpdateMuBan.InfoTab;
+        var Info = {Zxh:"",Zcznr:"",Zzysx:""};
+        Array.prototype.insert = function (index, item) {
+            this.splice(index, 0, item);
+        };
+        InfoTab.insert(index+1, Info);
+        this.onrefresh("idBillCaoZuoPiaoMoBanCreate", newCaoZuoPiaoUpdateMuBan);
+    },
+    onDeleteInfo:function(oEvent){
+        //获取index
+        var index = this.onAddDaleteIndex(oEvent);
+        var newCaoZuoPiaoUpdateMuBan = this.getView().getModel("newCaoZuoPiaoUpdateMuBan").getData(); 
+        var InfoTab = newCaoZuoPiaoUpdateMuBan.InfoTab;
+        Array.prototype.baoremove = function(dx) 
+        { 
+            if(isNaN(dx)||dx>this.length){return false;} 
+            this.splice(dx,1); 
+        }
+        InfoTab.baoremove(index);
+        this.onrefresh("idBillCaoZuoPiaoMoBanCreate", newCaoZuoPiaoUpdateMuBan);
+    },
+    onAddDangerous:function(oEvent){
+        //获取index
+        var index = this.onAddDaleteIndex(oEvent);
+        var newCaoZuoPiaoUpdateMuBan = this.getView().getModel("newCaoZuoPiaoUpdateMuBan").getData(); 
+        var DangerousTab = newCaoZuoPiaoUpdateMuBan.DangerousTab;
+        var dangerous = {Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""};
+        Array.prototype.insert = function (index, item) {
+            this.splice(index, 0, item);
+        };
+        DangerousTab.insert(index+1, dangerous);
+        this.onrefresh("idBillCaoZuoPiaoMoBanCreate", newCaoZuoPiaoUpdateMuBan);
+    },
+    onDeleteDangerous:function(oEvent){
+        //获取index
+        var index = this.onAddDaleteIndex(oEvent);
+        var newCaoZuoPiaoUpdateMuBan = this.getView().getModel("newCaoZuoPiaoUpdateMuBan").getData(); 
+        var DangerousTab = newCaoZuoPiaoUpdateMuBan.DangerousTab;
+        Array.prototype.baoremove = function(dx) 
+        { 
+            if(isNaN(dx)||dx>this.length){return false;} 
+            this.splice(dx,1); 
+        }
+        DangerousTab.baoremove(index);
+        this.onrefresh("idBillCaoZuoPiaoMoBanCreate", newCaoZuoPiaoUpdateMuBan);
+    },
+    onAddDaleteIndex:function(oEvent){
+        var source = oEvent.getSource();
+        var sPath = source.oPropagatedProperties.oBindingContexts.newCaoZuoPiaoUpdateMuBan.sPath;
+        var splits = sPath.split("/");
+        var index = parseInt(splits[2]);
+        return index;
+    },
+    onrefresh:function(pageId,model){
+        var oModel = new sap.ui.model.json.JSONModel(model);
+        sap.ui.getCore().byId("idBillApp").app.to(pageId, model);
+        var page = sap.ui.getCore().byId("idBillApp").app.getPage(pageId);
+    	page.setModel(oModel,"newCaoZuoPiaoUpdateMuBan"); 
     }
-/**
-* Called when a controller is instantiated and its View controls (if available) are already created.
-* Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
-* @memberOf com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate
-*/
-//	onInit: function() {
-//
-//	},
-
-/**
-* Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-* (NOT before the first rendering! onInit() is used for that one!).
-* @memberOf com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate
-*/
-//	onBeforeRendering: function() {
-//
-//	},
-
-/**
-* Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
-* This hook is the same one that SAPUI5 controls get after being rendered.
-* @memberOf com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate
-*/
-//	onAfterRendering: function() {
-//
-//	},
-
-/**
-* Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-* @memberOf com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate
-*/
-//	onExit: function() {
-//
-//	}
 
 });

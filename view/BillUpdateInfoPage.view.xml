@@ -201,7 +201,7 @@
 		                    <Table
     		                    id="BillUpdateBaseInfoTab"
     			                    items="{newBillDetailUpdateInfoPage>/InfoTab}" >
-    			                <columns>
+    			         <columns>
             				<Column
             					minScreenWidth="Tablet"
             					demandPopin="true"
@@ -223,6 +223,20 @@
             					>
             					<Text text="注意事项" />
             				</Column>
+            				<Column
+            					minScreenWidth="Tablet"
+            					demandPopin="true"
+            					width="4px"
+            					>
+            					<Text text="操作" />
+            				</Column>
+            				<Column
+            					minScreenWidth="Tablet"
+            					demandPopin="true"
+            					width="4px"
+            					>
+            					<Text text="操作" />
+            				</Column>
             			</columns>
             			<ColumnListItem>
             				<cells>
@@ -232,6 +246,8 @@
             						value="{newBillDetailUpdateInfoPage>Zcznr}" width="100%"/>
             					<c:TextField
             						value="{newBillDetailUpdateInfoPage>Zzysx}" width="100%"/>
+            					<c:Button text="新增" press="onAddInfo"></c:Button>
+            					<c:Button text="删除" press="onDeleteInfo"></c:Button>
             				</cells>
             			</ColumnListItem>
     		           </Table>
@@ -271,6 +287,19 @@
                 					>
                 					<Text text="控制措施" />
                 				</Column>
+                				<Column
+                					minScreenWidth="Tablet"
+                					demandPopin="true"
+                					width="12px"
+                					>
+                					<Text text="操作" />
+                				</Column>
+                				<Column
+                					minScreenWidth="Tablet"
+                					demandPopin="true"
+                					width="4px"
+                					>
+                				</Column>
             			    </columns>
             			    <ColumnListItem type="Active">
                 				<cells>
@@ -282,6 +311,8 @@
                 						value="{newBillDetailUpdateInfoPage>Zzremark}" width="100%"/>
                 					<c:TextField
                 						value="{newBillDetailUpdateInfoPage>Zzpltxt}" width="100%"/>
+                					<c:Button text="新增" press="onAddDangerous"></c:Button>
+            					    <c:Button text="删除" press="onDeleteDangerous"></c:Button>
                 				</cells>
             			    </ColumnListItem>
     		           </Table>

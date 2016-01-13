@@ -133,47 +133,58 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
         var InfoTab = data.InfoTab;
 		var InfoDataNew = [];
 		var InfoTabLength = data.InfoTab.length;
-		for(var j=0;j<InfoTabLength;j++){
-		    //将编号字符串改为数字
-		    InfoTab[j].Zxh = parseInt(InfoTab[j].Zxh);
-		    InfoDataNew.push(InfoTab[j]);
-		}
-		for(var i=0;i<250-InfoTabLength;i++){
-		    InfoDataNew.push({Zxh:"",Zcznr:"",Zzysx:""});
-		}
+        if(InfoTabLength==0){
+           for(var i=0;i<10;i++){
+    		    InfoDataNew.push({Zxh:"",Zcznr:"",Zzysx:""});
+    		} 
+        }else{
+            for(var m=0;m<InfoTabLength;m++){
+    		    InfoTab[m].Zxh = parseInt(InfoTab[m].Zxh);
+    		    InfoDataNew.push(InfoTab[m]);
+    		}
+        }
 		data.InfoTab=InfoDataNew;
 		//危险点分析
 		var DangerousTab = data.DangerousTab;
 		var DangerousTabNew = [];
 		var DangerousTabLength = data.DangerousTab.length;
-		for(var m=0;m<DangerousTabLength;m++){
-		    DangerousTab[m].Zxh = parseInt(DangerousTab[m].Dangno);
-		    DangerousTabNew.push(DangerousTab[m]);
-		}
-		for(var n=0;n<250-DangerousTabLength;n++){
-		    DangerousTabNew.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
-		}
+        if(DangerousTabLength==0){
+           for(var j=0;j<10;j++){
+    		    DangerousTabNew.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
+    		} 
+        }else{
+            for(var n=0;n<DangerousTabLength;n++){
+    		    DangerousTab[n].Dangno = parseInt(DangerousTab[n].Dangno);
+    		    DangerousTabNew.push(DangerousTab[n]);
+    		}
+        }
 		data.DangerousTab=DangerousTabNew;
         data.Zlybnum="";
 	    return data;
     },
     onDataMuBan:function(data){//重新封装数据格式
         var InfoTab = data.InfoTab.results;
-		var InfoDataNew = [];
 		var InfoTabLength = data.InfoTab.results.length;
-		for(var j=0;j<InfoTabLength;j++){
-		    InfoTab[j].Zxh = parseInt(InfoTab[j].Zxh);
-		    InfoDataNew.push(InfoTab[j]);
-		}
-		for(var i=0;i<250-InfoTabLength;i++){
-		    InfoDataNew.push({Zxh:"",Zcznr:"",Zzysx:""});
-		}
-		data.InfoTab.results=InfoDataNew;
-// 		//危险点分析
+        var InfoDataNew = [];
+        if(InfoTabLength==0){
+           for(var i=0;i<10;i++){
+    		    InfoDataNew.push({Zxh:"",Zcznr:"",Zzysx:""});
+    		} 
+        }else{
+            for(var m=0;m<InfoTabLength;m++){
+    		    InfoTab[m].Zxh = parseInt(InfoTab[m].Zxh);
+    		    if(InfoTab[m].Zzysx==undefined){
+    		       InfoTab[m].Zzysx = ""; 
+    		    }
+    		    InfoDataNew.push(InfoTab[m]);
+    		}
+        }
+        InfoTab=InfoDataNew;
+// 		危险点分析
 		var DangerousTabNew = [];
-		for(var n=0;n<250;n++){
-		    DangerousTabNew.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
-		}
+        for(var j=0;j<10;j++){
+    	    DangerousTabNew.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
+    	} 
         //转换时间
 	    var now = new Date();
 		var year = now.getFullYear(); 
@@ -185,7 +196,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
         if (day.length == 1) { 
             day = "0" + day; 
         } 
-        var Begda = year+"-" + month +"-"+  day;
+        var Begda = year+"-" + month +"-"+ day;
         var payLoad ={
             Zczph:"",//ZCZPH
             Estat:"10",//ESTAT
@@ -205,7 +216,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
             Prfty:data.Prfty,//专业
             statusText:"unCreated",
             Zlybnum:"",
-            InfoTab:data.InfoTab.results,//InfoTab
+            InfoTab:InfoTab,//InfoTab
             DangerousTab:DangerousTabNew//危险点分析
         };
 	    return payLoad;

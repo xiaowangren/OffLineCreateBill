@@ -226,6 +226,19 @@
             					>
             					<Text text="注意事项" />
             				</Column>
+            				<Column
+            					minScreenWidth="Tablet"
+            					demandPopin="true"
+            					width="4px"
+            					>
+            					<Text text="操作" />
+            				</Column>
+            				<Column
+            					minScreenWidth="Tablet"
+            					demandPopin="true"
+            					width="4px"
+            					>
+            				</Column>
             			</columns>
             			<ColumnListItem>
             				<cells>
@@ -235,6 +248,8 @@
             						value="{newCaoZuoPiaoUpdateMuBan>Zcznr}" width="100%"/>
             					<c:TextField
             						value="{newCaoZuoPiaoUpdateMuBan>Zzysx}" width="100%"/>
+            					<c:Button text="新增" press="onAddInfo"></c:Button>
+            					<c:Button text="删除" press="onDeleteInfo"></c:Button>
             				</cells>
             			</ColumnListItem>
     		           </Table>
@@ -274,6 +289,19 @@
                 					>
                 					<Text text="控制措施" />
                 				</Column>
+                				<Column
+                					minScreenWidth="Tablet"
+                					demandPopin="true"
+                					width="12px"
+                					>
+                					<Text text="操作" />
+                				</Column>
+                				<Column
+                					minScreenWidth="Tablet"
+                					demandPopin="true"
+                					width="4px"
+                					>
+                				</Column>
             			    </columns>
             			    <ColumnListItem type="Active">
                 				<cells>
@@ -285,6 +313,8 @@
                 						value="{newCaoZuoPiaoUpdateMuBan>Zzremark}" width="100%"/>
                 					<c:TextField
                 						value="{newCaoZuoPiaoUpdateMuBan>Zzpltxt}" width="100%"/>
+                					<c:Button text="新增" press="onAddDangerous"></c:Button>
+            					    <c:Button text="删除" press="onDeleteDangerous"></c:Button>
                 				</cells>
             			    </ColumnListItem>
     		           </Table>
