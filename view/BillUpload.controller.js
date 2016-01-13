@@ -6,7 +6,12 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
 * @memberOf com.zhenergy.bill.view.view.BillUpload
 */
 	onInit: function() {
-        this.onReadUploadData();
+        var t = this;
+        var  oView = this.getView();
+        oView.addEventDelegate({onBeforeShow: function(evt) {
+          //This event is fired every time before the NavContainer shows this child control.
+          t.onReadUploadData();
+        }}, oView);
 	},
 
 /**
@@ -14,9 +19,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
 * (NOT before the first rendering! onInit() is used for that one!).
 * @memberOf com.zhenergy.bill.view.view.BillUpload
 */
-//	onBeforeRendering: function() {
-//
-//	},
+	onBeforeRendering: function() {
+        this.onReadUploadData();
+	},
 
 /**
 * Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
@@ -48,10 +53,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
 		//Check if there is data into the Storage   筛选数据
 		if (oStorage.get("ZPMOFFLINE_SRV.BillInfos")) {
 			var oData1 = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
+// 			console.log(oData1);
 			for(var i=0;i<oData1.length;i++){
-                if(this.checkhelp(oData1[i].statusText,"unCreated")){
+                // if(this.checkhelp(oData1[i].statusText,"unCreated")){
                     aFilter.push(oData1[i]);
-                }
+                // }
             }
 		}
         //转换时间
@@ -123,7 +129,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
         queryResultModel.setProperty("/queryResultModelDate",Begda);
         // sap.ui.getCore().setModel(queryResultModel);
         this.getView().setModel(queryResultModel);
-        console.log(queryResultModel);
+        // console.log(queryResultModel);
     },		
     checkhelp :function(data,key){
 		    if(!key){
@@ -145,37 +151,63 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
 		    }
 		    return false;
 	},
-	onUploadPressed:function(){
+	onUploadPressed:function(evt){
 	    
-	},
-	onUploadSingleCZP: function(oData){
-		//Check if there is data into the Storage
+	    jQuery.sap.require("sap.m.MessageBox");
+	    
+	    var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+	    var oView = this.getView();
         var sServiceUrl = "/sap/opu/odata/SAP/ZPMUPLOAD_SRV";
 	    var oECCModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
-		console.log(oData);
-	    var payLoad = oData;
-	    delete payLoad["statusText"];
-	    //delete payLoad["Zczph"];         //删除json中的字段
-	    var tmpDate = payLoad.Cdata;       //把10位日期转换为8位
-	    payLoad.Cdata = tmpDate.substring(0,4) + tmpDate.substring(5,7) + tmpDate.substring(8,10);
-        //添加创建请求
-	    var createOp = oECCModel.createBatchOperation("/ZPMTOPERSet","POST",payLoad);
-	    oECCModel.addBatchChangeOperations([createOp]);
+	    //所有选中的行
+	    var aIndices = this.getView().byId("idUploadListTable").getSelectedIndices();
+        var oModel = this.getView().getModel();
+        //Table中绑定的数据
+        var oTableData = oModel.getProperty("/queryResultModel");
+        for(var i=0;i<aIndices.length;i++){
+            var index = aIndices[i];
+            // console.log(oTableData[index]);
+            if(oTableData[index].Zlybnum == "" ){
+                // this.onUploadSingleCZP(oTableData[index]);
+                var payLoad = oTableData[index];
+                delete payLoad["statusText"];
+        	    //delete payLoad["Zczph"];         //删除json中的字段
+        	    var tmpDate = payLoad.Cdata;       //把10位日期转换为8位
+        	    payLoad.Cdata = tmpDate.substring(0,4) + tmpDate.substring(5,7) + tmpDate.substring(8,10);
+                //添加创建请求
+        	    var createOp = oECCModel.createBatchOperation("/ZPMTOPERSet","POST",payLoad);
+        	    oECCModel.addBatchChangeOperations([createOp]);
+            }else{
+                //改造成不能选择
+                sap.m.MessageBox.alert("该操作票已上传");
+            }
+        }
 	    oECCModel.submitBatch(
             function(data, response) {
+                var oData = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
                 for(var i=0;i<data.__batchResponses.length;i++){
                     var respData = data.__batchResponses[i];
                     var l_zczph = respData.__changeResponses[0].data.Zczph;     //离线票号
                     var l_zzzczph = respData.__changeResponses[0].data.Zlybnum; //ECC票号
-                    //更新返回状态
-                    if(oData.Zczph == l_zczph){
-                        oData["statusText"] = respData.__changeResponses[0].statusText;
-                        oData["Zlybnum"] = l_zzzczph;
+                    //更新返回状态到oStorage
+                    
+                    for(var j=0;j<oData.length;j++){
+                        if(oData[j].Zczph == l_zczph){
+                            oData[j]["statusText"] = respData.__changeResponses[0].statusText;
+                            oData[j]["Zlybnum"] = l_zzzczph;
+                        }
                     }
                 }
+                oStorage.put("ZPMOFFLINE_SRV.BillInfos",oData);
+                sap.m.MessageToast.show("操作票上传成功");
+                var uploadLog = {
+        			lastUpload: $.now()
+        		};
+        		oStorage.put("ZPMUploadLog", uploadLog);
+                oView.rerender();
             }, 
             function(data) {
-                console.log("操作票上传失败"+oData.Zczph);
+                console.log("操作票上传失败");
             },
             false
         );
