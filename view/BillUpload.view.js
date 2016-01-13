@@ -64,13 +64,19 @@ sap.ui.jsview("com.zhenergy.bill.view.BillUpload", {
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "开票日期"}),
         	template: new sap.ui.commons.TextView().bindProperty("text", "Cdata"),
-        	width: "100px",
+        	width: "80px",
         	hAlign: "Center"
         }));
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "开票人"}),
         	template: new sap.ui.commons.TextView().bindProperty("text", "Cuser"),
-        	width: "100px",
+        	width: "80px",
+        	hAlign: "Center"
+        }));
+        oTable2.addColumn(new sap.ui.table.Column({
+        	label: new sap.ui.commons.Label({text: "操作任务"}),
+        	template: new sap.ui.commons.TextView().bindProperty("text", "Ztask"),
+        	width: "300px",
         	hAlign: "Center"
         }));
         oTable2.addColumn(new sap.ui.table.Column({
@@ -79,12 +85,12 @@ sap.ui.jsview("com.zhenergy.bill.view.BillUpload", {
         	width: "100px",
         	hAlign: "Center"
         }));
-        oTable2.addColumn(new sap.ui.table.Column({
-        	label: new sap.ui.commons.Label({text: "专业"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "Prtxt"),
-        	width: "100px",
-        	hAlign: "Center"
-        }));
+        // oTable2.addColumn(new sap.ui.table.Column({
+        // 	label: new sap.ui.commons.Label({text: "专业"}),
+        // 	template: new sap.ui.commons.TextView().bindProperty("text", "Prtxt"),
+        // 	width: "100px",
+        // 	hAlign: "Center"
+        // }));
         // oTable2.addColumn(new sap.ui.table.Column({
         // 	label: new sap.ui.commons.Label({text: "操作类型"}),
         // 	template: new sap.ui.commons.TextView().bindProperty("text", "OtypeValue"),

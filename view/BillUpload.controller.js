@@ -53,7 +53,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
 		//Check if there is data into the Storage   筛选数据
 		if (oStorage.get("ZPMOFFLINE_SRV.BillInfos")) {
 			var oData1 = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
-// 			console.log(oData1);
 			for(var i=0;i<oData1.length;i++){
                 // if(this.checkhelp(oData1[i].statusText,"unCreated")){
                     aFilter.push(oData1[i]);
@@ -129,7 +128,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
         queryResultModel.setProperty("/queryResultModelDate",Begda);
         // sap.ui.getCore().setModel(queryResultModel);
         this.getView().setModel(queryResultModel);
-        // console.log(queryResultModel);
+        console.log(queryResultModel);
     },		
     checkhelp :function(data,key){
 		    if(!key){

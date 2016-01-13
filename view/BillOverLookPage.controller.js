@@ -1,10 +1,55 @@
 sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	onInit: function() {
- 
+        var  oView = this.getView();
+        oView.addEventDelegate({onBeforeShow: function(evt) {
+          //This event is fired every time before the NavContainer shows this child control.
+            jQuery.sap.require("jquery.sap.storage");
+    		jQuery.sap.require("sap.m.MessageToast");
+    		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+    		if(oStorage.get("ZPMOFFLINE_SRV.G_PIN")){
+    		     var oJsonModel = sap.ui.getCore().getModel("CertModel");
+    		    if(oJsonModel == undefined ){
+    		        oJsonModel = new sap.ui.model.json.JSONModel();
+    		    }
+            	var certData = oJsonModel.getData();
+            	if(certData.certResult == "X"){
+            	    return;
+            	}		
+        		var storedPinCode = oStorage.get("ZPMOFFLINE_SRV.G_PIN");
+                var dialog = new sap.m.Dialog({
+        			title: '请输入访问密码',
+        			afterClose: function() {
+        				dialog.destroy();
+        			}
+        		});
+             	var inputField =  new sap.m.Input("newPin",{type:"Password", maxLength:12,fieldWidth:"100px",placeholder:"请输入密码..."});
+            	var okButton = new sap.m.Button({
+        			text: '确定',
+        			press: function () {
+        			   var pinCode = inputField._lastValue;
+                        if(storedPinCode == pinCode){
+            				var certResult = {};
+            				certResult["certResult"] = "X";
+            				oJsonModel.setData(certResult);
+                            sap.ui.getCore().setModel(oJsonModel,"CertModel");
+            				dialog.close();
+            				oView.rerender();
+                        }else{
+                            sap.m.MessageToast.show("密码错误");
+                        }
+        			}
+        		});
+        		dialog.addContent(inputField);
+        		dialog.addButton(okButton);
+        		//to get access to the global model
+        		oView.addDependent(dialog);
+        		dialog.open();
+    		}
+        }}, oView);
 	},
 	onBeforeRendering:function(){
-	    //打开页面时更新主数据更新时间  oView.rerender();
-	    this.onReadLogDate();     
+		   //打开页面时更新主数据更新时间  oView.rerender();
+	        this.onReadLogDate();   
 	},
 	onReadLogDate: function() {
 		//**************************************************************************
@@ -40,8 +85,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		var oUploadData = oStorage.get("ZPMUploadLog");
 		var oSyncData = oStorage.get("ZPMSyncLog");
 		var oG_IwerkData = oStorage.get("ZPMOFFLINE_SRV.G_IWERK");
+		var oG_PinData = oStorage.get("ZPMOFFLINE_SRV.G_PIN");
 		var oData = {};
-		
 		if(oSyncData){//同步主数据时间
 		    var formatedDate = new Date(oSyncData.lastUpdate).Format("MM/dd hh:mm:ss");
 		    oData["lastSyncLog"] = formatedDate;
@@ -59,6 +104,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
             oData["IwerkButtonVisible"] = false;
 		}else{
 		    oData["IwerkButtonVisible"] = true;
+		}
+		if(oG_PinData){
+		    oData["PinButtonVisible"] = false;
+		}else{
+		    oData["PinButtonVisible"] = true;
 		}
 		var oJsonModel = new sap.ui.model.json.JSONModel(oData);
 		this.getView().setModel(oJsonModel);
@@ -405,10 +455,36 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
         oValueHelpDialog.open(sap.ui.core.Popup.Dock.Center, sap.ui.core.Popup.Dock.Center);
 	},
 	handleSetPassword:function(){
-//         var dialog = new sap.m.BusyDialog("sId", {title:"请稍候",text:"请稍候,主数据同步中..."});
-//         this.getView().addDependent(dialog);
-// 		// open dialog
-// 		jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), dialog);
-//         dialog.open();
+	    var oView = this.getView();
+        var dialog = new sap.m.Dialog({
+			title: '设定离线程序访问密码',
+			afterClose: function() {
+				dialog.destroy();
+			}
+		});
+     	var inputField =  new sap.m.Input("newPin",{type:"Password", maxLength:12,fieldWidth:"100px",placeholder:"请输入密码..."});
+    	var okButton = new sap.m.Button({
+			text: '确定',
+			press: function () {
+			   var pinCode = inputField._lastValue;
+                //Storage  
+        		jQuery.sap.require("jquery.sap.storage");
+        		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+        		oStorage.put("ZPMOFFLINE_SRV.G_PIN",pinCode); //将选中的工厂设为全局变量存到oStorage中
+        		//把当前session设为已认证
+	            var certResult = {};
+				certResult["certResult"] = "X";
+				var oJsonModel = new sap.ui.model.json.JSONModel();
+				oJsonModel.setData(certResult);
+                sap.ui.getCore().setModel(oJsonModel,"CertModel");
+				dialog.close();
+				oView.rerender();
+			}
+		});
+		dialog.addContent(inputField);
+		dialog.addButton(okButton);
+		//to get access to the global model
+		this.getView().addDependent(dialog);
+		dialog.open();
 	}
 });
