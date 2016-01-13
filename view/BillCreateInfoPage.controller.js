@@ -890,11 +890,16 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var index = this.onAddDaleteIndex(oEvent);
         var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
         var InfoTab = newCaoZuoPiaoCreate.InfoTab;
+        if(InfoTab.length==1&&index==0){
+            sap.m.MessageBox.alert("至少存在一行，无法进行删除",{title: "提示"});
+            return;
+        }
         Array.prototype.baoremove = function(dx) 
         { 
             if(isNaN(dx)||dx>this.length){return false;} 
             this.splice(dx,1); 
         }
+        
         InfoTab.baoremove(index);
         this.onrefresh("idBillCreateInfoPage", newCaoZuoPiaoCreate);
     },
@@ -915,6 +920,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var index = this.onAddDaleteIndex(oEvent);
         var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
         var DangerousTab = newCaoZuoPiaoCreate.DangerousTab;
+        if(DangerousTab.length==1&&index==0){
+            sap.m.MessageBox.alert("至少存在一行，无法进行删除",{title: "提示"});
+            return;
+        }
         Array.prototype.baoremove = function(dx) 
         { 
             if(isNaN(dx)||dx>this.length){return false;} 
