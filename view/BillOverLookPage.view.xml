@@ -6,7 +6,6 @@
 	    title="两票离线处理平台"
 		showHeader="true"
 		enableScrolling="false" >
-		<!--tiles="{/TileCollection}"-->
 		<TileContainer
 			id="container"
 			tileDelete="handleTileDelete"
@@ -99,10 +98,9 @@
 		<footer>
 			<Toolbar>
 				<ToolbarSpacer/>
-					<!--<Button text="操作票打印" press="handlePrintPressCZP" />-->
-					<!--<Button text="危险点打印" press="handlePrintPress" />-->
-					<Button text="设定工厂" press="handleSelectWerks" visible="{/IwerkButtonVisible}"/>
+					<Button icon="sap-icon://wrench"  text="设定工厂" press="handleSelectWerks"   visible="{/IwerkButtonVisible}"/>
 					<Text text="{/G_IWERK}"/>
+					<Button icon="sap-icon://key" text="设定密码" press="handleSetPassword"/>
 				<ToolbarSpacer/>
 			</Toolbar>
 		</footer>

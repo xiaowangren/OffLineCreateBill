@@ -1,7 +1,10 @@
 sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	onInit: function() {
-	    //打开页面时更新主数据更新时间
-	    this.onReadLogDate();      
+ 
+	},
+	onBeforeRendering:function(){
+	    //打开页面时更新主数据更新时间  oView.rerender();
+	    this.onReadLogDate();     
 	},
 	onReadLogDate: function() {
 		//**************************************************************************
@@ -33,8 +36,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
         };
         //*****************************************************************************		
         jQuery.sap.require("jquery.sap.storage");
-// 		jQuery.sap.require("sap.m.MessageBox");
-// 		jQuery.sap.require("sap.m.MessageToast");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var oUploadData = oStorage.get("ZPMUploadLog");
 		var oSyncData = oStorage.get("ZPMSyncLog");
@@ -81,7 +82,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 
         //定义Read方法的执行方法
 		var mParameters = {};
- 		mParameters['async'] = false;
+ 		mParameters['async'] = true;
 		mParameters['success'] = jQuery.proxy(function(oData,response) {
 	        var oJsonModel = new sap.ui.model.json.JSONModel(oData);
             var rawData = oJsonModel.getData().results;
@@ -98,6 +99,13 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		mParameters['error'] = jQuery.proxy(function(data) {
 		    console.log("Read 失败");
 		}, this);
+		//显示同步中的对话框
+        var dialog = new sap.m.BusyDialog({title:"请稍候",text:"请稍候,主数据同步中..."});
+        this.getView().addDependent(dialog);
+		// open dialog
+		jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), dialog);
+        dialog.open();
+				
         //取数
         //工厂
 		oECCModel.read("/WERKSSet", mParameters);
@@ -122,6 +130,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		//同步典型票  每次200条
 		this.onSyncZS(oECCModel,200, 0);
 
+        dialog.close();
 		sap.m.MessageBox.alert("主数据下载完成",{title: "提示"});
 		//保存同步日志（最近同步时间）
 		var syncLog = {
@@ -185,68 +194,69 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
         // console.log(reqURL);
 		oECCModel.read(reqURL, mParameters);
 	},
-	onUploadToEcc: function(){
-		//读取LOCAL STORAGE 中的数据,作为程序的下拉框主数据
-		//Storage  
-		jQuery.sap.require("jquery.sap.storage");
-		jQuery.sap.require("sap.m.MessageBox");
-		jQuery.sap.require("sap.m.MessageToast");
-		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-		//Check if there is data into the Storage
-		if (oStorage.get("ZPMOFFLINE_SRV.BillInfos")) {
-	        var sServiceUrl = "/sap/opu/odata/SAP/ZPMUPLOAD_SRV";
-		    var oECCModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
-			console.log("Data is from Storage!");
-			var oData = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
-            var uploadCount = 0;
-			for(var i=0;i<oData.length;i++){
-			    if(oData[i]["statusText"] == "Created"){
-			        continue;
-			    }
-			    uploadCount = uploadCount + 1;
-			    var payLoad = oData[i];
-			    delete payLoad["statusText"];
-			    //delete payLoad["Zczph"];         //删除json中的字段
-			    var tmpDate = payLoad.Cdata;       //把10位日期转换为8位
-			    payLoad.Cdata = tmpDate.substring(0,4) + tmpDate.substring(5,7) + tmpDate.substring(8,10);
-                //添加创建请求
-			    var createOp = oECCModel.createBatchOperation("/ZPMTOPERSet","POST",payLoad);
-			    oECCModel.addBatchChangeOperations([createOp]);
-			}
-			if(uploadCount == 0){
-                sap.m.MessageToast.show("没有需要上传的数据");
-                return;
-			}
-		    oECCModel.submitBatch(
-                function(data, response) {
-                    for(var i=0;i<data.__batchResponses.length;i++){
-                        var respData = data.__batchResponses[i];
-                        var l_zczph = respData.__changeResponses[0].data.Zczph;     //离线票号
-                        var l_zzzczph = respData.__changeResponses[0].data.Zlybnum; //ECC票号
-                        //更新返回状态到oStorage
-                        for(var j=0;j<oData.length;j++){
-                            if(oData[j].Zczph == l_zczph){
-                                oData[j]["statusText"] = respData.__changeResponses[0].statusText;
-                                oData[j]["Zlybnum"] = l_zzzczph;
-                            }
-                        }
-                    }
-                    oStorage.put("ZPMOFFLINE_SRV.BillInfos",oData);
-                    sap.m.MessageToast.show("操作票上传成功");
-                    var uploadLog = {
-            			lastUpload: $.now()
-            		};
-            		oStorage.put("ZPMUploadLog", uploadLog);
-                }, 
-                function(data) {
-                    sap.m.MessageToast.show("操作票上传失败");
-                },
-                false
-            );
-		}else{
-		    sap.m.MessageBox.alert("没有需要上传的数据",{title: "提示"});
-		}
-	},
+// 	onUploadToEcc: function(){
+// 		//读取LOCAL STORAGE 中的数据,作为程序的下拉框主数据
+// 		//Storage  
+// 		jQuery.sap.require("jquery.sap.storage");
+// 		jQuery.sap.require("sap.m.MessageBox");
+// 		jQuery.sap.require("sap.m.MessageToast");
+// 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+// 		//Check if there is data into the Storage
+// 		if (oStorage.get("ZPMOFFLINE_SRV.BillInfos")) {
+// 	        var sServiceUrl = "/sap/opu/odata/SAP/ZPMUPLOAD_SRV";
+// 		    var oECCModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
+// 			console.log("Data is from Storage!");
+// 			var oData = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
+//             var uploadCount = 0;
+// 			for(var i=0;i<oData.length;i++){
+// 			    if(oData[i]["statusText"] == "Created"){
+// 			        continue;
+// 			    }
+// 			    uploadCount = uploadCount + 1;
+// 			    var payLoad = oData[i];
+// 			    delete payLoad["statusText"];
+// 			    //delete payLoad["Zczph"];         //删除json中的字段
+// 			    var tmpDate = payLoad.Cdata;       //把10位日期转换为8位
+// 			    payLoad.Cdata = tmpDate.substring(0,4) + tmpDate.substring(5,7) + tmpDate.substring(8,10);
+//                 //添加创建请求
+// 			    var createOp = oECCModel.createBatchOperation("/ZPMTOPERSet","POST",payLoad);
+// 			    oECCModel.addBatchChangeOperations([createOp]);
+// 			}
+// 			if(uploadCount == 0){
+//                 sap.m.MessageToast.show("没有需要上传的数据");
+//                 return;
+// 			}
+// 		    oECCModel.submitBatch(
+//                 function(data, response) {
+//                     for(var i=0;i<data.__batchResponses.length;i++){
+//                         var respData = data.__batchResponses[i];
+//                         var l_zczph = respData.__changeResponses[0].data.Zczph;     //离线票号
+//                         var l_zzzczph = respData.__changeResponses[0].data.Zlybnum; //ECC票号
+//                         //更新返回状态到oStorage
+//                         oData = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
+//                         for(var j=0;j<oData.length;j++){
+//                             if(oData[j].Zczph == l_zczph){
+//                                 oData[j]["statusText"] = respData.__changeResponses[0].statusText;
+//                                 oData[j]["Zlybnum"] = l_zzzczph;
+//                             }
+//                         }
+//                     }
+//                     oStorage.put("ZPMOFFLINE_SRV.BillInfos",oData);
+//                     sap.m.MessageToast.show("操作票上传成功");
+//                     var uploadLog = {
+//             			lastUpload: $.now()
+//             		};
+//             		oStorage.put("ZPMUploadLog", uploadLog);
+//                 }, 
+//                 function(data) {
+//                     sap.m.MessageToast.show("操作票上传失败");
+//                 },
+//                 false
+//             );
+// 		}else{
+// 		    sap.m.MessageBox.alert("没有需要上传的数据",{title: "提示"});
+// 		}
+// 	},
 	onNavigate: function(event){
         
 	    sap.ui.getCore().byId("idBillApp").app.to("idBillInitializationPage");
@@ -304,22 +314,15 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	onQuChuUser:function(){
 	    return {Cuser:"",Iwerk:"2081"};
 	},
-
-// 	handleSelectWerks:function(){
-//     	if (! this._oDialog) {
-// 			this._oDialog = sap.ui.xmlfragment("sap.m.sample.SelectDialog.Dialog", this);
-// 			this._oDialog.setModel(this.getView().getModel());
-// 		}
-//     	// toggle compact style
-// 		jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), this._oDialog);
-// 		this._oDialog.open();
-// 	},
 	onOpenUploadPanel:function(){
+	    //打开上传操作票页面
 	     sap.ui.getCore().byId("idBillApp").app.to("idBillUpload");
 	},
 	handleSelectWerks:function(){
+	    //选择工厂，不然不能同步数据
 	    jQuery.sap.require("sap.ui.ux3.ToolPopup");
 	    var openButton = this.getView().byId("idWerksButton");
+	    var oView = this.getView();
         var oValueHelpDialog = new sap.ui.ux3.ToolPopup({
             modal: false,
             inverted: true,                          // disable color inversion
@@ -334,7 +337,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
             		jQuery.sap.require("jquery.sap.storage");
             		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
             		oStorage.put("ZPMOFFLINE_SRV.G_IWERK",oSel); //将选中的工厂设为全局变量存到oStorage中
-            		this.onReadLogDate();                       //重新更新显示
+            		oView.rerender();
                 }
             }
         });
@@ -362,20 +365,16 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
                 })
           );
          oValueHelpDialog.addContent(oHelpTable);
+         //在同步数据之前选择工厂，因此写死
          var oHelpModel = new sap.ui.model.json.JSONModel();
          var werksData ={"werks": [{"Iwerk":"2031","Name1":"浙江浙能电力股份有限公司萧山发电厂物资工厂"},
                                    {"Iwerk":"2051","Name1":"浙江浙能电力股份有限公司台州发电厂物资工厂"},
-                                   {"Iwerk":"2131","Name1":"浙江浙能嘉兴发电有限公司物资工厂"},
-                                   {"Iwerk":"2161","Name1":"浙江浙能长兴发电有限公司物资工厂"},
-                                   {"Iwerk":"2181","Name1":"浙江浙能绍兴滨海热电有限责任公司物资工厂"},
                                    {"Iwerk":"2081","Name1":"浙江浙能兰溪发电有限责任公司物资工厂"},
                                    {"Iwerk":"2111","Name1":"浙江浙能台州第二发电有限责任公司物资工厂"},
                                    {"Iwerk":"2121","Name1":"淮浙煤电有限责任公司凤台发电分公司物资工厂"},
-                                   {"Iwerk":"2331","Name1":"浙江浙能嘉华发电有限公司物资工厂"},
-                                   {"Iwerk":"2341","Name1":"浙江浙能北仑发电有限公司物资工厂"},
-                                   {"Iwerk":"2351","Name1":"浙江浙能镇海天然气发电有限责任公司物资工厂"},
-                                   {"Iwerk":"2361","Name1":"浙江浙能镇海燃气热电有限责任公司物资工厂"},
-                                   {"Iwerk":"2401","Name1":"浙江浙能绍兴滨海热力有限公司物资工厂"},
+                                   {"Iwerk":"2131","Name1":"浙江浙能嘉兴发电有限公司物资工厂"},
+                                   {"Iwerk":"2161","Name1":"浙江浙能长兴发电有限公司物资工厂"},
+                                   {"Iwerk":"2181","Name1":"浙江浙能绍兴滨海热电有限责任公司物资工厂"},
                                    {"Iwerk":"2191","Name1":"浙江浙能镇海发电有限责任公司物资工厂"},
                                    {"Iwerk":"2221","Name1":"浙江浙能温州发电有限公司物资工厂"},
                                    {"Iwerk":"2251","Name1":"浙江浙能乐清发电有限责任公司物资工厂"},
@@ -386,7 +385,12 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
                                    {"Iwerk":"2301","Name1":"浙江浙能金华燃机发电有限责任公司物资工厂"},
                                    {"Iwerk":"2311","Name1":"浙江浙能常山天然气发电有限公司物资工厂"},
                                    {"Iwerk":"2321","Name1":"温州燃机发电有限公司物资工厂"},
-                                   {"Iwerk":"2391","Name1":"浙江浙能绍兴滨海热力有限公司物资工厂"}
+                                   {"Iwerk":"2331","Name1":"浙江浙能嘉华发电有限公司物资工厂"},
+                                   {"Iwerk":"2341","Name1":"浙江浙能北仑发电有限公司物资工厂"},
+                                   {"Iwerk":"2351","Name1":"浙江浙能镇海天然气发电有限责任公司物资工厂"},
+                                   {"Iwerk":"2361","Name1":"浙江浙能镇海燃气热电有限责任公司物资工厂"},
+                                   {"Iwerk":"2391","Name1":"浙江浙能绍兴滨海热力有限公司物资工厂"},
+                                   {"Iwerk":"2401","Name1":"浙江浙能绍兴滨海热力有限公司物资工厂"}
                         ]};
         oHelpModel.setData(werksData);
         oHelpTable.setModel(oHelpModel);
@@ -394,10 +398,17 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
         var oOkButton = new sap.ui.commons.Button({
             text: "确定",
             press: function (oEvent) {
-                       oEvent.getSource().getParent().close();
+                oEvent.getSource().getParent().close();
             }
         });
         oValueHelpDialog.addButton(oOkButton);
         oValueHelpDialog.open(sap.ui.core.Popup.Dock.Center, sap.ui.core.Popup.Dock.Center);
+	},
+	handleSetPassword:function(){
+//         var dialog = new sap.m.BusyDialog("sId", {title:"请稍候",text:"请稍候,主数据同步中..."});
+//         this.getView().addDependent(dialog);
+// 		// open dialog
+// 		jQuery.sap.syncStyleClass("sapUiSizeCompact", this.getView(), dialog);
+//         dialog.open();
 	}
 });
