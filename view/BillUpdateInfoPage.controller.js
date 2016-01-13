@@ -2,8 +2,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
     onFanHui:function(){
        sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage"); 
     },
-    onUpdateBillInfo:function(){
-	    var newBillDetailUpdateInfoPage = this.getView().getModel("newBillDetailUpdateInfoPage").getData(); 
+    onUpdateBillInfoFirst:function(){
+      var newBillDetailUpdateInfoPage = this.getView().getModel("newBillDetailUpdateInfoPage").getData(); 
         //校验数据合法性
         if(newBillDetailUpdateInfoPage.Appdep==""){
             sap.m.MessageBox.alert("填写部门必填",{title: "提示"});
@@ -46,7 +46,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
         var BillInfoNew =[];
         for(var i=0;i<tableData.length;i++){
             tableData[i].Zxh = ""+tableData[i].Zxh;
-            if((tableData[i].Zzysx.trim()=="")&&(tableData[i].Zxh.trim()=="")&&(tableData[i].Zcznr.trim()=="")){
+            if((tableData[i].Zzysx.trim()=="")&&(tableData[i].Zxh=="")&&(tableData[i].Zcznr.trim()=="")){
             }else{
                 BillInfoNew.push(tableData[i]); 
             }
@@ -55,70 +55,13 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
         var dangerousPointData = newBillDetailUpdateInfoPage.DangerousTab;
         var dangerousPointDataNew = [];
         for(var j=0;j<dangerousPointData.length;j++){
-            if((dangerousPointData[j].Dangno.trim()=="")&&(dangerousPointData[j].Zztext.trim()=="")
+            if((dangerousPointData[j].Dangno=="")&&(dangerousPointData[j].Zztext.trim()=="")
                 &&(dangerousPointData[j].Zzremark.trim()=="")&&(dangerousPointData[j].Zzpltxt.trim()=="")){
             }else{
                 dangerousPointDataNew.push(dangerousPointData[j]); 
             }
         }
         newBillDetailUpdateInfoPage.DangerousTab=dangerousPointDataNew;
-        // //文本更新 
-        // var Appdepdecs =this.getView().byId("dianQiTianXieBuMen4")._sTypedChars;//填写部门
-        // var Yxgroupdecs =this.getView().byId("dianQiBanZu4")._sTypedChars;//班组
-        // var OtypeValues =this.getView().byId("dianQiCaozuoLeiXing4")._sTypedChars;//操作类型
-        // var ZczfsValues =this.getView().byId("dianQiCaoZuoXingZhi4")._sTypedChars;//操作性质
-        // var Prtxts =this.getView().byId("dianQiZhuanYe4")._sTypedChars;//专业
-        // var Rareadecs =this.getView().byId("dianQiYunXingQuYu4")._sTypedChars;//运行区域
-        // var Untxts =this.getView().byId("dianQiJiZu4")._sTypedChars;//机组
-        // var Dutxts =this.getView().byId("dianQiZhiBie4")._sTypedChars;//值别
-        // var Appdepdec="";
-        // if(Appdepdecs!=undefined){
-        //     Appdepdec = Appdepdecs.split(" ")[1];
-        // }
-        // var Yxgroupdec = "";
-        // if(Yxgroupdecs!=undefined){
-        //     Yxgroupdec= Yxgroupdecs.split(" ")[1];
-        // }
-        // var OtypeValue = "";
-        // if(OtypeValues!=undefined){
-        //     OtypeValue = OtypeValues.split(" ")[1];
-        // }
-        // var ZczfsValue = "";
-        // if(ZczfsValues!=undefined){
-        //     ZczfsValue = ZczfsValues.split(" ")[1];
-        // }
-        // var Prtxt = "";
-        // if(Prtxts!=undefined){
-        //     Prtxt = Prtxts.split(" ")[1];
-        // }
-        // var Rareadec="";
-        // if(Rareadecs!=undefined){
-        //     Rareadec = Rareadecs.split(" ")[1];
-        // }
-        // var Untxt="";
-        // if(Untxts!=undefined){
-        //     Untxt = Untxts.split(" ")[1];
-        // }
-        // var Dutxt="";
-        // if(Dutxts!=undefined){
-        //     Dutxt = Dutxts.split(" ")[1];
-        // }
-        //Appdepdec  填写部门
-        //Yxgroupdec 班组
-        //OtypeValue 操作类型
-        //ZczfsValue 操作性质
-        //Prtxt 专业
-        //Rareadec 运行区域
-        //Untxt 机组
-        //Dutxt 值别
-        // newBillDetailUpdateInfoPage.Appdepdec=Appdepdec;
-        // newBillDetailUpdateInfoPage.Yxgroupdec=Yxgroupdec;
-        // newBillDetailUpdateInfoPage.OtypeValue=OtypeValue;
-        // newBillDetailUpdateInfoPage.ZczfsValue=ZczfsValue;
-        // newBillDetailUpdateInfoPage.Prtxt=Prtxt;
-        // newBillDetailUpdateInfoPage.Rareadec=Rareadec;
-        // newBillDetailUpdateInfoPage.Untxt=Untxt;
-        // newBillDetailUpdateInfoPage.Dutxt=Dutxt;
         //存储数据
         jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
@@ -141,38 +84,28 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
                     }
                 }
             }
-            
-            // var InfoTabLength = newBillDetailUpdateInfoPage.InfoTab.length;
-            // if(InfoTabLength<250){
-            //     var InfoTabNews = [];
-            // 	for(var q=0;q<InfoTabLength;q++){
-            // 		   InfoTabNews.push(newBillDetailUpdateInfoPage.InfoTab[q]);
-            // 	}
-            // 	for(var w=0;w<250-InfoTabLength;w++){
-            // 		   InfoTabNews.push({Zxh:"",Zcznr:"",Zzysx:""});
-            // 	}
-            // 	newCaoZuoPiao.InfoTab=InfoTabNews;
-            // }
-            
-            // var DangerousTabLength = newBillDetailUpdateInfoPage.DangerousTab.length;
-            // if(DangerousTabLength<250){
-            //     var DangerousTabNews = [];
-            // 	for(var e=0;e<DangerousTabLength;e++){
-            // 		   DangerousTabNews.push(newBillDetailUpdateInfoPage.DangerousTab[e]);
-            // 	}
-            // 	for(var r=0;r<250-InfoTabLength;r++){
-            // 		   DangerousTabNews.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
-            // 	}
-            // 	newCaoZuoPiao.DangerousTab=DangerousTabNews;
-            // }
-            newCaoZuoPiao.InfoTab=tableData;
+            //重新拼装InfoTab,DangerousTab
+            var InfoDataNew = [];
+            var InfoTab = newCaoZuoPiao.InfoTab; 
+    		var InfoTabLength = newCaoZuoPiao.InfoTab.length;
+    		for(var m=0;m<InfoTabLength;m++){
+    		    //将编号字符串改为数字
+    		    InfoDataNew.push(InfoTab[m]);
+    		}
+    // 		for(var n=0;n<250-InfoTabLength;n++){
+    // 		    InfoDataNew.push({Zxh:"",Zcznr:"",Zzysx:""});
+    // 		}
+            newCaoZuoPiao.InfoTab=InfoDataNew;
             newCaoZuoPiao.DangerousTab=dangerousPointData;
             var oModel = new sap.ui.model.json.JSONModel(newCaoZuoPiao);
             sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", newCaoZuoPiao);
         	var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
-    		page.setModel(oModel,"newBillDetailUpdateInfoPage");
-            sap.m.MessageBox.alert("修改保存成功",{title: "提示"});
+    		page.setModel(oModel,"newBillDetailUpdateInfoPage");  
         }
+    },
+    onUpdateBillInfo:function(){
+	    this.onUpdateBillInfoFirst();
+        sap.m.MessageBox.alert("修改保存成功",{title: "提示"});
 
     },
     onCancleBillInfo:function(){
@@ -190,6 +123,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
                 }
             }
         }
+    
         var tableData=[];
         var InfoTab = newCaoZuoPiao.InfoTab;
         if(InfoTab){
@@ -230,7 +164,71 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
         // console.log("显示页面打印危险点");
         var modelData = this.getView().getModel("newBillDetailUpdateInfoPage").getData();
         sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage").onPDFPrintDangerous(modelData);
+    },
+    onDeleteInfo:function(oEvent){
+        var index = this.onAddDaleteIndex(oEvent);
+        var newBillDetailUpdateInfoPage = this.getView().getModel("newBillDetailUpdateInfoPage").getData(); 
+        var InfoTab = newBillDetailUpdateInfoPage.InfoTab;
+        Array.prototype.baoremove = function(dx) 
+        { 
+            if(isNaN(dx)||dx>this.length){return false;} 
+            this.splice(dx,1); 
+        } 
+        InfoTab.baoremove(index);
+        //刷新页面
+        this.refreshUpdate(newBillDetailUpdateInfoPage); 
+    },
+    onAddInfo:function(oEvent){
+        var index = this.onAddDaleteIndex(oEvent);
+        var newBillDetailUpdateInfoPage = this.getView().getModel("newBillDetailUpdateInfoPage").getData(); 
+        var InfoTab = newBillDetailUpdateInfoPage.InfoTab;
+        //创建需要插入的对象
+        var Info = {Zxh:"",Zcznr:"",Zzysx:""};
+        Array.prototype.insert = function (index, item) {
+            this.splice(index, 0, item);
+        };
+        InfoTab.insert(index+1, Info); 
+        //刷新页面
+        this.refreshUpdate(newBillDetailUpdateInfoPage); 
+    },
+    onAddDangerous:function(oEvent){
+        //获取index
+        var index = this.onAddDaleteIndex(oEvent);
+        var newBillDetailUpdateInfoPage = this.getView().getModel("newBillDetailUpdateInfoPage").getData(); 
+        var DangerousTab = newBillDetailUpdateInfoPage.DangerousTab;
+        var dangerous = {Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""};
+        Array.prototype.insert = function (index, item) {
+            this.splice(index, 0, item);
+        };
+        DangerousTab.insert(index+1, dangerous);
+        this.refreshUpdate(newBillDetailUpdateInfoPage);
+    },
+    onDeleteDangerous:function(oEvent){
+        //获取index
+        var index = this.onAddDaleteIndex(oEvent);
+        var newBillDetailUpdateInfoPage = this.getView().getModel("newBillDetailUpdateInfoPage").getData(); 
+        var DangerousTab = newBillDetailUpdateInfoPage.DangerousTab;
+        Array.prototype.baoremove = function(dx) 
+        { 
+            if(isNaN(dx)||dx>this.length){return false;} 
+            this.splice(dx,1); 
+        }
+        DangerousTab.baoremove(index);
+        this.refreshUpdate(newBillDetailUpdateInfoPage);
+    },
+    refreshUpdate:function(models){
+       var oModel = new sap.ui.model.json.JSONModel(models);
+        sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", models);
+        var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
+    	page.setModel(oModel,"newBillDetailUpdateInfoPage"); 
+    },
+    onAddDaleteIndex:function(oEvent){
+        var source = oEvent.getSource();
+        var sPath = source.oPropagatedProperties.oBindingContexts.newBillDetailUpdateInfoPage.sPath;
+        var splits = sPath.split("/");
+        var index = parseInt(splits[2]);
+        return index;
     }
-
+    
 
 });
