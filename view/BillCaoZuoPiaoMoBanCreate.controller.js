@@ -46,7 +46,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
         var BillInfoNew =[];
         for(var i=0;i<tableData.length;i++){
             tableData[i].Zxh = ""+tableData[i].Zxh;
+// <<<<<<< HEAD
             if((tableData[i].Zxh.trim()=="")&&(tableData[i].Zcznr.trim()=="")){    //(tableData[i].Zzysx.trim()=="")&&
+// =======
+            // if((tableData[i].Zzysx.trim()=="")&&(tableData[i].Zxh=="")&&(tableData[i].Zcznr.trim()=="")){
+// >>>>>>> branch 'master' of https://github.com/xiaowangren/OffLineCreateBill
             }else{
                 BillInfoNew.push(tableData[i]); 
             }
@@ -92,8 +96,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
             }
         }
         // console.log(newCaoZuoPiao);
-        newCaoZuoPiao.InfoTab=tableData;
-        newCaoZuoPiao.DangerousTab=dangerousPointData;
+        // newCaoZuoPiao.InfoTab=tableData;
+        // newCaoZuoPiao.DangerousTab=dangerousPointData;
 
         var oModel = new sap.ui.model.json.JSONModel(newCaoZuoPiao);
         sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", newCaoZuoPiao);
@@ -139,6 +143,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
         var index = this.onAddDaleteIndex(oEvent);
         var newCaoZuoPiaoUpdateMuBan = this.getView().getModel("newCaoZuoPiaoUpdateMuBan").getData(); 
         var InfoTab = newCaoZuoPiaoUpdateMuBan.InfoTab;
+        if(InfoTab.length==1&&index==0){
+            sap.m.MessageBox.alert("至少存在一行，无法进行删除",{title: "提示"});
+            return;
+        }
         Array.prototype.baoremove = function(dx) 
         { 
             if(isNaN(dx)||dx>this.length){return false;} 
@@ -164,6 +172,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
         var index = this.onAddDaleteIndex(oEvent);
         var newCaoZuoPiaoUpdateMuBan = this.getView().getModel("newCaoZuoPiaoUpdateMuBan").getData(); 
         var DangerousTab = newCaoZuoPiaoUpdateMuBan.DangerousTab;
+        if(DangerousTab.length==1&&index==0){
+            sap.m.MessageBox.alert("至少存在一行，无法进行删除",{title: "提示"});
+            return;
+        }
         Array.prototype.baoremove = function(dx) 
         { 
             if(isNaN(dx)||dx>this.length){return false;} 

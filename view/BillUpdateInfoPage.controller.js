@@ -169,6 +169,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
         var index = this.onAddDaleteIndex(oEvent);
         var newBillDetailUpdateInfoPage = this.getView().getModel("newBillDetailUpdateInfoPage").getData(); 
         var InfoTab = newBillDetailUpdateInfoPage.InfoTab;
+        if(InfoTab.length==1&&index==0){
+            sap.m.MessageBox.alert("至少存在一行，无法进行删除",{title: "提示"});
+            return;
+        }
         Array.prototype.baoremove = function(dx) 
         { 
             if(isNaN(dx)||dx>this.length){return false;} 
@@ -208,6 +212,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
         var index = this.onAddDaleteIndex(oEvent);
         var newBillDetailUpdateInfoPage = this.getView().getModel("newBillDetailUpdateInfoPage").getData(); 
         var DangerousTab = newBillDetailUpdateInfoPage.DangerousTab;
+        if(DangerousTab.length==1&&index==0){
+            sap.m.MessageBox.alert("至少存在一行，无法进行删除",{title: "提示"});
+            return;
+        }
         Array.prototype.baoremove = function(dx) 
         { 
             if(isNaN(dx)||dx>this.length){return false;} 

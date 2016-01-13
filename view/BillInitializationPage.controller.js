@@ -221,13 +221,13 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
         var Begda = year+"-" + month +"-"+  day;
         //操作内容
 		var InfoDataNewC = [];
-		for(var a=0;a<10;a++){
-		    InfoDataNewC.push({Zxh:"",Zcznr:"",Zzysx:""});
+		for(var a=0;a<1;a++){
+		    InfoDataNewC.push({Zxh:"1",Zcznr:"",Zzysx:""});
 		}
         //危险点分析
 		var DangerousTabNewC = [];
-		for(var g=0;g<10;g++){
-		    DangerousTabNewC.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
+		for(var g=0;g<1;g++){
+		    DangerousTabNewC.push({Dangno:"1",Zztext:"",Zzremark:"",Zzpltxt:""});
 		}
         var payLoads ={
             Zczph:"",//ZCZPH

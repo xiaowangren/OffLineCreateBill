@@ -134,7 +134,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
 		var InfoDataNew = [];
 		var InfoTabLength = data.InfoTab.length;
         if(InfoTabLength==0){
-           for(var i=0;i<10;i++){
+           for(var i=0;i<1;i++){
     		    InfoDataNew.push({Zxh:"",Zcznr:"",Zzysx:""});
     		} 
         }else{
@@ -149,7 +149,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
 		var DangerousTabNew = [];
 		var DangerousTabLength = data.DangerousTab.length;
         if(DangerousTabLength==0){
-           for(var j=0;j<10;j++){
+           for(var j=0;j<1;j++){
     		    DangerousTabNew.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
     		} 
         }else{
@@ -167,7 +167,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
 		var InfoTabLength = data.InfoTab.results.length;
         var InfoDataNew = [];
         if(InfoTabLength==0){
-           for(var i=0;i<10;i++){
+           for(var i=0;i<1;i++){
     		    InfoDataNew.push({Zxh:"",Zcznr:"",Zzysx:""});
     		} 
         }else{
@@ -182,7 +182,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
         InfoTab=InfoDataNew;
 // 		危险点分析
 		var DangerousTabNew = [];
-        for(var j=0;j<10;j++){
+        for(var j=0;j<1;j++){
     	    DangerousTabNew.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
     	} 
         //转换时间
