@@ -92,8 +92,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoMoBanCreate", {
             }
         }
         // console.log(newCaoZuoPiao);
-        newCaoZuoPiao.InfoTab=tableData;
-        newCaoZuoPiao.DangerousTab=dangerousPointData;
+        // newCaoZuoPiao.InfoTab=tableData;
+        // newCaoZuoPiao.DangerousTab=dangerousPointData;
 
         var oModel = new sap.ui.model.json.JSONModel(newCaoZuoPiao);
         sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", newCaoZuoPiao);
