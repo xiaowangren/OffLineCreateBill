@@ -318,9 +318,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 // 		}
 // 	},
 	onNavigate: function(event){
-        
-	    sap.ui.getCore().byId("idBillApp").app.to("idBillInitializationPage");
 	    jQuery.sap.require("jquery.sap.storage");
+	    jQuery.sap.require("sap.m.MessageToast");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var oLocalModel = new sap.ui.model.json.JSONModel();
 		//Check if there is data into the Storage
@@ -330,10 +329,14 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		}
 		//用户，工厂
 		var UserIwerk = this.onQuChuUser();
+		if(UserIwerk.Iwerk==""){
+	       sap.m.MessageBox.alert("请设定工厂",{title: "提示"});
+	       return;
+	   } 
 		oLocalModel.setProperty("/Iwerk",UserIwerk.Iwerk);
 		oLocalModel.setProperty("/User",UserIwerk.Cuser);
 		sap.ui.getCore().setModel(oLocalModel);
-	    
+	    sap.ui.getCore().byId("idBillApp").app.to("idBillInitializationPage");
 	},
 
 	onQueryCaoZuoPiao:function(){
@@ -346,6 +349,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			oLocalModelQuery2.setProperty("/WERKSQuery2",oData);
 		}
 		var UserIwerk = this.onQuChuUser();
+		if(UserIwerk.Iwerk==""){
+	       sap.m.MessageBox.alert("请设定工厂",{title: "提示"});
+	       return;
+	   } 
 		oLocalModelQuery2.setProperty("/Iwerk2",UserIwerk.Iwerk);
 		oLocalModelQuery2.setProperty("/User2",UserIwerk.Cuser);
 		oLocalModelQuery2.setProperty("/UpdateLog","");
@@ -355,7 +362,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 
 	},
 	onUpdateCaoZuoPiao:function(){
-	    sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQuery2");// idQueryCaoZuoPiao2
+	    
 	    jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var oLocalModelQuery4 = new sap.ui.model.json.JSONModel();
@@ -366,13 +373,27 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		}
 		//用户，工厂
 		var UserIwerk = this.onQuChuUser();
+		if(UserIwerk.Iwerk==""){
+	       sap.m.MessageBox.alert("请设定工厂",{title: "提示"});
+	       return;
+	   } 
 		oLocalModelQuery4.setProperty("/Iwerk2",UserIwerk.Iwerk);
 		oLocalModelQuery4.setProperty("/User2",UserIwerk.Cuser);
 		oLocalModelQuery4.setProperty("/UpdateLog","UpdateLog");
 		sap.ui.getCore().setModel(oLocalModelQuery4);
+		sap.ui.getCore().byId("idBillApp").app.to("idBillCaoZuoPiaoQuery2");// idQueryCaoZuoPiao2
 	},
 	onQuChuUser:function(){
-	    return {Cuser:"",Iwerk:"2081"};
+	    jQuery.sap.require("jquery.sap.storage");
+		jQuery.sap.require("sap.m.MessageBox");
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		 //检查是否已经选择了工厂
+		var oG_IwerkData = oStorage.get("ZPMOFFLINE_SRV.G_IWERK");
+		var Iwerks = "";
+		if(oG_IwerkData){
+	       Iwerks = oG_IwerkData.Iwerk;
+	    } 
+	    return {Cuser:"",Iwerk:Iwerks};
 	},
 	onOpenUploadPanel:function(){
 	    jQuery.sap.require("jquery.sap.storage");
