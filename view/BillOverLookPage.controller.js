@@ -41,6 +41,16 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
         		});
         		dialog.addContent(inputField);
         		dialog.addButton(okButton);
+        		
+        		dialog.attachBrowserEvent("keydown", function(oEvent) {
+        		  //  console.log(oEvent);
+        		    if(oEvent.keyCode == 27){
+    		    	    oEvent.stopPropagation();
+        			    oEvent.preventDefault();
+        		    }
+        
+        });
+
         		//to get access to the global model
         		oView.addDependent(dialog);
         		dialog.open();
