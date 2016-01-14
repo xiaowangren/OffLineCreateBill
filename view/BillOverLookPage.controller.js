@@ -313,16 +313,21 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var oLocalModel = new sap.ui.model.json.JSONModel();
 		//Check if there is data into the Storage
-		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
-			var oData = oStorage.get("ZPMOFFLINE_SRV.WERKS");
-			oLocalModel.setProperty("/WERKS",oData);
-		}
-		//用户，工厂
+				//用户，工厂
 		var UserIwerk = this.onQuChuUser();
 		if(UserIwerk.Iwerk==""){
 	       sap.m.MessageBox.alert("请设定工厂",{title: "提示"});
 	       return;
-	   } 
+	    }
+		if(!oStorage.get("ZPMOFFLINE_SRV.WERKS")){
+		    sap.m.MessageBox.alert("请同步主数据",{title: "提示"}); 
+		    return;
+		}
+		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
+			var oData = oStorage.get("ZPMOFFLINE_SRV.WERKS");
+			oLocalModel.setProperty("/WERKS",oData);
+		}
+
 		oLocalModel.setProperty("/Iwerk",UserIwerk.Iwerk);
 		oLocalModel.setProperty("/User",UserIwerk.Cuser);
 		sap.ui.getCore().setModel(oLocalModel);
@@ -333,16 +338,21 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	    jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var oLocalModelQuery2 = new sap.ui.model.json.JSONModel();
-		//工厂
-		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
-			var oData = oStorage.get("ZPMOFFLINE_SRV.WERKS");
-			oLocalModelQuery2.setProperty("/WERKSQuery2",oData);
-		}
+
 		var UserIwerk = this.onQuChuUser();
 		if(UserIwerk.Iwerk==""){
 	       sap.m.MessageBox.alert("请设定工厂",{title: "提示"});
 	       return;
 	   } 
+	   //工厂
+		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
+			var oData = oStorage.get("ZPMOFFLINE_SRV.WERKS");
+			oLocalModelQuery2.setProperty("/WERKSQuery2",oData);
+		}
+		if(!oStorage.get("ZPMOFFLINE_SRV.WERKS")){
+		    sap.m.MessageBox.alert("请同步主数据",{title: "提示"}); 
+		    return;
+		}
 		oLocalModelQuery2.setProperty("/Iwerk2",UserIwerk.Iwerk);
 		oLocalModelQuery2.setProperty("/User2",UserIwerk.Cuser);
 		oLocalModelQuery2.setProperty("/UpdateLog","");
@@ -356,17 +366,21 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	    jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var oLocalModelQuery4 = new sap.ui.model.json.JSONModel();
-		//工厂
-		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
-			var oData = oStorage.get("ZPMOFFLINE_SRV.WERKS");
-			oLocalModelQuery4.setProperty("/WERKSQuery2",oData);
-		}
 		//用户，工厂
 		var UserIwerk = this.onQuChuUser();
 		if(UserIwerk.Iwerk==""){
 	       sap.m.MessageBox.alert("请设定工厂",{title: "提示"});
 	       return;
 	   } 
+	   //工厂
+	   if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
+			var oData = oStorage.get("ZPMOFFLINE_SRV.WERKS");
+			oLocalModelQuery4.setProperty("/WERKSQuery2",oData);
+		}
+		if(!oStorage.get("ZPMOFFLINE_SRV.WERKS")){
+		    sap.m.MessageBox.alert("请同步主数据",{title: "提示"}); 
+		    return;
+		}
 		oLocalModelQuery4.setProperty("/Iwerk2",UserIwerk.Iwerk);
 		oLocalModelQuery4.setProperty("/User2",UserIwerk.Cuser);
 		oLocalModelQuery4.setProperty("/UpdateLog","UpdateLog");
