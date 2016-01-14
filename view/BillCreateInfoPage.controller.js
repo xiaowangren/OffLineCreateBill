@@ -878,20 +878,33 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var index = this.onAddDaleteIndex(oEvent);
         var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
         var InfoTab = newCaoZuoPiaoCreate.InfoTab;
-        var InfoElement = InfoTab[index];
-        var Zxh = parseInt(InfoElement.Zxh);
-        var Info = {Zxh:Zxh+1,Zcznr:"",Zzysx:""};
-        for(var k=Zxh;k<InfoTab.length;k++){
-            if(InfoTab[k].Zxh!=""){
-                InfoTab[k].Zxh = parseInt(InfoTab[k].Zxh)+1;
-            }
-            
-        }
         Array.prototype.insert = function (index, item) {
             this.splice(index, 0, item);
         };
+        var InfoElement = InfoTab[index];
+        var Zxh="";
+        var ZxhBefore = "";
+        if(InfoElement.Zxh!=""){
+            Zxh = parseInt(InfoElement.Zxh);
+        }else{
+            for(var g=index;g>=0;g--){
+                if(InfoTab[g].Zxh!=0){
+                   ZxhBefore =  InfoTab[g].Zxh;
+                   break;
+                }
+            }
+            Zxh = parseInt(ZxhBefore);
+        }    
+        var Info = {Zxh:Zxh+1,Zcznr:"",Zzysx:""};
         InfoTab.insert(index+1, Info);
-        
+        for(var k=index+2;k<InfoTab.length;k++){
+                if(InfoTab[k].Zxh!=""){
+                    var ZxhInt = parseInt(InfoTab[k].Zxh)+1;
+                    InfoTab[k].Zxh = ZxhInt+"";  
+                }
+                
+            
+        }
         this.onrefresh("idBillCreateInfoPage", newCaoZuoPiaoCreate);
     },
     onDeleteInfo:function(oEvent){
@@ -904,12 +917,19 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             return;
         }
         var InfoElement = InfoTab[index];
-        var Zxh = parseInt(InfoElement.Zxh);
-        for(var k=Zxh;k<InfoTab.length;k++){
-            if(InfoTab[k].Zxh!=""){
-                InfoTab[k].Zxh = parseInt(InfoTab[k].Zxh)-1;
+        if(InfoElement.Zxh!=""){
+            for(var k=0;k<InfoTab.length;k++){
+                if(k<=index){
+                    if(InfoTab[k].Zxh!=""){
+                        InfoTab[k].Zxh = parseInt(InfoTab[k].Zxh)+"";
+                    }
+                }else{
+                    if(InfoTab[k].Zxh!=""){
+                        var ZxhInt = parseInt(InfoTab[k].Zxh)-1;
+                        InfoTab[k].Zxh = ZxhInt+"";
+                    }
+                }    
             }
-            
         }
         Array.prototype.baoremove = function(dx) 
         { 
@@ -925,20 +945,32 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var index = this.onAddDaleteIndex(oEvent);
         var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
         var DangerousTab = newCaoZuoPiaoCreate.DangerousTab;
-        var DangerousElement = DangerousTab[index];
-        var Dangno = parseInt(DangerousElement.Dangno);
-        var dangerous = {Dangno:Dangno+1,Zztext:"",Zzremark:"",Zzpltxt:""};
-        for(var k=Dangno;k<DangerousTab.length;k++){
-            if(DangerousTab[k].Dangno!=""){
-                DangerousTab[k].Dangno = parseInt(DangerousTab[k].Dangno)+1;
-            }
-            
-        }
-        
         Array.prototype.insert = function (index, item) {
             this.splice(index, 0, item);
         };
+        var DangerousElement = DangerousTab[index];
+        var Dangno="";
+        var DangnoBefore = "";
+        if(DangerousElement.Dangno!=""){
+            Dangno = parseInt(DangerousElement.Dangno);
+        }else{
+            for(var g=index;g>=0;g--){
+                if(DangerousTab[g].Dangno!=0){
+                   DangnoBefore =  DangerousTab[g].Dangno;
+                   break;
+                }
+            }
+            Dangno = parseInt(DangnoBefore);
+        }
+        var dangerous = {Dangno:Dangno+1,Zztext:"",Zzremark:"",Zzpltxt:""};
         DangerousTab.insert(index+1, dangerous);
+        for(var k=index+2;k<DangerousTab.length;k++){
+            if(DangerousTab[k].Dangno!=""){
+                var DangnoInt = parseInt(DangerousTab[k].Dangno)+1;
+                DangerousTab[k].Dangno = DangnoInt+"";
+            }
+            
+        }
         this.onrefresh("idBillCreateInfoPage", newCaoZuoPiaoCreate);
     },
     onDeleteDangerous:function(oEvent){
@@ -951,12 +983,19 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             return;
         }
         var DangerousElement = DangerousTab[index];
-        var Dangno = parseInt(DangerousElement.Dangno);
-        for(var k=Dangno;k<DangerousTab.length;k++){
-            if(DangerousTab[k].Dangno!=""){
-                DangerousTab[k].Dangno = parseInt(DangerousTab[k].Dangno)-1;
+        if(DangerousElement.Dangno!=""){
+            for(var k=0;k<DangerousTab.length;k++){
+                if(k<=index){
+                    if(DangerousTab[k].Dangno!=""){
+                        DangerousTab[k].Dangno = parseInt(DangerousTab[k].Dangno)+"";
+                    }
+                }else{
+                    if(DangerousTab[k].Dangno!=""){
+                        var DangnoInt = parseInt(DangerousTab[k].Dangno)-1;
+                        DangerousTab[k].Dangno = DangnoInt+"";
+                    }
+                }    
             }
-            
         }
         Array.prototype.baoremove = function(dx) 
         { 
@@ -978,6 +1017,41 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         sap.ui.getCore().byId("idBillApp").app.to(pageId, model);
         var page = sap.ui.getCore().byId("idBillApp").app.getPage(pageId);
     	page.setModel(oModel,"newCaoZuoPiaoCreate"); 
+    },
+    onChangeZxh:function(oEvent){
+        var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
+        var InfoTab = newCaoZuoPiaoCreate.InfoTab;
+        var sPath = oEvent.getSource().oParent.oBindingContexts.newCaoZuoPiaoCreate.sPath;
+        var splits = sPath.split("/");
+        var index = parseInt(splits[2]);
+        for(var k=0;k<InfoTab.length;k++){
+            if(k<=index&&InfoTab[k].Zxh!=""){
+                InfoTab[k].Zxh = parseInt(InfoTab[k].Zxh)+"";
+            }else{
+                if(InfoTab[k].Zxh!=""){
+                    var ZxhInt = parseInt(InfoTab[k].Zxh)-1;
+                    InfoTab[k].Zxh = ZxhInt+"";
+                } 
+            }    
+        }
+    },
+    onChangeDangno:function(oEvent){
+        var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
+        var DangerousTab = newCaoZuoPiaoCreate.DangerousTab;
+        var sPath = oEvent.getSource().oParent.oBindingContexts.newCaoZuoPiaoCreate.sPath;
+        var splits = sPath.split("/");
+        var index = parseInt(splits[2]);
+        for(var k=0;k<DangerousTab.length;k++){
+            if(k<=index&&DangerousTab[k].Dangno!=""){
+                DangerousTab[k].Dangno = parseInt(DangerousTab[k].Dangno)+"";
+            }else{
+                if(DangerousTab[k].Dangno!=""){
+                    var DangnoInt = parseInt(DangerousTab[k].Dangno)-1;
+                    DangerousTab[k].Dangno = DangnoInt+"";
+                } 
+            }    
+        }
+       
     }
 
 });

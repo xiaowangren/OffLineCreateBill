@@ -244,7 +244,7 @@
             			<ColumnListItem>
             				<cells>
             					<c:TextField
-            						value="{newCaoZuoPiaoCreate>Zxh}" width="100%"/>
+            						value="{newCaoZuoPiaoCreate>Zxh}" width="100%" change="onChangeZxh"/>
             					<c:TextField
             						value="{newCaoZuoPiaoCreate>Zcznr}" width="100%"/>
             					<c:TextField
@@ -307,7 +307,7 @@
             			    <ColumnListItem type="Active">
                 				<cells>
                 					<c:TextField
-                						value="{newCaoZuoPiaoCreate>Dangno}" width="100%"/>
+                						value="{newCaoZuoPiaoCreate>Dangno}" width="100%" change="onChangeDangno"/>
                 					<c:TextField
                 						value="{newCaoZuoPiaoCreate>Zztext}" width="100%"/>
                 					<c:TextField

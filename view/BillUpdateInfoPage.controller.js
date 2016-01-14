@@ -173,6 +173,21 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
             sap.m.MessageBox.alert("至少存在一行，无法进行删除",{title: "提示"});
             return;
         }
+        var InfoElement = InfoTab[index];
+        if(InfoElement.Zxh!=""){
+            for(var k=0;k<InfoTab.length;k++){
+                if(k<=index){
+                    if(InfoTab[k].Zxh!=""){
+                        InfoTab[k].Zxh = parseInt(InfoTab[k].Zxh)+"";
+                    }
+                }else{
+                    if(InfoTab[k].Zxh!=""){
+                        var ZxhInt = parseInt(InfoTab[k].Zxh)-1;
+                        InfoTab[k].Zxh = ZxhInt+"";
+                    }
+                }    
+            }
+        }
         Array.prototype.baoremove = function(dx) 
         { 
             if(isNaN(dx)||dx>this.length){return false;} 
@@ -186,12 +201,34 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
         var index = this.onAddDaleteIndex(oEvent);
         var newBillDetailUpdateInfoPage = this.getView().getModel("newBillDetailUpdateInfoPage").getData(); 
         var InfoTab = newBillDetailUpdateInfoPage.InfoTab;
-        //创建需要插入的对象
-        var Info = {Zxh:"",Zcznr:"",Zzysx:""};
         Array.prototype.insert = function (index, item) {
             this.splice(index, 0, item);
         };
-        InfoTab.insert(index+1, Info); 
+        //创建需要插入的对象
+                var InfoElement = InfoTab[index];
+        var Zxh="";
+        var ZxhBefore = "";
+        if(InfoElement.Zxh!=""){
+            Zxh = parseInt(InfoElement.Zxh);
+        }else{
+            for(var g=index;g>=0;g--){
+                if(InfoTab[g].Zxh!=0){
+                   ZxhBefore =  InfoTab[g].Zxh;
+                   break;
+                }
+            }
+            Zxh = parseInt(ZxhBefore);
+        }    
+        var Info = {Zxh:Zxh+1,Zcznr:"",Zzysx:""};
+        InfoTab.insert(index+1, Info);
+        for(var k=index+2;k<InfoTab.length;k++){
+                if(InfoTab[k].Zxh!=""){
+                    var ZxhInt = parseInt(InfoTab[k].Zxh)+1;
+                    InfoTab[k].Zxh = ZxhInt+"";  
+                }
+                
+            
+        }
         //刷新页面
         this.refreshUpdate(newBillDetailUpdateInfoPage); 
     },
@@ -200,11 +237,41 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
         var index = this.onAddDaleteIndex(oEvent);
         var newBillDetailUpdateInfoPage = this.getView().getModel("newBillDetailUpdateInfoPage").getData(); 
         var DangerousTab = newBillDetailUpdateInfoPage.DangerousTab;
-        var dangerous = {Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""};
+        // var DangerousElement = DangerousTab[index];
+        // var Dangno = parseInt(DangerousElement.Dangno);
+        // var dangerous = {Dangno:Dangno+1,Zztext:"",Zzremark:"",Zzpltxt:""};
+        // for(var k=Dangno;k<DangerousTab.length;k++){
+        //     if(DangerousTab[k].Dangno!=""){
+        //         DangerousTab[k].Dangno = parseInt(DangerousTab[k].Dangno)+1;
+        //     }
+            
+        // }
         Array.prototype.insert = function (index, item) {
             this.splice(index, 0, item);
         };
+        var DangerousElement = DangerousTab[index];
+        var Dangno="";
+        var DangnoBefore = "";
+        if(DangerousElement.Dangno!=""){
+            Dangno = parseInt(DangerousElement.Dangno);
+        }else{
+            for(var g=index;g>=0;g--){
+                if(DangerousTab[g].Dangno!=0){
+                   DangnoBefore =  DangerousTab[g].Dangno;
+                   break;
+                }
+            }
+            Dangno = parseInt(DangnoBefore);
+        }
+        var dangerous = {Dangno:Dangno+1,Zztext:"",Zzremark:"",Zzpltxt:""};
         DangerousTab.insert(index+1, dangerous);
+        for(var k=index+2;k<DangerousTab.length;k++){
+            if(DangerousTab[k].Dangno!=""){
+                var DangnoInt = parseInt(DangerousTab[k].Dangno)+1;
+                DangerousTab[k].Dangno = DangnoInt+"";
+            }
+            
+        }
         this.refreshUpdate(newBillDetailUpdateInfoPage);
     },
     onDeleteDangerous:function(oEvent){
@@ -215,6 +282,21 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
         if(DangerousTab.length==1&&index==0){
             sap.m.MessageBox.alert("至少存在一行，无法进行删除",{title: "提示"});
             return;
+        }
+        var DangerousElement = DangerousTab[index];
+        if(DangerousElement.Dangno!=""){
+            for(var k=0;k<DangerousTab.length;k++){
+                if(k<=index){
+                    if(DangerousTab[k].Dangno!=""){
+                        DangerousTab[k].Dangno = parseInt(DangerousTab[k].Dangno)+"";
+                    }
+                }else{
+                    if(DangerousTab[k].Dangno!=""){
+                        var DangnoInt = parseInt(DangerousTab[k].Dangno)-1;
+                        DangerousTab[k].Dangno = DangnoInt+"";
+                    }
+                }    
+            }
         }
         Array.prototype.baoremove = function(dx) 
         { 
@@ -236,7 +318,41 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
         var splits = sPath.split("/");
         var index = parseInt(splits[2]);
         return index;
+    },
+    onChangeZxh:function(oEvent){
+        var newBillDetailUpdateInfoPage = this.getView().getModel("newBillDetailUpdateInfoPage").getData(); 
+        var InfoTab = newBillDetailUpdateInfoPage.InfoTab;
+        var sPath = oEvent.getSource().oParent.oBindingContexts.newBillDetailUpdateInfoPage.sPath;
+        var splits = sPath.split("/");
+        var index = parseInt(splits[2]);
+        for(var k=0;k<InfoTab.length;k++){
+            if(k<=index&&InfoTab[k].Zxh!=""){
+                InfoTab[k].Zxh = parseInt(InfoTab[k].Zxh)+"";
+            }else{
+                if(InfoTab[k].Zxh!=""){
+                    var ZxhInt = parseInt(InfoTab[k].Zxh)-1;
+                    InfoTab[k].Zxh = ZxhInt+"";
+                } 
+            }    
+        }
+    },
+    onChangeDangno:function(oEvent){
+        var newBillDetailUpdateInfoPage = this.getView().getModel("newBillDetailUpdateInfoPage").getData(); 
+        var DangerousTab = newBillDetailUpdateInfoPage.DangerousTab;
+        var sPath = oEvent.getSource().oParent.oBindingContexts.newBillDetailUpdateInfoPage.sPath;
+        var splits = sPath.split("/");
+        var index = parseInt(splits[2]);
+        for(var k=0;k<DangerousTab.length;k++){
+            if(k<=index&&DangerousTab[k].Dangno!=""){
+                DangerousTab[k].Dangno = parseInt(DangerousTab[k].Dangno)+"";
+            }else{
+                if(DangerousTab[k].Dangno!=""){
+                    var DangnoInt = parseInt(DangerousTab[k].Dangno)-1;
+                    DangerousTab[k].Dangno = DangnoInt+"";
+                } 
+            }    
+        }
+       
     }
-    
 
 });

@@ -241,7 +241,7 @@
             			<ColumnListItem>
             				<cells>
             					<c:TextField
-            						value="{newBillDetailUpdateInfoPage>Zxh}" width="100%"/>
+            						value="{newBillDetailUpdateInfoPage>Zxh}" width="100%" change="onChangeZxh"/>
             					<c:TextField
             						value="{newBillDetailUpdateInfoPage>Zcznr}" width="100%"/>
             					<c:TextField
@@ -304,7 +304,7 @@
             			    <ColumnListItem type="Active">
                 				<cells>
                 					<c:TextField
-                						value="{newBillDetailUpdateInfoPage>Dangno}" width="100%"/>
+                						value="{newBillDetailUpdateInfoPage>Dangno}" width="100%" change="onChangeDangno"/>
                 					<c:TextField
                 						value="{newBillDetailUpdateInfoPage>Zztext}" width="100%"/>
                 					<c:TextField

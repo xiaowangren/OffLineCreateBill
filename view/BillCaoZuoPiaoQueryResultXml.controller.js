@@ -183,7 +183,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
 // 		危险点分析
 		var DangerousTabNew = [];
         for(var j=0;j<1;j++){
-    	    DangerousTabNew.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
+    	    DangerousTabNew.push({Dangno:"1",Zztext:"",Zzremark:"",Zzpltxt:""});
     	} 
         //转换时间
 	    var now = new Date();
