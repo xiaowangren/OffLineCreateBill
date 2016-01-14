@@ -130,9 +130,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
             for(var i=0;i<InfoTab.length;i++){
                 tableData.push(InfoTab[i]);
             }
-            for(var j=0;j<250-InfoTab.length;j++){
-                tableData.push({Zxh:"",Zcznr:"",Zzysx:""});
-            }
+            // for(var j=0;j<250-InfoTab.length;j++){
+            //     tableData.push({Zxh:"",Zcznr:"",Zzysx:""});
+            // }
         }
         newCaoZuoPiao.InfoTab=tableData;
 
@@ -142,9 +142,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
             for(var m=0;m<DangerousTab.length;m++){
                 dangerousPointData.push(DangerousTab[m]);
             }
-            for(var n=0;n<250-DangerousTab.length;n++){
-                dangerousPointData.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
-            }
+            // for(var n=0;n<250-DangerousTab.length;n++){
+            //     dangerousPointData.push({Dangno:"",Zztext:"",Zzremark:"",Zzpltxt:""});
+            // }
         }
         newCaoZuoPiao.DangerousTab=dangerousPointData;
         var oModel = new sap.ui.model.json.JSONModel(newCaoZuoPiao);

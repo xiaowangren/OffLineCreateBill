@@ -139,8 +139,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
     		} 
         }else{
             for(var m=0;m<InfoTabLength;m++){
-    		    InfoTab[m].Zxh = parseInt(InfoTab[m].Zxh);
-    		    InfoDataNew.push(InfoTab[m]);
+                if(InfoTab[m].Zxh!=""){
+                    InfoTab[m].Zxh = parseInt(InfoTab[m].Zxh);
+                }
+                InfoDataNew.push(InfoTab[m]);
     		}
         }
 		data.InfoTab=InfoDataNew;
@@ -154,7 +156,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
     		} 
         }else{
             for(var n=0;n<DangerousTabLength;n++){
-    		    DangerousTab[n].Dangno = parseInt(DangerousTab[n].Dangno);
+                if(DangerousTab[n].Dangno!=""){
+                    DangerousTab[n].Dangno = parseInt(DangerousTab[n].Dangno);
+                }
     		    DangerousTabNew.push(DangerousTab[n]);
     		}
         }
