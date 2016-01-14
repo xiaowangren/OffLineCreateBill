@@ -43,12 +43,16 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
         sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage");
     },
     onReadUploadData:function(){
-        //收集数据
+
 
         //过滤数据
         //获取本地的数据，进行查询
         jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		//获取设定的工厂
+		var oG_IwerkData = oStorage.get("ZPMOFFLINE_SRV.G_IWERK");
+		var g_Iwerk = oG_IwerkData.Iwerk;
+		
 		var aFilter = [];
 		//Check if there is data into the Storage   筛选数据
 		if (oStorage.get("ZPMOFFLINE_SRV.BillInfos")) {
@@ -77,10 +81,16 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
 			var oData3 = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229");
 			var aFilter3 = [];
 			for(var m=0;m<oData3.length;m++){
-			 //   if(oData3[m].Werks==gongChangQuery2){
+			    if(oData3[m].Werks==g_Iwerk){
 			        aFilter3.push(oData3[m]);
-			 //   }
+			    }
 			}
+// 			var bumenModel = new sap.ui.model.json.JSONModel();
+// 			bumenModel.setData(aFilter3);
+// 			console.log(aFilter3);
+// 			var dropDown = this.getView().byId("bumenBox");  
+// 			dropDown.setModel(bumenModel);
+// 			dropDown.bindItems("/", this.getView().byId("bumenItemTemplate"));  
 		    queryResultModel.setProperty("/tianxieBuMenQuery3",aFilter3);
 		}
         //班组
@@ -88,9 +98,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
 			var oData2 = oStorage.get("ZPMOFFLINE_SRV.ZPMT00283");
 			var aFilter2 = [];
 			for(var j=0;j<oData2.length;j++){
-			 //   if(oData2[j].Werks==gongChangQuery2){
+			    if(oData2[j].Werks==g_Iwerk){
 			        aFilter2.push(oData2[j]);
-			 //   }
+			    }
 			}
 		    queryResultModel.setProperty("/banZuQuery3",aFilter2);
 		}
@@ -99,9 +109,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
 			var oDatag = oStorage.get("ZPMOFFLINE_SRV.ZPMT00227");
 			var aFilterg = [];
 			for(var g=0;g<oDatag.length;g++){
-			 //   if(oDatag[g].Werks==gongChangQuery2){
+			    if(oDatag[g].Werks==g_Iwerk){
 			        aFilterg.push(oDatag[g]);
-			 //   }
+			    }
 			}
 		    queryResultModel.setProperty("/yunXingQuYuQuery3",aFilterg);
 		}
@@ -110,9 +120,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
 			var oData4 = oStorage.get("ZPMOFFLINE_SRV.ZPMV00005");
 			var aFilter4 = [];
 			for(var n=0;n<oData4.length;n++){
-			 //   if(oData4[n].Werks==gongChangQuery2){
+			    if(oData4[n].Werks==g_Iwerk){
 			        aFilter4.push(oData4[n]);
-			 //   }
+			    }
 			}
 		    queryResultModel.setProperty("/jiZuQuery3",aFilter4);
 		}
@@ -126,8 +136,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
         queryResultModel.setProperty("/queryResultModelCount",aFilter.length);
         queryResultModel.setProperty("/BiaoJi","query");
         queryResultModel.setProperty("/queryResultModelDate",Begda);
-        // sap.ui.getCore().setModel(queryResultModel);
-        this.getView().setModel(queryResultModel);
+        sap.ui.getCore().setModel(queryResultModel);
+        // this.getView().setModel(queryResultModel);
         console.log(queryResultModel);
     },		
     checkhelp :function(data,key){

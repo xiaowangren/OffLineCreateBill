@@ -365,20 +365,29 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	    return {Cuser:"",Iwerk:"2081"};
 	},
 	onOpenUploadPanel:function(){
+	    jQuery.sap.require("jquery.sap.storage");
+		jQuery.sap.require("sap.m.MessageBox");
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		 //检查是否已经选择了工厂
+		var oG_IwerkData = oStorage.get("ZPMOFFLINE_SRV.G_IWERK");
+	   if(!oG_IwerkData){
+	       sap.m.MessageBox.alert("请设定工厂",{title: "提示"});
+	       return;
+	   } 
 	    //打开上传操作票页面
 	     sap.ui.getCore().byId("idBillApp").app.to("idBillUpload");
 	},
 	handleSelectWerks:function(){
 	    //选择工厂，不然不能同步数据
-	    jQuery.sap.require("sap.ui.ux3.ToolPopup");
+	    jQuery.sap.require("sap.m.Dialog");
 	    var openButton = this.getView().byId("idWerksButton");
 	    var oView = this.getView();
-        var oValueHelpDialog = new sap.ui.ux3.ToolPopup({
-            modal: false,
-            inverted: true,                          // disable color inversion
+        var oValueHelpDialog = new sap.m.Dialog({
+            // modal: false,
+            // inverted: true,                          // disable color inversion
             title: "选择工厂",
-            opener:  openButton,             // locate dialog next to this field 
-            closed: function (oEvent) {
+            // opener:  openButton,             // locate dialog next to this field 
+            afterClose: function (oEvent) {
                 //设定选中的工厂
                 var oContext = oHelpTable.getContextByIndex(oHelpTable.getSelectedIndex());
                 if (oContext) {
@@ -445,10 +454,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
         oHelpModel.setData(werksData);
         oHelpTable.setModel(oHelpModel);
         oHelpTable.bindAggregation("rows", "/werks");
-        var oOkButton = new sap.ui.commons.Button({
+        var oOkButton = new sap.m.Button({
             text: "确定",
             press: function (oEvent) {
-                oEvent.getSource().getParent().close();
+                // oEvent.getSource().getParent().close();
+                oValueHelpDialog.close();
             }
         });
         oValueHelpDialog.addButton(oOkButton);

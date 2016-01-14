@@ -54,10 +54,34 @@ sap.ui.jsview("com.zhenergy.bill.view.BillUpload", {
         	width: "150px",
         	hAlign: "Center"
         }));
+        // oTable2.addColumn(new sap.ui.table.Column({
+        // 	label: new sap.ui.commons.Label({text: "操作票类型"}),
+        // 	template: new sap.ui.commons.TextView().bindProperty("text", "Ztypedes"),
+        // 	width: "100px",
+        // 	hAlign: "Center"
+        // }));
+        var zcpTypeBox = new sap.ui.commons.ComboBox().bindProperty("selectedKey", "Ztype");
+        zcpTypeBox.setEditable(false);
+        var zcpItem1 = new sap.ui.core.ListItem(this.createId("zcpItem1"),{key:"DQ",text:"电气操作票"});
+        var zcpItem2 = new sap.ui.core.ListItem(this.createId("zcpItem2"),{key:"GL",text:"锅炉操作票"});
+        var zcpItem3 = new sap.ui.core.ListItem(this.createId("zcpItem3"),{key:"HB",text:"环保操作票"});
+        var zcpItem4 = new sap.ui.core.ListItem(this.createId("zcpItem4"),{key:"HX",text:"化学操作票"});
+        var zcpItem5 = new sap.ui.core.ListItem(this.createId("zcpItem5"),{key:"QJ",text:"汽机操作票"});
+        var zcpItem6 = new sap.ui.core.ListItem(this.createId("zcpItem6"),{key:"RK",text:"热控操作票"});
+        var zcpItem7 = new sap.ui.core.ListItem(this.createId("zcpItem7"),{key:"RL",text:"燃料操作票"});
+        var zcpItem8 = new sap.ui.core.ListItem(this.createId("zcpItem8"),{key:"ZS",text:"典型操作票"});
+        zcpTypeBox.addItem(zcpItem1);
+        zcpTypeBox.addItem(zcpItem2);
+        zcpTypeBox.addItem(zcpItem3);
+        zcpTypeBox.addItem(zcpItem4);
+        zcpTypeBox.addItem(zcpItem5);
+        zcpTypeBox.addItem(zcpItem6);
+        zcpTypeBox.addItem(zcpItem7);
+        zcpTypeBox.addItem(zcpItem8);
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "操作票类型"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "Ztypedes"),
-        	width: "100px",
+        	template: zcpTypeBox,
+        	width: "120px",
         	hAlign: "Center"
         }));
 
@@ -79,10 +103,17 @@ sap.ui.jsview("com.zhenergy.bill.view.BillUpload", {
         	width: "300px",
         	hAlign: "Center"
         }));
+        var bumenBox = new sap.ui.commons.ComboBox(this.createId("bumenBox"),{editable:false}); //,selectedKey:"Appdep"
+        bumenBox.bindProperty("selectedKey", "Appdep");
+        var bumenItemTemplate = new sap.ui.core.ListItem(this.createId("bumenItemTemplate"),{  
+              text: "{Appdepdec}",  
+              key: "{Appdep}"  
+          });     
+        bumenBox.bindItems("/tianxieBuMenQuery3",bumenItemTemplate);
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "部门"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "Appdepdec"),
-        	width: "100px",
+        	template: bumenBox,//new sap.ui.commons.TextView().bindProperty("text", "Appdep"),
+        	width: "150px",
         	hAlign: "Center"
         }));
         // oTable2.addColumn(new sap.ui.table.Column({
@@ -103,27 +134,52 @@ sap.ui.jsview("com.zhenergy.bill.view.BillUpload", {
         // 	width: "100px",
         // 	hAlign: "Center"
         // }));
+        var rareaBox = new sap.ui.commons.ComboBox(this.createId("rareaBox"),{editable:false});
+        rareaBox.bindProperty("selectedKey", "Rarea");
+        var rareaItemTemplate = new sap.ui.core.ListItem(this.createId("rareaItemTemplate"),{  
+            text: "{Rareadec}",  
+            key: "{Rarea}"  
+        }); 
+        rareaBox.bindItems("/yunXingQuYuQuery3",rareaItemTemplate);
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "运行区域"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "Rareadec"),
+        	template: rareaBox,                                 //new sap.ui.commons.TextView().bindProperty("text", "Rareadec"),
         	width: "100px",
         	hAlign: "Center"
         }));
+        var UnityBox = new sap.ui.commons.ComboBox().bindProperty("selectedKey", "Unity").setEditable(false);
+        var UnityItemTemplate = new sap.ui.core.ListItem(this.createId("UnityItemTemplate"),{  
+            text: "{Untxt}",  
+            key: "{Unity}"  
+        }); 
+        UnityBox.bindItems("/jiZuQuery3",UnityItemTemplate);
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "机组"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "Untxt"),
+        	template: UnityBox,                             //new sap.ui.commons.TextView().bindProperty("text", "Untxt"),
         	width: "100px",
         	hAlign: "Center"
         }));
+        var DunumBox = new sap.ui.commons.ComboBox().bindProperty("selectedKey", "Dunum").setEditable(false);
+        var DunumItemTemplate = new sap.ui.core.ListItem(this.createId("DunumItemTemplate"),{  
+            text: "{Dutxt}",  
+            key: "{Dunum}"  
+        }); 
+        DunumBox.bindItems("/ZhiBieQuery3",DunumItemTemplate);
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "值别"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "Dutxt"),
+        	template: DunumBox,                            //new sap.ui.commons.TextView().bindProperty("text", "Dutxt"),
         	width: "100px",
         	hAlign: "Center"
         }));
+        var YxgroupBox = new sap.ui.commons.ComboBox().bindProperty("selectedKey", "Yxgroup").setEditable(false);
+        var YxgroupItemTemplate = new sap.ui.core.ListItem(this.createId("YxgroupItemTemplate"),{  
+            text: "{Yxgroupdec}",  
+            key: "{Yxgroup}"  
+        }); 
+        YxgroupBox.bindItems("/banZuQuery3",YxgroupItemTemplate);
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "班组"}),
-        	template: new sap.ui.commons.TextView().bindProperty("text", "Yxgroupdec"),
+        	template: YxgroupBox,                          //new sap.ui.commons.TextView().bindProperty("text", "Yxgroupdec"),
         	width: "100px",
         	hAlign: "Center"
         }));
