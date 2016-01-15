@@ -58,9 +58,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
 		if (oStorage.get("ZPMOFFLINE_SRV.BillInfos")) {
 			var oData1 = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
 			for(var i=0;i<oData1.length;i++){
-                // if(this.checkhelp(oData1[i].statusText,"unCreated")){
+                if(this.checkhelp(oData1[i].statusText,"unCreated")){
                     aFilter.push(oData1[i]);
-                // }
+                }
             }
 		}
         //转换时间
@@ -188,7 +188,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
         	    oECCModel.addBatchChangeOperations([createOp]);
             }else{
                 //改造成不能选择
-                sap.m.MessageBox.alert("该操作票已上传");
+                sap.m.MessageBox.alert("该操作票已上传",{title:"提示"});
+                return;
             }
         }
 	    oECCModel.submitBatch(

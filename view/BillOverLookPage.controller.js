@@ -169,24 +169,33 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
         //取数
         //工厂
 		oECCModel.read("/WERKSSet", mParameters);
-		//两票类型
-		oECCModel.read("/TicketTypeSet", mParameters);
+        //KKS
+		oECCModel.read("/KKSSet?$filter=Tplnr eq '" + oG_IwerkData.Iwerk+"'", mParameters);
+		//操作票类型
+		oECCModel.read("/TicketTypeSet?$filter=Iwerk eq '" + oG_IwerkData.Iwerk+"'", mParameters);
+		//工作票类型
+		oECCModel.read("/WorkTypeSet?$filter=Iwerk eq '" + oG_IwerkData.Iwerk+"'", mParameters);
 		//值别
 		oECCModel.read("/ZPMT00204Set", mParameters);
 		//运行区域
-		oECCModel.read("/ZPMT00227Set", mParameters);
+		oECCModel.read("/ZPMT00227Set?$filter=Werks eq '" + oG_IwerkData.Iwerk+"'", mParameters);
 		//工作票班组
-		oECCModel.read("/ZPMT00228Set", mParameters);
+		oECCModel.read("/ZPMT00228Set?$filter=Werks eq '" + oG_IwerkData.Iwerk+"'", mParameters);
 		//申请部门
-		oECCModel.read("/ZPMT00229Set", mParameters);
+		oECCModel.read("/ZPMT00229Set?$filter=Werks eq '" + oG_IwerkData.Iwerk+"'", mParameters);
 		//工作票单位
-		oECCModel.read("/ZPMT00229CSet", mParameters);
+		oECCModel.read("/ZPMT00229CSet?$filter=Werks eq '" + oG_IwerkData.Iwerk+"'", mParameters);
 		//工作票检修专业
-		oECCModel.read("/ZPMT00230Set", mParameters);
+		oECCModel.read("/ZPMT00230Set?$filter=Werks eq '" + oG_IwerkData.Iwerk+"'", mParameters);
 		//操作票班组
-		oECCModel.read("/ZPMT00283Set", mParameters);
+		oECCModel.read("/ZPMT00283Set?$filter=Werks eq '" + oG_IwerkData.Iwerk+"'", mParameters);
 		//机组配置表
-		oECCModel.read("/ZPMV00005Set", mParameters);
+		oECCModel.read("/ZPMV00005Set?$filter=Werks eq '" + oG_IwerkData.Iwerk+"'", mParameters);
+		//工作票三种人配置表
+		oECCModel.read("/ZPMTPEOQUALISet?$filter=Iwerk eq '" + oG_IwerkData.Iwerk+"'", mParameters);
+		//工作票安措分类配置表
+		oECCModel.read("/ZPMTQPCDTSet", mParameters);
+		
 		//同步典型票  每次200条
 		this.onSyncZS(oECCModel,200, 0);
 
@@ -241,8 +250,13 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 				this.onSyncZS(oECCModel,p_top, p_skip + p_top);
 			} else {
 			    //没有后续数据的时候，统一写入Storage
-				oStorage.put("ZPMOFFLINE_SRV.ZPMTOPER", oOperModel.getData());
-				console.log("ZPMOFFLINE_SRV.ZPMTOPER" + "典型票已报存：" +  oOperModel.getData().length);
+			    if(oOperModel){
+				    oStorage.put("ZPMOFFLINE_SRV.ZPMTOPER", oOperModel.getData());
+				    console.log("ZPMOFFLINE_SRV.ZPMTOPER" + "典型票已报存：" +  oOperModel.getData().length);
+			    }else{
+			        sap.m.MessageBox.alert("典型票无数据",{title: "提示"});
+			        console.log("ZPMOFFLINE_SRV.ZPMTOPER" + "典型票无数据");
+			    }
 			}
 		}, this);
 		mParameters['error'] = jQuery.proxy(function(data) {
