@@ -100,6 +100,13 @@ sap.ui.jsview("com.zhenergy.bill.view.BillApp", {
 			type: sap.ui.core.mvc.ViewType.JS
 		});
 		this.app.addPage(BillUpload);
+		//注册工作票增删改查页面
+		var GongZuoPiaoFinalView = sap.ui.view({
+			id: "idGongZuoPiaoFinalView",
+			viewName: "com.zhenergy.bill.view.GongZuoPiaoFinalView",
+			type: sap.ui.core.mvc.ViewType.XML
+		});
+		this.app.addPage(GongZuoPiaoFinalView);
 		return this.app;
 	}
 
