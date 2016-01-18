@@ -107,6 +107,20 @@ sap.ui.jsview("com.zhenergy.bill.view.BillApp", {
 			type: sap.ui.core.mvc.ViewType.XML
 		});
 		this.app.addPage(GongZuoPiaoFinalView);
+		//注册工作票初始化页面
+		var GongZuoPiaoInitializePage = sap.ui.view({
+			id: "idGongZuoPiaoInitializePage",
+			viewName: "com.zhenergy.bill.view.GongZuoPiaoInitializePage",
+			type: sap.ui.core.mvc.ViewType.XML
+		});
+		this.app.addPage(GongZuoPiaoInitializePage);
+		//注册工作票查询清单页面
+		var GongzuoPiaoQueryPage = sap.ui.view({
+			id: "idGongzuoPiaoQueryPage",
+			viewName: "com.zhenergy.bill.view.GongzuoPiaoQueryPage",
+			type: sap.ui.core.mvc.ViewType.XML
+		});
+		this.app.addPage(GongzuoPiaoQueryPage);
 		return this.app;
 	}
 

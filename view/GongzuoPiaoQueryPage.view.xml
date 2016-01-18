@@ -1,0 +1,66 @@
+<core:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:f="sap.ui.layout.form"
+	xmlns:l="sap.ui.layout"
+	xmlns:c="sap.ui.commons"
+	xmlns:lay="sap.ui.commons.layout"
+	xmlns="sap.m" controllerName="com.zhenergy.bill.view.GongzuoPiaoQueryPage" 
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="工作票查询清单页面">
+		<content>
+		    <f:SimpleForm
+		        id="idGongZuoPiaoQueryPage"
+				minWidth="1024"
+				maxContainerCols="4"
+				editable="true"
+				layout="ResponsiveGridLayout"
+				labelSpanL="3"
+				labelSpanM="3"
+				emptySpanL="4"
+				emptySpanM="4"
+				columnsL="1"
+				columnsM="1"
+				>
+				<f:content>
+					<lay:MatrixLayout width="70%" widths="10%,12%,60%">
+					    <lay:MatrixLayoutRow>
+					       <lay:MatrixLayoutCell>
+					       </lay:MatrixLayoutCell>
+					       <lay:MatrixLayoutCell>
+					            <c:Button text="返回首页" press="onFanHui"></c:Button>
+					       </lay:MatrixLayoutCell>
+					       <lay:MatrixLayoutCell>
+					       		<c:Button text="执行" press="onCaoZuoPiaoQuery"></c:Button>
+					       </lay:MatrixLayoutCell>
+					    </lay:MatrixLayoutRow>
+					    <lay:MatrixLayoutRow>
+					        <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="工厂:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="{/BiaoJi}"  id="BiaoJiQuery" visible="false"></c:TextView>
+    		                    <c:ComboBox items="{ path: '/WERKS'}" width="95%" id="gongChangQuery" selectedKey="{/Iwerk}" editable="false">
+								    <core:ListItem key="{Iwerk}" text="{Iwerk} {Name1}"></core:ListItem>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow id="caoZuoPiaoLeiXingQuerys">
+		                    <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="工作票类型:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+							    <c:ComboBox id="idWorkType" items="{ path: '/WorkType', sorter: { path: 'Ztype' } }" selectedKey="{/Ztype}" width="45%">
+								    <core:ListItem key="{Ztype}" text="{Ztype} {Ztypedes}"></core:ListItem>
+							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+					</lay:MatrixLayout>
+				</f:content>
+			</f:SimpleForm>
+		</content>
+	</Page>
+</core:View>
