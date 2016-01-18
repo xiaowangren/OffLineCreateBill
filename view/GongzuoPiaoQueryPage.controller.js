@@ -32,7 +32,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
         var Appdep = this.getView().byId("Appdep").getSelectedKey();
         var gongZuoDiDian = this.getView().byId("gongZuoDiDian").getValue();
         var gongZuoNeiRong = this.getView().byId("gongZuoNeiRong").getValue();
-        var createDate = this.getView().byId("createDate").getValue();
+        var createDate = this.getView().byId("createDate").getYyyymmdd();
         if(createDate!=""){
             createDate = createDate.substr(0,4)+"-"+createDate.substr(4,2)+"-"+createDate.substr(6,2);
         }
