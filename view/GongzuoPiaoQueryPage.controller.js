@@ -1,6 +1,48 @@
 sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
     onFanHui:function(){
         sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage");
+    },
+    onChangeWorkType:function(oEvent){
+        var key = oEvent.getParameters().selectedItem.mProperties.key;
+        if(key!=""){
+            this.getView().byId("Peoid").setSelectedKey("");
+            jQuery.sap.require("jquery.sap.storage");
+            var oLocalModel = sap.ui.getCore().getModel();
+		    var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		    if (oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI")) {
+        		var oDataPer = oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI");
+        		var aFilterPer = [];
+    			for(var l=0;l<oDataPer.length;l++){
+    			    if(oDataPer[l].Ztype==key&&oDataPer[l].Quaid=="A"){
+    			        aFilterPer.push(oDataPer[l]);
+    			    }
+    			}
+    			oLocalModel.setProperty("/ZPMTOPER",aFilterPer);
+        	}
+		    
+        }
+        
+    },
+    onCaoZuoPiaoQuery:function(){
+        //收集桌面数据
+        var BiaoJiQuery = this.getView().byId("BiaoJiQuery").getText();
+        var Iwerk = this.getView().byId("gongChangQuery").getSelectedKey();
+        var idWorkType = this.getView().byId("idWorkType").getSelectedKey();
+        var Peoid = this.getView().byId("Peoid").getSelectedKey();
+        var Appdep = this.getView().byId("Appdep").getSelectedKey();
+        var gongZuoDiDian = this.getView().byId("gongZuoDiDian").getValue();
+        var gongZuoNeiRong = this.getView().byId("gongZuoNeiRong").getValue();
+        var createDate = this.getView().byId("createDate").getValue();
+        if(createDate!=""){
+            createDate = createDate.substr(0,4)+"-"+createDate.substr(4,2)+"-"+createDate.substr(6,2);
+        }
+        if("Create"==BiaoJiQuery){//过滤典型票
+            
+        }else{//过滤本地已经创建的票
+            
+        }
+        console.log(BiaoJiQuery+";"+Iwerk+";"+idWorkType+";"+Peoid+";"+Appdep+";"+gongZuoDiDian+";"+gongZuoNeiRong+";"+createDate);
+        alert("调用getWay，返回结果在result页面展示");
     }
 /**
 * Called when a controller is instantiated and its View controls (if available) are already created.

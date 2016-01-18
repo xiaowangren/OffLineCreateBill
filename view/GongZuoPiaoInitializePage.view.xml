@@ -44,7 +44,7 @@
 							<c:TextView text="工作票类型"></c:TextView>
 						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
-                            <c:ComboBox id="idWorkTypeInitialize" items="{ path: '/WorkType', sorter: { path: 'Ztype' } }" width="45%">
+                            <c:ComboBox id="idWorkTypeInitialize" items="{ path: '/WorkType', sorter: { path: 'Ztype' } }" selectedKey="{/Ztype}" width="45%">
 								<core:ListItem key="{Ztype}" text="{Ztype} {Ztypedes}"></core:ListItem>
 							</c:ComboBox>
 						</lay:MatrixLayoutCell>

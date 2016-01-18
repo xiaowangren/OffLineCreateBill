@@ -46,16 +46,70 @@
 							    </c:ComboBox>
     		                </lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutRow>
-		                <lay:MatrixLayoutRow id="caoZuoPiaoLeiXingQuerys">
+		                <lay:MatrixLayoutRow>
 		                    <lay:MatrixLayoutCell>
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
     		                    <c:TextView text="工作票类型:"></c:TextView>
     		                </lay:MatrixLayoutCell>
     		                <lay:MatrixLayoutCell>
-							    <c:ComboBox id="idWorkType" items="{ path: '/WorkType', sorter: { path: 'Ztype' } }" selectedKey="{/Ztype}" width="45%">
+							    <c:ComboBox id="idWorkType" items="{ path: '/WorkType', sorter: { path: 'Ztype' } }" selectedKey="{/Ztype}" width="45%" change="onChangeWorkType">
 								    <core:ListItem key="{Ztype}" text="{Ztype} {Ztypedes}"></core:ListItem>
 							    </c:ComboBox>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+		                    <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="工作负责人:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+                                <c:ComboBox items="{ path: '/ZPMTOPER', sorter: { path: 'Peoid' } }" width="45%" id="Peoid" selectedKey="{/Peoid}">
+								    <core:ListItem key="{Peoid}" text="{Peoid} {Peonam}"></core:ListItem>
+							    </c:ComboBox>    		                
+							</lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+		                    <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="工作单位:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+							    <c:ComboBox items="{ path: '/DanWei', sorter: { path: 'Appdep' } }" width="45%" id="Appdep" selectedKey="{/Appdep}" >
+								    <core:ListItem key="{Appdep}" text="{Appdep} {Appdepdec}"></core:ListItem>
+							    </c:ComboBox>   
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+		                    <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="工作地点:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+							    <c:TextField value="{/SPlace}"  width="45%" id="gongZuoDiDian"></c:TextField>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+		                    <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="工作内容:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+							    <c:TextField value="{/SCont}"  width="45%" id="gongZuoNeiRong"></c:TextField>
+    		                </lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutRow>
+		                    <lay:MatrixLayoutCell>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+    		                    <c:TextView text="创建日期:"></c:TextView>
+    		                </lay:MatrixLayoutCell>
+    		                <lay:MatrixLayoutCell>
+							    <c:DatePicker width="45%" id="createDate" locale="zh-CN" value="{/Crdate}"></c:DatePicker>
     		                </lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutRow>
 					</lay:MatrixLayout>

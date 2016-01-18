@@ -589,6 +589,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		    oLocalModel.setProperty("/WorkType",aFilter);
 		}
 		oLocalModel.setProperty("/Iwerk",UserIwerk.Iwerk);
+		oLocalModel.setProperty("/Ztype","");
 		oLocalModel.setProperty("/BiaoJi","Create");
 		sap.ui.getCore().setModel(oLocalModel);
 	 	sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoInitializePage");
@@ -625,8 +626,36 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			}
 		    oLocalModel.setProperty("/WorkType",aFilter);
 		}
+		//负责人
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI")) {
+			var oDataPer = oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI");
+    		var aFilterPer = [];
+			for(var g=0;g<oDataPer.length;g++){
+			    if(oDataPer[g].Iwerk==UserIwerk.Iwerk&&oDataPer[g].Quaid=="A"){
+			        aFilterPer.push(oDataPer[g]);
+			    }
+			}
+	        oLocalModel.setProperty("/ZPMTOPER",oDataPer);
+		}
+		//工作单位
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C")) {
+			var oDataDanWei = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C");
+			var aFilterDanWei = [];
+			for(var l=0;l<oDataDanWei.length;l++){
+			    if(oDataDanWei[l].Werks==UserIwerk.Iwerk){
+			        aFilterDanWei.push(oDataDanWei[l]);
+			    }
+			}
+		    oLocalModel.setProperty("/DanWei",aFilterDanWei);
+		}
 		oLocalModel.setProperty("/Iwerk",UserIwerk.Iwerk);
 		oLocalModel.setProperty("/BiaoJi","Update");
+		oLocalModel.setProperty("/Ztype","");
+		oLocalModel.setProperty("/Peoid","");
+		oLocalModel.setProperty("/Appdep","");
+		oLocalModel.setProperty("/SPlace","");
+		oLocalModel.setProperty("/SCont","");
+		oLocalModel.setProperty("/Crdate","");
 		sap.ui.getCore().setModel(oLocalModel);
 	   sap.ui.getCore().byId("idBillApp").app.to("idGongzuoPiaoQueryPage");
 
@@ -663,8 +692,37 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			}
 		    oLocalModel.setProperty("/WorkType",aFilter);
 		}
+		//负责人
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI")) {
+			var oDataPer = oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI");
+			var aFilterPer = [];
+			for(var g=0;g<oDataPer.length;g++){
+			    if(oDataPer[g].Iwerk==UserIwerk.Iwerk&&oDataPer[g].Quaid=="A"){
+			        aFilterPer.push(oDataPer[g]);
+			    }
+			}
+		    oLocalModel.setProperty("/ZPMTOPER",aFilterPer);
+		}
+		//工作单位
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C")) {
+			var oDataDanWei = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C");
+			var aFilterDanWei = [];
+			for(var l=0;l<oDataDanWei.length;l++){
+			    if(oDataDanWei[l].Werks==UserIwerk.Iwerk){
+			        aFilterDanWei.push(oDataDanWei[l]);
+			    }
+			}
+		    oLocalModel.setProperty("/DanWei",aFilterDanWei);
+		}
+		
 		oLocalModel.setProperty("/Iwerk",UserIwerk.Iwerk);
 		oLocalModel.setProperty("/BiaoJi","Query");
+		oLocalModel.setProperty("/Ztype","");
+		oLocalModel.setProperty("/Peoid","");
+		oLocalModel.setProperty("/Appdep","");
+		oLocalModel.setProperty("/SPlace","");
+		oLocalModel.setProperty("/SCont","");
+		oLocalModel.setProperty("/Crdate","");
 		sap.ui.getCore().setModel(oLocalModel);
 	   sap.ui.getCore().byId("idBillApp").app.to("idGongzuoPiaoQueryPage");
 
