@@ -555,5 +555,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		//to get access to the global model
 		this.getView().addDependent(dialog);
 		dialog.open();
+	},
+	onPDFPrintTest:function(){
+	    console.log("navi to print page");
+	     sap.ui.getCore().byId("idBillApp").app.to("idPDFPrint");
 	}
 });

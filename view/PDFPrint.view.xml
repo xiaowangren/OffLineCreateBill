@@ -1,0 +1,10 @@
+<core:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" controllerName="com.zhenergy.bill.view.PDFPrint" 
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<Page title="Title">
+		<content>
+		<Button icon="sap-icon://print"  text="电除尘专用工作票" press="onPrintGzp_DCC"   visible="true"/>
+		</content>
+	</Page>
+</core:View>

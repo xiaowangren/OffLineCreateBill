@@ -747,6 +747,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var DangerousTab = payLoad.DangerousTab;
         var tableDataNew =[];
         for(var i=0;i<DangerousTab.length;i++){
+            DangerousTab[i].Dangno = "" + DangerousTab[i].Dangno;
             if((DangerousTab[i].Dangno.trim()=="")&&(DangerousTab[i].Zzpltxt.trim()=="")&&(DangerousTab[i].Zzremark.trim()=="")&&(DangerousTab[i].Zztext.trim()=="")){
             }else{
                 tableDataNew.push(DangerousTab[i]); 
