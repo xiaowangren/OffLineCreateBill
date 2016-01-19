@@ -23,7 +23,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
         }
         
     },
-    onCaoZuoPiaoQuery:function(){
+    onGongZuoPiaoQuery:function(){
         //收集桌面数据
         var BiaoJiQuery = this.getView().byId("BiaoJiQuery").getText();
         var Iwerk = this.getView().byId("gongChangQuery").getSelectedKey();
@@ -36,47 +36,125 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
         if(createDate!=""){
             createDate = createDate.substr(0,4)+"-"+createDate.substr(4,2)+"-"+createDate.substr(6,2);
         }
+        console.log(BiaoJiQuery+";"+Iwerk+";"+idWorkType+";"+Peoid+";"+Appdep+";"+gongZuoDiDian+";"+gongZuoNeiRong+";"+createDate);
+        var oLocalModel = this.onFengZhuang(Iwerk);
+        jQuery.sap.require("jquery.sap.storage");
+	    var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
         if("Create"==BiaoJiQuery){//过滤典型票
+            if (oStorage.get("ZPMOFFLINE_SRV.BillInfos")) {
+			    var oData1 = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
+			    oLocalModel.setProperty("/ResultModel",oData1);
+            }
             
         }else{//过滤本地已经创建的票
-            
+            if (oStorage.get("ZPMOFFLINE_SRV.BillInfos")) {
+			    var oData1 = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
+			    oLocalModel.setProperty("/ResultModel",oData1);
+            }
         }
-        console.log(BiaoJiQuery+";"+Iwerk+";"+idWorkType+";"+Peoid+";"+Appdep+";"+gongZuoDiDian+";"+gongZuoNeiRong+";"+createDate);
-        alert("调用getWay，返回结果在result页面展示");
-    }
-/**
-* Called when a controller is instantiated and its View controls (if available) are already created.
-* Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
-* @memberOf com.zhenergy.bill.view.GongzuoPiaoQueryPage
-*/
-//	onInit: function() {
-//
-//	},
+        oLocalModel.setProperty("/BiaoJi",BiaoJiQuery);
+        sap.ui.getCore().setModel(oLocalModel);
+        sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoQueryResultXml");
+    },
+    checkhelp :function(data,key){//过滤key
+		    if(!key){
+		        return true;
+		    }else{
+		        if(data==key){
+		            return true
+		        }
+		    }
+		    return false;
+	},
+	checkhelpIndex :function(data,key){//模糊查询条件
+		    if(!key){
+		        return true;
+		    }else{
+		        if(data.indexOf(key)>=0){
+		            return true;
+		        }
+		    }
+		    return false;
+	},
+	onFengZhuang:function(Iwerk){
+	    jQuery.sap.require("jquery.sap.storage");
+	    jQuery.sap.require("sap.m.MessageToast");
+	    var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		var oLocalModel = new sap.ui.model.json.JSONModel();
+		//工厂
+		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
+			var oDataWerk = oStorage.get("ZPMOFFLINE_SRV.WERKS");
+			oLocalModel.setProperty("/WERKS",oDataWerk);
+		}
+		//工作票类型
+        if (oStorage.get("ZPMOFFLINE_SRV.WorkType")) {
+			var oData = oStorage.get("ZPMOFFLINE_SRV.WorkType");
+			var aFilter = [];
+			for(var n=0;n<oData.length;n++){
+			    if(oData[n].Iwerk==Iwerk){
+			        aFilter.push(oData[n]);
+			    }
+			}
+		    oLocalModel.setProperty("/WorkType",aFilter);
+		}
+		//工作单位 ZPMT00229C
+        if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C")) {
+			var oDataDanWei = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C");
+			var aFilterDanWei = [];
+			for(var l=0;l<oDataDanWei.length;l++){
+			    if(oDataDanWei[l].Werks==Iwerk){
+			        aFilterDanWei.push(oDataDanWei[l]);
+			    }
+			}
+		    oLocalModel.setProperty("/DanWei",aFilterDanWei);
+		}
+		//状态   ？？？？？
+		//班组 ZPMT00283
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00283")) {
+			var oDataBanZu = oStorage.get("ZPMOFFLINE_SRV.ZPMT00283");
+			var aFilterBanZu = [];
+			for(var m=0;m<oDataBanZu.length;m++){
+			    if(oDataBanZu[m].Werks==Iwerk){
+			        aFilterBanZu.push(oDataBanZu[m]);
+			    }
+			}
+		    oLocalModel.setProperty("/BanZu",aFilterBanZu);
+		}
+        //运行区域 ZPMT00227
+        if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00227")) {
+			var oDataYunXingQuYu = oStorage.get("ZPMOFFLINE_SRV.ZPMT00227");
+			var aFilterYunXingQuYu = [];
+			for(var g=0;g<oDataYunXingQuYu.length;g++){
+			    if(oDataYunXingQuYu[g].Werks==Iwerk){
+			        aFilterYunXingQuYu.push(oDataYunXingQuYu[g]);
+			    }
+			}
+		    oLocalModel.setProperty("/YunXingQuYu",aFilterYunXingQuYu);
+		}
+        //机组 ZPMV00005
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMV00005")) {
+			var oDataJiZu = oStorage.get("ZPMOFFLINE_SRV.ZPMV00005");
+			var aFilterJiZu = [];
+			for(var f=0;f<oDataJiZu.length;f++){
+			    if(oDataJiZu[f].Werks==Iwerk){
+			        aFilterJiZu.push(oDataJiZu[f]);
+			    }
+			}
+		    oLocalModel.setProperty("/JiZu",aFilterJiZu);
+		}
+		//部门
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00229")) {
+			var oDataBuMen = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229");
+			var aFilterBuMen = [];
+			for(var x=0;x<oDataBuMen.length;x++){
+			    if(oDataBuMen[x].Werks==Iwerk){
+			        aFilterBuMen.push(oDataBuMen[x]);
+			    }
+			}
+		    oLocalModel.setProperty("/BuMen",aFilterBuMen);
+		}
+		return oLocalModel;
+	}
 
-/**
-* Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-* (NOT before the first rendering! onInit() is used for that one!).
-* @memberOf com.zhenergy.bill.view.GongzuoPiaoQueryPage
-*/
-//	onBeforeRendering: function() {
-//
-//	},
-
-/**
-* Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
-* This hook is the same one that SAPUI5 controls get after being rendered.
-* @memberOf com.zhenergy.bill.view.GongzuoPiaoQueryPage
-*/
-//	onAfterRendering: function() {
-//
-//	},
-
-/**
-* Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-* @memberOf com.zhenergy.bill.view.GongzuoPiaoQueryPage
-*/
-//	onExit: function() {
-//
-//	}
 
 });

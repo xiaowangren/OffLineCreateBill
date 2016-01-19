@@ -5,7 +5,7 @@
 	xmlns:lay="sap.ui.commons.layout"
 	xmlns="sap.m" controllerName="com.zhenergy.bill.view.GongZuoPiaoFinalView" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page title="Title">
+	<Page title="{/Title1}{/Title2}">
 		<content>
 		    <l:VerticalLayout>
 		        <lay:MatrixLayout width="50%" class="MatrixLayout_MarginLeft">
@@ -38,22 +38,17 @@
 		                    <c:TextView text="创建人"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="" width="90%"></c:TextField>
+		                    <c:TextField value="{WorkModel>/Cuser}" width="55%" editable="{/Editable}"></c:TextField>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="工厂"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox width="90%" selectedKey="">
-								<c:items>
-								</c:items>
+							<c:ComboBox items="{ path: '/WERKS', sorter: { path: 'Iwerk' }}" width="100%" selectedKey="{WorkModel>/Iwerk}" editable="false">
+								<core:ListItem key="{Iwerk}" text="{Iwerk} {Name1}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    
-		                </lay:MatrixLayoutCell>
-		                <lay:MatrixLayoutCell>
-		                    
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow> 
 		            <lay:MatrixLayoutRow>
@@ -61,29 +56,28 @@
 		                    <c:TextView text="类型"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox width="90%" selectedKey="">
-								<c:items>
-									
-								</c:items>
-							</c:ComboBox>
+		                    <c:ComboBox items="{ path: '/WorkType', sorter: { path: 'Ztype' } }" width="95%" editable="false">
+								<core:ListItem key="{Ztype}" text="{Ztype} {Ztypedes}"></core:ListItem>
+						    </c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="创建日期"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="" width="90%"></c:TextField>
+		                    <c:TextField value="{WorkModel>/Cdata}" width="90%" editable="false"></c:TextField>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="状态"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextField value="" width="90%"></c:TextField>
+		                    <c:ComboBox width="90%" selectedKey="{WorkModel>/Estat}" editable="false">
+								<c:items>
+									<core:ListItem key="10" text="10 拟票"></core:ListItem>
+								</c:items>
+							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    
-		                </lay:MatrixLayoutCell>
-		                <lay:MatrixLayoutCell>
-		                    
+		                    <c:CheckBox text="双签" checked="false" id="shuangQian" editable="{/Editable}"/>
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow> 
 		        </lay:MatrixLayout>
@@ -107,7 +101,7 @@
         		                    <c:TextView text="外包"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
-        		                    <c:ComboBox width="90%" selectedKey="">
+        		                    <c:ComboBox width="20%" selectedKey="" editable="{/Editable}">
         								<c:items>
         									<core:ListItem key="" text="是"></core:ListItem>
 									        <core:ListItem key="" text="否"></core:ListItem>
@@ -120,13 +114,13 @@
         		                    <c:TextView text="工作地点"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell colSpan="3">
-        		                    <c:TextArea value="" rows="3" cols="80"></c:TextArea>
+        		                    <c:TextArea value="" rows="4" cols="80" editable="{/Editable}"></c:TextArea>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
         		                    <c:TextView text="工作内容"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell colSpan="3">
-        		                    <c:TextArea value="" rows="3" cols="80"></c:TextArea>
+        		                    <c:TextArea value="" rows="4" cols="80" editable="{/Editable}"></c:TextArea>
         		                </lay:MatrixLayoutCell>
         		            </lay:MatrixLayoutRow> 
         		            <lay:MatrixLayoutRow>
@@ -134,21 +128,41 @@
         		                    <c:TextView text="工作单位"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
+        		                    <c:ComboBox items="{ path: '/DanWei', sorter: { path: 'Appdep' } }" width="60%" selectedKey="{WorkModel>/Appdep}" editable="{/Editable}">
+            							<core:ListItem key="{Appdep}" text="{Appdep} {Appdepdec}"></core:ListItem>
+            					    </c:ComboBox>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
         		                    <c:TextView text="班组"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
+        		                    <c:ComboBox items="{ path: '/BanZu', sorter: { path: 'Yxgroup' } }" width="60%" editable="{/Editable}" selectedKey="{WorkModel>/Yxgroup}">
+            							<core:ListItem key="{Yxgroup}" text="{Yxgroup} {Yxgroupdec}"></core:ListItem>
+            						</c:ComboBox>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
         		                    <c:TextView text="专业"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
+        		                    <c:ComboBox width="60%" selectedKey="{WorkModel>/Prfty}" editable="{/Editable}">
+        		                        <c:items>
+                                            <core:ListItem text="0001 汽机专业" key="0001"></core:ListItem>
+                                            <core:ListItem text="0002 电气专业" key="0002"></core:ListItem>
+                                            <core:ListItem text="0003 锅炉专业" key="0003"></core:ListItem>
+                                            <core:ListItem text="0004 化学专业" key="0004"></core:ListItem>
+                                            <core:ListItem text="0005 环保专业" key="0005"></core:ListItem>
+                                            <core:ListItem text="0006 燃料专业" key="0006"></core:ListItem>
+                                            <core:ListItem text="0007 热机专业" key="0007"></core:ListItem>
+                                        </c:items>
+    		                        </c:ComboBox>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
         		                    <c:TextView text="运行区域"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
+        		                    <c:ComboBox items="{ path: '/YunXingQuYu', sorter: { path: 'Rarea' }}" width="60%" selectedKey="{WorkModel>/Rarea}" editable="{/Editable}">
+        								<core:ListItem key="{Rarea}" text="{Rarea} {Rareadec}"></core:ListItem>
+        							</c:ComboBox>
         		                </lay:MatrixLayoutCell>
         		            </lay:MatrixLayoutRow>
         		            <lay:MatrixLayoutRow>
@@ -156,21 +170,29 @@
         		                    <c:TextView text="联系部门"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
+        		                    <c:ComboBox items="{ path: '/BuMen', sorter: { path: 'Appdep' }}" width="60%" selectedKey="{WorkModel>/Appdep}" editable="{/Editable}">
+        								<core:ListItem key="{Appdep}" text="{Appdep} {Appdepdec}"></core:ListItem>
+        							</c:ComboBox>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
         		                    <c:TextView text="联系人"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
+        		                    <c:TextField value="{WorkModel>/Cdata}" width="60%" editable="{/Editable}"></c:TextField>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
         		                    <c:TextView text="联系方式"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
+        		                    <c:TextField value="{WorkModel>/Cdata}" width="60%" editable="{/Editable}"></c:TextField>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
         		                    <c:TextView text="机组"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
+        		                    <c:ComboBox items="{ path: '/JiZu', sorter: { path: 'Unity' }}" width="60%" selectedKey="{WorkModel>/Unity}" editable="{/Editable}">
+        								<core:ListItem key="{Unity}" text="{Unity} {Untxt}"></core:ListItem>
+        							</c:ComboBox>
         		                </lay:MatrixLayoutCell>
         		            </lay:MatrixLayoutRow>
         		            <lay:MatrixLayoutRow>
@@ -178,20 +200,44 @@
         		                    <c:TextView text="工作负责人"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell colSpan="3">
+        		                    <c:ComboBox items="{ path: '/ZPMTOPER', sorter: { path: 'Peoid' }}" width="27%" selectedKey="{WorkModel>/Peoid}" editable="{/Editable}">
+        								<core:ListItem key="{Peoid}" text="{Peoid} {Peonam}"></core:ListItem>
+        							</c:ComboBox>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
         		                    <c:TextView text="联系方式"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
+        		                    <c:TextField value="{WorkModel>/Cdata}" width="60%" editable="{/Editable}"></c:TextField>
+        		                </lay:MatrixLayoutCell>
+        		            </lay:MatrixLayoutRow>
+        		            <lay:MatrixLayoutRow>
+        		                <lay:MatrixLayoutCell>
+        		                    <c:TextView text="动火方式"></c:TextView>
+        		                </lay:MatrixLayoutCell>
+        		                <lay:MatrixLayoutCell colSpan="6">
+        		                    <c:CheckBox text="融化焊接" checked="false" editable="{/Editable}"/>
+        		                    <c:CheckBox text="切割" checked="false" editable="{/Editable}" class="span_left"/>
+        		                    <c:CheckBox text="压力焊" checked="false" editable="{/Editable}" class="span_left"/>
+        		                    <c:CheckBox text="钎焊" checked="false" editable="{/Editable}" class="span_left"/>
+        		                    <c:CheckBox text="喷枪" checked="false" editable="{/Editable}" class="span_left"/>
+        		                    <c:CheckBox text="喷灯" checked="false" editable="{/Editable}" class="span_left"/>
+        		                    <c:CheckBox text="钻孔" checked="false" editable="{/Editable}" class="span_left"/>
+        		                    <c:CheckBox text="打磨" checked="false" editable="{/Editable}" class="span_left"/>
+        		                    <c:CheckBox text="锤击" checked="false" editable="{/Editable}" class="span_left"/>
+        		                    <c:CheckBox text="破碎" checked="false" editable="{/Editable}" class="span_left"/>
+        		                    <c:CheckBox text="切削" checked="false" editable="{/Editable}" class="span_left"/>
+        		                    <c:CheckBox text="其他" checked="false" editable="{/Editable}" class="span_left"/>
         		                </lay:MatrixLayoutCell>
         		            </lay:MatrixLayoutRow>
         		            <lay:MatrixLayoutRow>
         		                <lay:MatrixLayoutCell colSpan="4">
+        		                    <c:TextView text="需退出保护或装置名称"></c:TextView>
+        		                    <c:TextField value="{WorkModel>/Cdata}" width="50%" class="TextField_TextView" editable="{/Editable}"></c:TextField>
         		                </lay:MatrixLayoutCell>
-        		                <lay:MatrixLayoutCell colSpan="2">
+        		                <lay:MatrixLayoutCell colSpan="4">
         		                    <c:TextView text="工作条件（停电/不停电）"></c:TextView>
-        		                </lay:MatrixLayoutCell>
-        		                <lay:MatrixLayoutCell colSpan="2">
+        		                    <c:TextField value="{WorkModel>/Cdata}" width="50%" class="TextField_TextView" editable="{/Editable}"></c:TextField>
         		                </lay:MatrixLayoutCell>
         		            </lay:MatrixLayoutRow>
         		        </lay:MatrixLayout>
