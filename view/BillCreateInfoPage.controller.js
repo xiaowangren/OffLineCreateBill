@@ -56,6 +56,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var dangerousPointData = newCaoZuoPiaoCreate.DangerousTab;
         var dangerousPointDataNew = [];
         for(var j=0;j<dangerousPointData.length;j++){
+            dangerousPointData[j].Dangno = dangerousPointData[j].Dangno+"";
             if((dangerousPointData[j].Dangno.trim()=="")&&(dangerousPointData[j].Zztext.trim()=="")
                 &&(dangerousPointData[j].Zzremark.trim()=="")&&(dangerousPointData[j].Zzpltxt.trim()=="")){
             }else{
@@ -280,6 +281,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var dangerousPointData = idDangerousPointTab.getModel().oData.dModelData;
         var dangerousPointDataNew = [];
         for(var j=0;j<dangerousPointData.length;j++){
+            dangerousPointData[j] = dangerousPointData[j]+"";
             if((dangerousPointData[j].Dangno.trim()=="")&&(dangerousPointData[j].Zztext.trim()=="")
                 &&(dangerousPointData[j].Zzremark.trim()=="")&&(dangerousPointData[j].Zzpltxt.trim()=="")){
             }else{
