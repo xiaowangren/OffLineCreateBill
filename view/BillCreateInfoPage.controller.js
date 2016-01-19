@@ -47,6 +47,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         var tableData = newCaoZuoPiaoCreate.InfoTab;
         var BillInfoNew =[];
         for(var i=0;i<tableData.length;i++){
+            tableData[i].Zxh = tableData[i].Zxh+"";
             if((tableData[i].Zzysx.trim()=="")&&(tableData[i].Zxh.trim()=="")&&(tableData[i].Zcznr.trim()=="")){
             }else{
                 BillInfoNew.push(tableData[i]); 
