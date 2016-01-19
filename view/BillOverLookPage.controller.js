@@ -556,8 +556,183 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		this.getView().addDependent(dialog);
 		dialog.open();
 	},
+//<<<<<<< HEAD
 	onPDFPrintTest:function(){
 	    console.log("navi to print page");
 	     sap.ui.getCore().byId("idBillApp").app.to("idPDFPrint");
+//=======
+    },
+	onCreateGongZuoPiao:function(){//新增工作票
+	    //将页面跳转至工作票初始页面
+	    var UserIwerk = this.onQuChuUser();
+		if(UserIwerk.Iwerk==""){
+	       sap.m.MessageBox.alert("请设定工厂",{title: "提示"});
+	       return;
+	   }
+	   //同步数据
+	    jQuery.sap.require("jquery.sap.storage");
+	    jQuery.sap.require("sap.m.MessageToast");
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		var oLocalModel = new sap.ui.model.json.JSONModel();
+	   if(!oStorage.get("ZPMOFFLINE_SRV.WERKS")){
+		    sap.m.MessageBox.alert("请同步主数据",{title: "提示"}); 
+		    return;
+		}
+		//工厂
+		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
+			var oData = oStorage.get("ZPMOFFLINE_SRV.WERKS");
+			oLocalModel.setProperty("/WERKS",oData);
+		}
+		//操作类型
+		if (oStorage.get("ZPMOFFLINE_SRV.WorkType")) {
+			var oData = oStorage.get("ZPMOFFLINE_SRV.WorkType");
+			var aFilter = [];
+			for(var n=0;n<oData.length;n++){
+			    if(oData[n].Iwerk==UserIwerk.Iwerk){
+			        aFilter.push(oData[n]);
+			    }
+			}
+		    oLocalModel.setProperty("/WorkType",aFilter);
+		}
+		oLocalModel.setProperty("/Iwerk",UserIwerk.Iwerk);
+		oLocalModel.setProperty("/Ztype","");
+		oLocalModel.setProperty("/BiaoJi","Create");
+		sap.ui.getCore().setModel(oLocalModel);
+	 	sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoInitializePage");
+	},
+	onUpdateGongZuoPiao:function(){//修改工作票
+	    //将页面跳转至工作票查询清单页面
+	    var UserIwerk = this.onQuChuUser();
+		if(UserIwerk.Iwerk==""){
+	       sap.m.MessageBox.alert("请设定工厂",{title: "提示"});
+	       return;
+	   }
+	   //同步数据
+	    jQuery.sap.require("jquery.sap.storage");
+	    jQuery.sap.require("sap.m.MessageToast");
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		var oLocalModel = new sap.ui.model.json.JSONModel();
+	   if(!oStorage.get("ZPMOFFLINE_SRV.WERKS")){
+		    sap.m.MessageBox.alert("请同步主数据",{title: "提示"}); 
+		    return;
+		}
+		//工厂
+		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
+			var oData = oStorage.get("ZPMOFFLINE_SRV.WERKS");
+			oLocalModel.setProperty("/WERKS",oData);
+		}
+		//操作类型
+		if (oStorage.get("ZPMOFFLINE_SRV.WorkType")) {
+			var oData = oStorage.get("ZPMOFFLINE_SRV.WorkType");
+			var aFilter = [];
+			for(var n=0;n<oData.length;n++){
+			    if(oData[n].Iwerk==UserIwerk.Iwerk){
+			        aFilter.push(oData[n]);
+			    }
+			}
+		    oLocalModel.setProperty("/WorkType",aFilter);
+		}
+		//负责人
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI")) {
+			var oDataPer = oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI");
+    		var aFilterPer = [];
+			for(var g=0;g<oDataPer.length;g++){
+			    if(oDataPer[g].Iwerk==UserIwerk.Iwerk&&oDataPer[g].Quaid=="A"){
+			        aFilterPer.push(oDataPer[g]);
+			    }
+			}
+	        oLocalModel.setProperty("/ZPMTOPER",oDataPer);
+		}
+		//工作单位
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C")) {
+			var oDataDanWei = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C");
+			var aFilterDanWei = [];
+			for(var l=0;l<oDataDanWei.length;l++){
+			    if(oDataDanWei[l].Werks==UserIwerk.Iwerk){
+			        aFilterDanWei.push(oDataDanWei[l]);
+			    }
+			}
+		    oLocalModel.setProperty("/DanWei",aFilterDanWei);
+		}
+		oLocalModel.setProperty("/Iwerk",UserIwerk.Iwerk);
+		oLocalModel.setProperty("/BiaoJi","Update");
+		oLocalModel.setProperty("/Ztype","");
+		oLocalModel.setProperty("/Peoid","");
+		oLocalModel.setProperty("/Appdep","");
+		oLocalModel.setProperty("/SPlace","");
+		oLocalModel.setProperty("/SCont","");
+		oLocalModel.setProperty("/Crdate","");
+		sap.ui.getCore().setModel(oLocalModel);
+	   sap.ui.getCore().byId("idBillApp").app.to("idGongzuoPiaoQueryPage");
+
+	},
+	onQueryGongZuoPiao:function(){//查询工作票
+	    //将页面跳转至工作票查询清单页面
+	    var UserIwerk = this.onQuChuUser();
+		if(UserIwerk.Iwerk==""){
+	       sap.m.MessageBox.alert("请设定工厂",{title: "提示"});
+	       return;
+	   }
+	   //同步数据
+	    jQuery.sap.require("jquery.sap.storage");
+	    jQuery.sap.require("sap.m.MessageToast");
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		var oLocalModel = new sap.ui.model.json.JSONModel();
+	   if(!oStorage.get("ZPMOFFLINE_SRV.WERKS")){
+		    sap.m.MessageBox.alert("请同步主数据",{title: "提示"}); 
+		    return;
+		}
+		//工厂
+		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
+			var oDataWerk = oStorage.get("ZPMOFFLINE_SRV.WERKS");
+			oLocalModel.setProperty("/WERKS",oDataWerk);
+		}
+		//操作类型
+		if (oStorage.get("ZPMOFFLINE_SRV.WorkType")) {
+			var oData = oStorage.get("ZPMOFFLINE_SRV.WorkType");
+			var aFilter = [];
+			for(var n=0;n<oData.length;n++){
+			    if(oData[n].Iwerk==UserIwerk.Iwerk){
+			        aFilter.push(oData[n]);
+			    }
+			}
+		    oLocalModel.setProperty("/WorkType",aFilter);
+		}
+		//负责人
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI")) {
+			var oDataPer = oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI");
+			var aFilterPer = [];
+			for(var g=0;g<oDataPer.length;g++){
+			    if(oDataPer[g].Iwerk==UserIwerk.Iwerk&&oDataPer[g].Quaid=="A"){
+			        aFilterPer.push(oDataPer[g]);
+			    }
+			}
+		    oLocalModel.setProperty("/ZPMTOPER",aFilterPer);
+		}
+		//工作单位
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C")) {
+			var oDataDanWei = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C");
+			var aFilterDanWei = [];
+			for(var l=0;l<oDataDanWei.length;l++){
+			    if(oDataDanWei[l].Werks==UserIwerk.Iwerk){
+			        aFilterDanWei.push(oDataDanWei[l]);
+			    }
+			}
+		    oLocalModel.setProperty("/DanWei",aFilterDanWei);
+		}
+		
+		oLocalModel.setProperty("/Iwerk",UserIwerk.Iwerk);
+		oLocalModel.setProperty("/BiaoJi","Query");
+		oLocalModel.setProperty("/Ztype","");
+		oLocalModel.setProperty("/Peoid","");
+		oLocalModel.setProperty("/Appdep","");
+		oLocalModel.setProperty("/SPlace","");
+		oLocalModel.setProperty("/SCont","");
+		oLocalModel.setProperty("/Crdate","");
+		sap.ui.getCore().setModel(oLocalModel);
+	   sap.ui.getCore().byId("idBillApp").app.to("idGongzuoPiaoQueryPage");
+
+	   
+//>>>>>>> branch 'master' of https://github.com/xiaowangren/OffLineCreateBill
 	}
 });
