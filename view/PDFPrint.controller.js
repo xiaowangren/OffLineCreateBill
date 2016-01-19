@@ -34,6 +34,24 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 //	onExit: function() {
 //
 //	}
+    onGetIwerkText:function(Iwerk){
+        var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+        var werks = oStorage.get("ZPMOFFLINE_SRV.WERKS");
+        for(var i=0;i<werks.length;i++){
+            if(werks[i].Iwerk == Iwerk){
+                return werks[i].Name1;
+            }
+        }
+    },
+    onGetTicketTypeText:function(Ztype){
+        var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+        var oTickets = oStorage.get("ZPMOFFLINE_SRV.TicketType");
+        for(var i=0;i<oTickets.length;i++){
+            if(oTickets[i].Ztype == Ztype){
+                return oTickets[i].Ztypedes;
+            }
+        }
+    },
     getByteLen:function(val){ 
         //计算按半角为一个字符的长度，汉字算长度2
         var len = 0; 
@@ -72,174 +90,222 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 // SRK	热控典型工作票
 
     onPrintGzp_DCC:function(modelData){
-        if(modelData == undefined){
-            modelData = this.getView().getModel("BillCreateInfoPage").getData();
-        }
-        var payLoad = modelData;
-        //console.log(payLoad);
-        var dianQiGongChang = this.onGetIwerkText(payLoad.Iwerk);
-        if(!(dianQiGongChang == undefined)){
-            console.log(dianQiGongChang);
-            dianQiGongChang = dianQiGongChang.replace(/物资工厂/, '');
-        }
-        var dianQiLeiXing = this.onGetTicketTypeText(payLoad.Ztype);
-        var dianQiCaoZuoPiaoHao = payLoad.Zczph;
-        if(payLoad.Otype=='1'){
-            var caoZuoLeiXing ="单人操作";
-        }else if(payLoad.Otype=='2'){
-            var caoZuoLeiXing ="监护操作";
-        }
-        var Ztasktmp=payLoad.Ztask.replace(/\n/g,'');       //操作任务
-        var taskLen = this.getByteLen(Ztasktmp);
-        if(taskLen <= 62){
-            Ztasktmp = Ztasktmp +"\n \n ";
-        }else if(taskLen <= 134){
-            Ztasktmp = Ztasktmp + "\n ";
-        }
-        //操作票内容
-        var InfoTab = payLoad.InfoTab;
-        var tableDataNew =[];
-        for(var i=0;i<InfoTab.length;i++){
-            InfoTab[i].Zxh = ""+InfoTab[i].Zxh;
-            if((InfoTab[i].Zzysx.trim()=="")&&(InfoTab[i].Zxh.trim()=="")&&(InfoTab[i].Zcznr.trim()=="")){
-            }else{
-                tableDataNew.push(InfoTab[i]); 
-            }
-        }
-        
-        var oBody = [
-        	[{ text: '√', style: 'tableHeader', alignment: 'center' },
-			    { text: '序号', style: 'tableHeader', alignment: 'center' }, 
-			    { text: '操作内容', style: 'tableHeader', alignment: 'center' },
-			    { text: '注意事项', style: 'tableHeader', alignment: 'center' }
-			]
-	   ];
-	   for(var i=0;i<tableDataNew.length;i++){
-	       var l_seq = tableDataNew[i].Zxh.replace(/^0+/,'');            //操作票序号 去除前导零
-	        var Zcznr = tableDataNew[i].Zcznr;
-            var Zcznrtmp=Zcznr.replace(/\n/g,'');       //操作内容
-            var Zzysx = tableDataNew[i].Zzysx;
-            var Zzysxtmp=Zzysx.replace(/\n/g,'');       //注意事项
-  		    var line = ['', {text:l_seq, alignment:'center'}, Zcznrtmp,Zzysxtmp];
-		    oBody.push(line);
-	   }
-        var tableEnd = [{text:'备注:\n \n \n ',colSpan: 4},{},{},{}];
-        oBody.push(tableEnd);
-        
-        //Document内容，主表在上方已经组装
         var docDefinition = {
-            header: function(currentPage, pageCount) {
-                // you can apply any logic and return any valid pdfmake element
-                var Header = [{ text: dianQiGongChang+'\n'+dianQiLeiXing, style: 'header',alignment: 'center' }];
-                
-                if( currentPage == 1 ){
-                    var line1 = {text:'  ',style:'subheader'};
-                    Header.push(line1);
-                }else{
-                    var line1 = {text:'上接：'+dianQiCaoZuoPiaoHao+'-'+(currentPage-1),style:'subheader'};
-                    Header.push(line1);
-                }
-                var line2 = {text:'编号：'+dianQiCaoZuoPiaoHao+'-'+currentPage,style:'subheader',alignment:'right'};
-                Header.push(line2);
-                // console.log(Header);
-                var headTableBody = [];
-                if(pageCount == 1){
-                    var headTableLine1 = [{ text: '操作开始时间：     年     月     日     时     分\n操作结束时间：     年     月     日     时     分', style: 'tableHeader', alignment: 'left' }];
-                    headTableBody.push(headTableLine1);
-                }else if(currentPage == 1 && pageCount>1){
-                    var headTableLine1 = [{ text: '操作开始时间：     年     月     日     时     分\n ', style: 'tableHeader', alignment: 'left' }];
-                    headTableBody.push(headTableLine1);
-                }else if(currentPage == pageCount && pageCount>1){
-                    var headTableLine1 = [{ text: '操作结束时间：     年     月     日     时     分\n ', style: 'tableHeader', alignment: 'left' }];
-                    headTableBody.push(headTableLine1);
-                }else{
-                    var headTableLine1 = [{ text: '  \n  ', style: 'tableHeader', alignment: 'left' }];
-                    headTableBody.push(headTableLine1);
-                }
-                var headTableLine2 = [{ text: '操作任务：'+Ztasktmp, style: 'taskHeader',  alignment: 'left' }];
-                headTableBody.push(headTableLine2);
-                var table =  [               {
-                    style: 'headTable',
-					color: '#444',
-					table: { 
-					    	widths: ['100%'],
-					    	body:headTableBody
-					}
-                }];
-                Header.push(table);
-                return Header;
-                // return { text: 'simple text', alignment: (currentPage % 2) ? 'left' : 'right' };
-              },
-            footer: function(currentPage, pageCount) { 
-                  if(currentPage < pageCount){
-                      var footer = {text:'下接:'+dianQiCaoZuoPiaoHao+'-'+(currentPage+1),style:'subheader',alignment:'right'};
-                  }
-                  return footer; 
-                 
-            },
-            pageMargins: [ 40, 187, 40, 60 ],        //页面边距，对Header不起作用
+            pageMargins: [ 40, 60, 40, 60 ],        //页面边距，对Header不起作用
             content: [
                 {
-                    style: 'bodyTable',
-					color: '#444',
-					table: { 
-					    	widths: ['16.67%','16.67%','16.67%','16.67%','16.67%','16.67%'],
-					    	body:[  //发令人和操作类型两行，固定行
-                                [{ text: '发令人\n  \n  ', style: 'tableHeader', alignment: 'left' },'',{text:'受令人'},'',{text:'发令时间'},{text:'________年\n___月___日\n___时___分',alignment:'right'}],
-                                [{ text: '操作类型\n  \n  ', style: 'tableHeader', colSpan:3, alignment: 'left' },{},{},
-                                 { text: caoZuoLeiXing, style: 'tableHeader',  colSpan:3, alignment: 'left' },{},{}
-                                ]
-                    		]
-					}
-                },
-				{
-					style: 'bodyTable',
-					color: '#444',
 					table: {
-							widths: [20,25, 320, '*'],
-							headerRows: 1,
-							keepWithHeaderRows: 1,
-							//dontBreakRows: true,
-							body: oBody                     //动态组装主表内容
+							widths: ['20%','60%','20%'],
+							body: [
+        							[ '', {text: "浙江浙能兰溪发电有限公司"+'\n'+"电除尘检修专用工作票\n ", style: 'header'},
+        							    [
+        							        {
+                            					table: {
+                            							body: [[{text:'盖 “已执行” 章',style:'smallText'}]]
+                            					}
+            							    },
+            							    '\n',
+            							    {
+                            					table: {
+                            							body: [[{text:'盖“全部结束”章',style:'smallText'}]]
+                            					}
+            							    }
+        							    ]
+        							]
+							]
+					},
+					layout: 'noBorders'
+				},
+                {text:'编号：DCC_2081_151203_001',style:'subheader',alignment:'right'},
+                {
+				// 	style: 'bodyTable',
+					table: {
+							headerRows: 0,
+							widths: ['2%','48%','50%'],
+							body: [
+									[ '1.',{text:[ '工作单位：',{text: this.getUnderLineText("设备管理部", 28),style:'underLineText'}]}, {text:[ '帮组：',{text: this.getUnderLineText("集控运行", 34),style:'underLineText'}]} ],
+									[ '', {text:[ '工作负责人：',{text: this.getUnderLineText("楼伟伟", 26),style:'underLineText'}]},{text:[ '联系方式：',{text: this.getUnderLineText("1234567890", 30),style:'underLineText'}]} ],
+									[ '', {text:['工作班组成员（不包含工作负责人）',{text:this.getUnderLineText("A", 116),style:'underLineText'},
+									        '等共',{text:this.getUnderLineText("2", 2),style:'underLineText'},'人，附页',{text:this.getUnderLineText("0", 2),style:'underLineText'},'张'],colSpan:2}, {} ],
+									[ '2.', {text:[ '工作地点：',{text: this.getUnderLineText("ASDFASD", 73),style:'underLineText'}],colSpan:2}, {}],
+									[ '', {text:[ '工作内容：',{text: this.getUnderLineText("ASDFASD", 73),style:'underLineText'}],colSpan:2}, {}],
+									[ '3.', {text:[ '工作计划开始时间：',
+									        {text: this.getUnderLineText("2015", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("12", 2),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("03", 2),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("08", 2),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("05", 2),style:'underLineText'},'分'],colSpan:2}, {}],
+									[ '', {text:[ '工作计划完成时间：',
+									        {text: this.getUnderLineText("2015", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("12", 2),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("03", 2),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("11", 2),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("00", 2),style:'underLineText'},'分'],colSpan:2}, {}],
+        							[ '4.', {text:'安全措施（集控部分）',colSpan:2}, {}]
+							]
+					},
+					layout: 'noBorders'
+				},
+                {
+					style: 'bodyTable',
+					table: {
+							headerRows: 0,
+							widths: ['2%','58%','40%'],
+							body: [
+									[ '一',{text:'必须采取的安全措施',style:'tableHeader',alignment:'center'}, {text: '安措执行情况',style:'tableHeader', alignment:'center'}],
+									[ '1', {text:'asdfasdfasdf'},{text:'asdfasdfasdfasdf'} ],
+									[ '二',{text:'应装接地线，应合接地闸刀（注明确实地点和名称）',style:'tableHeader',alignment:'center'}, {text: '安措执行情况\n（注明确实地点、名称及接地线编号）',style:'tableHeader', alignment:'center'}],
+									[ '1', {text:'asdfasdfasdf'},{text:'asdfasdfasdfasdf'} ]
+							]
 					}
 				},
-				{text:"操作人：          监护人：            值班负责人：            值长：(根据需要) "}
+				{
+				// 	style: 'bodyTable',
+					table: {
+							widths: ['2%','48%','50%'],
+							body: [
+        							[ '5.', {text:'集控补充安全措施',colSpan:2}, {}]
+							]
+					},
+					layout: 'noBorders'
+				},
+				{
+					style: 'bodyTable',
+					table: {
+							widths: ['2%','58%','40%'],
+							body: [
+									[ '序号',{text:'集控运行值班人员补充的安全措施',style:'tableHeader',alignment:'center'}, {text: '补充安措执行情况',style:'tableHeader', alignment:'center'}],
+									[ '1', {text:'asdfasdfasdf'},{text:'asdfasdfasdfasdf'} ]
+							]
+					}
+				},
+				{
+				// 	style: 'bodyTable',
+					table: {
+							widths: ['2%','48%','50%'],
+							body: [
+        							[ '6.', {text:'安全措施（环保部分）',colSpan:2}, {}]
+							]
+					},
+					layout: 'noBorders'
+				},
+                {
+					style: 'bodyTable',
+					table: {
+							headerRows: 0,
+							widths: ['2%','58%','40%'],
+							body: [
+									[ '一',{text:'必须采取的安全措施',style:'tableHeader',alignment:'center'}, {text: '安措执行情况',style:'tableHeader', alignment:'center'}],
+									[ '1', {text:'asdfasdfasdf'},{text:'asdfasdfasdfasdf'} ],
+									[ '二',{text:'应装接地线，应合接地闸刀（注明确实地点和名称）',style:'tableHeader',alignment:'center'}, {text: '安措执行情况\n（注明确实地点、名称及接地线编号）',style:'tableHeader', alignment:'center'}],
+									[ '1', {text:'asdfasdfasdf'},{text:'asdfasdfasdfasdf'} ]
+							]
+					}
+				},
+				{
+				// 	style: 'bodyTable',
+					table: {
+							widths: ['2%','48%','50%'],
+							body: [
+        							[ '7.', {text:'环保补充安全措施',colSpan:2}, {}]
+							]
+					},
+					layout: 'noBorders'
+				},
+				{
+					style: 'bodyTable',
+					table: {
+							widths: ['2%','58%','40%'],
+							body: [
+									[ '序号',{text:'环保运行值班人员补充的安全措施',style:'tableHeader',alignment:'center'}, {text: '补充安措执行情况',style:'tableHeader', alignment:'center'}],
+									[ '1', {text:'asdfasdfasdf'},{text:'asdfasdfasdfasdf'} ]
+							]
+					}
+				},
+				{
+				    // style: 'bodyTable',
+					table: {
+							widths: ['2%','48%','50%'],
+							body: [
+        							[ '8.', {text:[ '工作票签发人：',{text: this.getUnderLineText("", 24),style:'underLineText'}]}, {text:[ '签发时间：',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}],
+        						    [ '9.', {text:[ '集控接票人：',{text: this.getUnderLineText("", 26),style:'underLineText'}]}, {text:[ '接票时间：',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}],
+        						    [ '', {text:[ '环保接票人：',{text: this.getUnderLineText("", 26),style:'underLineText'}]}, {text:[ '接票时间：',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}],
+        							[ '', {text:[ '批准工作开始时间：',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:2}, {}],
+									[ '', {text:[ '批准工作结束时间：',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:2}, {}],
+        							[ '9.', {text:[ '值长：',{text: this.getUnderLineText("", 32),style:'underLineText'}]}, {text:[ '签字时间：',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}]
+							]
+					},
+					layout: 'noBorders'
+				}
 			],
 			styles: {
         		header: {
         			fontSize: 18,
         			bold: false,
         			alignment: 'center',
-        			color: 'black',
-        			margin: [0, 40, 0, 10]
+        			color: 'black'
+        // 			margin: [0, 10, 0, 15]
         		},
         		subheader: {
         			fontSize: 12,
         			bold: false,
-        			margin: [40, 0, 40, 0]
-        		},
-        		headTable: {
-        		    fontSize: 12,
-        			margin: [40, 0,40, 0]
+        			margin: [40, 0, 10, 10]
         		},
         		bodyTable: {
         		    fontSize: 12,
-        			margin: [0, 0, 0, 0]
+        			margin: [0, 0, 0, 10]
         		},
         		tableHeader: {
         			bold: false,
-        			fontSize: 12,
-        			color: 'black'
-        		},
-        		taskHeader: {
-        			bold: false,
         			fontSize: 14,
         			color: 'black'
+        		},
+        		smallText: {
+        			bold: false,
+        			fontSize: 10,
+        			color: 'black'
+        		},
+        		underLineText: {
+        			fontSize: 12,
+        			bold: false,
+        			margin: [0, 3, 0, 5],
+        			decoration: 'underline'
+        // 			width:'100px'
         		}
         	},
             defaultStyle: {
                 font: 'simfang'
-              }
+            }
         };
 	    pdfMake.fonts = {
            simfang: {
@@ -250,10 +316,254 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
            }
         };
         // open the PDF in a new window
-         window.pdfMake.createPdf(docDefinition).open();
+         pdfMake.createPdf(docDefinition).open();
         // print the PDF (not working in this version, will be added back in a couple of days)
         // pdfMake.createPdf(docDefinition).print();
         // download the PDF
         // window.pdfmake.createPdf(docDefinition).download();
+    },
+    onPrintPdfmake:function(){
+       // playground requires you to assign document definition to a variable called dd
+
+        var docDefinition = {
+        	content: [
+        				{ text: 'Tables', style: 'header' },
+        				'Official documentation is in progress, this document is just a glimpse of what is possible with pdfmake and its layout engine.',
+        				{ text: 'A simple table (no headers, no width specified, no spans, no styling)', style: 'subheader' },
+        				'The following table has nothing more than a body array',
+        				{
+        						style: 'tableExample',
+        						table: {
+        								body: [
+        										['Column 1', 'Column 2', 'Column 3'],
+        										['One value goes here', 'Another one here', 'OK?']
+        								]
+        						}
+        				},
+        				{ text: 'A simple table with nested elements', style: 'subheader' },
+        				'It is of course possible to nest any other type of nodes available in pdfmake inside table cells',
+        				{
+        						style: 'tableExample',
+        						table: {
+        								body: [
+        										['Column 1', 'Column 2', 'Column 3'],
+        										[
+        												{
+        														stack: [
+        																'Let\'s try an unordered list',
+        																{
+        																		ul: [
+        																				'item 1',
+        																				'item 2'
+        																		]
+        																}
+        														]
+        												},
+        												[
+        													'or a nested table',
+        													{
+        														table: {
+        															body: [
+        																[ 'Col1', 'Col2', 'Col3'],
+        																[ '1', '2', '3'],
+        																[ '1', '2', '3']
+        															]
+        														},
+        													}
+        												],
+        												{ text: [
+        														'Inlines can be ',
+        														{ text: 'styled\n', italics: true },
+        														{ text: 'easily as everywhere else', fontSize: 10 } ]
+        												}
+        										]
+        								]
+        						}
+        				},
+        				{ text: 'Defining column widths', style: 'subheader' },
+        				'Tables support the same width definitions as standard columns:',
+        				{
+        						bold: true,
+        						ul: [
+        								'auto',
+        								'star',
+        								'fixed value'
+        						]
+        				},
+        				{
+        						style: 'tableExample',
+        						table: {
+        								widths: [100, '*', 200, '*'],
+        								body: [
+        										[ 'width=100', 'star-sized', 'width=200', 'star-sized'],
+        										[ 'fixed-width cells have exactly the specified width', { text: 'nothing interesting here', italics: true, color: 'gray' }, { text: 'nothing interesting here', italics: true, color: 'gray' }, { text: 'nothing interesting here', italics: true, color: 'gray' }]
+        								]
+        						}
+        				},
+        				{ text: 'Headers', style: 'subheader' },
+        				'You can declare how many rows should be treated as a header. Headers are automatically repeated on the following pages',
+        				{ text: [ 'It is also possible to set keepWithHeaderRows to make sure there will be no page-break between the header and these rows. Take a look at the document-definition and play with it. If you set it to one, the following table will automatically start on the next page, since there\'s not enough space for the first row to be rendered here' ], color: 'gray', italics: true },
+        				{
+        						style: 'tableExample',
+        						table: {
+        								headerRows: 1,
+        								// keepWithHeaderRows: 1,
+        								// dontBreakRows: true,
+        								body: [
+        										[{ text: 'Header 1', style: 'tableHeader' }, { text: 'Header 2', style: 'tableHeader' }, { text: 'Header 3', style: 'tableHeader' }],
+        										[
+        												'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+        										]
+        								]
+        						}
+        				},
+        				{ text: 'Column/row spans', style: 'subheader' },
+        				'Each cell-element can set a rowSpan or colSpan',
+        				{
+        						style: 'tableExample',
+        						color: '#444',
+        						table: {
+        								widths: [ 200, 'auto', 'auto' ],
+        								headerRows: 2,
+        								// keepWithHeaderRows: 1,
+        								body: [
+        										[{ text: 'Header with Colspan = 2', style: 'tableHeader', colSpan: 2, alignment: 'center' }, {}, { text: 'Header 3', style: 'tableHeader', alignment: 'center' }],
+        										[{ text: 'Header 1', style: 'tableHeader', alignment: 'center' }, { text: 'Header 2', style: 'tableHeader', alignment: 'center' }, { text: 'Header 3', style: 'tableHeader', alignment: 'center' }],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ { rowSpan: 3, text: 'rowSpan set to 3\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor' }, 'Sample value 2', 'Sample value 3' ],
+        										[ '', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', { colSpan: 2, rowSpan: 2, text: 'Both:\nrowSpan and colSpan\ncan be defined at the same time' }, '' ],
+        										[ 'Sample value 1', '', '' ],
+        								]
+        						}
+        				},
+        				{ text: 'Styling tables', style: 'subheader' },
+        				'You can provide a custom styler for the table. Currently it supports:',
+        				{
+        						ul: [
+        								'line widths',
+        								'line colors',
+        								'cell paddings',
+        						]
+        				},
+        				'with more options coming soon...\n\npdfmake currently has a few predefined styles (see them on the next page)',
+        				{ text: 'noBorders:', fontSize: 14, bold: true, pageBreak: 'before', margin: [0, 0, 0, 8] },
+        				{
+        						style: 'tableExample',
+        						table: {
+        								headerRows: 1,
+        								body: [
+        										[{ text: 'Header 1', style: 'tableHeader' }, { text: 'Header 2', style: 'tableHeader'}, { text: 'Header 3', style: 'tableHeader' }],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        								]
+        						},
+        						layout: 'noBorders'
+        				},
+        				{ text: 'headerLineOnly:', fontSize: 14, bold: true, margin: [0, 20, 0, 8] },
+        				{
+        						style: 'tableExample',
+        						table: {
+        								headerRows: 1,
+        								body: [
+        										[{ text: 'Header 1', style: 'tableHeader' }, { text: 'Header 2', style: 'tableHeader'}, { text: 'Header 3', style: 'tableHeader' }],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        								]
+        						},
+        						layout: 'headerLineOnly'
+        				},
+        				{ text: 'lightHorizontalLines:', fontSize: 14, bold: true, margin: [0, 20, 0, 8] },
+        				{
+        						style: 'tableExample',
+        						table: {
+        								headerRows: 1,
+        								body: [
+        										[{ text: 'Header 1', style: 'tableHeader' }, { text: 'Header 2', style: 'tableHeader'}, { text: 'Header 3', style: 'tableHeader' }],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        								]
+        						},
+        						layout: 'lightHorizontalLines'
+        				},
+        								{ text: 'but you can provide a custom styler as well', margin: [0, 20, 0, 8] },
+        								{
+        						style: 'tableExample',
+        						table: {
+        								headerRows: 1,
+        								body: [
+        										[{ text: 'Header 1', style: 'tableHeader' }, { text: 'Header 2', style: 'tableHeader'}, { text: 'Header 3', style: 'tableHeader' }],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
+        								]
+        						},
+        						layout: {
+        														hLineWidth: function(i, node) {
+        																return (i === 0 || i === node.table.body.length) ? 2 : 1;
+        														},
+        														vLineWidth: function(i, node) {
+        																return (i === 0 || i === node.table.widths.length) ? 2 : 1;
+        														},
+        														hLineColor: function(i, node) {
+        																return (i === 0 || i === node.table.body.length) ? 'black' : 'gray';
+        														},
+        														vLineColor: function(i, node) {
+        																return (i === 0 || i === node.table.widths.length) ? 'black' : 'gray';
+        														},
+        														// paddingLeft: function(i, node) { return 4; },
+        														// paddingRight: function(i, node) { return 4; },
+        														// paddingTop: function(i, node) { return 2; },
+        														// paddingBottom: function(i, node) { return 2; }
+        						}
+        				}
+        	],
+        	styles: {
+        		header: {
+        			fontSize: 18,
+        			bold: true,
+        			margin: [0, 0, 0, 10]
+        		},
+        		subheader: {
+        			fontSize: 16,
+        			bold: true,
+        			margin: [0, 10, 0, 5]
+        		},
+        		tableExample: {
+        			margin: [0, 5, 0, 15]
+        		},
+        		tableHeader: {
+        			bold: true,
+        			fontSize: 13,
+        			color: 'black'
+        		}
+        	},
+            defaultStyle: {
+                font: 'simfang'
+              }
+        	
+        };
+       	pdfMake.fonts = {
+           simfang: {
+             normal: 'simfang.ttf',
+             bold: 'simfang.ttf',
+             italics: 'simfang.ttf',
+             bolditalics: 'simfang.ttf'
+           }
+        };
+        // open the PDF in a new window
+         pdfMake.createPdf(docDefinition).open(); 
     }
 });

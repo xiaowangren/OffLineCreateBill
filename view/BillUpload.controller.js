@@ -185,6 +185,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
         	    payLoad.Cdata = tmpDate.substring(0,4) + tmpDate.substring(5,7) + tmpDate.substring(8,10);
                 //添加创建请求
         	    var createOp = oECCModel.createBatchOperation("/ZPMTOPERSet","POST",payLoad);
+        	    console.log(payLoad);
         	    oECCModel.addBatchChangeOperations([createOp]);
             }else{
                 //改造成不能选择

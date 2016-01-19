@@ -5,6 +5,7 @@
 	<Page title="Title">
 		<content>
 		<Button icon="sap-icon://print"  text="电除尘专用工作票" press="onPrintGzp_DCC"   visible="true"/>
+		<Button icon="sap-icon://print"  text="pdfMake" press="onPrintPdfmake"   visible="true"/>
 		</content>
 	</Page>
 </core:View>
