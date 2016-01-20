@@ -1,5 +1,14 @@
 sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
-
+// DCC	电除尘专用工作票
+// DH1	一级动火工作票
+// DH2	二级动火工作票
+// DQ1	电气第一种工作票
+// DQ2	电气第二种工作票
+// JBP	继电保护工作票
+// JXD	检修作业通知单
+// QXD	事故抢修单
+// RJP	热力机械工作票
+// RKP	热控工作票
 /**
 * Called when a controller is instantiated and its View controls (if available) are already created.
 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
@@ -72,26 +81,13 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         }
         return text;
     },
-// DCC	电除尘专用工作票
-// DH1	一级动火工作票
-// DH2	二级动火工作票
-// DQ1	电气第一种工作票
-// DQ2	电气第二种工作票
-// JBP	继电保护工作票
-// JXD	检修作业通知单
-// QXD	事故抢修单
-// RJP	热力机械工作票
-// RKP	热控工作票
-// SCC	电除尘专用典型工作票
-// SD1	电气第一种典型工作票
-// SD2	电气第二种典型工作票
-// SJB	继电保护典型工作票
-// SRJ	热力机械典型工作票
-// SRK	热控典型工作票
 
+
+
+// DCC	电除尘专用工作票
     onPrintGzp_DCC:function(modelData){
         var docDefinition = {
-            pageMargins: [ 40, 60, 40, 60 ],        //页面边距，对Header不起作用
+            pageMargins: [ 40, 60, 40, 60 ],        //页面边距
             content: [
                 {
 					table: {
@@ -153,9 +149,9 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 							widths: ['2%','58%','40%'],
 							body: [
 									[ '一',{text:'必须采取的安全措施',style:'tableHeader',alignment:'center'}, {text: '安措执行情况',style:'tableHeader', alignment:'center'}],
-									[ '1', {text:'asdfasdfasdf'},{text:'asdfasdfasdfasdf'} ],
+									[ '1', {text:''},{text:''} ],
 									[ '二',{text:'应装接地线，应合接地闸刀（注明确实地点和名称）',style:'tableHeader',alignment:'center'}, {text: '安措执行情况\n（注明确实地点、名称及接地线编号）',style:'tableHeader', alignment:'center'}],
-									[ '1', {text:'asdfasdfasdf'},{text:'asdfasdfasdfasdf'} ]
+									[ '1', {text:''},{text:''} ]
 							]
 					}
 				},
@@ -175,7 +171,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 							widths: ['2%','58%','40%'],
 							body: [
 									[ '序号',{text:'集控运行值班人员补充的安全措施',style:'tableHeader',alignment:'center'}, {text: '补充安措执行情况',style:'tableHeader', alignment:'center'}],
-									[ '1', {text:'asdfasdfasdf'},{text:'asdfasdfasdfasdf'} ]
+									[ '1', {text:''},{text:''} ]
 							]
 					}
 				},
@@ -196,9 +192,9 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 							widths: ['2%','58%','40%'],
 							body: [
 									[ '一',{text:'必须采取的安全措施',style:'tableHeader',alignment:'center'}, {text: '安措执行情况',style:'tableHeader', alignment:'center'}],
-									[ '1', {text:'asdfasdfasdf'},{text:'asdfasdfasdfasdf'} ],
+									[ '1', {text:''},{text:''} ],
 									[ '二',{text:'应装接地线，应合接地闸刀（注明确实地点和名称）',style:'tableHeader',alignment:'center'}, {text: '安措执行情况\n（注明确实地点、名称及接地线编号）',style:'tableHeader', alignment:'center'}],
-									[ '1', {text:'asdfasdfasdf'},{text:'asdfasdfasdfasdf'} ]
+									[ '1', {text:''},{text:''} ]
 							]
 					}
 				},
@@ -218,7 +214,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 							widths: ['2%','58%','40%'],
 							body: [
 									[ '序号',{text:'环保运行值班人员补充的安全措施',style:'tableHeader',alignment:'center'}, {text: '补充安措执行情况',style:'tableHeader', alignment:'center'}],
-									[ '1', {text:'asdfasdfasdf'},{text:'asdfasdfasdfasdf'} ]
+									[ '1', {text:''},{text:''} ]
 							]
 					}
 				},
@@ -262,45 +258,184 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}]
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}],
+									[ '10.', {text:[ '上述集控安全措施已全部执行完毕，核对无误，从',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分许可工作'],colSpan:2}, {}],
+        							[ '',{text:[ '集控工作许可人：',{text: this.getUnderLineText("", 22),style:'underLineText'}]},
+        							     {text:[ '工作负责人：',{text: this.getUnderLineText("", 28),style:'underLineText'}]}],
+									[ '11.', {text:[ '上述环保安全措施已全部执行完毕，核对无误，从',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分许可工作'],colSpan:2}, {}],
+        							[ '',{text:[ '环保工作许可人：',{text: this.getUnderLineText("", 22),style:'underLineText'}]},
+        							     {text:[ '工作负责人：',{text: this.getUnderLineText("", 28),style:'underLineText'}]}],
+        							[ '12.', {text:'确认工作负责人布置的工作任务和安全措施：',colSpan:2}, {}],
+        							[ '', {text:[ '工作组成员签名：',{text: this.getUnderLineText("", 67),style:'underLineText'}],colSpan:2}, {}],
+        							[ '13.', {text:'确认工作负责人变更：',colSpan:2}, {}],
+        							[ '', {text:[ '自',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分原工作负责人',
+        									{text: this.getUnderLineText("", 14),style:'underLineText'},'离去，变更',
+        									{text: this.getUnderLineText("", 14),style:'underLineText'}],colSpan:2}, {}],
+        						    [ '', {text:[ '为工作负责人，变更后工作负责人联系方式：',{text: this.getUnderLineText("", 43),style:'underLineText'}],colSpan:2}, {}],
+							        [ '',{text:[ '工作票签发人：',{text: this.getUnderLineText("", 12),style:'underLineText'},
+							             '环保工作许可人：',{text: this.getUnderLineText("", 12),style:'underLineText'},
+        							     '集控工作许可人：',{text: this.getUnderLineText("", 12),style:'underLineText'}],colSpan:2}, {}],
+        							[ '14.', {text:[ '工作人员变动情况（变动人员姓名、日期及时间）：',{text: this.getUnderLineText("", 37),style:'underLineText'}],colSpan:2}, {}],
+        							[ '', {text:[ '工作负责人签名：',{text: this.getUnderLineText("", 67),style:'underLineText'}],colSpan:2}, {}],
+        							[ '15.', {text:'工作票延期：',colSpan:2}, {}],
+        							[ '', {text:[ '有效期延长到：',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分      工作签发人：',
+        									{text: this.getUnderLineText("", 14),style:'underLineText'}],colSpan:2}, {}],
+        							[ '',{text:[ '值长：',{text: this.getUnderLineText("", 34),style:'underLineText'}]},
+        							     {text:[ '工作负责人：',{text: this.getUnderLineText("", 28),style:'underLineText'}]}],
+        							[ '16.', {text:'根据工作需要，工作票押回运行保管：',colSpan:2}, {}]
+							]
+					},
+					layout: 'noBorders'
+				},
+				{
+					style: 'bodyTable',
+					table: {
+							widths: ['30%','18%','18%','18%','16%'],
+							body: [
+									[ {text:'工作票交回运行人员时间',alignment:'center'},
+									  {text:'集控工作许可人',alignment:'center'},
+									  {text: '环保工作许可人', alignment:'center'},
+									  {text: '工作负责人', alignment:'center'},
+									  {text: '押回原因', alignment:'center'}],
+									[ '\n', {text:''},{text:''},'',''],
+									[ '\n', {text:''},{text:''},'',''],
+									[ '\n', {text:''},{text:''},'',''],
+									[ '\n', {text:''},{text:''},'',''],
+									[ '\n', {text:''},{text:''},'','']
+							]
+					}
+				},
+				{
+					table: {
+							widths: ['2%','48%','50%'],
+							body: [
+        							[ '17.', {text:'根据工作需要，工作票所列安全措施已全部执行，可重新工作：',colSpan:2}, {}]
+							]
+					},
+					layout: 'noBorders'
+				},
+				{
+					style: 'bodyTable',
+					table: {
+							widths: ['30%','18%','18%','18%','16%'],
+							body: [
+									[ {text:'允许恢复工作时间',alignment:'center'},
+									  {text:'集控工作许可人',alignment:'center'},
+									  {text: '环保工作许可人', alignment:'center'},
+									  {text: '工作负责人', alignment:'center'},
+									  {text: '工作重新许可原因', alignment:'center'}],
+									[ '\n', {text:''},{text:''},'',''],
+									[ '\n', {text:''},{text:''},'',''],
+									[ '\n', {text:''},{text:''},'',''],
+									[ '\n', {text:''},{text:''},'',''],
+									[ '\n', {text:''},{text:''},'','']
+							]
+					}
+				},
+				{
+					table: {
+							widths: ['2%','48%','50%'],
+							body: [
+        							[ '18.', {text:'工作终结：',colSpan:2}, {}],
+        							[ '', {text:[ '全部工作于',
+							        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+									{text: this.getUnderLineText("", 4),style:'underLineText'},'分结束，设备及安全措施已恢复至开工状态，'],colSpan:2}, {}],
+									[ '', {text:'工作人员已全部撤离，材料工具已清理完毕，电除尘人孔门已全部关闭。',colSpan:2}, {}],
+									[ '', {text:[ '工作负责人：',{text: this.getUnderLineText("", 26),style:'underLineText'}]}, {text:[ '时间：',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}],
+        							[ '', {text:[ '环保工作许可人：',{text: this.getUnderLineText("", 22),style:'underLineText'}]}, {text:[ '时间：',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}],
+									[ '', {text:[ '集控工作许可人：',{text: this.getUnderLineText("", 22),style:'underLineText'}]}, {text:[ '时间：',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}],
+        							[ '19.', {text:'工作票终结：',colSpan:2}, {}],
+        							[ '', {text:[ '临时遮挡、标示牌已拆除，常设遮栏已恢复。已拆除（或已拉开）的接地线、接地闸刀（小车）共：',{text: this.getUnderLineText("", 8),style:'underLineText'},
+        							              '副（台），已汇报值班负责人。'],colSpan:2}, {}],
+        							[ '', {text:[ '拆除时间：',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:2},{}],
+        							[ '',{text:[ '工作许可人：',{text: this.getUnderLineText("", 28),style:'underLineText'}]},
+        							     {text:[ '值班负责人：',{text: this.getUnderLineText("", 28),style:'underLineText'}]}],
+        							[ '20.', {text:'备注：',colSpan:2}, {}],
+        							[ '', {text:this.getUnderLineText("", 83),style:'underLineText',colSpan:2}, {}],
+        							[ '', {text:this.getUnderLineText("", 83),style:'underLineText',colSpan:2}, {}],
+        							[ '', {text:this.getUnderLineText("", 83),style:'underLineText',colSpan:2}, {}],
+        							[ '', {text:this.getUnderLineText("", 83),style:'underLineText',colSpan:2}, {}],
+        							[ '', {text:this.getUnderLineText("", 83),style:'underLineText',colSpan:2}, {}]
 							]
 					},
 					layout: 'noBorders'
 				}
 			],
 			styles: {
-        		header: {
+        		header: {//大标题
         			fontSize: 18,
         			bold: false,
         			alignment: 'center',
-        			color: 'black'
-        // 			margin: [0, 10, 0, 15]
+        			color: 'black',
+        			margin: [0, 10, 0, 15]      //表格里不生效
         		},
-        		subheader: {
-        			fontSize: 12,
-        			bold: false,
-        			margin: [40, 0, 10, 10]
-        		},
-        		bodyTable: {
-        		    fontSize: 12,
-        			margin: [0, 0, 0, 10]
-        		},
-        		tableHeader: {
-        			bold: false,
-        			fontSize: 14,
-        			color: 'black'
-        		},
-        		smallText: {
+        		smallText: {//右上角印章文字
         			bold: false,
         			fontSize: 10,
         			color: 'black'
         		},
-        		underLineText: {
+        		subheader: {//普通文本编号
         			fontSize: 12,
         			bold: false,
-        			margin: [0, 3, 0, 5],
+        			margin: [0, 0, 10, 10]
+        		},
+        		underLineText: {//下划线文本
+        			fontSize: 12,
+        			bold: false,
+        // 			margin: [0, 3, 0, 5],
         			decoration: 'underline'
-        // 			width:'100px'
+        		},
+        		bodyTable: {//表格格式，主要是结束的margin
+        		    fontSize: 12,
+        			margin: [0, 0, 0, 10]
+        		},
+        		tableHeader: {//14号字的表格内容
+        			bold: false,
+        			fontSize: 14,
+        			color: 'black'
         		}
         	},
             defaultStyle: {
@@ -322,240 +457,111 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         // download the PDF
         // window.pdfmake.createPdf(docDefinition).download();
     },
-    onPrintPdfmake:function(){
-       // playground requires you to assign document definition to a variable called dd
-
+    onPrintGZPDanger:function(modelData){
+        //工作票危险点
         var docDefinition = {
-        	content: [
-        				{ text: 'Tables', style: 'header' },
-        				'Official documentation is in progress, this document is just a glimpse of what is possible with pdfmake and its layout engine.',
-        				{ text: 'A simple table (no headers, no width specified, no spans, no styling)', style: 'subheader' },
-        				'The following table has nothing more than a body array',
-        				{
-        						style: 'tableExample',
-        						table: {
-        								body: [
-        										['Column 1', 'Column 2', 'Column 3'],
-        										['One value goes here', 'Another one here', 'OK?']
-        								]
+            pageMargins: [ 40, 60, 40, 60 ],        //页面边距
+            content: [
+                {text: "浙江浙能兰溪发电有限责任公司"+'\n'+"风险预控措施交底单\n ", style: 'header'},
+				{
+					style: 'bodyTable',
+					table: {
+							widths: ['10%','15%','10%','15%','10%','15%','10%','15%'],
+							body: [[{text:'部门',alignment:'center'},{text:'宁波众茂'},
+									  {text: '班组', alignment:'center'},{text: '电气一班'},
+									  {text: '工作负责人', alignment:'center'},{text: '林李卫'},
+									  {text: '关联工作票号', alignment:'center'},{text: 'DCC_2081_15\n1103_001'}],
+									[ {text:'工作\n内容',alignment:'center'}, {text:'除尘',colSpan:7},{},{},{},{},{},{}],
+									[ {text:'一',alignment:'center'}, {text:'危险源及控制措施',alignment:'center',colSpan:7},{},{},{},{},{},{}],
+									[ {text:'序号',alignment:'center'},{text:'步骤或活动',alignment:'center'},
+									  {text:'危险点',alignment:'center'},{text:'伤害类型',alignment:'center'},
+									  {text:'控制措施',alignment:'center',colSpan:4},{},{},{}],
+									[ {text:'1',alignment:'center'},{text:'地方'},
+									  {text:''},{text:''},
+									  {text:'',colSpan:4},{},{},{}],
+									[ {text:'二',alignment:'center'}, {text:'环境因素及控制措施',alignment:'center',colSpan:7},{},{},{},{},{},{}],
+									[ {text:'序号',alignment:'center'},{text:'步骤或活动',alignment:'center'},
+									  {text:'危险点',alignment:'center'},{text:'危害类型',alignment:'center'},
+									  {text:'控制措施',alignment:'center',colSpan:4},{},{},{}],
+									[ {text:'1',alignment:'center'},{text:'地方'},
+									  {text:''},{text:''},
+									  {text:'',colSpan:4},{},{},{}]
+							]
+					}
+				},
+				{
+				    style:'bodyTable',
+				    table:{
+				        widths: ['9%','91%'],
+				        body:[
+				               [ {text:'防护\n措施',alignment:'center'},
+    							   {
+                					table: {
+                					    width:['10%','15%','10%','15%','10%','15%','*'],
+                						body: [
+                						    [{text:'\u25a0安全帽'},'\u25a1安全绳','\u25a1安全带','\u25a1绝缘手套','\u25a1绝缘鞋','\u25a1绝缘垫','\u25a1手套'],
+                						    [{text:'\u25a0验电器'},'\u25a1灭火器','\u25a1耳塞','\u25a1防护眼镜','\u25a1焊接眼镜','\u25a1焊接手套','\u25a1防尘面罩'],
+                						    [{text:'\u25a0防护眼'},'\u25a1呼吸器','\u25a1遮栏','\u25a1梯子','\u25a1其它（）','','']
+                						]
+                					},
+                					layout: 'noBorders'
         						}
-        				},
-        				{ text: 'A simple table with nested elements', style: 'subheader' },
-        				'It is of course possible to nest any other type of nodes available in pdfmake inside table cells',
-        				{
-        						style: 'tableExample',
-        						table: {
-        								body: [
-        										['Column 1', 'Column 2', 'Column 3'],
-        										[
-        												{
-        														stack: [
-        																'Let\'s try an unordered list',
-        																{
-        																		ul: [
-        																				'item 1',
-        																				'item 2'
-        																		]
-        																}
-        														]
-        												},
-        												[
-        													'or a nested table',
-        													{
-        														table: {
-        															body: [
-        																[ 'Col1', 'Col2', 'Col3'],
-        																[ '1', '2', '3'],
-        																[ '1', '2', '3']
-        															]
-        														},
-        													}
-        												],
-        												{ text: [
-        														'Inlines can be ',
-        														{ text: 'styled\n', italics: true },
-        														{ text: 'easily as everywhere else', fontSize: 10 } ]
-        												}
-        										]
-        								]
-        						}
-        				},
-        				{ text: 'Defining column widths', style: 'subheader' },
-        				'Tables support the same width definitions as standard columns:',
-        				{
-        						bold: true,
-        						ul: [
-        								'auto',
-        								'star',
-        								'fixed value'
-        						]
-        				},
-        				{
-        						style: 'tableExample',
-        						table: {
-        								widths: [100, '*', 200, '*'],
-        								body: [
-        										[ 'width=100', 'star-sized', 'width=200', 'star-sized'],
-        										[ 'fixed-width cells have exactly the specified width', { text: 'nothing interesting here', italics: true, color: 'gray' }, { text: 'nothing interesting here', italics: true, color: 'gray' }, { text: 'nothing interesting here', italics: true, color: 'gray' }]
-        								]
-        						}
-        				},
-        				{ text: 'Headers', style: 'subheader' },
-        				'You can declare how many rows should be treated as a header. Headers are automatically repeated on the following pages',
-        				{ text: [ 'It is also possible to set keepWithHeaderRows to make sure there will be no page-break between the header and these rows. Take a look at the document-definition and play with it. If you set it to one, the following table will automatically start on the next page, since there\'s not enough space for the first row to be rendered here' ], color: 'gray', italics: true },
-        				{
-        						style: 'tableExample',
-        						table: {
-        								headerRows: 1,
-        								// keepWithHeaderRows: 1,
-        								// dontBreakRows: true,
-        								body: [
-        										[{ text: 'Header 1', style: 'tableHeader' }, { text: 'Header 2', style: 'tableHeader' }, { text: 'Header 3', style: 'tableHeader' }],
-        										[
-        												'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-        										]
-        								]
-        						}
-        				},
-        				{ text: 'Column/row spans', style: 'subheader' },
-        				'Each cell-element can set a rowSpan or colSpan',
-        				{
-        						style: 'tableExample',
-        						color: '#444',
-        						table: {
-        								widths: [ 200, 'auto', 'auto' ],
-        								headerRows: 2,
-        								// keepWithHeaderRows: 1,
-        								body: [
-        										[{ text: 'Header with Colspan = 2', style: 'tableHeader', colSpan: 2, alignment: 'center' }, {}, { text: 'Header 3', style: 'tableHeader', alignment: 'center' }],
-        										[{ text: 'Header 1', style: 'tableHeader', alignment: 'center' }, { text: 'Header 2', style: 'tableHeader', alignment: 'center' }, { text: 'Header 3', style: 'tableHeader', alignment: 'center' }],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ { rowSpan: 3, text: 'rowSpan set to 3\nLorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor' }, 'Sample value 2', 'Sample value 3' ],
-        										[ '', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', { colSpan: 2, rowSpan: 2, text: 'Both:\nrowSpan and colSpan\ncan be defined at the same time' }, '' ],
-        										[ 'Sample value 1', '', '' ],
-        								]
-        						}
-        				},
-        				{ text: 'Styling tables', style: 'subheader' },
-        				'You can provide a custom styler for the table. Currently it supports:',
-        				{
-        						ul: [
-        								'line widths',
-        								'line colors',
-        								'cell paddings',
-        						]
-        				},
-        				'with more options coming soon...\n\npdfmake currently has a few predefined styles (see them on the next page)',
-        				{ text: 'noBorders:', fontSize: 14, bold: true, pageBreak: 'before', margin: [0, 0, 0, 8] },
-        				{
-        						style: 'tableExample',
-        						table: {
-        								headerRows: 1,
-        								body: [
-        										[{ text: 'Header 1', style: 'tableHeader' }, { text: 'Header 2', style: 'tableHeader'}, { text: 'Header 3', style: 'tableHeader' }],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        								]
-        						},
-        						layout: 'noBorders'
-        				},
-        				{ text: 'headerLineOnly:', fontSize: 14, bold: true, margin: [0, 20, 0, 8] },
-        				{
-        						style: 'tableExample',
-        						table: {
-        								headerRows: 1,
-        								body: [
-        										[{ text: 'Header 1', style: 'tableHeader' }, { text: 'Header 2', style: 'tableHeader'}, { text: 'Header 3', style: 'tableHeader' }],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        								]
-        						},
-        						layout: 'headerLineOnly'
-        				},
-        				{ text: 'lightHorizontalLines:', fontSize: 14, bold: true, margin: [0, 20, 0, 8] },
-        				{
-        						style: 'tableExample',
-        						table: {
-        								headerRows: 1,
-        								body: [
-        										[{ text: 'Header 1', style: 'tableHeader' }, { text: 'Header 2', style: 'tableHeader'}, { text: 'Header 3', style: 'tableHeader' }],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        								]
-        						},
-        						layout: 'lightHorizontalLines'
-        				},
-        								{ text: 'but you can provide a custom styler as well', margin: [0, 20, 0, 8] },
-        								{
-        						style: 'tableExample',
-        						table: {
-        								headerRows: 1,
-        								body: [
-        										[{ text: 'Header 1', style: 'tableHeader' }, { text: 'Header 2', style: 'tableHeader'}, { text: 'Header 3', style: 'tableHeader' }],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        										[ 'Sample value 1', 'Sample value 2', 'Sample value 3' ],
-        								]
-        						},
-        						layout: {
-        														hLineWidth: function(i, node) {
-        																return (i === 0 || i === node.table.body.length) ? 2 : 1;
-        														},
-        														vLineWidth: function(i, node) {
-        																return (i === 0 || i === node.table.widths.length) ? 2 : 1;
-        														},
-        														hLineColor: function(i, node) {
-        																return (i === 0 || i === node.table.body.length) ? 'black' : 'gray';
-        														},
-        														vLineColor: function(i, node) {
-        																return (i === 0 || i === node.table.widths.length) ? 'black' : 'gray';
-        														},
-        														// paddingLeft: function(i, node) { return 4; },
-        														// paddingRight: function(i, node) { return 4; },
-        														// paddingTop: function(i, node) { return 2; },
-        														// paddingBottom: function(i, node) { return 2; }
-        						}
-        				}
+    						]
+				        ]
+				    }
+				},
+				{
+				    style:'bodyTable',
+				    table:{
+				        widths: ['100%'],
+				        body:[
+				            [{
+    				            table:{
+    				                body:[[{text:'作业班组成员声明：我已经学习并认可上述风险预控措施，在作业中认真遵照执行。'}],
+                                          [{text:'作业班组成员签名：\n \n \n \n \n '}],
+                                          [{text:'工作负责人签名:_______________',alignment:'right'}],
+                                          [{text:[{text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],alignment:'right'}]
+                                    ]
+    				            },
+    				            layout:'noBorders'
+    				        }]
+				        ]
+				    }
+				}
         	],
-        	styles: {
-        		header: {
+			styles: {
+        		header: {//大标题
         			fontSize: 18,
-        			bold: true,
-        			margin: [0, 0, 0, 10]
+        			bold: false,
+        			alignment: 'center',
+        			color: 'black',
+        			margin: [0, 10, 0, 10]      //表格里不生效
         		},
-        		subheader: {
-        			fontSize: 16,
-        			bold: true,
-        			margin: [0, 10, 0, 5]
+        		subheader: {//普通文本编号
+        			fontSize: 12,
+        			bold: false,
+        			margin: [0, 0, 10, 10]
         		},
-        		tableExample: {
-        			margin: [0, 5, 0, 15]
+        		underLineText: {//下划线文本
+        			fontSize: 12,
+        			bold: false,
+        // 			margin: [0, 3, 0, 5],
+        			decoration: 'underline'
         		},
-        		tableHeader: {
-        			bold: true,
-        			fontSize: 13,
-        			color: 'black'
+        		bodyTable: {//表格格式，主要是结束的margin
+        		    fontSize: 12,
+        			margin: [0, 0, 0, 0]
         		}
         	},
             defaultStyle: {
                 font: 'simfang'
-              }
-        	
+            }
         };
-       	pdfMake.fonts = {
+        pdfMake.fonts = {
            simfang: {
              normal: 'simfang.ttf',
              bold: 'simfang.ttf',
@@ -564,6 +570,85 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
            }
         };
         // open the PDF in a new window
-         pdfMake.createPdf(docDefinition).open(); 
+         pdfMake.createPdf(docDefinition).open();
+        // print the PDF (not working in this version, will be added back in a couple of days)
+        // pdfMake.createPdf(docDefinition).print();
+        // download the PDF
+        // window.pdfmake.createPdf(docDefinition).download();
+    },
+    onPrintGZPFuye:function(modelData){
+        //工作票附页
+        var docDefinition = {
+            pageMargins: [ 40, 60, 40, 60 ],        //页面边距
+            content: [
+                {text: "浙江浙能兰溪发电有限责任公司"+'\n'+"电除尘专用工作票附页\n ", style: 'header'},
+                {text:[ '工作票编号：',{text: this.getUnderLineText("", 28),style:'underLineText'}],style:'subheader'},
+                {text:[ '工作票内容：',{text: this.getUnderLineText("", 71),style:'underLineText'}],style:'subheader'},
+                {text:[ '工作负责人：',{text: this.getUnderLineText("林李卫", 8),style:'underLineText'},
+                        '开始时间：',{text: this.getUnderLineText("2015年10月24日11时30分", 22),style:'underLineText'},
+                        '结束时间：',{text: this.getUnderLineText("2015年10月25日11时30分", 22),style:'underLineText'}],style:'subheader'},
+                {text:'\n \n 检修设备：'},
+				{
+				    style:'bodyTable',
+				    table:{
+				        headerRows: 1,
+				        widths: ['10%','30%','60%'],
+				        body:[
+				               [ {text:'序号',alignment:'center',style:'tableHeader'},{text:'KKS编码',alignment:'center',style:'tableHeader'},{text:'检修设备名称',alignment:'center',style:'tableHeader'}],
+				               ['\n','',''],
+				               ['\n','',''],
+				               ['\n','','']
+				        ]
+				    }
+				},
+				{text:'补充说明：'}
+        	],
+			styles: {
+        		header: {//大标题
+        			fontSize: 18,
+        			bold: false,
+        			alignment: 'center',
+        			color: 'black',
+        			margin: [0, 10, 0, 10]      //表格里不生效
+        		},
+        		subheader: {//普通文本编号
+        			fontSize: 12,
+        			bold: false,
+        			margin: [0, 0, 0, 10]
+        		},
+        		underLineText: {//下划线文本
+        			fontSize: 12,
+        			bold: false,
+        // 			margin: [0, 3, 0, 5],
+        			decoration: 'underline'
+        		},
+        		bodyTable: {//表格格式，主要是结束的margin
+        		    fontSize: 12,
+        			margin: [0, 0, 0, 15]
+        		},
+        		tableHeader: {//14号字的表格内容
+        			bold: false,
+        			fontSize: 14,
+        			color: 'black'
+        		}
+        	},
+            defaultStyle: {
+                font: 'simfang'
+            }
+        };
+        pdfMake.fonts = {
+           simfang: {
+             normal: 'simfang.ttf',
+             bold: 'simfang.ttf',
+             italics: 'simfang.ttf',
+             bolditalics: 'simfang.ttf'
+           }
+        };
+        // open the PDF in a new window
+         pdfMake.createPdf(docDefinition).open();
+        // print the PDF (not working in this version, will be added back in a couple of days)
+        // pdfMake.createPdf(docDefinition).print();
+        // download the PDF
+        // window.pdfmake.createPdf(docDefinition).download();
     }
 });
