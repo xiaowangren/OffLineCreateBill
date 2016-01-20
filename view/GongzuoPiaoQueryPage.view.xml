@@ -30,7 +30,7 @@
 					            <c:Button text="返回首页" press="onFanHui"></c:Button>
 					       </lay:MatrixLayoutCell>
 					       <lay:MatrixLayoutCell>
-					       		<c:Button text="执行" press="onCaoZuoPiaoQuery"></c:Button>
+					       		<c:Button text="执行" press="onGongZuoPiaoQuery"></c:Button>
 					       </lay:MatrixLayoutCell>
 					    </lay:MatrixLayoutRow>
 					    <lay:MatrixLayoutRow>
