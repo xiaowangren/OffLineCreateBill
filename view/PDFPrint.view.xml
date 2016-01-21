@@ -5,6 +5,15 @@
 	<Page title="Title">
 		<content>
 		<Button icon="sap-icon://print"  text="电除尘专用工作票" press="onPrintGzp_DCC"   visible="true"/>
+		<Button icon="sap-icon://print"  text="一级动火工作票" press="onPrintGzp_DH1"   visible="true"/>
+		<Button icon="sap-icon://print"  text="二级动火工作票" press="onPrintGzp_DH2"   visible="true"/>
+		<Button icon="sap-icon://print"  text="电气第一种工作票" press="onPrintGzp_DQ1"   visible="true"/>
+		<Button icon="sap-icon://print"  text="电气第二种工作票" press="onPrintGzp_DQ2"   visible="true"/>
+		<Button icon="sap-icon://print"  text="继电保护工作票" press="onPrintGzp_JPB"   visible="true"/>
+		<Button icon="sap-icon://print"  text="检修作业通知单" press="onPrintGzp_JXD"   visible="true"/>
+		<Button icon="sap-icon://print"  text="事故抢修单" press="onPrintGzp_QXD"   visible="true"/>
+		<Button icon="sap-icon://print"  text="热力机械工作票" press="onPrintGzp_RJP"   visible="true"/>
+		<Button icon="sap-icon://print"  text="热控工作票" press="onPrintGzp_RKP"   visible="true"/>
 		<Button icon="sap-icon://print"  text="工作票危险点" press="onPrintGZPDanger"   visible="true"/>
 		<Button icon="sap-icon://print"  text="工作票附页" press="onPrintGZPFuye"   visible="true"/>
 		</content>
