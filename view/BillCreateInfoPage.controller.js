@@ -966,7 +966,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             }
             Dangno = parseInt(DangnoBefore);
         }
-        var dangerous = {Dangno:Dangno+1,Zztext:"",Zzremark:"",Zzpltxt:""};
+        // var dangerous = {Dangno:Dangno+1,Zztext:"",Zzremark:"",Zzpltxt:""};   //louweiwei 20160121
+        var dangerous = {Dangno:(Dangno+1)+"",Zztext:"",Zzremark:"",Zzpltxt:""};
         DangerousTab.insert(index+1, dangerous);
         for(var k=index+2;k<DangerousTab.length;k++){
             if(DangerousTab[k].Dangno!=""){

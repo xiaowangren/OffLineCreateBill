@@ -102,6 +102,7 @@
 					<Text text="{/G_IWERK}"/>
 					<Button icon="sap-icon://key" text="设定密码" press="handleSetPassword" visible="{/PinButtonVisible}"/>
 					<Button icon="sap-icon://print" text="工作票打印测试" press="onPDFPrintTest"></Button>
+					<Button  text="登陆" press="onLogonToPortal"></Button>
 				<ToolbarSpacer/>
 			</Toolbar>
 		</footer>

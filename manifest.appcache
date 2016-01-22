@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# Version 0.5
+# Version 0.6
 CACHE:
 index.html
 #UI5  JS FILE
@@ -10,6 +10,25 @@ resources/sap/ui/core/library-preload.json
 resources/sap/m/library-preload.json
 /sap/public/bc/bsp/pdfmake/pdfmake.js
 /sap/public/bc/bsp/pdfmake/vfs_fonts.js
+#20160121
+resources/sap/ui/commons/ButtonRenderer.js
+resources/sap/ui/commons/DatePickerRenderer.js
+resources/sap/ui/commons/layout/MatrixLayoutRenderer.js
+resources/sap/ui/commons/ListBoxRenderer.js
+resources/sap/ui/commons/Paginator.js
+resources/sap/ui/commons/PaginatorRenderer.js
+resources/sap/ui/commons/TabStripRenderer.js
+resources/sap/ui/commons/themes/sap_bluecrystal/img/combobox/ComboBoxArrow_hover.png
+resources/sap/ui/commons/themes/sap_bluecrystal/img/combobox/ComboBoxArrow_regular.png
+resources/sap/ui/commons/themes/sap_bluecrystal/img/datepicker/Calendar_hover.png
+resources/sap/ui/commons/themes/sap_bluecrystal/img/datepicker/Calendar_regular.png
+resources/sap/ui/layout/form/FormLayoutRenderer.js
+resources/sap/ui/layout/form/FormRenderer.js
+resources/sap/ui/layout/form/ResponsiveGridLayoutRenderer.js
+resources/sap/ui/layout/form/SimpleFormRenderer.js
+resources/sap/ui/layout/GridRenderer.js
+resources/sap/ui/layout/VerticalLayoutRenderer.js
+
 #UI5 CSS FILE
 resources/sap/ui/core/themes/sap_bluecrystal/library.css
 resources/sap/m/themes/sap_bluec/library.css
