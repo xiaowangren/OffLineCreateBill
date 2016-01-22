@@ -922,7 +922,14 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
     onPrintGzp_RJP:function(modelData){
         
     },
-    
+    // DQ2	电气第二种工作票
+    onPrintGzp_DQ2:function(modelData){
+        
+    },
+    // JXD	检修作业通知单
+    onPrintGzp_JXD           :function(modelData){
+        
+    },
     // RKP	热控工作票
     onPrintGzp_RKP:function(modelData){
         var docDefinition = {
