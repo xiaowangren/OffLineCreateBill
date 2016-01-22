@@ -507,8 +507,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
                                    {"Iwerk":"2341","Name1":"浙江浙能北仑发电有限公司物资工厂"},
                                    {"Iwerk":"2351","Name1":"浙江浙能镇海天然气发电有限责任公司物资工厂"},
                                    {"Iwerk":"2361","Name1":"浙江浙能镇海燃气热电有限责任公司物资工厂"},
-                                   {"Iwerk":"2391","Name1":"浙江浙能绍兴滨海热力有限公司物资工厂"},
-                                   {"Iwerk":"2401","Name1":"浙江浙能绍兴滨海热力有限公司物资工厂"}
+                                   {"Iwerk":"2391","Name1":"浙江浙能绍兴滨海热力有限公司物资工厂"}
                         ]};
         oHelpModel.setData(werksData);
         oHelpTable.setModel(oHelpModel);
@@ -734,5 +733,133 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 
 	   
 //>>>>>>> branch 'master' of https://github.com/xiaowangren/OffLineCreateBill
+	},
+	SystemRoute: function(){
+	   var pathName=window.location.host;
+	   var BPMHost=""
+	   if(pathName.indexOf("erpq")>=0){
+	       BPMHost ="http://znbb-bpmq-01.zhenergy.com.cn:50000"; 
+	   }else if(pathName.indexOf("erpt")>=0){
+	       BPMHost = "http://znbb-bpmt-01.zhenergy.com.cn:50000"; 
+	   }else if(pathName.indexOf("erpp")>=0){
+	       BPMHost ="http://znbb-bpmprd.zhenergy.com.cn:50000/";
+	   }else{
+	       BPMHost = "http://znbb-bpmd-01.zhenergy.com.cn:50000"; 
+	   }
+	   return BPMHost;
+      
+    },
+	onLogonToPortal:function(){
+	    var  oView = this.getView();
+      var dialog = new sap.m.Dialog({
+			title: '请输入门户用户名密码',
+			afterClose: function() {
+				dialog.destroy();
+			}
+		});
+		var userField =  new sap.m.Input("j_user",{type:"Text", maxLength:12,fieldWidth:"100px",placeholder:"请输入用户名..."});
+     	var passwordField =  new sap.m.Input("j_password",{type:"Password", maxLength:18,fieldWidth:"100px",placeholder:"请输入密码..."});
+    	var okButton = new sap.m.Button({
+			text: '确定',
+			press: function () {
+			   var j_user = userField._lastValue;
+			   var j_password = passwordField._lastValue;
+			 // var settings = {
+    //           "async": true,
+    //         //   "Access-Control-Allow-Origin":true,
+    //           "dataType": "JSONP",
+    //           "crossDomain": true,
+    //           "url": "http://znbb-bpmd-01.zhenergy.com.cn:50000/irj/portal?j_user="+j_user+"&j_password="+j_password,
+    //         //   "url": "http://znbb-bpmd-01.zhenergy.com.cn:50000/irj/portal?j_user=ac-louww&j_password=1qaz2wsx",
+    //           "method": "GET"
+    //         };
+    //         $.ajax(settings).done(function (response) {
+    //           console.log(response);
+    //         });
+            $.ajax({
+                "async": true,
+                "dataType": "JSONP",
+                "crossDomain": true,
+                "url": "http://znbb-bpmd-01.zhenergy.com.cn:50000/irj/portal?j_user="+j_user+"&j_password="+j_password,
+                "method": "GET",
+                // success:function (response) {
+                //     dialog.close();
+                //     console.log("success");
+                // },
+                // failure:function (response, opts) {
+                //     console.log("faulture");
+                // },
+                complete:function(response){
+                    console.log("complete");
+                    console.log(response);
+                    //console.log(xhr);
+                    if(response.status === 200){
+                        var cookie = response.match(/Set-Cookie:\s([^;]+);/)[1];
+                        console.log(cookie);
+                        //  console.log(document.cookie);
+                        // if(document.cookie.indexOf('MYSAPSSO2')>=0){
+                        if(cookie){
+                       
+                             sap.m.MessageToast.show("登陆成功");
+                         }else{
+                             sap.m.MessageToast.show("登陆失败");
+                         }
+                //         var sServiceUrl = "/sap/opu/odata/SAP/ZPMOFFLINE_SRV";
+		              //  var oECCModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
+                //         //定义Read方法的执行方法
+                // 		var mParameters = {};
+                //  		mParameters['async'] = false;
+                // 		mParameters['success'] = jQuery.proxy(function(oData,response) {
+                //             dialog.close();
+                // 		}, this);
+                // 		mParameters['error'] = jQuery.proxy(function(data) {
+                // 		    console.log("Read Gateway 失败");
+                // 		    sap.m.MessageToast.show("用户名或密码错误");
+                // 		}, this);
+                //         //取数
+                //         //工厂
+                // 		oECCModel.read("/WERKSSet", mParameters);
+                    }else{
+                        sap.m.MessageToast.show("网络连接失败，无法登陆");
+                    }
+                }
+                // error:function(response){
+                //     console.log("error");
+                //     console.log(response);
+                // }
+            });
+            // .fail(function(xhr, textStatus, errorThrown) {
+            //     // alert(xhr.responseText);
+            //     sap.m.MessageToast.show("用户名或密码错误");
+            //     // alert(textStatus);
+            // });
+        //         if(storedPinCode == pinCode){
+    				// var certResult = {};
+    				// certResult["certResult"] = "X";
+    				// oJsonModel.setData(certResult);
+        //             sap.ui.getCore().setModel(oJsonModel,"CertModel");
+    				// dialog.close();
+    				// oView.rerender();
+        //         }else{
+        //             sap.m.MessageToast.show("密码错误");
+        //         }
+			}
+		});
+		dialog.addContent(userField);
+		dialog.addContent(passwordField);
+		dialog.addButton(okButton);
+		
+// 		dialog.attachBrowserEvent("keydown", function(oEvent) {
+// 		  //  console.log(oEvent);
+// 		    if(oEvent.keyCode == 27){
+// 	    	    oEvent.stopPropagation();
+// 			    oEvent.preventDefault();
+// 		    }
+        
+//         });
+
+		//to get access to the global model
+		oView.addDependent(dialog);
+		dialog.open();
 	}
 });
