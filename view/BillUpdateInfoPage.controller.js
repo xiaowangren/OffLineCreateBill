@@ -55,6 +55,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
         var dangerousPointData = newBillDetailUpdateInfoPage.DangerousTab;
         var dangerousPointDataNew = [];
         for(var j=0;j<dangerousPointData.length;j++){
+            dangerousPointData[j].Dangno = dangerousPointData[j].Dangno+"";
             if((dangerousPointData[j].Dangno=="")&&(dangerousPointData[j].Zztext.trim()=="")
                 &&(dangerousPointData[j].Zzremark.trim()=="")&&(dangerousPointData[j].Zzpltxt.trim()=="")){
             }else{
@@ -92,11 +93,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
     		    //将编号字符串改为数字
     		    InfoDataNew.push(InfoTab[m]);
     		}
-    // 		for(var n=0;n<250-InfoTabLength;n++){
-    // 		    InfoDataNew.push({Zxh:"",Zcznr:"",Zzysx:""});
-    // 		}
             newCaoZuoPiao.InfoTab=InfoDataNew;
-            newCaoZuoPiao.DangerousTab=dangerousPointData;
+            newCaoZuoPiao.DangerousTab=dangerousPointDataNew;
             var oModel = new sap.ui.model.json.JSONModel(newCaoZuoPiao);
             sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", newCaoZuoPiao);
         	var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
