@@ -93,9 +93,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
     		    //将编号字符串改为数字
     		    InfoDataNew.push(InfoTab[m]);
     		}
-    // 		for(var n=0;n<250-InfoTabLength;n++){
-    // 		    InfoDataNew.push({Zxh:"",Zcznr:"",Zzysx:""});
-    // 		}
             newCaoZuoPiao.InfoTab=InfoDataNew;
             newCaoZuoPiao.DangerousTab=dangerousPointDataNew;
             var oModel = new sap.ui.model.json.JSONModel(newCaoZuoPiao);
