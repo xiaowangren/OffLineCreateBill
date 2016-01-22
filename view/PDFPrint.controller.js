@@ -918,19 +918,107 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         // download the PDF
         // window.pdfmake.createPdf(docDefinition).download();
     },
-    // RJP	热力机械工作票
+    // RJP	热力机械工作票HX
     onPrintGzp_RJP:function(modelData){
         
     },
-    // DQ2	电气第二种工作票
+    // DQ2	电气第二种工作票HX
     onPrintGzp_DQ2:function(modelData){
         
     },
-    // JXD	检修作业通知单
+    // JXD	检修作业通知单lww
     onPrintGzp_JXD:function(modelData){
-        
+        var docDefinition = {
+            pageMargins: [ 40, 60, 40, 60 ],        //页面边距
+            content: [
+                {text: "浙江浙能兰溪发电有限责任公司"+'\n'+"检修作业通知单\n ", style: 'header'},
+                {text:'编号：RKP_2081_151203_001',style:'subheader',alignment:'right'},
+				{
+					style: 'bodyTable',
+					table: {
+							widths: ['25%','25%','25%','25%'],
+							body: [
+									[ {text: '作业部门（单位）\n\n\n\n', alignment:'center'},{text: '设备管理部',colSpan:3},{},{}],
+									[ {text: '作业内容\n\n\n', alignment:'center'},{text: '打扫卫生',colSpan:3},{},{}],
+									[ {text: '作业地点\n\n\n', alignment:'center'},{text: '设备管理部',colSpan:3},{},{}],
+									[ {text: '计划作业时间\n\n\n', alignment:'center'},
+									  {text: [{text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分——',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:3},{},{}],
+									[ {text: '工作负责人\n\n\n', alignment:'center'},{text: '陈超'},
+									  {text: '联系电话\n\n\n', alignment:'center'},{text: '12341235345'}],
+									[ {text: '计划班组成员\n\n\n', alignment:'center'},{text: '程超、孙冰洋，郭志元',colSpan:3},{},{}],
+									[ {text: '值班负责人意见\n\n\n', alignment:'center'},
+									  {text: ['签名         ',{text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:3},{},{}],
+									[ {text: '运行许可意见\n\n\n', alignment:'center'},
+									  {text: ['签名           ',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:3},{},{}],
+        							[ {text: '终结时间', alignment:'center',rowSpan:2},{text: '年月日时分', alignment:'center',rowSpan:2},{text: '工作负责人'},{text: '陈超'}],
+        							[ '','',{text: '运行许可人'},{text: '陈超'}],
+        							[ {text: '检修遗留问题或\n    其它需要说明事项\n\n\n\n\n\n', alignment:'center'},{text: '',colSpan:3},{},{}]
+							]
+					}
+				}
+        	],
+			styles: {
+        		header: {//大标题
+        			fontSize: 18,
+        			bold: false,
+        			alignment: 'center',
+        			color: 'black',
+        			margin: [0, 10, 0, 10]      //表格里不生效
+        		},
+        		subheader: {//普通文本编号
+        			fontSize: 12,
+        			bold: false,
+        			margin: [0, 0, 10, 10]
+        		},
+        		underLineText: {//下划线文本
+        			fontSize: 12,
+        			bold: false,
+        // 			margin: [0, 3, 0, 5],
+        			decoration: 'underline'
+        		},
+        		bodyTable: {//表格格式，主要是结束的margin
+        		    fontSize: 12,
+        			margin: [0, 0, 0, 0]
+        		}
+        	},
+            defaultStyle: {
+                font: 'simfang'
+            }
+        };
+        pdfMake.fonts = {
+           simfang: {
+             normal: 'simfang.ttf',
+             bold: 'simfang.ttf',
+             italics: 'simfang.ttf',
+             bolditalics: 'simfang.ttf'
+           }
+        };
+        // open the PDF in a new window
+         pdfMake.createPdf(docDefinition).open();
+        // print the PDF (not working in this version, will be added back in a couple of days)
+        // pdfMake.createPdf(docDefinition).print();
+        // download the PDF
+        // window.pdfmake.createPdf(docDefinition).download();
     },
-    // RKP	热控工作票
+    // RKP	热控工作票lww
     onPrintGzp_RKP:function(modelData){
         var docDefinition = {
             pageMargins: [ 40, 60, 40, 60 ],        //页面边距
@@ -1075,8 +1163,281 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 									{text: this.getUnderLineText("", 10),style:'underLineText'},'为工作负责人，变更后工作负责人联系方式：',
 									{text: this.getUnderLineText("", 30),style:'underLineText'}],colSpan:2}, {}],
 									[ '', {text:[ '工作票签发人：',{text: this.getUnderLineText("", 24),style:'underLineText'}]}, {text:[ '工作许可人：',{text: this.getUnderLineText("", 28),style:'underLineText'}]}],
-        							[ '', {text:[ '工作人员变动情况（变动人员姓名、日期及时间）：',{text: this.getUnderLineText("", 37),style:'underLineText'}],colSpan:2}, {}],
-        						    [ '', {text:[ '工作负责人签名：',{text: this.getUnderLineText("", 67),style:'underLineText'}],colSpan:2}, {}]
+        							[ '12.', {text:[ '工作人员变动情况（变动人员姓名、日期及时间）：',{text: this.getUnderLineText("", 37),style:'underLineText'}],colSpan:2}, {}],
+        						    [ '', {text:[ '工作负责人签名：',{text: this.getUnderLineText("", 67),style:'underLineText'}],colSpan:2}, {}],
+        						    [ '13.', {text:'工作票延期：',colSpan:2}, {}],
+        						    [ '',  {text:[ '有效期延长到：',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 2),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 2),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 2),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 2),style:'underLineText'},'分']},
+        									{text:[ '工作签发人：',{text: this.getUnderLineText("", 28),style:'underLineText'}]}],
+        						    [ '', {text:[ '工作负责人：',{text: this.getUnderLineText("", 26),style:'underLineText'}]},
+        									{text:[ '值班负责人：',{text: this.getUnderLineText("", 28),style:'underLineText'}]}],
+        							[ '14.', {text:'根据工作需要，工作票押回运行保管：',colSpan:2}, {}]
+							]
+					},
+					layout: 'noBorders'
+				},
+				{
+					style: 'bodyTable',
+					table: {
+							headerRows: 0,
+							widths: ['32%','18%','18%','32%'],
+							body: [
+									[ {text:'工作票交回运行人员时间',style:'tableHeader',alignment:'center'},
+									  {text:'工作许可人',style:'tableHeader',alignment:'center'},
+									  {text:'工作负责人',style:'tableHeader',alignment:'center'},
+									  {text:'押回原因',style:'tableHeader',alignment:'center'}],
+									[ '\n', {text:''},{text:''},''],
+									[ '\n', {text:''},{text:''},''],
+									[ '\n', {text:''},{text:''},''],
+									[ '\n', {text:''},{text:''},''],
+									[ '\n', {text:''},{text:''},'']
+							]
+					}
+				},
+				{
+				// 	style: 'bodyTable',
+					table: {
+							widths: ['2%','48%','50%'],
+							body: [
+        							[ '15.', {text:'根据工作需要，工作票所列安全措施已全部执行，可以重新工作：',colSpan:2}, {}]
+							]
+					},
+					layout: 'noBorders'
+				},
+				{
+					style: 'bodyTable',
+					table: {
+							headerRows: 0,
+							widths: ['32%','18%','18%','32%'],
+							body: [
+									[ {text:'允许恢复工作时间',style:'tableHeader',alignment:'center'},
+									  {text:'工作许可人',style:'tableHeader',alignment:'center'},
+									  {text:'工作负责人',style:'tableHeader',alignment:'center'},
+									  {text:'工作重新许可原因',style:'tableHeader',alignment:'center'}],
+									[ '\n', {text:''},{text:''},''],
+									[ '\n', {text:''},{text:''},''],
+									[ '\n', {text:''},{text:''},''],
+									[ '\n', {text:''},{text:''},''],
+									[ '\n', {text:''},{text:''},'']
+							]
+					}
+				},
+				{
+				// 	style: 'bodyTable',
+					table: {
+							widths: ['2%','48%','50%'],
+							body: [
+        							[ '16.', {text:'工作票终结：',colSpan:2}, {}],
+        							[ '', {text:[ '全部工作于',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分结束，工作人员已全部撤离，现场已清理完毕。'],colSpan:2},{}],
+        							[ '',{text:[ '工作负责人：',{text: this.getUnderLineText("", 28),style:'underLineText'}]},
+        							     {text:[ '工作许可人：',{text: this.getUnderLineText("", 28),style:'underLineText'}]}],
+        							[ '17.', {text:'备注：',colSpan:2}, {}],
+        							[ '', {text:this.getUnderLineText("", 83),style:'underLineText',colSpan:2}, {}],
+        							[ '', {text:this.getUnderLineText("", 83),style:'underLineText',colSpan:2}, {}],
+        							[ '', {text:this.getUnderLineText("", 83),style:'underLineText',colSpan:2}, {}],
+        							[ '', {text:this.getUnderLineText("", 83),style:'underLineText',colSpan:2}, {}],
+        							[ '', {text:this.getUnderLineText("", 83),style:'underLineText',colSpan:2}, {}]
+							]
+					},
+					layout: 'noBorders'
+				}
+			],
+			styles: {
+        		header: {//大标题
+        			fontSize: 18,
+        			bold: false,
+        			alignment: 'center',
+        			color: 'black',
+        			margin: [0, 10, 0, 15]      //表格里不生效
+        		},
+        		smallText: {//右上角印章文字
+        			bold: false,
+        			fontSize: 10,
+        			color: 'black'
+        		},
+        		subheader: {//普通文本编号
+        			fontSize: 12,
+        			bold: false,
+        			margin: [0, 0, 10, 10]
+        		},
+        		underLineText: {//下划线文本
+        			fontSize: 12,
+        			bold: false,
+        // 			margin: [0, 3, 0, 5],
+        			decoration: 'underline'
+        		},
+        		bodyTable: {//表格格式，主要是结束的margin
+        		    fontSize: 12,
+        			margin: [0, 0, 0, 10]
+        		},
+        		tableHeader: {//14号字的表格内容
+        			bold: false,
+        			fontSize: 12,
+        			color: 'black'
+        		}
+        	},
+            defaultStyle: {
+                font: 'simfang'
+            }
+        };
+	    pdfMake.fonts = {
+           simfang: {
+             normal: 'simfang.ttf',
+             bold: 'simfang.ttf',
+             italics: 'simfang.ttf',
+             bolditalics: 'simfang.ttf'
+           }
+        };
+        // open the PDF in a new window
+         pdfMake.createPdf(docDefinition).open();
+        // print the PDF (not working in this version, will be added back in a couple of days)
+        // pdfMake.createPdf(docDefinition).print();
+        // download the PDF
+        // window.pdfmake.createPdf(docDefinition).download();
+    },
+    // QXD	事故抢修单lww
+    onPrintGzp_QXD:function(modelData){
+        var docDefinition = {
+            pageMargins: [ 40, 60, 40, 60 ],        //页面边距
+            content: [
+                {
+					table: {
+							widths: ['20%','60%','20%'],
+							body: [
+        							[ '', {text: "浙江浙能兰溪发电有限公司"+'\n'+"事故应急抢修单\n ", style: 'header'},'']
+							]
+					},
+					layout: 'noBorders'
+				},
+                {text:'编号：RKP_2081_151203_001',style:'subheader'},
+				{
+				// 	style: 'bodyTable',
+					table: {
+							widths: ['51%','49%'],
+							body: [
+        							[ {text:['部门： ',{text: this.getUnderLineText("设备管理部", 36),style:'underLineText'}]}, 
+        							 {text:[ '填写时间：',
+									        {text: this.getUnderLineText("2015", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("12", 2),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("03", 2),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("08", 2),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("05", 2),style:'underLineText'},'分']}]
+							]
+					},
+					layout: 'noBorders'
+				},
+                {
+				// 	style: 'bodyTable',
+					table: {
+							headerRows: 0,
+							widths: ['2%','48%','50%'],
+							body: [
+									[ '1.',{text:['抢修工作负责人（监护人）：',{text: this.getUnderLineText("", 14),style:'underLineText'}]}, {text:[ '班组：',{text: this.getUnderLineText("集控运行", 34),style:'underLineText'}]} ],
+									[ '2.', {text: '抢修班人员（不包括工作负责人）', colSpan:2}, {}],
+									[ '',{text:[{text: this.getUnderLineText("", 74),style:'underLineText'},
+							             '共',{text: this.getUnderLineText("", 4),style:'underLineText'},'人'],colSpan:2}, {}],
+									[ '3.', {text: '抢修任务（抢修地点和抢修内容，有二级动火的必须注明有二级动火）',colSpan:2}, {}],
+									[ '', {text: this.getUnderLineText("ASDFASD", 167),style:'underLineText', colSpan:2}, {}],
+        							[ '4.', {text:'安全措施（有动火的包括动火时的安措）:',colSpan:2}, {}]
+							]
+					},
+					layout: 'noBorders'
+				},
+                {
+					style: 'bodyTable',
+					table: {
+							headerRows: 0,
+							widths: ['100%'],
+							body: [
+									[{text:'（1）'}],
+                            		[{text:'（2）'}]
+							]
+					}
+				},
+				{
+				// 	style: 'bodyTable',
+					table: {
+							widths: ['2%','48%','50%'],
+							body: [
+        							[ '5.', {text:'抢修地点保留带电部分或注意事项',colSpan:2}, {}]
+							]
+					},
+					layout: 'noBorders'
+				},
+				{
+					style: 'bodyTable',
+					table: {
+							headerRows: 0,
+							widths: ['100%'],
+							body: [
+									[{text:'（1）'}],
+                            		[{text:'（2）'}]
+							]
+					}
+				},
+				{
+				    // style: 'bodyTable',
+					table: {
+							widths: ['2%','48%','50%'],
+							body: [
+        							[ '6.',{text:[ '上述1~5项由抢修工作负责人',{text: this.getUnderLineText("", 14),style:'underLineText'},
+							             '根据抢修任务布置人',{text: this.getUnderLineText("", 12),style:'underLineText'},
+        							     '的布置填写'],colSpan:2}, {}],
+        							[ '7.', {text:'经现场勘察，需补充下列安全措施',colSpan:2}, {}]
+							]
+					},
+					layout: 'noBorders'
+				},
+				{
+					style: 'bodyTable',
+					table: {
+							headerRows: 0,
+							widths: ['100%'],
+							body: [
+									[{text:'（1）'}],
+                            		[{text:'（2）'}]
+							]
+					}
+				},
+				{
+					table: {
+							widths: ['2%','48%','50%'],
+							body: [
+                                    [ '8.',  {text:[ '经值班负责人（值长）：',
+                                            {text: this.getUnderLineText("林立卫", 8),style:'underLineText'},'同意，上述安全措施已',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分执行'],colSpan:2},{}],
+        							[ '9.', {text:'许可抢修时间',colSpan:2}, {}],
+                                    [ '',  {text:['许可开工时间',
+									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分 许可人', 
+        									{text: this.getUnderLineText("林立卫", 8),style:'underLineText'},'抢修负责人',
+                                            {text: this.getUnderLineText("雷春英", 8),style:'underLineText'}],colSpan:2},{}],
+                                    [ '10.', {text:'抢修结束汇报',colSpan:2}, {}],
+        							[ '', {text:[ '本抢修工作于',
+							        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+									{text: this.getUnderLineText("", 4),style:'underLineText'},'分结束'],colSpan:2}, {}],
+									[ '', {text:[ '现场设备状况及保留安全措施：',{text: this.getUnderLineText("", 223),style:'underLineText'}],colSpan:2}, {}],
+        						    [ '', {text:[ '抢修班人员已全部撤离，材料工具已清理完毕。抢修工作负责人 ：',{text: this.getUnderLineText("", 10),style:'underLineText'},
+        						          '许可人',{text: this.getUnderLineText("", 8),style:'underLineText'}],colSpan:2}, {}]
 							]
 					},
 					layout: 'noBorders'

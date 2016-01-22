@@ -88,7 +88,7 @@ sap.ui.jsview("com.zhenergy.bill.view.BillUpload", {
         oTable2.addColumn(new sap.ui.table.Column({
         	label: new sap.ui.commons.Label({text: "开票日期"}),
         	template: new sap.ui.commons.TextView().bindProperty("text", "Cdata"),
-        	width: "80px",
+        	width: "100px",
         	hAlign: "Center"
         }));
         oTable2.addColumn(new sap.ui.table.Column({

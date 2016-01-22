@@ -475,24 +475,28 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		var oHelpTable = new sap.ui.table.Table({
 			selectionMode: sap.ui.table.SelectionMode.Single,
 			visibleRowCount: 7,
+// 			columnHeaderHeight:40,
+// 			rowHeight:35,
 			width: "300pt"
 		});
 
 		oHelpTable.addColumn(
 			new sap.ui.table.Column({
 				label: new sap.ui.commons.Label({
-					text: "工厂"
+					text: "工厂",
+					fontSize: "8"
 				}),
 				template: new sap.ui.commons.TextView().bindProperty("text", "Iwerk"),
 				sortProperty: "Iwerk",
-				filterProperty: "Iwerk"
-
+				filterProperty: "Iwerk",
+                width:"60px"
 			})
 		);
 		oHelpTable.addColumn(
 			new sap.ui.table.Column({
 				label: new sap.ui.commons.Label({
-					text: "描述"
+					text: "描述",
+					fontSize: "8"
 				}),
 				template: new sap.ui.commons.TextView().bindProperty("text", "Name1"),
 				sortProperty: "Name1",
@@ -628,6 +632,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			text: '确定',
 			press: function() {
 				var pinCode = inputField._lastValue;
+				if(!pinCode){
+				    sap.m.MessageToast.show('请输入需要设置的密码');
+				    return;
+				}
 				//Storage  
 				jQuery.sap.require("jquery.sap.storage");
 				var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
@@ -642,8 +650,15 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 				oView.rerender();
 			}
 		});
+		var cancelButton = new sap.m.Button({
+		   text:'取消',
+		   press:function(){
+		       dialog.close();
+		   }
+		});
 		dialog.addContent(inputField);
 		dialog.addButton(okButton);
+		dialog.addButton(cancelButton);
 		//to get access to the global model
 		this.getView().addDependent(dialog);
 		dialog.open();
@@ -856,7 +871,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	    var oController = this;
 		var oView = this.getView();
 		var dialog = new sap.m.Dialog({
-			title: '请输入门户用户名密码',
+			title: '请输入ERP门户用户名和密码',
 			afterClose: function() {
 				dialog.destroy();
 			}
@@ -874,6 +889,11 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			placeholder: "请输入密码..."
 		});
 		var serverURL = this.SystemRoute();
+		var cancelButton = new sap.m.Button({
+		    text:'取消',
+		    press:function(){
+		        dialog.close();
+		    }});
 		var okButton = new sap.m.Button({
 			text: '确定',
 			press: function() {
@@ -927,6 +947,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		dialog.addContent(userField);
 		dialog.addContent(passwordField);
 		dialog.addButton(okButton);
+		dialog.addButton(cancelButton);
 		//to get access to the global model
 		oView.addDependent(dialog);
 		dialog.open();
