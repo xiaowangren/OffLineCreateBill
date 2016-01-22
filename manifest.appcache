@@ -2,6 +2,7 @@ CACHE MANIFEST
 # Version 0.6
 CACHE:
 index.html
+start.html
 #UI5  JS FILE
 resources/sap-ui-core.js
 resources/jquery.sap.trace.js
@@ -13,11 +14,13 @@ resources/sap/m/library-preload.json
 #20160121
 resources/sap/ui/commons/ButtonRenderer.js
 resources/sap/ui/commons/DatePickerRenderer.js
+resources/sap/ui/commons/LabelRenderer.js
 resources/sap/ui/commons/layout/MatrixLayoutRenderer.js
 resources/sap/ui/commons/ListBoxRenderer.js
 resources/sap/ui/commons/Paginator.js
 resources/sap/ui/commons/PaginatorRenderer.js
 resources/sap/ui/commons/TabStripRenderer.js
+resources/sap/ui/commons/TextAreaRenderer.js
 resources/sap/ui/commons/themes/sap_bluecrystal/img/combobox/ComboBoxArrow_hover.png
 resources/sap/ui/commons/themes/sap_bluecrystal/img/combobox/ComboBoxArrow_regular.png
 resources/sap/ui/commons/themes/sap_bluecrystal/img/datepicker/Calendar_hover.png

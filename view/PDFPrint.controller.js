@@ -927,7 +927,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         
     },
     // JXD	检修作业通知单
-    onPrintGzp_JXD           :function(modelData){
+    onPrintGzp_JXD:function(modelData){
         
     },
     // RKP	热控工作票
