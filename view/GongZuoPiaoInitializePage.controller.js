@@ -13,6 +13,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
         var oModel = sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onFengZhuang(idIwerkInitialize);
         oModel.setProperty("/Title1","创建");
         oModel.setProperty("/Editable",true);
+        oModel= this.onDataVisible(oModel,idIwerkInitialize,idWorkTypeInitialize);
         jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		if (oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI")) {
@@ -36,10 +37,76 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 			}
 		    oModel.setProperty("/Title2",Ztypedesc);
 		}
-		var data="";
+		//创建今天日期：Crdate
+		var now = new Date();
+		var year = now.getFullYear(); 
+        var month =(now.getMonth() + 1).toString(); 
+        var day = (now.getDate()).toString(); 
+        if (month.length == 1) { 
+            month = "0" + month; 
+        } 
+        if (day.length == 1) { 
+            day = "0" + day; 
+        } 
+        var Crdate = year+"-" + month +"-"+  day;
+        //封装各Tab
+        var DangerTab = [{Zfxlx:"",Dangno:"1",Dangsnot:"",Zztext:"",Zzremark:"",Zzremart:"",Zzpltxt:""}];
+        var AqcsTab=[{Code:"",Seqc:"1",Actext:""}];
+        var GroupTab =[{Seqc:"1",Pname:"",Opsno:""}];
+        var KksTab = [{Seqc:"",Tplnr:""}];
+		var data={
+		    Wcmno:"",//工作票编号
+		    Ztype:idWorkTypeInitialize,//开票类型
+		    Iwerk:idIwerkInitialize,//工厂
+		    Crname:"",//创建人
+		    Crdate:Crdate,//创建日期
+		    Estat:"10",//用户状态
+		    Sqbz:false,//双签标识
+		    Tplnr:"",//功能位置 kks编码
+		    Wbbz:"",//外包标识  X是 N否 ""空
+		    Cplace:"",//工作地点
+		    Ccontent:"",
+		    Appdep:"",//申请部门
+		    Class:"",//班组编码
+		    Prfty:"",//专业类型编码
+		    Rarea:"",//运行区域编码
+		    Lxbm:"",//联系部门
+		    Contact:"",//联系人
+		    Phone:"",//联系方式
+		    Unity:"",//机组
+		    Bname:"",//工作负责人账号
+		    Name:"",//工作负责人
+		    Phone1:"",//联系方式
+		    Rhhj:false,//融化焊接
+		    Qg:false,//切割
+		    Ylh:false,//压力焊
+		    Xh:false,//钎焊
+		    Px:false,//喷枪
+		    Pd:false,//喷灯
+		    Zk:false,//钻孔
+		    Dm:false,//打磨
+		    Cj:false,//锤击
+		    Ps:false,//破碎
+		    Qx:false,//切削
+		    Qt:false,//其他
+		    Ztcbh:"",//需退出保护或装置名称
+		    Gztj:"",//工作条件（停电/不停电）
+		    Jhgzbedate:"",//开始日期
+		    Jhgzbetime:"",//开始时间
+		    Jhgzfidate:"",//结束日期
+		    Jhgzfitime:"",//结束时间
+		    Gzbzcynum:"",//工作班组成员人数
+		    Fynum:"",//附页张数
+		    AqcsTab:AqcsTab,//按措Tab
+		    DangerTab:DangerTab,//危险点Tab
+		    GroupTab:GroupTab,//
+		    KksTab:KksTab
+		};
+
 		oModel.setData(data,true);//合并数据，但是不替换
+        // oModel.setProperty("WorkModel",data);
 		sap.ui.getCore().setModel(oModel);
- 	    sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoFinalView", oModel);
+ 	    sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoFinalView", "");
     	var page = sap.ui.getCore().byId("idBillApp").app.getPage("idGongZuoPiaoFinalView");
     	page.setModel(oModel,"WorkModel");
     },
@@ -105,15 +172,47 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		oLocalModel.setProperty("/Crdate","");
 		sap.ui.getCore().setModel(oLocalModel);
         sap.ui.getCore().byId("idBillApp").app.to("idGongzuoPiaoQueryPage");
+    },
+    
+    onDataVisible:function(oModel,iwerk,type){
+        //是否显示双签
+		if(type=="DCC"||type=="DH1"||type=="DH2"||type=="DQ1"||type=="DQ2"||type=="JBP"||type=="RJP"||type=="RKP"){
+		    oModel.setProperty("/SqVisible",true);
+		}else{//JXD QXD SCC SD1  SD2 SJB SRJ SRK   
+		    oModel.setProperty("/SqVisible",false);
+		}
+		//是否显示动火方式
+		if(type=="DH1"||type=="DH2"){
+		    oModel.setProperty("/DhfsVisible",true);
+		}else{ 
+		    oModel.setProperty("/DhfsVisible",false);
+		}
+		//是否显示需退出保护或装置名称
+		if(type=="RKP"){
+		    oModel.setProperty("/ZtcbhVisible",true);
+		}else{ 
+		    oModel.setProperty("/ZtcbhVisible",false);
+		}
+		//是否显示工作条件（停电/不停电）
+		if(type=="DQ2"){
+		    oModel.setProperty("/ZtcbhVisible",true);
+		}else{ 
+		    oModel.setProperty("/ZtcbhVisible",false);
+		}
+		//是否显示联系部门，联系人，联系方式 (JXD QXD) SCC SD1 SD2 SJB SRJ SRK
+		if(type=="JXD"||type=="QXD"||type=="SCC"||type=="SD1"||type=="SD2"||type=="SJB"||type=="SRJ"||type=="SRK"){
+		    oModel.setProperty("/Lx3Visible",false);
+		}else{ 
+		    oModel.setProperty("/Lx3Visible",true);
+		}
+		//是否显示机组，工作负责人，联系方式
+		if(type=="SCC"||type=="SD1"||type=="SD2"||type=="SJB"||type=="SRJ"||type=="SRK"){
+		    oModel.setProperty("/Lx32Visible",false);
+		}else{ 
+		    oModel.setProperty("/Lx32Visible",true);
+		}
+		return oModel;
     }
-    // onExecute:function(){
-    //     //获取页面上的工厂、工作票类型
-    //     var idIwerkInitialize = this.getView().byId("idIwerkInitialize").getSelectedKey();
-    //     var idWorkTypeInitialize = this.getView().byId("idWorkTypeInitialize").getSelectedKey();
-    //     var biaoJiInitialize = this.getView().byId("BiaoJiInitialize").getText();
-    //     //判断是否选择工作票类型
-        
-    //     alert("创建页面");
-    // }
+
 
 });
