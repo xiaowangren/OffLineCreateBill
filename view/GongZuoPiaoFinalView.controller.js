@@ -46,7 +46,6 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
 			    }
 			}
         }
-        console.log(WorkModel);
         if(WorkModel.Wcmno==""){//创建
             //创建工作票号
             var LiuShuiId = this.uuid(8,10);
@@ -88,6 +87,8 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
 			}
 		    oModel.setProperty("/Title2",Ztypedesc);
 		}
+// 		var oModel2=new sap.ui.model.json.JSONModel({Title1:"修改",Title2:Ztypedesc},true);
+// 		this.byId("idFinalViewTitle").setModel(oModel2);
         oModel.setProperty("/Editable",true);
         // sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoFinalView", "");
     	var page = sap.ui.getCore().byId("idBillApp").app.getPage("idGongZuoPiaoFinalView");

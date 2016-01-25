@@ -5,7 +5,7 @@
 	xmlns:lay="sap.ui.commons.layout"
 	xmlns="sap.m" controllerName="com.zhenergy.bill.view.GongZuoPiaoFinalView" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page title="{/Title1}{/Title2}">
+	<Page title="{WorkModel>/Title1}{WorkModel>/Title2}" id="idFinalViewTitle">
 		<content>
 		    <l:VerticalLayout>
 		        <lay:MatrixLayout width="50%" class="MatrixLayout_MarginLeft">
