@@ -39,17 +39,57 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
         // console.log(BiaoJiQuery+";"+Iwerk+";"+idWorkType+";"+Peoid+";"+Appdep+";"+gongZuoDiDian+";"+gongZuoNeiRong+";"+createDate);
         var oLocalModel = this.onFengZhuang(Iwerk);
         jQuery.sap.require("jquery.sap.storage");
+        var aFilter = [];
 	    var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
         if("Create"==BiaoJiQuery){//过滤典型票
             if (oStorage.get("ZPMOFFLINE_SRV.BillInfos")) {
 			    var oData1 = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
 			    oLocalModel.setProperty("/ResultModel",oData1);
             }
-            
+        oLocalModel.setProperty("/Title1","创建");
+        oLocalModel.setProperty("/Editable",true);
+        //封装combobox数据
+        oLocalModel = sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onFengZhuang(Iwerk);
+        //封装显隐
+        oLocalModel= sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage").onDataVisible(oLocalModel,Iwerk,idWorkType);
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI")) {
+			var oDataPer = oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI");
+    		var aFilterPer = [];
+			for(var g=0;g<oDataPer.length;g++){
+			    if(oDataPer[g].Ztype==idWorkType&&oDataPer[g].Quaid=="A"){
+			        aFilterPer.push(oDataPer[g]);
+			    }
+			}
+	        oLocalModel.setProperty("/ZPMTOPER",aFilterPer);
+		}
+		if (oStorage.get("ZPMOFFLINE_SRV.WorkType")) {
+			var oData = oStorage.get("ZPMOFFLINE_SRV.WorkType");
+			var Ztypedesc = "";
+			for(var n=0;n<oData.length;n++){
+			    if(oData[n].Ztype==idWorkType){
+			        Ztypedesc = oData[n].Ztypedes;
+			        break;
+			    }
+			}
+		    oLocalModel.setProperty("/Title2",Ztypedesc);
+		}
+// 		console.log(oLocalModel.getData());
         }else{//过滤本地已经创建的票
             if (oStorage.get("ZPMOFFLINE_SRV.WorkInfos")) {
 			    var oData1 = oStorage.get("ZPMOFFLINE_SRV.WorkInfos");
-			    oLocalModel.setProperty("/ResultModel",oData1);
+			    for(var i=0;i<oData1.length;i++){
+    			    if(this.checkhelp(oData1[i].Iwerk,Iwerk)&&
+                       this.checkhelp(oData1[i].Ztype,idWorkType)&&
+                       this.checkhelp(oData1[i].Bname,Peoid)&&
+                       this.checkhelp(oData1[i].Appdep,Appdep)&&
+                       this.checkhelp(oData1[i].Crdate,createDate)&&
+                       this.checkhelpIndex(oData1[i].Cplace,gongZuoDiDian)&&
+                       this.checkhelpIndex(oData1[i].Ccontent,gongZuoNeiRong)
+                       ){
+                        aFilter.push(oData1[i]);
+                    }
+			    }
+			    oLocalModel.setProperty("/ResultModel",aFilter);
             }
         }
         oLocalModel.setProperty("/BiaoJi",BiaoJiQuery);

@@ -24,7 +24,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
         } 
         var Crdate = year+"-" + month +"-"+  day;
         //封装各Tab
-        var DangerTab = [{Zfxlx:"",Dangno:"1",Dangsnot:"",Zztext:"",Zzremark:"",Zzremart:"",Zzpltxt:""}];
+        var DangerTab = [{Zfxlx:"",Dangno:"1",Dangsnot:"",Zztext:"",Zzremart:"",Zzpltxt:""}];
         var AqcsTabX=[{Code:"",Seqc:"1",Actext:"",Comzx:true}];
         var AqcsTabY=[{Code:"",Seqc:"1",Actext:"",Comzx:true}];
         var GroupTab =[{Seqc:"1",Pname:"",Opsno:""}];
@@ -41,15 +41,15 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		    Wbbz:"",//外包标识  X是 N否 ""空
 		    Cplace:"",//工作地点
 		    Ccontent:"",//工作内容
-		    Appdep:"",//申请部门
-		    Class:"",//班组编码
-		    Prfty:"",//专业类型编码
-		    Rarea:"",//运行区域编码
-		    Lxbm:"",//联系部门
+		  //  Appdep:"",//申请部门 工作单位
+		  //  Class:"",//班组编码
+		  //  Prfty:"",//专业类型编码
+		  //  Rarea:"",//运行区域编码
+		  //  Lxbm:"",//联系部门
 		    Contact:"",//联系人
 		    Phone:"",//联系方式
-		    Unity:"",//机组
-		    Bname:"",//工作负责人账号
+		  //  Unity:"",//机组
+		  //  Bname:"",//工作负责人账号
 		    Name:"",//工作负责人
 		    Phone1:"",//联系方式
 		    Rhhj:false,//融化焊接
@@ -101,7 +101,8 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		    Zbcsm:"",//附件的补充说明字段
 		    statusText:"unCreated"
 		};
-		var oModel = sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onFengZhuang(idIwerkInitialize);
+		var oModel = new sap.ui.model.json.JSONModel();
+		oModel = sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onFengZhuang(idIwerkInitialize);
         oModel.setProperty("/Title1","创建");
         oModel.setProperty("/Editable",true);
         oModel= this.onDataVisible(oModel,idIwerkInitialize,idWorkTypeInitialize);
@@ -111,7 +112,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 			var oDataPer = oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI");
     		var aFilterPer = [];
 			for(var g=0;g<oDataPer.length;g++){
-			    if(oDataPer[g].Ztype=="DH1"&&oDataPer[g].Quaid=="A"){
+			    if(oDataPer[g].Ztype==idWorkTypeInitialize&&oDataPer[g].Quaid=="A"){
 			        aFilterPer.push(oDataPer[g]);
 			    }
 			}
