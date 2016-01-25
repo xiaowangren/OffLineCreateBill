@@ -34,40 +34,47 @@
 		<Column
 			minScreenWidth="Tablet"
 			demandPopin="true"
-			width="12px"
+			width="8px"
 			>
-			<Text text="操作" />
+			<Text text="操作" visible="{/Editable}"/>
 		</Column>
 		<Column
 			minScreenWidth="Tablet"
 			demandPopin="true"
-			width="4px"
+			width="8px"
+			>
+		</Column>
+		<Column
+			minScreenWidth="Tablet"
+			demandPopin="true"
+			width="8px"
 			>
 		</Column>
 	    </columns>
 	    <ColumnListItem type="Active">
 			<cells>
 				<c:TextView
-					text="{Seqc}" width="100%"/>
+					text="{WorkModel>Seqc}" width="100%"/>
 				<c:TextView
-					text="{Tplnr}" width="100%"/>
+					text="{WorkModel>Tplnr}" width="100%"/>
 				<c:TextView
 					text="{ 
-								path: 'Tplnr', 
+								path: 'WorkModel>Tplnr', 
 								formatter: 'com.zhenergy.bill.util.Formatter.KKSText' 
 							}"  width="100%"/>
-				<c:Button text="新增" press="onAddKKS"></c:Button>
-			    <c:Button text="删除" press="onDeleteKKS"></c:Button>
+				<c:Button text="选择" press="onSelectKKS" visible="{/Editable}"></c:Button>
+				<c:Button text="新增" press="onAddKKS" visible="{/Editable}"></c:Button>
+			    <c:Button text="删除" press="onDeleteKKS" visible="{/Editable}"></c:Button>
 			</cells>
 	    </ColumnListItem>
    </Table>
-    <lay:MatrixLayout width="100%" widths="5%,30%,25%,35%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1">
+    <lay:MatrixLayout width="100%" widths="8%,30%,25%,35%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1">
         <lay:MatrixLayoutRow>
             <lay:MatrixLayoutCell>
-                <c:TextView text="附加说明"></c:TextView>
+                <c:TextView text="补充说明："></c:TextView>
             </lay:MatrixLayoutCell>
             <lay:MatrixLayoutCell colSpan="3">
-                <c:TextArea value="{WorkModel>/Zfjsm}" rows="2" cols="150" id="fujiashuoming"></c:TextArea>
+                <c:TextArea value="{WorkModel>/Zbcsm}" rows="10" cols="150" id="buchongshuoming"></c:TextArea>
             </lay:MatrixLayoutCell>
         </lay:MatrixLayoutRow>
     </lay:MatrixLayout>

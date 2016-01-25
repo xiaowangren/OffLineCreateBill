@@ -11,7 +11,8 @@
         		                    <c:TextView text="KKS编码"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
-        		                    <c:TextField value="{WorkModel>/Tplnr}" width="90%" editable="{/Editable}"></c:TextField>
+        		                    <c:TextField value="{WorkModel>/Tplnr}" width="80%" editable="{/Editable}" enabled="false" id="TplnrId"></c:TextField>
+        		                    <c:Button text="选择" press="onAddKKS" visible="{/KKSButtonVisible}"></c:Button>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
         		                </lay:MatrixLayoutCell>
@@ -164,6 +165,8 @@
         		        <lay:MatrixLayout widths="11%,20%,10%,10%,6%,10%,10%,25%" width="100%">
         		            <lay:MatrixLayoutRow>
         		                <lay:MatrixLayoutCell rowSpan="3" colSpan="4">
+        		                   <Panel>
+        		                    <content>
         		                   <Table
     			                    items="{WorkModel>/GroupTab}" 
     			                    visible="{/TableVisible}"
@@ -194,7 +197,7 @@
                             				<Column
                             					minScreenWidth="Tablet"
                             					demandPopin="true"
-                            					width="10px"
+                            					width="11px"
                             					>
                             					<Text text="操作" visible="{/Editable}"/>
                             				</Column>
@@ -218,6 +221,8 @@
                             				</cells>
                             			</ColumnListItem>
     		                        </Table>
+    		                        </content>
+    		                        </Panel>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
         		                    <c:TextView text="开始时间" visible="{/JhgzfiVisible}"></c:TextView>
@@ -284,5 +289,13 @@
         		                <lay:MatrixLayoutCell>
         		                </lay:MatrixLayoutCell>
         		            </lay:MatrixLayoutRow>
+        		            <lay:MatrixLayoutRow>
+        		                <lay:MatrixLayoutCell>
+        		                </lay:MatrixLayoutCell>
+        		          </lay:MatrixLayoutRow>
+        		          <lay:MatrixLayoutRow>
+        		                <lay:MatrixLayoutCell>
+        		                </lay:MatrixLayoutCell>
+        		          </lay:MatrixLayoutRow>
         		        </lay:MatrixLayout>
 </core:View>

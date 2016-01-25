@@ -5,7 +5,7 @@
 	xmlns:lay="sap.ui.commons.layout"
 	xmlns="sap.m" controllerName="com.zhenergy.bill.view.GongZuoPiaoFinalView" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
-	<Page title="{/Title1}{/Title2}">
+	<Page title="{WorkModel>/Title1}{WorkModel>/Title2}" id="idFinalViewTitle">
 		<content>
 		    <l:VerticalLayout>
 		        <lay:MatrixLayout width="50%" class="MatrixLayout_MarginLeft">
@@ -350,6 +350,9 @@
 		            </c:Tab>
 		            <c:Tab text="检修提出安措">
 		                <mvc:XMLView viewName="com.zhenergy.bill.view.GongZuoPiaoAqcs"/>
+		            </c:Tab>
+		            <c:Tab text="运行补充安措">
+		                <mvc:XMLView viewName="com.zhenergy.bill.view.GongZuoPiaoAqcs2"/>
 		            </c:Tab>
 		            <c:Tab text="危险点分析">
 		                <c:content>

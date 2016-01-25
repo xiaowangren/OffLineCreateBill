@@ -25,11 +25,17 @@ com.zhenergy.bill.util.Formatter = {
         oDataPer=KKSData.getProperty("/");
         for(var i=0;i<oDataPer.length;i++){
             if(oDataPer[i].Tplnr==Tplnr){
-                console.log(oDataPer[i].Tplnr);
                 Pltxt=oDataPer[i].Pltxt;
                 break;
             }
         }
         return Pltxt;
-    }
+    },
+    ZsfjdVisible: function(Ztype){
+        var bVisible=false;
+        if(Ztype=="DCC"||Ztype=="DQ1"||Ztype=="DQ2"||Ztype=="JBP"){
+            bVisible=true;
+        }
+        return bVisible;
+    },
 }

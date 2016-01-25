@@ -56,6 +56,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoQueryResultXml", {
  	      //oModel.setProperty("/Editable",false);
  	      data.Editable= false;
  	      data.SaveVisible=false;
+ 	      data.KKSButtonVisible=false;
  	      data.Title1 ="查询";
  	    }
  	    
