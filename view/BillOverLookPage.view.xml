@@ -17,8 +17,10 @@
 				title="同步主数据"
 				info="最近更新:{/lastSyncLog}"
 				infoState="Success"
-				press="onSyncMasterClicked"
-				/>
+				press="onSyncMasterData">			<!-- press='onSyncMasterClicked'-->
+
+				
+			</StandardTile>
 			<StandardTile
 			    id="tileCreateOT"
 				icon="sap-icon://order-status"
@@ -59,8 +61,8 @@
 				title="上传离线数据"
 				info="最近上传:{/lastUpload}"
 				infoState="Success"
-				press="onUploadToECCClicked"
-				/>
+				press="onUploadToECCClicked">
+			</StandardTile>
 			<StandardTile
 			    id="tileCreateWT"
 				icon="sap-icon://factory"
@@ -93,6 +95,15 @@
 					<core:CustomData key="targetPage" value="BillInitializationPage">
 					</core:CustomData>
 				</customData>
+			</StandardTile>
+			<StandardTile
+			    id="tileGzpUpload"
+				icon="sap-icon://hint"
+				type="Monitor"
+				title="上传离线工作票"
+				info="最近上传:{/lastUpload}"
+				infoState="Success"
+				press="onUploadGZPToECCClicked">
 			</StandardTile>
 		</TileContainer>
 		<footer>
