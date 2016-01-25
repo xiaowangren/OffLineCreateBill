@@ -43,6 +43,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 //	onExit: function() {
 //
 //	}
+    //工厂文本
     onGetIwerkText:function(Iwerk){
         var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
         var werks = oStorage.get("ZPMOFFLINE_SRV.WERKS");
@@ -52,12 +53,43 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
             }
         }
     },
+    //工作票类型文本
     onGetTicketTypeText:function(Ztype){
         var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-        var oTickets = oStorage.get("ZPMOFFLINE_SRV.TicketType");
+        var oTickets = oStorage.get("ZPMOFFLINE_SRV.WorkType");
         for(var i=0;i<oTickets.length;i++){
             if(oTickets[i].Ztype == Ztype){
                 return oTickets[i].Ztypedes;
+            }
+        }
+    },
+    //工作单位文本
+    onGetAppdepText:function(Appdep){
+        var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+        var oTickets = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C");
+        for(var i=0;i<oTickets.length;i++){
+            if(oTickets[i].Appdep == Appdep){
+                return oTickets[i].Appdepdec;
+            }
+        }
+    },
+    //工作票班组文本
+    onGetClassDec:function(Class){
+        var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+        var oTickets = oStorage.get("ZPMOFFLINE_SRV.ZPMT00228");
+        for(var i=0;i<oTickets.length;i++){
+            if(oTickets[i].Class == Class){
+                return oTickets[i].Classdec;
+            }
+        }
+    },
+    //工作票联系部门文本
+    onGetLxbmText:function(Lxbm){
+        var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+        var oTickets = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C");
+        for(var i=0;i<oTickets.length;i++){
+            if(oTickets[i].Appdep == Lxbm){
+                return oTickets[i].Appdepdec;
             }
         }
     },
@@ -75,17 +107,82 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
     },
     getUnderLineText:function(text,length){
         //根据总长，补充空格
-        var textLength = this.getByteLen(text);
+        if(text){
+            var textLength = this.getByteLen(text);
+        }else{
+            var textLength = 0;
+            text="";
+        }
         for( var i=0;i<length-textLength;i++){
             text = text + " ";
         }
         return text;
     },
 
-//打印通用方法（参数一：工作票类型，参数er：工作票Json）
-
+    //打印通用方法（参数一：工作票类型，参数er：工作票Json）
     handleGzpPrint:function(gzpType,modelData){
+        if(!modelData){
+            return;
+        }
+        console.log(modelData);
+        var functionName = "this.onPrintGzp_" + gzpType;
+        var printContent = eval(functionName+"(modelData);");
         
+        var docDefinition = {
+            pageMargins: [ 40, 60, 40, 60 ],        //页面边距
+            content: printContent,
+        	styles: {
+        		header: {//大标题
+        			fontSize: 18,
+        			bold: false,
+        			alignment: 'center',
+        			color: 'black',
+        			margin: [0, 10, 0, 15]      //表格里不生效
+        		},
+        		smallText: {//右上角印章文字
+        			bold: false,
+        			fontSize: 10,
+        			color: 'black'
+        		},
+        		subheader: {//普通文本编号
+        			fontSize: 12,
+        			bold: false,
+        			margin: [0, 0, 10, 10]
+        		},
+        		underLineText: {//下划线文本
+        			fontSize: 12,
+        			bold: false,
+        // 			margin: [0, 3, 0, 5],
+        			decoration: 'underline'
+        		},
+        		bodyTable: {//表格格式，主要是结束的margin
+        		    fontSize: 12,
+        			margin: [0, 0, 0, 10]
+        		},
+        		tableHeader: {//14号字的表格内容
+        			bold: false,
+        			fontSize: 12,
+        			color: 'black'
+        		}
+        	},
+            defaultStyle: {
+                font: 'simfang'
+            }
+        };
+	    pdfMake.fonts = {
+           simfang: {
+             normal: 'simfang.ttf',
+             bold: 'simfang.ttf',
+             italics: 'simfang.ttf',
+             bolditalics: 'simfang.ttf'
+           }
+        };
+        // open the PDF in a new window
+         pdfMake.createPdf(docDefinition).open();
+        // print the PDF (not working in this version, will be added back in a couple of days)
+        // pdfMake.createPdf(docDefinition).print();
+        // download the PDF
+        // window.pdfmake.createPdf(docDefinition).download();
     },
 
 // DCC	电除尘专用工作票
@@ -730,23 +827,61 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
     },
     onPrintGZPDanger:function(modelData){
         //工作票危险点
+        var iwerkText = this.onGetIwerkText(modelData.Iwerk);
+        if(!(iwerkText == undefined)){
+            iwerkText = iwerkText.replace(/物资工厂/, '');
+        }
+        var appDepdec = this.onGetAppdepText(modelData.Appdep);
+        var classdec = this.onGetClassDec(modelData.Class);
+        var boxZaqm = modelData.Zaqm ? '\u25a0' : '\u25a1';
+        var boxZaqs = modelData.Zaqs ? '\u25a0' : '\u25a1';
+        var boxZaqd = modelData.Zaqd ? '\u25a0' : '\u25a1';
+        var boxZjyst = modelData.Zjyst ? '\u25a0' : '\u25a1';
+        var boxZjyx = modelData.Zjyx ? '\u25a0' : '\u25a1';
+        var boxZjyd = modelData.Zjyd ? '\u25a0' : '\u25a1';
+        var boxZstzk = modelData.Zstzk ? '\u25a0' : '\u25a1';
+        var boxZydq = modelData.Zydq ? '\u25a0' : '\u25a1';
+        var boxZmhq = modelData.Zmhq ? '\u25a0' : '\u25a1';
+        var boxZes = modelData.Zes ? '\u25a0' : '\u25a1';
+        var boxZfhyj = modelData.Zfhyj ? '\u25a0' : '\u25a1';
+        var boxZhjyj = modelData.Zhjyj ? '\u25a0' : '\u25a1';
+        var boxZhjst = modelData.Zhjst ? '\u25a0' : '\u25a1';
+        var boxZfcmz = modelData.Zfcmz ? '\u25a0' : '\u25a1';
+        var boxZfhz = modelData.Zfhz ? '\u25a0' : '\u25a1';
+        var boxZhxq = modelData.Zhxq ? '\u25a0' : '\u25a1';
+        var boxZzl = modelData.Zzl ? '\u25a0' : '\u25a1';
+        var boxZtz = modelData.Ztz ? '\u25a0' : '\u25a1';
+        var boxZqt = modelData.Zqt ? '\u25a0' : '\u25a1';
+        
+        var wxyContent = [];
+        var hjysContent = [];
+        for(var i=0;i<modelData.DangerTab.length;i++){
+            if(modelData.DangerTab[i].Zfxlx === 'X'){
+                var line = [modelData.DangerTab[i].Dangno,modelData.DangerTab[i].Dangsnot,modelData.DangerTab[i].Zztext,modelData.DangerTab[i].Zzremark,{text:modelData.DangerTab[i].Zzpltxt,colSpan:4},{},{},{}];
+                wxyContent.push(line);
+            }else if(modelData.DangerTab[i].Zfxlx === 'Y'){
+                var line = [modelData.DangerTab[i].Dangno,modelData.DangerTab[i].Dangsnot,modelData.DangerTab[i].Zztext,modelData.DangerTab[i].Zzremark,{text:modelData.DangerTab[i].Zzpltxt,colSpan:4},{},{},{}];
+                hjysContent.push(line);
+            }
+        }
         var docDefinition = {
             pageMargins: [ 40, 60, 40, 60 ],        //页面边距
             content: [
-                {text: "浙江浙能兰溪发电有限责任公司"+'\n'+"风险预控措施交底单\n ", style: 'header'},
+                {text: iwerkText+'\n'+"风险预控措施交底单\n ", style: 'header'},
 				{
 					style: 'bodyTable',
 					table: {
 							widths: ['10%','15%','10%','15%','10%','15%','10%','15%'],
-							body: [[{text:'部门',alignment:'center'},{text:'宁波众茂'},
-									  {text: '班组', alignment:'center'},{text: '电气一班'},
-									  {text: '工作负责人', alignment:'center'},{text: '林李卫'},
+							body: [[{text:'部门',alignment:'center'},{text:appDepdec},
+									  {text: '班组', alignment:'center'},{text: classdec},
+									  {text: '工作负责人', alignment:'center'},{text: modelData.Name},
 									  {text: '关联工作票号', alignment:'center'},{text: 'DCC_2081_15\n1103_001'}],
-									[ {text:'工作\n内容',alignment:'center'}, {text:'除尘',colSpan:7},{},{},{},{},{},{}],
+									[ {text:'工作\n内容',alignment:'center'}, {text:modelData.Ccontent,colSpan:7},{},{},{},{},{},{}],
 									[ {text:'一',alignment:'center'}, {text:'危险源及控制措施',alignment:'center',colSpan:7},{},{},{},{},{},{}],
 									[ {text:'序号',alignment:'center'},{text:'步骤或活动',alignment:'center'},
 									  {text:'危险点',alignment:'center'},{text:'伤害类型',alignment:'center'},
 									  {text:'控制措施',alignment:'center',colSpan:4},{},{},{}],
+								// 	wxyContent.length>0 ? wxyContent : [{},{},{},{},{},{},{},{}],
 									[ {text:'1',alignment:'center'},{text:'地方'},
 									  {text:''},{text:''},
 									  {text:'',colSpan:4},{},{},{}],
@@ -754,6 +889,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 									[ {text:'序号',alignment:'center'},{text:'步骤或活动',alignment:'center'},
 									  {text:'危险点',alignment:'center'},{text:'危害类型',alignment:'center'},
 									  {text:'控制措施',alignment:'center',colSpan:4},{},{},{}],
+								// 	hjysContent,
 									[ {text:'1',alignment:'center'},{text:'地方'},
 									  {text:''},{text:''},
 									  {text:'',colSpan:4},{},{},{}]
@@ -770,9 +906,9 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
                 					table: {
                 					    width:['10%','15%','10%','15%','10%','15%','*'],
                 						body: [
-                						    [{text:'\u25a0安全帽'},'\u25a1安全绳','\u25a1安全带','\u25a1绝缘手套','\u25a1绝缘鞋','\u25a1绝缘垫','\u25a1手套'],
-                						    [{text:'\u25a0验电器'},'\u25a1灭火器','\u25a1耳塞','\u25a1防护眼镜','\u25a1焊接眼镜','\u25a1焊接手套','\u25a1防尘面罩'],
-                						    [{text:'\u25a0防护眼'},'\u25a1呼吸器','\u25a1遮栏','\u25a1梯子','\u25a1其它（）','','']
+                						    [{text:boxZaqm+'安全帽'},boxZaqs+'安全绳',boxZaqd+'安全带',boxZjyst+'绝缘手套',boxZjyx+'绝缘鞋',boxZjyd+'绝缘垫',boxZstzk+'手套钻孔'],
+                						    [{text:boxZydq+'验电器'},boxZmhq+'灭火器',boxZes+'耳塞',boxZfhyj+'防护眼镜',boxZhjyj+'焊接眼镜',boxZhjst+'焊接手套',boxZfcmz+'防尘面罩'],
+                						    [{text:boxZfhyj+'防护眼镜'},boxZhxq+'呼吸器',boxZzl+'遮栏',boxZtz+'梯子',boxZqt+'其它（）','','']
                 						]
                 					},
                 					layout: 'noBorders'
@@ -924,7 +1060,8 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
     },
     // RJP	热力机械工作票HX
     onPrintGzp_RJP:function(modelData){
-        
+        console.log("printing RJP gzp");
+        console.log(modelData);
     },
     // DQ2	电气第二种工作票HX
     onPrintGzp_DQ2:function(modelData){
@@ -1029,14 +1166,30 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
     },
     // RKP	热控工作票lww
     onPrintGzp_RKP:function(modelData){
-        var docDefinition = {
-            pageMargins: [ 40, 60, 40, 60 ],        //页面边距
-            content: [
+        var iwerkText = this.onGetIwerkText(modelData.Iwerk);
+        if(!(iwerkText == undefined)){
+            iwerkText = iwerkText.replace(/物资工厂/, '');
+        }
+        var ticketTypeText = this.onGetTicketTypeText(modelData.Ztype);
+        var appDepdec = this.onGetAppdepText(modelData.Appdep);
+        var classdec = this.onGetClassDec(modelData.Class);
+        var lxbmText = this.onGetLxbmText(modelData.Lxbm);
+        //工作班组成员
+        var groupPersons = "";
+        for(var i=0;i<modelData.GroupTab.length;i++){
+            if(i>0){
+                groupPersons = groupPersons + "、";
+            }
+            groupPersons = groupPersons + modelData.GroupTab[i].Pname;
+        }
+        var groupPersonNum = modelData.GroupTab.length;
+        var fuyeNum = modelData.KksTab.length;
+        var content = [
                 {
 					table: {
 							widths: ['20%','60%','20%'],
 							body: [
-        							[ '', {text: "浙江浙能兰溪发电有限公司"+'\n'+"热控工作票\n ", style: 'header'},
+        							[ '', {text: iwerkText+'\n'+ticketTypeText+'\n', style: 'header'},
         							    [
         							        {
                             					table: {
@@ -1049,35 +1202,38 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					},
 					layout: 'noBorders'
 				},
-                {text:'编号：RKP_2081_151203_001',style:'subheader',alignment:'right'},
+                {text:'编号：'+modelData.Wcmno,style:'subheader',alignment:'right'},
                 {
 				// 	style: 'bodyTable',
 					table: {
 							headerRows: 0,
 							widths: ['2%','48%','50%'],
 							body: [
-									[ '1.',{text:[ '工作单位：',{text: this.getUnderLineText("设备管理部", 28),style:'underLineText'}]}, {text:[ '班组：',{text: this.getUnderLineText("集控运行", 34),style:'underLineText'}]} ],
-									[ '', {text:[ '工作负责人（监护人）：',{text: this.getUnderLineText("楼伟伟", 16),style:'underLineText'}]},{text:[ '联系方式：',{text: this.getUnderLineText("1234567890", 30),style:'underLineText'}]} ],
-									[ '',{text:[ '联系部门：',{text: this.getUnderLineText("", 16),style:'underLineText'},
-							             '联系人：',{text: this.getUnderLineText("", 19),style:'underLineText'},
-        							     '联系方式：',{text: this.getUnderLineText("", 18),style:'underLineText'}],colSpan:2}, {}],
-									[ '', {text:['工作班组成员（不包含工作负责人）',{text:this.getUnderLineText("A", 116),style:'underLineText'},
-									        '等共',{text:this.getUnderLineText("2", 2),style:'underLineText'},'人，附页',{text:this.getUnderLineText("0", 2),style:'underLineText'},'张'],colSpan:2}, {} ],
-									[ '2.', {text:[ '工作地点：',{text: this.getUnderLineText("ASDFASD", 73),style:'underLineText'}],colSpan:2}, {}],
-									[ '', {text:[ '工作内容：',{text: this.getUnderLineText("ASDFASD", 73),style:'underLineText'}],colSpan:2}, {}],
+									[ '1.',{text:[ '工作单位：',{text: this.getUnderLineText(appDepdec, 28),style:'underLineText'}]}, 
+									       {text:[ '班组：',{text: this.getUnderLineText(classdec, 34),style:'underLineText'}]} ],
+									[ '', {text:[ '工作负责人（监护人）：',{text: this.getUnderLineText(modelData.Name, 16),style:'underLineText'}]},
+									      {text:[ '联系方式：',{text: this.getUnderLineText(modelData.Phone1, 30),style:'underLineText'}]} ],
+									[ '',{text:[ '联系部门：',{text: this.getUnderLineText(lxbmText, 16),style:'underLineText'},
+							             '联系人：',{text: this.getUnderLineText(modelData.Contact, 19),style:'underLineText'},
+        							     '联系方式：',{text: this.getUnderLineText(modelData.Phone, 18),style:'underLineText'}],colSpan:2}, {}],
+									[ '', {text:['工作班组成员（不包含工作负责人）',{text:this.getUnderLineText(groupPersons, 114),style:'underLineText'},
+									       '等共',{text:this.getUnderLineText(groupPersonNum, 2),style:'underLineText'},
+									       '人，附页',{text:this.getUnderLineText(fuyeNum, 2),style:'underLineText'},'张'],colSpan:2}, {} ],
+									[ '2.', {text:[ '工作地点：',{text: this.getUnderLineText(modelData.Cplace, 73),style:'underLineText'}],colSpan:2}, {}],
+									[ '', {text:[ '工作内容：',{text: this.getUnderLineText(modelData.Ccontent, 73),style:'underLineText'}],colSpan:2}, {}],
 									[ '3.', {text:[ '工作计划开始时间：',
-									        {text: this.getUnderLineText("2015", 4),style:'underLineText'},'年',
-        									{text: this.getUnderLineText("12", 2),style:'underLineText'},'月',
-        									{text: this.getUnderLineText("03", 2),style:'underLineText'},'日',
-        									{text: this.getUnderLineText("08", 2),style:'underLineText'},'时',
-        									{text: this.getUnderLineText("05", 2),style:'underLineText'},'分'],colSpan:2}, {}],
+									        {text: this.getUnderLineText(modelData.Jhgzbedate.substring(0,4), 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText(modelData.Jhgzbedate.substring(5,7), 2),style:'underLineText'},'月',
+        									{text: this.getUnderLineText(modelData.Jhgzbedate.substring(8,10), 2),style:'underLineText'},'日',
+        									{text: this.getUnderLineText(modelData.Jhgzbetime.substring(0,2), 2),style:'underLineText'},'时',
+        									{text: this.getUnderLineText(modelData.Jhgzbetime.substring(3,5), 2),style:'underLineText'},'分'],colSpan:2}, {}],
 									[ '', {text:[ '工作计划完成时间：',
-									        {text: this.getUnderLineText("2015", 4),style:'underLineText'},'年',
-        									{text: this.getUnderLineText("12", 2),style:'underLineText'},'月',
-        									{text: this.getUnderLineText("03", 2),style:'underLineText'},'日',
-        									{text: this.getUnderLineText("11", 2),style:'underLineText'},'时',
-        									{text: this.getUnderLineText("00", 2),style:'underLineText'},'分'],colSpan:2}, {}],
-        							[ '4.', {text:[ '需要退出热工作保护或自动装置名称：',{text: this.getUnderLineText("1#发电机", 50),style:'underLineText'}],colSpan:2}, {}],
+									        {text: this.getUnderLineText(modelData.Jhgzfidate.substring(0,4), 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText(modelData.Jhgzfidate.substring(5,7), 2),style:'underLineText'},'月',
+        									{text: this.getUnderLineText(modelData.Jhgzfidate.substring(8,10), 2),style:'underLineText'},'日',
+        									{text: this.getUnderLineText(modelData.Jhgzfitime.substring(0,2), 2),style:'underLineText'},'时',
+        									{text: this.getUnderLineText(modelData.Jhgzfitime.substring(3,5), 2),style:'underLineText'},'分'],colSpan:2}, {}],
+        							[ '4.', {text:[ '需要退出热工作保护或自动装置名称：',{text: this.getUnderLineText(modelData.Ztcbh, 49),style:'underLineText'}],colSpan:2}, {}],
         							[ '5.', {text:'必须采取的安全措施:',colSpan:2}, {}]
 							]
 					},
@@ -1259,59 +1415,8 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					},
 					layout: 'noBorders'
 				}
-			],
-			styles: {
-        		header: {//大标题
-        			fontSize: 18,
-        			bold: false,
-        			alignment: 'center',
-        			color: 'black',
-        			margin: [0, 10, 0, 15]      //表格里不生效
-        		},
-        		smallText: {//右上角印章文字
-        			bold: false,
-        			fontSize: 10,
-        			color: 'black'
-        		},
-        		subheader: {//普通文本编号
-        			fontSize: 12,
-        			bold: false,
-        			margin: [0, 0, 10, 10]
-        		},
-        		underLineText: {//下划线文本
-        			fontSize: 12,
-        			bold: false,
-        // 			margin: [0, 3, 0, 5],
-        			decoration: 'underline'
-        		},
-        		bodyTable: {//表格格式，主要是结束的margin
-        		    fontSize: 12,
-        			margin: [0, 0, 0, 10]
-        		},
-        		tableHeader: {//14号字的表格内容
-        			bold: false,
-        			fontSize: 12,
-        			color: 'black'
-        		}
-        	},
-            defaultStyle: {
-                font: 'simfang'
-            }
-        };
-	    pdfMake.fonts = {
-           simfang: {
-             normal: 'simfang.ttf',
-             bold: 'simfang.ttf',
-             italics: 'simfang.ttf',
-             bolditalics: 'simfang.ttf'
-           }
-        };
-        // open the PDF in a new window
-         pdfMake.createPdf(docDefinition).open();
-        // print the PDF (not working in this version, will be added back in a couple of days)
-        // pdfMake.createPdf(docDefinition).print();
-        // download the PDF
-        // window.pdfmake.createPdf(docDefinition).download();
+			];
+			return content;
     },
     // QXD	事故抢修单lww
     onPrintGzp_QXD:function(modelData){
