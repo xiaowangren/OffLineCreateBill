@@ -1,0 +1,75 @@
+<core:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:l="sap.ui.layout"
+	xmlns:lay="sap.ui.commons.layout"
+	xmlns:c="sap.ui.commons"
+	xmlns="sap.m" controllerName="com.zhenergy.bill.view.GongZuoPiaoDangerTab" 
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<l:VerticalLayout class="_vertical" id="verticalLayOutHeight">
+	<Table
+        id="idCreateDangerousPointTab"
+        visibleRowCount="7"
+        items="{WorkModel>/DangerTab}" >
+        <columns>
+		<Column
+			minScreenWidth="Tablet"
+			demandPopin="true"
+			width="20px"
+			>
+			<Text text="序号" />
+		</Column>
+		<Column
+			minScreenWidth="Tablet"
+			demandPopin="true"
+			width="320px"
+			>
+			<Text text="危险点" />
+		</Column>
+		<Column
+			minScreenWidth="Tablet"
+			demandPopin="true"
+			width="150px"
+			 >
+			<Text text="危害后果" />
+		</Column>
+		<Column
+			minScreenWidth="Tablet"
+			demandPopin="true"
+			width="150px"
+			>
+			<Text text="控制措施" />
+		</Column>
+		<Column
+		minScreenWidth="Tablet"
+		demandPopin="true"
+		width="12px"
+		>
+		<Text text="操作" />
+	</Column>
+    <Column
+		minScreenWidth="Tablet"
+		demandPopin="true"
+		width="4px"
+		>
+	</Column>
+    </columns>
+    <ColumnListItem type="Active">
+		<cells>
+			<c:TextField
+				value="{WorkModel>Dangno}" width="100%" change="onChangeDangno"/>
+			<c:TextField
+				value="{WorkModel>Zztext}" width="100%"/>
+			<c:TextField
+				value="{WorkModel>Zzremark}" width="100%"/>
+			<c:TextField
+				value="{WorkModel>Zzpltxt}" width="100%"/>
+			<c:Button text="新增" press="onAddDangerous"></c:Button>
+		    <c:Button text="删除" press="onDeleteDangerous"></c:Button>
+		</cells>
+    </ColumnListItem>
+</Table>
+</l:VerticalLayout>
+<l:VerticalLayout>
+    
+</l:VerticalLayout>
+</core:View>
