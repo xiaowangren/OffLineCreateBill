@@ -2,6 +2,21 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
     onFanHui:function(){
         sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage");
     },
+    onPrintInfo:function(){
+        var oModel = this.getView().getModel("WorkModel");
+        var WorkModel = oModel.getData(); 
+        sap.ui.controller("com.zhenergy.bill.view.PDFPrint").handleGzpPrint(WorkModel.Ztype,WorkModel);
+    },
+    onPrintDangerous:function(){
+        var oModel = this.getView().getModel("WorkModel");
+        var WorkModel = oModel.getData(); 
+        sap.ui.controller("com.zhenergy.bill.view.PDFPrint").onPrintGZPDanger(WorkModel);
+    },
+    onPrintAttached:function(){
+        var oModel = this.getView().getModel("WorkModel");
+        var WorkModel = oModel.getData(); 
+        sap.ui.controller("com.zhenergy.bill.view.PDFPrint").onPrintGZPFuye(WorkModel);
+    },
     onSubmit:function(){
         var oModel = this.getView().getModel("WorkModel");
         var WorkModel = oModel.getData(); 
