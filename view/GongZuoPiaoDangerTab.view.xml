@@ -5,12 +5,19 @@
 	xmlns:c="sap.ui.commons"
 	xmlns="sap.m" controllerName="com.zhenergy.bill.view.GongZuoPiaoDangerTab" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
-	<l:VerticalLayout class="_vertical" id="verticalLayOutHeight">
+	<Panel class="_vertical" height="280px">
 	<Table
         id="idCreateDangerousPointTab"
         visibleRowCount="7"
         items="{WorkModel>/DangerTab}" >
         <columns>
+        <Column
+			minScreenWidth="Tablet"
+			demandPopin="true"
+			width="40px"
+			>
+			<Text text="风险类型" />
+		</Column>
 		<Column
 			minScreenWidth="Tablet"
 			demandPopin="true"
@@ -21,21 +28,28 @@
 		<Column
 			minScreenWidth="Tablet"
 			demandPopin="true"
-			width="320px"
+			width="100px"
+			>
+			<Text text="步骤与活动描述" />
+		</Column>
+		<Column
+			minScreenWidth="Tablet"
+			demandPopin="true"
+			width="110px"
 			>
 			<Text text="危险点" />
 		</Column>
 		<Column
 			minScreenWidth="Tablet"
 			demandPopin="true"
-			width="150px"
+			width="130px"
 			 >
-			<Text text="危害后果" />
+			<Text text="危害类型" />
 		</Column>
 		<Column
 			minScreenWidth="Tablet"
 			demandPopin="true"
-			width="150px"
+			width="110px"
 			>
 			<Text text="控制措施" />
 		</Column>
@@ -55,21 +69,104 @@
     </columns>
     <ColumnListItem type="Active">
 		<cells>
+			<c:ComboBox width="100%" selectedKey="{WorkModel>Zfxlx}" editable="{/Editable}">
+    			<c:items>
+    				<core:ListItem key="1" text="危险源"></core:ListItem>
+    				<core:ListItem key="2" text="环境因素"></core:ListItem>
+    			</c:items>
+    		</c:ComboBox>
 			<c:TextField
-				value="{WorkModel>Dangno}" width="100%" change="onChangeDangno"/>
+				value="{WorkModel>Dangno}" width="100%" change="onChangeDangno" editable="{/Editable}"/>
 			<c:TextField
-				value="{WorkModel>Zztext}" width="100%"/>
+				value="{WorkModel>Dangsnot}" width="100%" editable="{/Editable}"/>
 			<c:TextField
-				value="{WorkModel>Zzremark}" width="100%"/>
+				value="{WorkModel>Zztext}" width="100%" editable="{/Editable}"/>
 			<c:TextField
-				value="{WorkModel>Zzpltxt}" width="100%"/>
-			<c:Button text="新增" press="onAddDangerous"></c:Button>
-		    <c:Button text="删除" press="onDeleteDangerous"></c:Button>
+				value="{WorkModel>Zzremark}" width="100%" editable="{/Editable}"/>
+			<c:TextField
+				value="{WorkModel>Zzpltxt}" width="100%" editable="{/Editable}"/>
+			<c:Button text="新增" press="onAddDangerous" visible="{/Editable}"></c:Button>
+		    <c:Button text="删除" press="onDeleteDangerous" visible="{/Editable}"></c:Button>
 		</cells>
     </ColumnListItem>
 </Table>
-</l:VerticalLayout>
-<l:VerticalLayout>
-    
-</l:VerticalLayout>
+</Panel>
+<Panel class="panel_bkgColor">
+    <headerToolbar>
+		<Toolbar height="3rem">
+			<Title text="安全措施"/>
+		</Toolbar>
+	</headerToolbar>
+	<content>
+	    <lay:MatrixLayout >
+	            <lay:MatrixLayoutRow>
+	                <lay:MatrixLayoutCell >
+	                    <c:CheckBox text="安全套" checked="{WorkModel>/Zaqm}" editable="{/Editable}" ></c:CheckBox>
+	                </lay:MatrixLayoutCell>
+	                <lay:MatrixLayoutCell>
+            		    <c:CheckBox text="安全绳" checked="{WorkModel>/Zaqs}" editable="{/Editable}" class="span_left"></c:CheckBox>
+            		</lay:MatrixLayoutCell>
+	                <lay:MatrixLayoutCell>
+            		    <c:CheckBox text="安全带" checked="{WorkModel>/Zaqd}" editable="{/Editable}" class="span_left"></c:CheckBox>
+            		</lay:MatrixLayoutCell>
+	                <lay:MatrixLayoutCell>
+            		    <c:CheckBox text="绝缘手套" checked="{WorkModel>/Zjyst}" editable="{/Editable}" class="span_left"></c:CheckBox>
+                    </lay:MatrixLayoutCell>
+	                <lay:MatrixLayoutCell>
+                        <c:CheckBox text="绝缘鞋" checked="{WorkModel>/Zjyx}" editable="{/Editable}" class="span_left"></c:CheckBox>
+            		</lay:MatrixLayoutCell>
+	                <lay:MatrixLayoutCell>
+            		    <c:CheckBox text="绝缘垫" checked="{WorkModel>/Zjyd}" editable="{/Editable}" class="span_left"></c:CheckBox>
+            		</lay:MatrixLayoutCell>
+	                <lay:MatrixLayoutCell>
+            		    <c:CheckBox text="手套钻孔" checked="{WorkModel>/Zstzk}" editable="{/Editable}" class="span_left"></c:CheckBox>
+            		</lay:MatrixLayoutCell>
+	                <lay:MatrixLayoutCell>
+            		    <c:CheckBox text="验电器" checked="{WorkModel>/Zydq}" editable="{/Editable}" class="span_left"></c:CheckBox>
+                    </lay:MatrixLayoutCell>
+	                <lay:MatrixLayoutCell>
+                        <c:CheckBox text="灭火器" checked="{WorkModel>/Zmhq}" editable="{/Editable}" class="span_left"></c:CheckBox>
+	                </lay:MatrixLayoutCell>
+	            </lay:MatrixLayoutRow>
+	            <lay:MatrixLayoutRow>
+	                <lay:MatrixLayoutCell>
+	                    <c:CheckBox text="耳塞" checked="{WorkModel>/Zes}" editable="{/Editable}"></c:CheckBox>
+	               </lay:MatrixLayoutCell>
+	               <lay:MatrixLayoutCell>
+            		    <c:CheckBox text="防护眼镜" checked="{WorkModel>/Zfhyj}" editable="{/Editable}" class="span_left"></c:CheckBox>
+	               </lay:MatrixLayoutCell>
+	               <lay:MatrixLayoutCell>
+            		    <c:CheckBox text="焊接眼镜" checked="{WorkModel>/Zhjyj}" editable="{/Editable}" class="span_left"></c:CheckBox>
+	               </lay:MatrixLayoutCell>
+	               <lay:MatrixLayoutCell>
+            		    <c:CheckBox text="焊接手套" checked="{WorkModel>/Zhjst}" editable="{/Editable}" class="span_left"></c:CheckBox>
+	               </lay:MatrixLayoutCell>
+	               <lay:MatrixLayoutCell>
+                        <c:CheckBox text="防尘面罩" checked="{WorkModel>/Zfcmz}" editable="{/Editable}" class="span_left"></c:CheckBox>
+	               </lay:MatrixLayoutCell>
+	               <lay:MatrixLayoutCell>
+                        <c:CheckBox text="防护罩" checked="{WorkModel>/Zfhz}" editable="{/Editable}" class="span_left"></c:CheckBox>
+	               </lay:MatrixLayoutCell>
+	               <lay:MatrixLayoutCell>
+            		    <c:CheckBox text="呼吸器" checked="{WorkModel>/Zhxq}" editable="{/Editable}" class="span_left"></c:CheckBox>
+	               </lay:MatrixLayoutCell>
+	               <lay:MatrixLayoutCell>
+            		    <c:CheckBox text="遮拦" checked="{WorkModel>/Zzl}" editable="{/Editable}" class="span_left"></c:CheckBox>
+	               </lay:MatrixLayoutCell>
+	               <lay:MatrixLayoutCell>
+            		    <c:CheckBox text="其他" checked="{WorkModel>/Zqt}" editable="{/Editable}" class="span_left"></c:CheckBox>
+	               </lay:MatrixLayoutCell>
+	            </lay:MatrixLayoutRow>  
+	            <lay:MatrixLayoutRow>
+	                <lay:MatrixLayoutCell>
+	                    <c:TextView text="其他安全措施"></c:TextView>
+	                </lay:MatrixLayoutCell>
+	                <lay:MatrixLayoutCell colSpan="4">
+	                    <c:TextField value="{WorkModel>/Zqtt}" width="55%" editable="{/Editable}"></c:TextField>
+	                </lay:MatrixLayoutCell>
+	            </lay:MatrixLayoutRow>  
+	     </lay:MatrixLayout >
+	</content>
+
+</Panel>
 </core:View>
