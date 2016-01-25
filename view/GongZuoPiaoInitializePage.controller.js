@@ -10,33 +10,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
             return;
         }
         //根据工作票类型查出工作票类型描述
-        var oModel = sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onFengZhuang(idIwerkInitialize);
-        oModel.setProperty("/Title1","创建");
-        oModel.setProperty("/Editable",true);
-        oModel= this.onDataVisible(oModel,idIwerkInitialize,idWorkTypeInitialize);
-        jQuery.sap.require("jquery.sap.storage");
-		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-		if (oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI")) {
-			var oDataPer = oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI");
-    		var aFilterPer = [];
-			for(var g=0;g<oDataPer.length;g++){
-			    if(oDataPer[g].Ztype=="DH1"&&oDataPer[g].Quaid=="A"){
-			        aFilterPer.push(oDataPer[g]);
-			    }
-			}
-	        oModel.setProperty("/ZPMTOPER",aFilterPer);
-		}
-		if (oStorage.get("ZPMOFFLINE_SRV.WorkType")) {
-			var oData = oStorage.get("ZPMOFFLINE_SRV.WorkType");
-			var Ztypedesc = "";
-			for(var n=0;n<oData.length;n++){
-			    if(oData[n].Ztype==idWorkTypeInitialize){
-			        Ztypedesc = oData[n].Ztypedes;
-			        break;
-			    }
-			}
-		    oModel.setProperty("/Title2",Ztypedesc);
-		}
+       
 		//创建今天日期：Crdate
 		var now = new Date();
 		var year = now.getFullYear(); 
@@ -65,7 +39,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		    Tplnr:"",//功能位置 kks编码
 		    Wbbz:"",//外包标识  X是 N否 ""空
 		    Cplace:"",//工作地点
-		    Ccontent:"",
+		    Ccontent:"",//工作内容
 		    Appdep:"",//申请部门
 		    Class:"",//班组编码
 		    Prfty:"",//专业类型编码
@@ -97,14 +71,61 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		    Jhgzfitime:"",//结束时间
 		    Gzbzcynum:"",//工作班组成员人数
 		    Fynum:"",//附页张数
+		    RefWcmno:"",//关联操作票号
 		    AqcsTab:AqcsTab,//按措Tab
 		    DangerTab:DangerTab,//危险点Tab
+		    Zaqm:false,//安全帽
+		    Zaqs:false,//安全绳
+		    Zaqd:false,//安全带
+		    Zjyst:false,//绝缘手套
+		    Zjyx:false,//绝缘鞋
+		    Zjyd:false,//绝缘垫
+		    Zstzk:false,//手套钻孔
+		    Zydq:false,//验电器
+		    Zmhq:false,//灭火器
+		    Zes:false,//耳塞
+		    Zfhyj:false,//防护眼镜
+		    Zhjyj:false,//焊接眼镜
+		    Zhjst:false,//焊接手套
+		    Zfcmz:false,//防尘面罩
+		    Zfhz:false,//防护罩
+		    Zhxq:false,//呼吸器
+		    Zzl:false,//遮拦
+		    Ztz:false,//梯子
+		    Zqt:false,//其他
+		    Zqtt:"",//其他安全措施
 		    GroupTab:GroupTab,//
-		    KksTab:KksTab
+		    KksTab:KksTab,
+		    statusText:"unCreated"
 		};
-
+		var oModel = sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onFengZhuang(idIwerkInitialize);
+        oModel.setProperty("/Title1","创建");
+        oModel.setProperty("/Editable",true);
+        oModel= this.onDataVisible(oModel,idIwerkInitialize,idWorkTypeInitialize);
+        jQuery.sap.require("jquery.sap.storage");
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI")) {
+			var oDataPer = oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI");
+    		var aFilterPer = [];
+			for(var g=0;g<oDataPer.length;g++){
+			    if(oDataPer[g].Ztype=="DH1"&&oDataPer[g].Quaid=="A"){
+			        aFilterPer.push(oDataPer[g]);
+			    }
+			}
+	        oModel.setProperty("/ZPMTOPER",aFilterPer);
+		}
+		if (oStorage.get("ZPMOFFLINE_SRV.WorkType")) {
+			var oData = oStorage.get("ZPMOFFLINE_SRV.WorkType");
+			var Ztypedesc = "";
+			for(var n=0;n<oData.length;n++){
+			    if(oData[n].Ztype==idWorkTypeInitialize){
+			        Ztypedesc = oData[n].Ztypedes;
+			        break;
+			    }
+			}
+		    oModel.setProperty("/Title2",Ztypedesc);
+		}
 		oModel.setData(data,true);//合并数据，但是不替换
-        // oModel.setProperty("WorkModel",data);
 		sap.ui.getCore().setModel(oModel);
  	    sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoFinalView", "");
     	var page = sap.ui.getCore().byId("idBillApp").app.getPage("idGongZuoPiaoFinalView");
@@ -181,6 +202,12 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		}else{//JXD QXD SCC SD1  SD2 SJB SRJ SRK   
 		    oModel.setProperty("/SqVisible",false);
 		}
+// 		//是否显示外包
+// 		if(type="QXD"||type=="JXD"||type=="SCC"||type=="SD1"||type=="SD2"||type=="SJB"||type=="SRJ"||type=="SRK"){
+// 		    oModel.setProperty("/WbbzsVisible",false);
+// 		}else{
+// 		    oModel.setProperty("/WbbzsVisible",true);
+// 		}
 		//是否显示动火方式
 		if(type=="DH1"||type=="DH2"){
 		    oModel.setProperty("/DhfsVisible",true);
@@ -195,9 +222,9 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		}
 		//是否显示工作条件（停电/不停电）
 		if(type=="DQ2"){
-		    oModel.setProperty("/ZtcbhVisible",true);
+		    oModel.setProperty("/GztjVisible",true);
 		}else{ 
-		    oModel.setProperty("/ZtcbhVisible",false);
+		    oModel.setProperty("/GztjVisible",false);
 		}
 		//是否显示联系部门，联系人，联系方式 (JXD QXD) SCC SD1 SD2 SJB SRJ SRK
 		if(type=="JXD"||type=="QXD"||type=="SCC"||type=="SD1"||type=="SD2"||type=="SJB"||type=="SRJ"||type=="SRK"){
@@ -210,6 +237,36 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		    oModel.setProperty("/Lx32Visible",false);
 		}else{ 
 		    oModel.setProperty("/Lx32Visible",true);
+		}
+		//是否显示附页张数 FynumVisible
+		if(type=="DCC"||type=="DQ1"||type=="DQ2"||type=="JBP"||type=="RJP"||type=="RKP"){
+		    oModel.setProperty("/FynumVisible",true);
+		}else{ 
+		    oModel.setProperty("/FynumVisible",false);
+		}
+		//显示人数
+		if(type=="DCC"||type=="DQ1"||type=="DQ2"||type=="JBP"||type=="JXD"||type=="QXD"||type=="RJP"||type=="RKP"){
+		    oModel.setProperty("/GzbzcynumVisible",true);
+		}else{ 
+		    oModel.setProperty("/GzbzcynumVisible",false);
+		}
+		//是否显示关联操作票号
+		if(type=="DH1"||type=="DH2"){
+		    oModel.setProperty("/RefWcmnoVisible",true);
+		}else{ 
+		    oModel.setProperty("/RefWcmnoVisible",false);
+		}
+		//是否显示完成时间
+		if(type=="QXD"||type=="SCC"||type=="SD1"||type=="SD2"||type=="SJB"||type=="SRJ"||type=="SRK"){
+		    oModel.setProperty("/JhgzfiVisible",false);
+		}else{ 
+		    oModel.setProperty("/JhgzfiVisible",true);
+		}
+		//是否显示table   tableVisible
+		if(type=="SCC"||type=="SD1"||type=="SD2"||type=="SJB"||type=="SRJ"||type=="SRK"){
+		    oModel.setProperty("/TableVisible",false);
+		}else{ 
+		    oModel.setProperty("/TableVisible",true);
 		}
 		return oModel;
     }

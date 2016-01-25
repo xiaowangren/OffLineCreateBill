@@ -1,0 +1,74 @@
+<core:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:l="sap.ui.layout"
+	xmlns:lay="sap.ui.commons.layout"
+	xmlns:c="sap.ui.commons"
+	xmlns:t="sap.ui.table"
+	xmlns="sap.m" controllerName="com.zhenergy.bill.view.GongZuoPiaoAppendix" 
+	xmlns:html="http://www.w3.org/1999/xhtml">
+    <Table
+        id="idKKSTab"
+            items="{WorkModel>/KksTab}" >
+        <columns>
+		<Column
+			minScreenWidth="Tablet"
+			demandPopin="true"
+			width="20px"
+			>
+			<Text text="序号" />
+		</Column>
+		<Column
+			minScreenWidth="Tablet"
+			demandPopin="true"
+			width="150px"
+			>
+			<Text text="KKS编码" />
+		</Column>
+		<Column
+			minScreenWidth="Tablet"
+			demandPopin="true"
+			width="320px"
+			 >
+			<Text text="KKS描述" />
+		</Column>
+		<Column
+			minScreenWidth="Tablet"
+			demandPopin="true"
+			width="12px"
+			>
+			<Text text="操作" />
+		</Column>
+		<Column
+			minScreenWidth="Tablet"
+			demandPopin="true"
+			width="4px"
+			>
+		</Column>
+	    </columns>
+	    <ColumnListItem type="Active">
+			<cells>
+				<c:TextView
+					text="{Seqc}" width="100%"/>
+				<c:TextView
+					text="{Tplnr}" width="100%"/>
+				<c:TextView
+					text="{ 
+								path: 'Tplnr', 
+								formatter: 'com.zhenergy.bill.util.Formatter.KKSText' 
+							}"  width="100%"/>
+				<c:Button text="新增" press="onAddKKS"></c:Button>
+			    <c:Button text="删除" press="onDeleteKKS"></c:Button>
+			</cells>
+	    </ColumnListItem>
+   </Table>
+    <lay:MatrixLayout width="100%" widths="5%,30%,25%,35%" class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1">
+        <lay:MatrixLayoutRow>
+            <lay:MatrixLayoutCell>
+                <c:TextView text="附加说明"></c:TextView>
+            </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="3">
+                <c:TextArea value="{WorkModel>/Zfjsm}" rows="2" cols="150" id="fujiashuoming"></c:TextArea>
+            </lay:MatrixLayoutCell>
+        </lay:MatrixLayoutRow>
+    </lay:MatrixLayout>
+</core:View>

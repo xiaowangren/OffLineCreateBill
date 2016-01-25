@@ -1,0 +1,49 @@
+<!--
+
+    Copyright (C) 2009-2014 SAP SE or an SAP affiliate company. All rights reserved
+
+-->
+<core:View xmlns:core="sap.ui.core" 
+            xmlns:mvc="sap.ui.core.mvc" 
+            xmlns="sap.m"
+        	xmlns:c="sap.ui.commons"
+        	xmlns:f="sap.ui.layout.form"
+        	xmlns:l="sap.ui.layout"
+        	xmlns:ly="sap.ui.commons.layout"
+			controllerName="com.zhenergy.bill.view.SearchKKS.Forward" 
+			xmlns:html="http://www.w3.org/1999/xhtml"
+			>
+
+	<Dialog id="DLG_FORWARD" title="搜索KKS编码" contentWidth="480px" contentHeight="440px" beforeOpen="onBeforeOpenDialog">
+		<subHeader>
+			<Bar>
+				<contentMiddle>
+					<SearchField id="SFD_FORWARD" 
+					            liveChange="onLiveChange" 
+					            showMagnifier="false" 
+					            placeholder="输入KKS编码或描述进行搜索..."
+					            search="onAgentSearch"></SearchField>
+				</contentMiddle>
+			</Bar>
+		</subHeader>
+		<content>
+			<List id="LST_AGENTS" items="{/results}" 
+				showNoData="false" noDataText="无法找到KKS编码"
+				includeItemInSelection="true">
+				<StandardListItem 
+				        id="ITM_AGENT" 
+				        icon="sap-icon://tags"
+						title="{Tplnr}" 
+						description="{Pltxt}"
+						iconDensityAware="false"
+						type="Active"
+						press="onSelectAgent"
+						>
+				</StandardListItem>
+			</List>
+		</content>
+		<endButton>
+			<Button press="onCancelDialog" text="取消"/>
+		</endButton>
+	</Dialog>
+</core:View>

@@ -20,7 +20,7 @@
 					<Column width="11rem">
 						<m:Label text="工作票编号" />
 						<template>
-							<m:Text text="{Zczph}" tooltip="{Zczph}"/>
+							<m:Text text="{Wcmno}" tooltip="{Wcmno}"/>
 						</template>
 					</Column>
 			</columns>
@@ -28,7 +28,7 @@
 					<Column width="9rem">
 						<m:Label text="状态" />
 						<template>
-							<c:ComboBox width="95%" selectedKey="{Estat}">
+							<c:ComboBox width="95%" selectedKey="{Estat}" editable="false">
 								<c:items>
 									<core:ListItem key="10" text="拟票"></core:ListItem>
 								</c:items>
@@ -40,7 +40,7 @@
 				<Column width="25rem">
 					<m:Label text="工作内容" />
 					<template>
-					    <m:Text text="{Zlybnum}" tooltip="{Zlybnum}"/>
+					    <m:Text text="{Ccontent}" tooltip="{Ccontent}"/>
 					</template>
 				</Column>
 			</columns>
@@ -48,7 +48,7 @@
 				<Column width="9rem">
 					<m:Label text="工作票类型" />
 					<template>
-						<c:ComboBox items="{ path: '/WorkType', sorter: { path: 'Ztype' } }" width="95%" selectedKey="{Ztype}">
+						<c:ComboBox items="{ path: '/WorkType', sorter: { path: 'Ztype' } }" width="95%" selectedKey="{Ztype}" editable="false">
 								<core:ListItem key="{Ztype}" text="{Ztypedes}"></core:ListItem>
 						</c:ComboBox>
 					</template>
@@ -76,10 +76,10 @@
 				</Column>
 			</columns>
 			<columns>
-					<Column width="9rem" sortProperty="Cdata">
+					<Column width="9rem" sortProperty="Crdate">
 						<m:Label text="开票日期" />
 						<template>
-							<m:Text text="{Cdata}" tooltip="{Cdata}"/>
+							<m:Text text="{Crdate}" tooltip="{Crdate}"/>
 						</template>
 					</Column>
 			</columns>
@@ -97,7 +97,7 @@
 				<Column width="7rem">
 					<m:Label text="班组" />
 					<template>
-    					<c:ComboBox items="{ path: '/BanZu', sorter: { path: 'Yxgroup' } }" width="95%" selectedKey="{Yxgroup}" editable="false">
+    					<c:ComboBox items="{ path: '/BanZu', sorter: { path: 'Yxgroup' } }" width="95%" selectedKey="{Class}" editable="false">
 							<core:ListItem key="{Yxgroup}" text="{Yxgroupdec}"></core:ListItem>
 						</c:ComboBox>
 					</template>
@@ -107,7 +107,7 @@
 				<Column width="9rem">
 					<m:Label text="工作负责人" />
 					<template>
-						<m:Text text="{Cuser}" tooltip="{Cuser}"/>
+						<m:Text text="{Name}" tooltip="{Name}"/>
 					</template>
 				</Column>
 			</columns>

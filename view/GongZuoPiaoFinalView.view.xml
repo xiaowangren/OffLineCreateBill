@@ -14,7 +14,7 @@
 		                    <c:Button text="返回首页" press="onFanHui"></c:Button>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:Button text="保存" press="onSubmit"></c:Button>
+		                    <c:Button text="保存" press="onSubmit" visible="{/SaveVisible}"></c:Button>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:Button text="打印工作票" press="onPrintInfo"></c:Button>
@@ -86,7 +86,7 @@
 		        </lay:MatrixLayout>
 		    </l:VerticalLayout>
 		    <l:VerticalLayout width="100%">
-		        <c:TabStrip height="590px" class="page_Margin">
+		        <c:TabStrip height="500px" class="page_Margin">
 		            <c:Tab text="基本信息">
 		                <mvc:XMLView viewName="com.zhenergy.bill.view.GongZuoPiaoBaseInfo"/>
 		             <!--   <lay:MatrixLayout class="page_Margin" widths="5%,20%,4%,20%,5%,20%,4%,20%" width="100%" >-->
@@ -348,9 +348,17 @@
         		     <!--       </lay:MatrixLayoutRow>-->
         		     <!--   </lay:MatrixLayout>-->
 		            </c:Tab>
-		            <c:Tab text="检修提出安措"></c:Tab>
-		            <c:Tab text="危险点分析"></c:Tab>
-		            <c:Tab text="附页"></c:Tab>
+		            <c:Tab text="检修提出安措">
+		                <mvc:XMLView viewName="com.zhenergy.bill.view.GongZuoPiaoAqcs"/>
+		            </c:Tab>
+		            <c:Tab text="危险点分析">
+		                <c:content>
+		                    <mvc:XMLView viewName="com.zhenergy.bill.view.GongZuoPiaoDangerTab"/>
+		                </c:content>
+		            </c:Tab>
+		            <c:Tab text="附页">
+		                <mvc:XMLView viewName="com.zhenergy.bill.view.GongZuoPiaoAppendix"/>
+		            </c:Tab>
 		        </c:TabStrip>
 		    </l:VerticalLayout>
 		</content>

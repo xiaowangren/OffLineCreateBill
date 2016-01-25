@@ -11,3 +11,27 @@
 .TextField_TextView{
     margin-left:20px;
 }
+.margin_top{
+    margin-top: -55px;
+    height:30px;
+}
+.sapMInputBaseInner {
+    color: #000000;
+    background-color: #ffffff;
+    border: 1px solid #c0c0c0;
+    margin: 0;
+    font-size: 0.875rem;
+    font-family: Arial,Helvetica,sans-serif;
+    line-height: normal;
+    height: 22px;
+    vertical-align: top;
+    padding: 0 0.75rem;
+    -moz-appearance: textfield;
+}
+.sapUiVlt{
+    display: inline-block;
+    overflow: scroll;
+}
+._vertical{
+    height:200px;
+}

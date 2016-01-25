@@ -36,7 +36,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
         if(createDate!=""){
             createDate = createDate.substr(0,4)+"-"+createDate.substr(4,2)+"-"+createDate.substr(6,2);
         }
-        console.log(BiaoJiQuery+";"+Iwerk+";"+idWorkType+";"+Peoid+";"+Appdep+";"+gongZuoDiDian+";"+gongZuoNeiRong+";"+createDate);
+        // console.log(BiaoJiQuery+";"+Iwerk+";"+idWorkType+";"+Peoid+";"+Appdep+";"+gongZuoDiDian+";"+gongZuoNeiRong+";"+createDate);
         var oLocalModel = this.onFengZhuang(Iwerk);
         jQuery.sap.require("jquery.sap.storage");
 	    var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
@@ -47,8 +47,8 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
             }
             
         }else{//过滤本地已经创建的票
-            if (oStorage.get("ZPMOFFLINE_SRV.BillInfos")) {
-			    var oData1 = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
+            if (oStorage.get("ZPMOFFLINE_SRV.WorkInfos")) {
+			    var oData1 = oStorage.get("ZPMOFFLINE_SRV.WorkInfos");
 			    oLocalModel.setProperty("/ResultModel",oData1);
             }
         }

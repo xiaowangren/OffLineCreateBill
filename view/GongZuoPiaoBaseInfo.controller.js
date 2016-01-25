@@ -1,38 +1,103 @@
 sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoBaseInfo", {
-
-/**
-* Called when a controller is instantiated and its View controls (if available) are already created.
-* Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
-* @memberOf com.zhenergy.bill.view.GongZuoPiaoBaseInfo
-*/
-//	onInit: function() {
-//
-//	},
-
-/**
-* Similar to onAfterRendering, but this hook is invoked before the controller's View is re-rendered
-* (NOT before the first rendering! onInit() is used for that one!).
-* @memberOf com.zhenergy.bill.view.GongZuoPiaoBaseInfo
-*/
-//	onBeforeRendering: function() {
-//
-//	},
-
-/**
-* Called when the View has been rendered (so its HTML is part of the document). Post-rendering manipulations of the HTML could be done here.
-* This hook is the same one that SAPUI5 controls get after being rendered.
-* @memberOf com.zhenergy.bill.view.GongZuoPiaoBaseInfo
-*/
-//	onAfterRendering: function() {
-//
-//	},
-
-/**
-* Called when the Controller is destroyed. Use this one to free resources and finalize activities.
-* @memberOf com.zhenergy.bill.view.GongZuoPiaoBaseInfo
-*/
-//	onExit: function() {
-//
-//	}
-
+    onAddDaleteIndex:function(oEvent){
+        var source = oEvent.getSource();
+        var sPath = source.oPropagatedProperties.oBindingContexts.WorkModel.sPath;
+        var splits = sPath.split("/");
+        var index = parseInt(splits[2]);
+        return index;
+    },
+    onrefresh:function(pageId,model){
+        var oModel = new sap.ui.model.json.JSONModel(model);
+        sap.ui.getCore().byId("idBillApp").app.to(pageId, model);
+        var page = sap.ui.getCore().byId("idBillApp").app.getPage(pageId);
+    	page.setModel(oModel,"WorkModel"); 
+    },
+    onAddRow:function(oEvent){
+        //获取index
+        var index = this.onAddDaleteIndex(oEvent);
+        var WorkModel = this.getView().getModel("WorkModel").getData(); 
+        var GroupTab = WorkModel.GroupTab;
+        Array.prototype.insert = function (index, item) {
+            this.splice(index, 0, item);
+        };
+        var GroupElement = GroupTab[index];
+        var Seqc="";
+        var SeqcBefore = "";
+        if(GroupElement.Seqc!=""){
+            Seqc = parseInt(GroupElement.Seqc);
+        }else{
+            for(var g=index;g>=0;g--){
+                if(GroupTab[g].Seqc!=0){
+                   SeqcBefore =  GroupTab[g].Seqc;
+                   break;
+                }
+            }
+            Seqc = parseInt(SeqcBefore);
+        }    
+        var Group = {Seqc:Seqc+1,Pname:"",Opsno:""};
+        GroupTab.insert(index+1, Group);
+        for(var k=index+2;k<GroupTab.length;k++){
+                if(GroupTab[k].Seqc!=""){
+                    var SeqcInt = parseInt(GroupTab[k].Seqc)+1;
+                    GroupTab[k].Seqc = SeqcInt+"";  
+                }
+                
+            
+        }
+        this.onrefresh("idGongZuoPiaoFinalView", WorkModel);
+    },
+    onDeleteRow:function(oEvent){
+        //获取index
+        var index = this.onAddDaleteIndex(oEvent);
+        var WorkModel = this.getView().getModel("WorkModel").getData(); 
+        var GroupTab = WorkModel.GroupTab;
+        if(GroupTab.length==1&&index==0){
+            sap.m.MessageBox.alert("至少存在一行，无法进行删除",{title: "提示"});
+            return;
+        }
+        var GroupElement = GroupTab[index];
+        if(GroupElement.Seqc=="1"&&index==0){
+            sap.m.MessageBox.alert("此行无法进行删除",{title: "提示"});
+            return;
+        }
+        if(GroupElement.Seqc!=""){
+            for(var k=0;k<GroupTab.length;k++){
+                if(k<=index){
+                    if(GroupTab[k].Seqc!=""){
+                        GroupTab[k].Seqc = parseInt(GroupTab[k].Seqc)+"";
+                    }
+                }else{
+                    if(GroupTab[k].Seqc!=""){
+                        var SeqcInt = parseInt(GroupTab[k].Seqc)-1;
+                        GroupTab[k].Seqc = SeqcInt+"";
+                    }
+                }    
+            }
+        }
+        Array.prototype.baoremove = function(dx) 
+        { 
+            if(isNaN(dx)||dx>this.length){return false;} 
+            this.splice(dx,1); 
+        }
+        
+        GroupTab.baoremove(index);
+        this.onrefresh("idGongZuoPiaoFinalView", WorkModel);
+    },
+    onChangeSeqc:function(oEvent){
+        var WorkModel = this.getView().getModel("WorkModel").getData(); 
+        var GroupTab = WorkModel.GroupTab;
+        var sPath = oEvent.getSource().oParent.oBindingContexts.WorkModel.sPath;
+        var splits = sPath.split("/");
+        var index = parseInt(splits[2]);
+        for(var k=0;k<GroupTab.length;k++){
+            if(k<=index&&GroupTab[k].Seqc!=""){
+                GroupTab[k].Seqc = parseInt(GroupTab[k].Seqc)+"";
+            }else{
+                if(GroupTab[k].Seqc!=""){
+                    var SeqcInt = parseInt(GroupTab[k].Seqc)-1;
+                    GroupTab[k].Seqc = SeqcInt+"";
+                } 
+            }    
+        }
+    }
 });
