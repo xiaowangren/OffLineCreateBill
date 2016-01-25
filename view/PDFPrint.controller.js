@@ -82,7 +82,11 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         return text;
     },
 
+//打印通用方法（参数一：工作票类型，参数er：工作票Json）
 
+    handleGzpPrint:function(gzpType,modelData){
+        
+    },
 
 // DCC	电除尘专用工作票
     onPrintGzp_DCC:function(modelData){
@@ -932,15 +936,15 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
             pageMargins: [ 40, 60, 40, 60 ],        //页面边距
             content: [
                 {text: "浙江浙能兰溪发电有限责任公司"+'\n'+"检修作业通知单\n ", style: 'header'},
-                {text:'编号：RKP_2081_151203_001',style:'subheader',alignment:'right'},
+                {text:'编号：JXD_2081_151203_001',style:'subheader',alignment:'right'},
 				{
 					style: 'bodyTable',
 					table: {
-							widths: ['25%','25%','25%','25%'],
+							widths: ['20%','30%','20%','30%'],
 							body: [
-									[ {text: '作业部门（单位）\n\n\n\n', alignment:'center'},{text: '设备管理部',colSpan:3},{},{}],
-									[ {text: '作业内容\n\n\n', alignment:'center'},{text: '打扫卫生',colSpan:3},{},{}],
-									[ {text: '作业地点\n\n\n', alignment:'center'},{text: '设备管理部',colSpan:3},{},{}],
+									[ {text: '作业部门\n（单位）\n\n', alignment:'center'},{text: '设备管理部',colSpan:3},{},{}],
+									[ {text: '作业内容\n\n\n\n', alignment:'center'},{text: '打扫卫生',colSpan:3},{},{}],
+									[ {text: '作业地点\n\n\n\n', alignment:'center'},{text: '设备管理部',colSpan:3},{},{}],
 									[ {text: '计划作业时间\n\n\n', alignment:'center'},
 									  {text: [{text: this.getUnderLineText("", 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
@@ -951,26 +955,31 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:3},{},{}],
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],alignment:'center',colSpan:3},{},{}],
 									[ {text: '工作负责人\n\n\n', alignment:'center'},{text: '陈超'},
 									  {text: '联系电话\n\n\n', alignment:'center'},{text: '12341235345'}],
-									[ {text: '计划班组成员\n\n\n', alignment:'center'},{text: '程超、孙冰洋，郭志元',colSpan:3},{},{}],
+									[ {text: '计划班组成员\n\n\n\n', alignment:'center'},{text: '程超、孙冰洋，郭志元',colSpan:3},{},{}],
 									[ {text: '值班负责人意见\n\n\n', alignment:'center'},
-									  {text: ['签名         ',{text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+									  {text: ['\n签名           ',{text: this.getUnderLineText("", 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:3},{},{}],
 									[ {text: '运行许可意见\n\n\n', alignment:'center'},
-									  {text: ['签名           ',
+									  {text: ['\n签名           ',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:3},{},{}],
-        							[ {text: '终结时间', alignment:'center',rowSpan:2},{text: '年月日时分', alignment:'center',rowSpan:2},{text: '工作负责人'},{text: '陈超'}],
+        							[ {text: '终结时间', alignment:'center',rowSpan:2},
+        							  {text: [{text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日\n',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'], alignment:'right',rowSpan:2},{text: '工作负责人'},{text: '陈超'}],
         							[ '','',{text: '运行许可人'},{text: '陈超'}],
-        							[ {text: '检修遗留问题或\n    其它需要说明事项\n\n\n\n\n\n', alignment:'center'},{text: '',colSpan:3},{},{}]
+        							[ {text: '检修遗留问题或其它需要说明事项\n\n\n\n\n\n', alignment:'center'},{text: '',colSpan:3},{},{}]
 							]
 					}
 				}
@@ -1341,7 +1350,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 							headerRows: 0,
 							widths: ['2%','48%','50%'],
 							body: [
-									[ '1.',{text:['抢修工作负责人（监护人）：',{text: this.getUnderLineText("", 14),style:'underLineText'}]}, {text:[ '班组：',{text: this.getUnderLineText("集控运行", 34),style:'underLineText'}]} ],
+									[ '1.',{text:['抢修工作负责人（监护人）：',{text: this.getUnderLineText("", 14),style:'underLineText'}]}, {text:[ '班组：',{text: this.getUnderLineText("集控运行", 32),style:'underLineText'}]} ],
 									[ '2.', {text: '抢修班人员（不包括工作负责人）', colSpan:2}, {}],
 									[ '',{text:[{text: this.getUnderLineText("", 74),style:'underLineText'},
 							             '共',{text: this.getUnderLineText("", 4),style:'underLineText'},'人'],colSpan:2}, {}],
@@ -1358,8 +1367,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 							headerRows: 0,
 							widths: ['100%'],
 							body: [
-									[{text:'（1）'}],
-                            		[{text:'（2）'}]
+									[{text:'（1）\n（2）'}]
 							]
 					}
 				},
@@ -1379,8 +1387,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 							headerRows: 0,
 							widths: ['100%'],
 							body: [
-									[{text:'（1）'}],
-                            		[{text:'（2）'}]
+									[{text:'（1）\n（2）'}]
 							]
 					}
 				},
@@ -1403,8 +1410,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 							headerRows: 0,
 							widths: ['100%'],
 							body: [
-									[{text:'（1）'}],
-                            		[{text:'（2）'}]
+									[{text:'（1）\n（2）'}]
 							]
 					}
 				},
@@ -1415,10 +1421,10 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
                                     [ '8.',  {text:[ '经值班负责人（值长）：',
                                             {text: this.getUnderLineText("林立卫", 8),style:'underLineText'},'同意，上述安全措施已',
 									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分执行'],colSpan:2},{}],
+        									{text: this.getUnderLineText("", 2),style:'underLineText'},'月',
+        									{text: this.getUnderLineText("", 2),style:'underLineText'},'日',
+        									{text: this.getUnderLineText("", 2),style:'underLineText'},'时',
+        									{text: this.getUnderLineText("", 2),style:'underLineText'},'分执行'],colSpan:2},{}],
         							[ '9.', {text:'许可抢修时间',colSpan:2}, {}],
                                     [ '',  {text:['许可开工时间',
 									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
