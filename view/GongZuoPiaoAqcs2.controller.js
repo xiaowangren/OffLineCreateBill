@@ -1,7 +1,49 @@
 jQuery.sap.require("jquery.sap.storage");
-jQuery.sap.require("com.zhenergy.bill.util.SearchKKS");
-jQuery.sap.require("com.zhenergy.bill.util.Formatter");
-sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoAppendix", {
+
+sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoAqcs2", {
+    onSelect:function(oEvent){
+        //获取index
+        var index = this.onAddDaleteIndex(oEvent);
+        var WorkModel = this.getView().getModel("WorkModel").getData(); 
+        var GroupTab = WorkModel.AqcsTabY;
+        //更新 Katalogart及 Codegruppe
+        GroupTab[index].Katalogart="Y";
+        GroupTab[index].Codegruppe=GroupTab[index].Code.substring(0,6);
+         
+        //更新序号
+        var AQCSDict={};
+        for(var i=0;i<GroupTab.length;i++){
+            if(GroupTab[i].Code){
+                if(AQCSDict[GroupTab[i].Code]){
+                    AQCSDict[GroupTab[i].Code]++
+                }else{
+                    AQCSDict[GroupTab[i].Code]=1
+                }
+                GroupTab[i].Seqc=AQCSDict[GroupTab[i].Code]+"";
+            }
+
+        }
+        console.log(WorkModel);
+        this.onrefresh("idGongZuoPiaoFinalView", WorkModel);
+    },
+    OnChangeAqcs: function(){
+        var WorkModel = this.getView().getModel("WorkModel").getData(); 
+        var GroupTab = WorkModel.AqcsTabY;
+        //更新序号
+        var AQCSDict={};
+        for(var i=0;i<GroupTab.length;i++){
+            if(GroupTab[i].Code){
+                if(AQCSDict[GroupTab[i].Code]){
+                    AQCSDict[GroupTab[i].Code]++
+                }else{
+                    AQCSDict[GroupTab[i].Code]=1
+                }
+                GroupTab[i].Seqc=AQCSDict[GroupTab[i].Code]+"";
+            }
+
+        }
+        this.onrefresh("idGongZuoPiaoFinalView", WorkModel);
+    },
     onAddDaleteIndex:function(oEvent){
         var source = oEvent.getSource();
         var sPath = source.oPropagatedProperties.oBindingContexts.WorkModel.sPath;
@@ -15,37 +57,11 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoAppendix", {
         var page = sap.ui.getCore().byId("idBillApp").app.getPage(pageId);
     	page.setModel(oModel,"WorkModel"); 
     },
-    onSelectKKS: function(evt){
-        var index = this.onAddDaleteIndex(evt);
-        this.index = index;
-        //开始搜索KKS
-		com.zhenergy.bill.util.SearchKKS.open(
-			null,
-			jQuery.proxy(this.onFinishAddKKS, this)
-		);
-    },
-	onFinishAddKKS: function(oResult) {
-	    /*
-    	    搜索完范围选中的KKS结果:
-            {
-            	"Tplnr": "2081-40HTF14AP001",
-            	"Pltxt": "#4D吸收塔再循环泵"
-            }
-            处理选中的KKS
-	    */
-	    var index=this.index;
-        //获取index
-        
-        var WorkModel = this.getView().getModel("WorkModel").getData(); 
-        var GroupTab = WorkModel.KksTab;
-        GroupTab[index].Tplnr=oResult.Tplnr;
-        this.onrefresh("idGongZuoPiaoFinalView", WorkModel);
-    },
-    onAddKKS: function(oEvent){
+    onAddAqcs: function(oEvent){
         //获取index
         var index = this.onAddDaleteIndex(oEvent);
         var WorkModel = this.getView().getModel("WorkModel").getData(); 
-        var GroupTab = WorkModel.KksTab;
+        var GroupTab = WorkModel.AqcsTabY;
         Array.prototype.insert = function (index, item) {
             this.splice(index, 0, item);
         };
@@ -62,24 +78,17 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoAppendix", {
                 }
             }
             Seqc = parseInt(SeqcBefore);
-        }    
-        var Group = {Seqc:Seqc+1};
-        GroupTab.insert(index+1, Group);
-        for(var k=index+2;k<GroupTab.length;k++){
-                if(GroupTab[k].Seqc!=""){
-                    var SeqcInt = parseInt(GroupTab[k].Seqc)+1;
-                    GroupTab[k].Seqc = SeqcInt+"";  
-                }
-                
-            
         }
-        this.onrefresh("idGongZuoPiaoFinalView", WorkModel);        
+        var Group = {Seqc:Seqc+1,Comzx:true};
+        GroupTab.insert(index+1, Group);
+        this.OnChangeAqcs();
+        //this.onrefresh("idGongZuoPiaoFinalView", WorkModel);
     },
-    onDeleteKKS: function(oEvent){
+    onDeleteAqcs: function(oEvent){
         //获取index
         var index = this.onAddDaleteIndex(oEvent);
         var WorkModel = this.getView().getModel("WorkModel").getData(); 
-        var GroupTab = WorkModel.KksTab;
+        var GroupTab = WorkModel.AqcsTabY;
         if(GroupTab.length==1&&index==0){
             sap.m.MessageBox.alert("至少存在一行，无法进行删除",{title: "提示"});
             return;
@@ -89,7 +98,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoAppendix", {
             sap.m.MessageBox.alert("此行无法进行删除",{title: "提示"});
             return;
         }
-        if(GroupElement.Seqc!=""){
+/*        if(GroupElement.Seqc!=""){
             for(var k=0;k<GroupTab.length;k++){
                 if(k<=index){
                     if(GroupTab[k].Seqc!=""){
@@ -102,7 +111,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoAppendix", {
                     }
                 }    
             }
-        }
+        }*/
         Array.prototype.baoremove = function(dx) 
         { 
             if(isNaN(dx)||dx>this.length){return false;} 
@@ -110,7 +119,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoAppendix", {
         }
         
         GroupTab.baoremove(index);
-        this.onrefresh("idGongZuoPiaoFinalView", WorkModel);
+        this.OnChangeAqcs();
+        //this.onrefresh("idGongZuoPiaoFinalView", WorkModel);
     },
-    
 });

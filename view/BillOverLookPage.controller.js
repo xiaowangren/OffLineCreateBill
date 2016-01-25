@@ -950,7 +950,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		dialog.addButton(cancelButton);
 		//to get access to the global model
 		oView.addDependent(dialog);
-		dialog.open();
+		//dialog.open();
 	},
 	onCheckLoginECC:function(){
 	    var bResult;
@@ -987,7 +987,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		}
 		
 		//打开上传操作票页面
-		var bLoggedIn = this.onCheckLoginECC();
+		//var bLoggedIn = this.onCheckLoginECC();
+		var bLoggedIn=true;
 		console.log(bLoggedIn);
 		if(!bLoggedIn){
 		 this.onOpenLogonToPortal("Sync");    //定义登陆后的行为

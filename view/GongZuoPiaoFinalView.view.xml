@@ -351,6 +351,9 @@
 		            <c:Tab text="检修提出安措">
 		                <mvc:XMLView viewName="com.zhenergy.bill.view.GongZuoPiaoAqcs"/>
 		            </c:Tab>
+		            <c:Tab text="运行补充安措">
+		                <mvc:XMLView viewName="com.zhenergy.bill.view.GongZuoPiaoAqcs2"/>
+		            </c:Tab>
 		            <c:Tab text="危险点分析">
 		                <c:content>
 		                    <mvc:XMLView viewName="com.zhenergy.bill.view.GongZuoPiaoDangerTab"/>

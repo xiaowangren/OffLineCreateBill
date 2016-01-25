@@ -25,9 +25,10 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
         var Crdate = year+"-" + month +"-"+  day;
         //封装各Tab
         var DangerTab = [{Zfxlx:"",Dangno:"1",Dangsnot:"",Zztext:"",Zzremark:"",Zzremart:"",Zzpltxt:""}];
-        var AqcsTab=[{Code:"",Seqc:"1",Actext:""}];
+        var AqcsTabX=[{Code:"",Seqc:"1",Actext:"",Comzx:true}];
+        var AqcsTabY=[{Code:"",Seqc:"1",Actext:"",Comzx:true}];
         var GroupTab =[{Seqc:"1",Pname:"",Opsno:""}];
-        var KksTab = [{Seqc:"",Tplnr:""}];
+        var KksTab = [{Seqc:"1",Tplnr:""}];
 		var data={
 		    Wcmno:"",//工作票编号
 		    Ztype:idWorkTypeInitialize,//开票类型
@@ -72,7 +73,8 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		    Gzbzcynum:"",//工作班组成员人数
 		    Fynum:"",//附页张数
 		    RefWcmno:"",//关联操作票号
-		    AqcsTab:AqcsTab,//按措Tab
+		    AqcsTabX:AqcsTabX,//检修时按措Tab
+		    AqcsTabY:AqcsTabY,//运行时按措Tab
 		    DangerTab:DangerTab,//危险点Tab
 		    Zaqm:false,//安全帽
 		    Zaqs:false,//安全绳
@@ -96,6 +98,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		    Zqtt:"",//其他安全措施
 		    GroupTab:GroupTab,//
 		    KksTab:KksTab,
+		    Zbcsm:"",//附件的补充说明字段
 		    statusText:"unCreated"
 		};
 		var oModel = sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onFengZhuang(idIwerkInitialize);
@@ -130,6 +133,33 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
  	    sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoFinalView", "");
     	var page = sap.ui.getCore().byId("idBillApp").app.getPage("idGongZuoPiaoFinalView");
     	page.setModel(oModel,"WorkModel");
+    	//安全措施
+		//var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMTQPCDT")) {
+			var AQCSDataX = new sap.ui.model.json.JSONModel();
+			var AQCSDataY = new sap.ui.model.json.JSONModel();
+			var oDataPer = oStorage.get("ZPMOFFLINE_SRV.ZPMTQPCDT");
+    		var aFilterPerX = [];
+    		var aFilterPerY = [];
+			for(var g=0;g<oDataPer.length;g++){
+			    if(oDataPer[g].Ztype==idWorkTypeInitialize&&oDataPer[g].Katalogart=="X"){
+			        aFilterPerX.push(oDataPer[g]);
+			    }
+			    if(oDataPer[g].Ztype==idWorkTypeInitialize&&oDataPer[g].Katalogart=="Y"){
+			        aFilterPerY.push(oDataPer[g]);
+			    }
+			}
+	        AQCSDataX.setData(aFilterPerX,false);
+	        //检修提出安措数据列表
+			sap.ui.getCore().setModel(AQCSDataX,"AQCSDataX");
+			//补充运行按错数据列表
+	        AQCSDataY.setData(aFilterPerY,false);
+			sap.ui.getCore().setModel(AQCSDataY,"AQCSDataY");
+		}
+
+
+
+
     },
     onCanKaoDianXingPiao:function(){
         //获取页面上的工厂、工作票类型
@@ -268,6 +298,12 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		}else{ 
 		    oModel.setProperty("/TableVisible",true);
 		}
+		//是否显示 接地刀/接地闸
+		if(type=="DCC"||type=="DQ1"||type=="DQ2"||type=="JBP"){
+		    oModel.setProperty("/ZsfjdVisible",true);
+		}else{ 
+		    oModel.setProperty("/ZsfjdVisible",false);
+		}		
 		return oModel;
     }
 

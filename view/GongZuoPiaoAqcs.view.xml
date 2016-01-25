@@ -6,8 +6,8 @@
 	xmlns="sap.m" controllerName="com.zhenergy.bill.view.GongZuoPiaoAqcs" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
     <Table
-        id="idAqcsDataTab"
-            items="{AQCSData>/}" >
+        id="idAqcsDataTabX"
+            items="{AQCSDataX>/}" >
         <columns>
     		<Column
     			minScreenWidth="Tablet"
@@ -32,15 +32,15 @@
 			<cells>
                 <c:Button icon="sap-icon://document-text"></c:Button>
 				<c:TextView
-					text="{AQCSData>Code}" width="100%"/>
+					text="{AQCSDataX>Code}" width="100%"/>
 				<c:TextView
-					text="{AQCSData>Kurztext}" width="100%"/>
+					text="{AQCSDataX>Kurztext}" width="100%"/>
 			</cells>
 	    </ColumnListItem>
    </Table>
     <Table
-        id="idAqcsTab"
-            items="{WorkModel>/AqcsTab}" >
+        id="idAqcsTabX"
+            items="{WorkModel>/AqcsTabX}" >
         <columns>
 		<Column
 			minScreenWidth="Tablet"
@@ -82,7 +82,7 @@
 			demandPopin="true"
 			width="12px"
 			>
-			<Text text="操作" />
+			<Text text="操作" visible="{/Editable}"/>
 		</Column>
 		<Column
 			minScreenWidth="Tablet"
@@ -93,34 +93,46 @@
 	    </columns>
 	    <ColumnListItem type="Active">
 			<cells>
-                <c:ComboBox items="{ path: 'AQCSData>/', sorter: { path: 'AQCSData>Code' } }" 
-                            selectedKey="{WorkModel>Code}" width="100%">
-                    <core:ListItem key="{AQCSData>Code}" text="{AQCSData>Code}"></core:ListItem>
+                <c:ComboBox items="{ path: 'AQCSDataX>/', sorter: { path: 'AQCSDataX>Code' } }" 
+                            selectedKey="{WorkModel>Code}"
+                            change="onSelect"
+                            editable="{/Editable}"
+                            width="100%">
+                    <core:ListItem key="{AQCSDataX>Code}" text="{AQCSDataX>Code}"></core:ListItem>
                 </c:ComboBox>
 				<c:TextView
 					text="{WorkModel>Seqc}" width="100%"/>
-                <c:TextField value="{WorkModel>Actext}" width="100%" editable="{/Editable}" visible="{/Lx32Visible}"></c:TextField>
-                <c:CheckBox selected="{WorkModel>COMZX}"
-                            width="100%" editable="{/Editable}" visible="{/Lx32Visible}"/>
-                <c:TextField value="{WorkModel>ZXQK}" width="100%" editable="{/Editable}" visible="{/Lx32Visible}"></c:TextField>
-				<c:Button text="新增" press="onAddAqcs"></c:Button>
-			    <c:Button text="删除" press="onDeleteAqcs"></c:Button>
+                <c:TextField value="{WorkModel>Actext}"  width="100%" editable="{/Editable}"></c:TextField>
+                <c:CheckBox checked="{WorkModel>Comzx}" width="100%" editable="{/Editable}"/>
+                <c:TextField value="{WorkModel>Zxqk}" width="100%" editable="{/Editable}"></c:TextField>
+				<c:Button text="新增" press="onAddAqcs" visible="{/Editable}"></c:Button>
+			    <c:Button text="删除" press="onDeleteAqcs" visible="{/Editable}"></c:Button>
 			</cells>
 	    </ColumnListItem>
    </Table>
 	<lay:MatrixLayout class="page_Margin" widths="12%,13%,10%,15%,10%,15%,9%,8%,8%" width="100%" >
         <lay:MatrixLayoutRow>
-            <lay:MatrixLayoutCell>
-                <c:TextView text="是否需要接地线/接地闸刀"></c:TextView>
+            <lay:MatrixLayoutCell colSpan="1">
+                <c:TextView text="是否需要接地线/接地闸刀" visible="{WorkModel>/ZsfjdVisible}"></c:TextView>
             </lay:MatrixLayoutCell>
-        <lay:MatrixLayoutCell>
-            <c:ComboBox width="100%" selectedKey="{WorkModel>/Zsfjd}" editable="{/Editable}">
-				<c:items>
-					<core:ListItem key="1" text="1 需要"></core:ListItem>
-			        <core:ListItem key="2" text="2 不需要"></core:ListItem>
-				</c:items>
-			</c:ComboBox>
+            <lay:MatrixLayoutCell colSpan="1">
+                <c:ComboBox width="60%" 
+                            selectedKey="{WorkModel>/Zsfjd}"
+                            editable="{/Editable}"
+                            visible="{WorkModel>/ZsfjdVisible}">
+    				<c:items>
+    					<core:ListItem key="1" text="1 需要"></core:ListItem>
+    			        <core:ListItem key="2" text="2 不需要"></core:ListItem>
+    				</c:items>
+    			</c:ComboBox>
             </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1"></lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1"></lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1"></lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1"></lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1"></lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1"></lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1"></lay:MatrixLayoutCell>
         </lay:MatrixLayoutRow> 
 <!--        <lay:MatrixLayoutRow>
             <lay:MatrixLayoutCell>
