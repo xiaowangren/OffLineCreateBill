@@ -35,13 +35,13 @@
         		                    <c:TextView text="工作地点"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell colSpan="3">
-        		                    <c:TextArea value="{WorkModel>/Cplace}" rows="4" cols="80" editable="{/Editable}"></c:TextArea>
+        		                    <c:TextArea value="{WorkModel>/SPlace}" rows="4" cols="80" editable="{/Editable}"></c:TextArea>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
         		                    <c:TextView text="工作内容"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell colSpan="3">
-        		                    <c:TextArea value="{WorkModel>/Ccontent}" rows="4" cols="80" editable="{/Editable}"></c:TextArea>
+        		                    <c:TextArea value="{WorkModel>/SCont}" rows="4" cols="80" editable="{/Editable}"></c:TextArea>
         		                </lay:MatrixLayoutCell>
         		            </lay:MatrixLayoutRow> 
         		            <lay:MatrixLayoutRow>
@@ -154,7 +154,7 @@
         		            <lay:MatrixLayoutRow>
         		                <lay:MatrixLayoutCell colSpan="4">
         		                    <c:TextView text="需退出保护或装置名称" visible="{/ZtcbhVisible}"></c:TextView>
-        		                    <c:TextField value="{WorkModel>/Ztcbh}" width="50%" class="TextField_TextView" editable="{/Editable}" visible="{/ZtcbhVisible}"></c:TextField>
+        		                    <c:TextField value="{WorkModel>/Xtcbh}" width="50%" class="TextField_TextView" editable="{/Editable}" visible="{/ZtcbhVisible}"></c:TextField>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell colSpan="4">
         		                    <c:TextView text="工作条件（停电/不停电）" visible="{/GztjVisible}"></c:TextView>

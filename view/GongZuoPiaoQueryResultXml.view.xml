@@ -40,7 +40,7 @@
 				<Column width="25rem">
 					<m:Label text="工作内容" />
 					<template>
-					    <m:Text text="{Ccontent}" tooltip="{Ccontent}"/>
+					    <m:Text text="{SCont}" tooltip="{SCont}"/>
 					</template>
 				</Column>
 			</columns>

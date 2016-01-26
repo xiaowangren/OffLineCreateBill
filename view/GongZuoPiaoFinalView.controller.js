@@ -20,10 +20,10 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
     onSubmit:function(){
         var oModel = this.getView().getModel("WorkModel");
         var WorkModel = oModel.getData(); 
-        // var booleans = this.onCheckData(WorkModel);
-        // if(!booleans){
-        //     return;
-        // }
+        var booleans = this.onCheckData(WorkModel);
+        if(!booleans){
+            return;
+        }
         //删除多余的元素
         WorkModel = this.onDeleteElement(WorkModel);
         var GroupTab = WorkModel.GroupTab;
@@ -246,11 +246,11 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
                 return false;
             }
         }
-        if(WorkModel.Cplace.trim()==""){
+        if(WorkModel.SPlace.trim()==""){
             sap.m.MessageBox.alert("工作地点必填",{title: "提示"});
             return false;
         }
-        if(WorkModel.Ccontent.trim()==""){
+        if(WorkModel.SCont.trim()==""){
             sap.m.MessageBox.alert("工作内容必填",{title: "提示"});
             return false;
         }
@@ -287,7 +287,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
             }
         }
         if(WorkType=="RKP"){
-           if(WorkModel.Ztcbh==""){
+           if(WorkModel.Xtcbh==""){
                 sap.m.MessageBox.alert("需退出保护或装置名称必填",{title: "提示"});
                 return false;
             } 
