@@ -20,19 +20,18 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
     onSubmit:function(){
         var oModel = this.getView().getModel("WorkModel");
         var WorkModel = oModel.getData(); 
-        var booleans = this.onCheckData(WorkModel);
-        if(!booleans){
-            return;
-        }
+        // var booleans = this.onCheckData(WorkModel);
+        // if(!booleans){
+        //     return;
+        // }
         //删除多余的元素
-        // WorkModel = this.onDeleteElement(WorkModel);
+        WorkModel = this.onDeleteElement(WorkModel);
         var GroupTab = WorkModel.GroupTab;
         if(GroupTab!=null){
             for(var i=0;i<GroupTab.length;i++){
                 GroupTab[i].Seqc = GroupTab[i].Seqc+"";
             }
         }
-        
         jQuery.sap.require("jquery.sap.storage");
     	var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
     	var getStorage = oStorage.get("ZPMOFFLINE_SRV.WorkInfos");
@@ -71,10 +70,12 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
             }
             
         }
+        
         // oModel.setData(WorkModel);
         // console.log(WorkModels.Iwerk,WorkModels.Ztype);
         // oModel = sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onFengZhuang(WorkModel.Iwerk);
         // oModel = sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage").onDataVisible(oModel,WorkModel.Iwerk,WorkModel.Ztype);
+        oModel = this.onAddLieBiao(oModel, WorkModel.Iwerk,WorkModel.Ztype);
         oModel.setProperty("/Title1","修改");
         if (oStorage.get("ZPMOFFLINE_SRV.WorkType")) {
 			var oData = oStorage.get("ZPMOFFLINE_SRV.WorkType");
@@ -101,25 +102,113 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
         delete WorkModel["BuMen"];
         delete WorkModel["DanWei"];
         delete WorkModel["JiZu"];
-        delete WorkModel["Title1"];
-        delete WorkModel["Title2"];
+        // delete WorkModel["Title1"];
+        // delete WorkModel["Title2"];
         delete WorkModel["WERKS"];
         delete WorkModel["YunXingQuYu"];
         delete WorkModel["ZPMTOPER"];
-        delete WorkModel["Editable"];
-        delete WorkModel["GztjVisible"];
-        delete WorkModel["SqVisible"];
-        delete WorkModel["DhfsVisible"];
-        delete WorkModel["ZtcbhVisible"];
-        delete WorkModel["Lx3Visible"];
-        delete WorkModel["Lx32Visible"];
-        delete WorkModel["FynumVisible"];
-        delete WorkModel["GzbzcynumVisible"];
-        delete WorkModel["RefWcmnoVisible"];
-        delete WorkModel["JhgzfiVisible"];
-        delete WorkModel["TableVisible"];
-        delete WorkModel["SaveVisible"];
+        // delete WorkModel["Editable"];
+        // delete WorkModel["GztjVisible"];
+        // delete WorkModel["SqVisible"];
+        // delete WorkModel["DhfsVisible"];
+        // delete WorkModel["ZtcbhVisible"];
+        // delete WorkModel["Lx3Visible"];
+        // delete WorkModel["Lx32Visible"];
+        // delete WorkModel["FynumVisible"];
+        // delete WorkModel["GzbzcynumVisible"];
+        // delete WorkModel["RefWcmnoVisible"];
+        // delete WorkModel["JhgzfiVisible"];
+        // delete WorkModel["TableVisible"];
+        // delete WorkModel["SaveVisible"];
         return WorkModel;
+    },
+    onAddLieBiao:function(oLocalModel,Iwerk,WorkType){
+        jQuery.sap.require("jquery.sap.storage");
+	    jQuery.sap.require("sap.m.MessageToast");
+	    var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+	    //工厂
+		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
+			var oDataWerk = oStorage.get("ZPMOFFLINE_SRV.WERKS");
+			oLocalModel.setProperty("/WERKS",oDataWerk);
+		}
+		//工作票类型
+        if (oStorage.get("ZPMOFFLINE_SRV.WorkType")) {
+			var oData = oStorage.get("ZPMOFFLINE_SRV.WorkType");
+			var aFilter = [];
+			for(var n=0;n<oData.length;n++){
+			    if(oData[n].Iwerk==Iwerk){
+			        aFilter.push(oData[n]);
+			    }
+			}
+		    oLocalModel.setProperty("/WorkType",aFilter);
+		}
+		//工作单位 ZPMT00229C
+        if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C")) {
+			var oDataDanWei = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C");
+			var aFilterDanWei = [];
+			for(var l=0;l<oDataDanWei.length;l++){
+			    if(oDataDanWei[l].Werks==Iwerk){
+			        aFilterDanWei.push(oDataDanWei[l]);
+			    }
+			}
+		    oLocalModel.setProperty("/DanWei",aFilterDanWei);
+		}
+		//班组 ZPMT00283
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00283")) {
+			var oDataBanZu = oStorage.get("ZPMOFFLINE_SRV.ZPMT00283");
+			var aFilterBanZu = [];
+			for(var m=0;m<oDataBanZu.length;m++){
+			    if(oDataBanZu[m].Werks==Iwerk){
+			        aFilterBanZu.push(oDataBanZu[m]);
+			    }
+			}
+		    oLocalModel.setProperty("/BanZu",aFilterBanZu);
+		}
+        //运行区域 ZPMT00227
+        if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00227")) {
+			var oDataYunXingQuYu = oStorage.get("ZPMOFFLINE_SRV.ZPMT00227");
+			var aFilterYunXingQuYu = [];
+			for(var g=0;g<oDataYunXingQuYu.length;g++){
+			    if(oDataYunXingQuYu[g].Werks==Iwerk){
+			        aFilterYunXingQuYu.push(oDataYunXingQuYu[g]);
+			    }
+			}
+		    oLocalModel.setProperty("/YunXingQuYu",aFilterYunXingQuYu);
+		}
+        //机组 ZPMV00005
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMV00005")) {
+			var oDataJiZu = oStorage.get("ZPMOFFLINE_SRV.ZPMV00005");
+			var aFilterJiZu = [];
+			for(var f=0;f<oDataJiZu.length;f++){
+			    if(oDataJiZu[f].Werks==Iwerk){
+			        aFilterJiZu.push(oDataJiZu[f]);
+			    }
+			}
+		    oLocalModel.setProperty("/JiZu",aFilterJiZu);
+		}
+		//部门
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00229")) {
+			var oDataBuMen = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229");
+			var aFilterBuMen = [];
+			for(var x=0;x<oDataBuMen.length;x++){
+			    if(oDataBuMen[x].Werks==Iwerk){
+			        aFilterBuMen.push(oDataBuMen[x]);
+			    }
+			}
+		    oLocalModel.setProperty("/BuMen",aFilterBuMen);
+		}
+		//封装部门负责人 ZPMTOPER
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI")) {
+			var oDataPer = oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI");
+    		var aFilterPer = [];
+			for(var e=0;e<oDataPer.length;e++){
+			    if(oDataPer[e].Ztype==WorkType&&oDataPer[e].Quaid=="A"){
+			        aFilterPer.push(oDataPer[e]);
+			    }
+			}
+	        oLocalModel.setProperty("/ZPMTOPER",aFilterPer);
+		}
+		return oLocalModel;
     },
     uuid:function(len, radix){
         var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'.split('');
