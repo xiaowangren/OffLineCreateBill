@@ -38,6 +38,8 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
         }
         // console.log(BiaoJiQuery+";"+Iwerk+";"+idWorkType+";"+Peoid+";"+Appdep+";"+gongZuoDiDian+";"+gongZuoNeiRong+";"+createDate);
         var oLocalModel = this.onFengZhuang(Iwerk);
+        //初始化安全措施下拉列表
+        this.onInitializeAQCSData(idWorkType);
         jQuery.sap.require("jquery.sap.storage");
         var aFilter = [];
 	    var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
@@ -194,6 +196,37 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
 		    oLocalModel.setProperty("/BuMen",aFilterBuMen);
 		}
 		return oLocalModel;
+	},
+	
+	onInitializeAQCSData: function(Ztype){
+    	//安全措施
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMTQPCDT")) {
+			var AQCSDataX = new sap.ui.model.json.JSONModel();
+			var AQCSDataY = new sap.ui.model.json.JSONModel();
+			var oDataPer = oStorage.get("ZPMOFFLINE_SRV.ZPMTQPCDT");
+    		var aFilterPerX = [];
+    		var aFilterPerY = [];
+			for(var g=0;g<oDataPer.length;g++){
+			    if(oDataPer[g].Ztype==Ztype&&oDataPer[g].Katalogart=="X"){
+			        aFilterPerX.push(oDataPer[g]);
+			    }
+			    if(oDataPer[g].Ztype==Ztype&&oDataPer[g].Katalogart=="Y"){
+			        aFilterPerY.push(oDataPer[g]);
+			    }
+			}
+	        AQCSDataX.setData(aFilterPerX,false);
+	        //检修提出安措数据列表
+			sap.ui.getCore().setModel(AQCSDataX,"AQCSDataX");
+			//补充运行按错数据列表
+	        AQCSDataY.setData(aFilterPerY,false);
+			sap.ui.getCore().setModel(AQCSDataY,"AQCSDataY");
+/*			console.log("+++++++++++++++++++++++++++++++++++++++++++++");
+			console.log(Ztype);
+			console.log(oDataPer);
+			console.log(AQCSDataY);
+			console.log("+++++++++++++++++++++++++++++++++++++++++++++");*/
+		}
 	}
 
 
