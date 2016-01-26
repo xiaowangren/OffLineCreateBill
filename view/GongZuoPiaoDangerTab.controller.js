@@ -24,8 +24,9 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoDangerTab", {
                 }
             }
             Dangno = parseInt(DangnoBefore);
-        }    
-        var Danger = {Zfxlx:"",Dangno:Dangno+1,Dangsnot:"",Zztext:"",Zzremark:"",Zzremart:"",Zzpltxt:""};
+        } 
+        var DangnoNum = Dangno+1;
+        var Danger = {Zfxlx:"",Dangno:DangnoNum+"",Dangsnot:"",Zztext:"",Zzremark:"",Zzpltxt:""};
         DangerTab.insert(index+1, Danger);
         for(var k=index+2;k<DangerTab.length;k++){
                 if(DangerTab[k].Dangno!=""){

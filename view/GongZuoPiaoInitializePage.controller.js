@@ -24,7 +24,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
         } 
         var Crdate = year+"-" + month +"-"+  day;
         //封装各Tab
-        var DangerTab = [{Zfxlx:"",Dangno:"1",Dangsnot:"",Zztext:"",Zzremart:"",Zzpltxt:""}];
+        var DangerTab = [{Zfxlx:"",Dangno:"1",Dangsnot:"",Zztext:"",Zzremark:"",Zzpltxt:""}];
         var AqcsTabX=[{Code:"",Seqc:"1",Actext:"",Comzx:true}];
         var AqcsTabY=[{Code:"",Seqc:"1",Actext:"",Comzx:true}];
         var GroupTab =[{Seqc:"1",Pname:"",Opsno:""}];
@@ -39,8 +39,8 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		    Sqbz:false,//双签标识
 		    Tplnr:"",//功能位置 kks编码
 		    Wbbz:"",//外包标识  X是 N否 ""空
-		    Cplace:"",//工作地点
-		    Ccontent:"",//工作内容
+		    SPlace:"",//工作地点
+		    SCont:"",//工作内容
 		  //  Appdep:"",//申请部门 工作单位
 		  //  Class:"",//班组编码
 		  //  Prfty:"",//专业类型编码
@@ -64,7 +64,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		    Ps:false,//破碎
 		    Qx:false,//切削
 		    Qt:false,//其他
-		    Ztcbh:"",//需退出保护或装置名称
+		    Xtcbh:"",//需退出保护或装置名称
 		    Gztj:"",//工作条件（停电/不停电）
 		    Jhgzbedate:"",//开始日期
 		    Jhgzbetime:"",//开始时间

@@ -63,7 +63,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoAppendix", {
             }
             Seqc = parseInt(SeqcBefore);
         }    
-        var Group = {Seqc:Seqc+1};
+        var Group = {Seqc:Seqc+1+""};
         GroupTab.insert(index+1, Group);
         for(var k=index+2;k<GroupTab.length;k++){
                 if(GroupTab[k].Seqc!=""){
