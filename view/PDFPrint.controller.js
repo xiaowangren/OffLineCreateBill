@@ -187,9 +187,13 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 
 // DCC	电除尘专用工作票
     onPrintGzp_DCC:function(modelData){
-        var docDefinition = {
-            pageMargins: [ 40, 60, 40, 60 ],        //页面边距
-            content: [
+        var iwerkText = this.onGetIwerkText(modelData.Iwerk);
+        if(!(iwerkText == undefined)){
+            iwerkText = iwerkText.replace(/物资工厂/, '');
+        }
+        var ticketTypeText = this.onGetTicketTypeText(modelData.Ztype);
+        var appDepdec = this.onGetAppdepText(modelData.Appdep);
+        var content = [
                 {
 					table: {
 							widths: ['20%','60%','20%'],
@@ -504,65 +508,18 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					},
 					layout: 'noBorders'
 				}
-			],
-			styles: {
-        		header: {//大标题
-        			fontSize: 18,
-        			bold: false,
-        			alignment: 'center',
-        			color: 'black',
-        			margin: [0, 10, 0, 15]      //表格里不生效
-        		},
-        		smallText: {//右上角印章文字
-        			bold: false,
-        			fontSize: 10,
-        			color: 'black'
-        		},
-        		subheader: {//普通文本编号
-        			fontSize: 12,
-        			bold: false,
-        			margin: [0, 0, 10, 10]
-        		},
-        		underLineText: {//下划线文本
-        			fontSize: 12,
-        			bold: false,
-        // 			margin: [0, 3, 0, 5],
-        			decoration: 'underline'
-        		},
-        		bodyTable: {//表格格式，主要是结束的margin
-        		    fontSize: 12,
-        			margin: [0, 0, 0, 10]
-        		},
-        		tableHeader: {//14号字的表格内容
-        			bold: false,
-        			fontSize: 12,
-        			color: 'black'
-        		}
-        	},
-            defaultStyle: {
-                font: 'simfang'
-            }
-        };
-	    pdfMake.fonts = {
-           simfang: {
-             normal: 'simfang.ttf',
-             bold: 'simfang.ttf',
-             italics: 'simfang.ttf',
-             bolditalics: 'simfang.ttf'
-           }
-        };
-        // open the PDF in a new window
-         pdfMake.createPdf(docDefinition).open();
-        // print the PDF (not working in this version, will be added back in a couple of days)
-        // pdfMake.createPdf(docDefinition).print();
-        // download the PDF
-        // window.pdfmake.createPdf(docDefinition).download();
+			];
+        return content;
     },
 // DH1	一级动火工作票
     onPrintGzp_DH1:function(modelData){
-        var docDefinition = {
-            pageMargins: [ 40, 60, 40, 60 ],        //页面边距
-            content: [
+        var iwerkText = this.onGetIwerkText(modelData.Iwerk);
+        if(!(iwerkText == undefined)){
+            iwerkText = iwerkText.replace(/物资工厂/, '');
+        }
+        var ticketTypeText = this.onGetTicketTypeText(modelData.Ztype);
+        var appDepdec = this.onGetAppdepText(modelData.Appdep);
+        var content = [
                 {
 					table: {
 							widths: ['20%','60%','20%'],
@@ -771,59 +728,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					},
 					layout: 'noBorders'
 				}
-			],
-			styles: {
-        		header: {//大标题
-        			fontSize: 18,
-        			bold: false,
-        			alignment: 'center',
-        			color: 'black',
-        			margin: [0, 10, 0, 15]      //表格里不生效
-        		},
-        		smallText: {//右上角印章文字
-        			bold: false,
-        			fontSize: 10,
-        			color: 'black'
-        		},
-        		subheader: {//普通文本编号
-        			fontSize: 12,
-        			bold: false,
-        			margin: [0, 0, 10, 10]
-        		},
-        		underLineText: {//下划线文本
-        			fontSize: 12,
-        			bold: false,
-        // 			margin: [0, 3, 0, 5],
-        			decoration: 'underline'
-        		},
-        		bodyTable: {//表格格式，主要是结束的margin
-        		    fontSize: 12,
-        			margin: [0, 0, 0, 10]
-        		},
-        		tableHeader: {//14号字的表格内容
-        			bold: false,
-        			fontSize: 12,
-        			color: 'black'
-        		}
-        	},
-            defaultStyle: {
-                font: 'simfang'
-            }
-        };
-	    pdfMake.fonts = {
-           simfang: {
-             normal: 'simfang.ttf',
-             bold: 'simfang.ttf',
-             italics: 'simfang.ttf',
-             bolditalics: 'simfang.ttf'
-           }
-        };
-        // open the PDF in a new window
-         pdfMake.createPdf(docDefinition).open();
-        // print the PDF (not working in this version, will be added back in a couple of days)
-        // pdfMake.createPdf(docDefinition).print();
-        // download the PDF
-        // window.pdfmake.createPdf(docDefinition).download();
+			];
     },
     onPrintGZPDanger:function(modelData){
         //工作票危险点
@@ -1088,33 +993,47 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
     },
     // JXD	检修作业通知单lww
     onPrintGzp_JXD:function(modelData){
-        var docDefinition = {
-            pageMargins: [ 40, 60, 40, 60 ],        //页面边距
-            content: [
-                {text: "浙江浙能兰溪发电有限责任公司"+'\n'+"检修作业通知单\n ", style: 'header'},
-                {text:'编号：JXD_2081_151203_001',style:'subheader',alignment:'right'},
+        var iwerkText = this.onGetIwerkText(modelData.Iwerk);
+        if(!(iwerkText == undefined)){
+            iwerkText = iwerkText.replace(/物资工厂/, '');
+        }
+        var ticketTypeText = this.onGetTicketTypeText(modelData.Ztype);
+        var appDepdec = this.onGetAppdepText(modelData.Appdep);
+        //工作班组成员
+        var groupPersons = "";
+        for(var i=0;i<modelData.GroupTab.length;i++){
+            if(i>0){
+                groupPersons = groupPersons + "、";
+            }
+            groupPersons = groupPersons + modelData.GroupTab[i].Pname;
+        }
+        // var docDefinition = {
+        //     pageMargins: [ 40, 60, 40, 60 ],        //页面边距
+        var    content =  [
+                {text: iwerkText+'\n'+ticketTypeText+"\n ", style: 'header'},
+                {text:'编号：'+modelData.Wcmno,style:'subheader',alignment:'right'},
 				{
 					style: 'bodyTable',
 					table: {
 							widths: ['20%','30%','20%','30%'],
 							body: [
-									[ {text: '作业部门\n（单位）\n\n', alignment:'center'},{text: '设备管理部',colSpan:3},{},{}],
-									[ {text: '作业内容\n\n\n\n', alignment:'center'},{text: '打扫卫生',colSpan:3},{},{}],
-									[ {text: '作业地点\n\n\n\n', alignment:'center'},{text: '设备管理部',colSpan:3},{},{}],
+									[ {text: '作业部门\n（单位）\n\n', alignment:'center'},{text: appDepdec,colSpan:3},{},{}],
+									[ {text: '作业内容\n\n\n\n', alignment:'center'},{text: modelData.SCont,colSpan:3},{},{}],
+									[ {text: '作业地点\n\n\n\n', alignment:'center'},{text: modelData.SPlace,colSpan:3},{},{}],
 									[ {text: '计划作业时间\n\n\n', alignment:'center'},
-									  {text: [{text: this.getUnderLineText("", 4),style:'underLineText'},'年',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分——',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'年',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],alignment:'center',colSpan:3},{},{}],
-									[ {text: '工作负责人\n\n\n', alignment:'center'},{text: '陈超'},
-									  {text: '联系电话\n\n\n', alignment:'center'},{text: '12341235345'}],
-									[ {text: '计划班组成员\n\n\n\n', alignment:'center'},{text: '程超、孙冰洋，郭志元',colSpan:3},{},{}],
+									  {text: [{text: this.getUnderLineText(modelData.Jhgzbedate.substring(0,4), 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText(modelData.Jhgzbedate.substring(5,7), 2),style:'underLineText'},'月',
+        									{text: this.getUnderLineText(modelData.Jhgzbedate.substring(8,10), 2),style:'underLineText'},'日',
+        									{text: this.getUnderLineText(modelData.Jhgzbetime.substring(0,2), 2),style:'underLineText'},'时',
+        									{text: this.getUnderLineText(modelData.Jhgzbetime.substring(3,5), 2),style:'underLineText'},'分--',
+									        {text: this.getUnderLineText(modelData.Jhgzfidate.substring(0,4), 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText(modelData.Jhgzfidate.substring(5,7), 2),style:'underLineText'},'月',
+        									{text: this.getUnderLineText(modelData.Jhgzfidate.substring(8,10), 2),style:'underLineText'},'日',
+        									{text: this.getUnderLineText(modelData.Jhgzfitime.substring(0,2), 2),style:'underLineText'},'时',
+        									{text: this.getUnderLineText(modelData.Jhgzfitime.substring(3,5), 2),style:'underLineText'},'分'],alignment:'center',colSpan:3},{},{}],
+									[ {text: '工作负责人\n\n\n', alignment:'center'},{text: modelData.Name},
+									  {text: '联系电话\n\n\n', alignment:'center'},{text: modelData.Phone1}],
+									[ {text: '计划班组成员\n\n\n\n', alignment:'center'},{text: groupPersons,colSpan:3},{},{}],
 									[ {text: '值班负责人意见\n\n\n', alignment:'center'},
 									  {text: ['\n签名           ',{text: this.getUnderLineText("", 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
@@ -1139,49 +1058,9 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 							]
 					}
 				}
-        	],
-			styles: {
-        		header: {//大标题
-        			fontSize: 18,
-        			bold: false,
-        			alignment: 'center',
-        			color: 'black',
-        			margin: [0, 10, 0, 10]      //表格里不生效
-        		},
-        		subheader: {//普通文本编号
-        			fontSize: 12,
-        			bold: false,
-        			margin: [0, 0, 10, 10]
-        		},
-        		underLineText: {//下划线文本
-        			fontSize: 12,
-        			bold: false,
-        // 			margin: [0, 3, 0, 5],
-        			decoration: 'underline'
-        		},
-        		bodyTable: {//表格格式，主要是结束的margin
-        		    fontSize: 12,
-        			margin: [0, 0, 0, 0]
-        		}
-        	},
-            defaultStyle: {
-                font: 'simfang'
-            }
-        };
-        pdfMake.fonts = {
-           simfang: {
-             normal: 'simfang.ttf',
-             bold: 'simfang.ttf',
-             italics: 'simfang.ttf',
-             bolditalics: 'simfang.ttf'
-           }
-        };
-        // open the PDF in a new window
-         pdfMake.createPdf(docDefinition).open();
-        // print the PDF (not working in this version, will be added back in a couple of days)
-        // pdfMake.createPdf(docDefinition).print();
-        // download the PDF
-        // window.pdfmake.createPdf(docDefinition).download();
+        	];
+
+        return content;
     },
     // RKP	热控工作票lww
     onPrintGzp_RKP:function(modelData){

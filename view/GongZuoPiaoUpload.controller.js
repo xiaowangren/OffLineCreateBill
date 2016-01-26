@@ -137,10 +137,24 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoUpload", {
                 
                 var payLoad = oTableData[index];
                 var AqcsTab = payLoad.AqcsTabX.concat(payLoad.AqcsTabY);
-                // payLoad["AqcsTab"] = AqcsTab;
+                payLoad["AqcsTab"] = AqcsTab;
                 delete payLoad["statusText"];
+                delete payLoad["Title1"];
                 delete payLoad["Title2"];
-                delete payLoad["Zbcsm"];
+                delete payLoad["Editable"];
+                delete payLoad["SqVisible"];
+                delete payLoad["DhfsVisible"];
+                delete payLoad["ZtcbhVisible"];
+                delete payLoad["GztjVisible"];
+                delete payLoad["Lx3Visible"];
+                delete payLoad["Lx32Visible"];
+                delete payLoad["FynumVisible"];
+                delete payLoad["GzbzcynumVisible"];
+                delete payLoad["RefWcmnoVisible"];
+                delete payLoad["JhgzfiVisible"];
+                delete payLoad["TableVisible"];
+                delete payLoad["ZsfjdVisible"];
+                // delete payLoad["Zbcsm"];
                 delete payLoad["AqcsTabX"];
                 delete payLoad["AqcsTabY"];
                 delete payLoad["DangerTab"];
