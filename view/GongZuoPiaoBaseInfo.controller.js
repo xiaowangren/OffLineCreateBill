@@ -33,8 +33,9 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoBaseInfo", {
                 }
             }
             Seqc = parseInt(SeqcBefore);
-        }    
-        var Group = {Seqc:Seqc+1,Pname:"",Opsno:""};
+        }  
+        var SeqcNum = Seqc+1;
+        var Group = {Seqc:SeqcNum+"",Pname:"",Opsno:""};
         GroupTab.insert(index+1, Group);
         for(var k=index+2;k<GroupTab.length;k++){
                 if(GroupTab[k].Seqc!=""){
