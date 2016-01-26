@@ -855,13 +855,13 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	},
 	SystemRoute: function() {
 		var pathName = window.location.host;
-		var BPMHost = ""
-		if (pathName.indexOf("erpq") >= 0) {
+		var BPMHost = "";
+		if (pathName.indexOf("erpprd") >= 0 || pathName==="erp.zhenergy.com.cn") {
+			BPMHost = "http://znbb-bpmprd.zhenergy.com.cn:50000";
+		}else if (pathName.indexOf("erpq") >= 0) {
 			BPMHost = "http://znbb-bpmq-01.zhenergy.com.cn:50000";
 		} else if (pathName.indexOf("erpt") >= 0) {
 			BPMHost = "http://znbb-bpmt-01.zhenergy.com.cn:50000";
-		} else if (pathName.indexOf("erpp") >= 0) {
-			BPMHost = "http://znbb-bpmprd.zhenergy.com.cn:50000";
 		} else {
 			BPMHost = "http://znbb-bpmd-01.zhenergy.com.cn:50000";
 		}
@@ -1015,5 +1015,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		}else{
 		    this.onOpenUploadPanel();
 		}
+	},
+	onUploadGZPToECCClicked:function(){
+	   // jQuery.sap.require("jquery.sap.storage");
+		sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoUpload");
 	}
 });

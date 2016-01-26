@@ -17,9 +17,7 @@
 				title="同步主数据"
 				info="最近更新:{/lastSyncLog}"
 				infoState="Success"
-				press="onSyncMasterData">			<!-- press='onSyncMasterClicked'-->
-
-				
+				press="onSyncMasterData">			<!-- press='onSyncMasterData///onSyncMasterClicked'-->
 			</StandardTile>
 			<StandardTile
 			    id="tileCreateOT"
@@ -112,7 +110,7 @@
 					<Button icon="sap-icon://wrench"  text="设定工厂" press="handleSelectWerks"   visible="{/IwerkButtonVisible}"/>
 					<Text text="{/G_IWERK}"/>
 					<Button icon="sap-icon://key" text="设定密码" press="handleSetPassword" visible="{/PinButtonVisible}"/>
-					<Button icon="sap-icon://print" text="工作票打印测试" press="onPDFPrintTest"></Button>
+					<!--<Button icon="sap-icon://print" text="工作票打印测试" press="onPDFPrintTest"></Button>-->
 				<ToolbarSpacer/>
 			</Toolbar>
 		</footer>
