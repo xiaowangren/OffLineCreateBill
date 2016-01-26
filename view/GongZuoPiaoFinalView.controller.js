@@ -77,17 +77,17 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
         // oModel = sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage").onDataVisible(oModel,WorkModel.Iwerk,WorkModel.Ztype);
         oModel = this.onAddLieBiao(oModel, WorkModel.Iwerk,WorkModel.Ztype);
         oModel.setProperty("/Title1","修改");
-        if (oStorage.get("ZPMOFFLINE_SRV.WorkType")) {
-			var oData = oStorage.get("ZPMOFFLINE_SRV.WorkType");
-			var Ztypedesc = "";
-			for(var n=0;n<oData.length;n++){
-			    if(oData[n].Ztype==WorkModel.Ztype){
-			        Ztypedesc = oData[n].Ztypedes;
-			        break;
-			    }
-			}
-		    oModel.setProperty("/Title2",Ztypedesc);
-		}
+//         if (oStorage.get("ZPMOFFLINE_SRV.WorkType")) {
+// 			var oData = oStorage.get("ZPMOFFLINE_SRV.WorkType");
+// 			var Ztypedesc = "";
+// 			for(var n=0;n<oData.length;n++){
+// 			    if(oData[n].Ztype==WorkModel.Ztype){
+// 			        Ztypedesc = oData[n].Ztypedes;
+// 			        break;
+// 			    }
+// 			}
+// 		    oModel.setProperty("/Title2",Ztypedesc);
+// 		}
 // 		var oModel2=new sap.ui.model.json.JSONModel({Title1:"修改",Title2:Ztypedesc},true);
 // 		this.byId("idFinalViewTitle").setModel(oModel2);
         oModel.setProperty("/Editable",true);
