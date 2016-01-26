@@ -18,41 +18,11 @@
                 rows="{path: '/ResultModel', sorter: { path: 'Cdata', descending: true}}" >
             <columns>
 					<Column width="11rem">
-						<m:Label text="工作票编号" />
+						<m:Label text="工作票离线编号" />
 						<template>
 							<m:Text text="{Wcmno}" tooltip="{Wcmno}"/>
 						</template>
 					</Column>
-			</columns>
-			<columns>
-					<Column width="9rem">
-						<m:Label text="状态" />
-						<template>
-							<c:ComboBox width="95%" selectedKey="{Estat}" editable="false">
-								<c:items>
-									<core:ListItem key="10" text="拟票"></core:ListItem>
-								</c:items>
-							</c:ComboBox>
-						</template>
-					</Column>
-			</columns>
-			<columns>
-				<Column width="25rem">
-					<m:Label text="工作内容" />
-					<template>
-					    <m:Text text="{Ccontent}" tooltip="{Ccontent}"/>
-					</template>
-				</Column>
-			</columns>
-			<columns>
-				<Column width="9rem">
-					<m:Label text="工作票类型" />
-					<template>
-						<c:ComboBox items="{ path: '/WorkType', sorter: { path: 'Ztype' } }" width="95%" selectedKey="{Ztype}" editable="false">
-								<core:ListItem key="{Ztype}" text="{Ztypedes}"></core:ListItem>
-						</c:ComboBox>
-					</template>
-				</Column>
 			</columns>
 			<columns>
 				<Column width="6rem">
@@ -74,7 +44,38 @@
     					<m:Text text="{Zlybnum}" tooltip="{Zlybnum}"/>
 					</template>
 				</Column>
+			</columns>			
+			<!--<columns>-->
+			<!--		<Column width="9rem">-->
+			<!--			<m:Label text="状态" />-->
+			<!--			<template>-->
+			<!--				<c:ComboBox width="95%" selectedKey="{Estat}" editable="false">-->
+			<!--					<c:items>-->
+			<!--						<core:ListItem key="10" text="拟票"></core:ListItem>-->
+			<!--					</c:items>-->
+			<!--				</c:ComboBox>-->
+			<!--			</template>-->
+			<!--		</Column>-->
+			<!--</columns>-->
+			<columns>
+				<Column width="9rem">
+					<m:Label text="工作票类型" />
+					<template>
+						<c:ComboBox items="{ path: '/WorkType', sorter: { path: 'Ztype' } }" width="95%" selectedKey="{Ztype}" editable="false">
+								<core:ListItem key="{Ztype}" text="{Ztypedes}"></core:ListItem>
+						</c:ComboBox>
+					</template>
+				</Column>
+			</columns>			
+			<columns>
+				<Column width="25rem">
+					<m:Label text="工作内容" />
+					<template>
+					    <m:Text text="{Ccontent}" tooltip="{Ccontent}"/>
+					</template>
+				</Column>
 			</columns>
+
 			<columns>
 					<Column width="9rem" sortProperty="Crdate">
 						<m:Label text="开票日期" />

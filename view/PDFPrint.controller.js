@@ -858,7 +858,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
     						  {text: '班组', alignment:'center'},{text: classdec},
     						  {text: '工作负责人', alignment:'center'},{text: modelData.Name},
     						  {text: '关联工作票号', alignment:'center'},{text: 'DCC_2081_15\n1103_001'}],
-    						[ {text:'工作\n内容',alignment:'center'}, {text:modelData.Ccontent,colSpan:7},{},{},{},{},{},{}],
+    						[ {text:'工作\n内容',alignment:'center'}, {text:modelData.SCont,colSpan:7},{},{},{},{},{},{}],
     						[ {text:'一',alignment:'center'}, {text:'危险源及控制措施',alignment:'center',colSpan:7},{},{},{},{},{},{}],
     						[ {text:'序号',alignment:'center'},{text:'步骤或活动',alignment:'center'},
     						  {text:'危险点',alignment:'center'},{text:'伤害类型',alignment:'center'},
@@ -1014,7 +1014,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
             content: [
                 {text: iwerkText+'\n'+ticketTypeText+"电除尘专用工作票附页\n ", style: 'header'},
                 {text:[ '工作票编号：',{text: this.getUnderLineText(modelData.Wcmno, 28),style:'underLineText'}],style:'subheader'},
-                {text:[ '工作票内容：',{text: this.getUnderLineText(modelData.Ccontent, 71),style:'underLineText'}],style:'subheader'},
+                {text:[ '工作票内容：',{text: this.getUnderLineText(modelData.SCont, 71),style:'underLineText'}],style:'subheader'},
                 {text:[ '工作负责人：',{text: this.getUnderLineText(modelData.Name, 8),style:'underLineText'},
                         '开始时间：',{text: this.getUnderLineText(beginTime, 22),style:'underLineText'},
                         '结束时间：',{text: this.getUnderLineText(endTime, 22),style:'underLineText'}],style:'subheader'},
@@ -1238,8 +1238,8 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 									[ '', {text:['工作班组成员（不包含工作负责人）',{text:this.getUnderLineText(groupPersons, 114),style:'underLineText'},
 									       '等共',{text:this.getUnderLineText(groupPersonNum, 2),style:'underLineText'},
 									       '人，附页',{text:this.getUnderLineText(fuyeNum, 2),style:'underLineText'},'张'],colSpan:2}, {} ],
-									[ '2.', {text:[ '工作地点：',{text: this.getUnderLineText(modelData.Cplace, 73),style:'underLineText'}],colSpan:2}, {}],
-									[ '', {text:[ '工作内容：',{text: this.getUnderLineText(modelData.Ccontent, 73),style:'underLineText'}],colSpan:2}, {}],
+									[ '2.', {text:[ '工作地点：',{text: this.getUnderLineText(modelData.SPlace, 73),style:'underLineText'}],colSpan:2}, {}],
+									[ '', {text:[ '工作内容：',{text: this.getUnderLineText(modelData.SCont, 73),style:'underLineText'}],colSpan:2}, {}],
 									[ '3.', {text:[ '工作计划开始时间：',
 									        {text: this.getUnderLineText(modelData.Jhgzbedate.substring(0,4), 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText(modelData.Jhgzbedate.substring(5,7), 2),style:'underLineText'},'月',
@@ -1252,7 +1252,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         									{text: this.getUnderLineText(modelData.Jhgzfidate.substring(8,10), 2),style:'underLineText'},'日',
         									{text: this.getUnderLineText(modelData.Jhgzfitime.substring(0,2), 2),style:'underLineText'},'时',
         									{text: this.getUnderLineText(modelData.Jhgzfitime.substring(3,5), 2),style:'underLineText'},'分'],colSpan:2}, {}],
-        							[ '4.', {text:[ '需要退出热工作保护或自动装置名称：',{text: this.getUnderLineText(modelData.Ztcbh, 49),style:'underLineText'}],colSpan:2}, {}],
+        							[ '4.', {text:[ '需要退出热工作保护或自动装置名称：',{text: this.getUnderLineText(modelData.Xtcbh, 49),style:'underLineText'}],colSpan:2}, {}],
         							[ '5.', {text:'必须采取的安全措施:',colSpan:2}, {}]
 							]
 					},

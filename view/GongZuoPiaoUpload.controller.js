@@ -50,20 +50,52 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoUpload", {
 		var oG_IwerkData = oStorage.get("ZPMOFFLINE_SRV.G_IWERK");
 		var g_Iwerk = oG_IwerkData.Iwerk;
 		
-        var aFilter = [];
+        var GzpTickets = [];
 
 	    if (oStorage.get("ZPMOFFLINE_SRV.WorkInfos")) {
 			var oData1 = oStorage.get("ZPMOFFLINE_SRV.WorkInfos");
 			for(var i=0;i<oData1.length;i++){
                 if(this.checkhelp(oData1[i].statusText,"unCreated")){
-                    aFilter.push(oData1[i]);
+                    GzpTickets.push(oData1[i]);
                 }
             }
 		}
-
+		//工作票类型
+        if (oStorage.get("ZPMOFFLINE_SRV.WorkType")) {
+			var oData = oStorage.get("ZPMOFFLINE_SRV.WorkType");
+			var aFilter = [];
+			for(var n=0;n<oData.length;n++){
+			    if(oData[n].Iwerk==g_Iwerk){
+			        aFilter.push(oData[n]);
+			    }
+			}
+		    oLocalModel.setProperty("/WorkType",aFilter);
+		}
+		//工作单位 ZPMT00229C
+        if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C")) {
+			var oDataDanWei = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C");
+			var aFilterDanWei = [];
+			for(var l=0;l<oDataDanWei.length;l++){
+			    if(oDataDanWei[l].Werks==g_Iwerk){
+			        aFilterDanWei.push(oDataDanWei[l]);
+			    }
+			}
+		    oLocalModel.setProperty("/DanWei",aFilterDanWei);
+		}
+		//班组 ZPMT00283
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00283")) {
+			var oDataBanZu = oStorage.get("ZPMOFFLINE_SRV.ZPMT00283");
+			var aFilterBanZu = [];
+			for(var m=0;m<oDataBanZu.length;m++){
+			    if(oDataBanZu[m].Werks==g_Iwerk){
+			        aFilterBanZu.push(oDataBanZu[m]);
+			    }
+			}
+		    oLocalModel.setProperty("/BanZu",aFilterBanZu);
+		}
 		oLocalModel.setProperty("/queryResultModelCount","0");
 		oLocalModel.setProperty("/queryResultModelDate","0");
-        oLocalModel.setProperty("/ResultModel",aFilter);
+        oLocalModel.setProperty("/ResultModel",GzpTickets);
         sap.ui.getCore().setModel(oLocalModel);
     },
     checkhelp :function(data,key){//过滤key
@@ -112,7 +144,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoUpload", {
                 delete payLoad["AqcsTabX"];
                 delete payLoad["AqcsTabY"];
                 delete payLoad["DangerTab"];
-        	    //delete payLoad["Zczph"];         //删除json中的字段
+        	    delete payLoad["Zczph"];         //删除json中的字段
         	    var tmpDate = payLoad.Crdate;       //把10位日期转换为8位
         	    payLoad.Crdate = tmpDate.substring(0,4) + tmpDate.substring(5,7) + tmpDate.substring(8,10);
         	    tmpDate = payLoad.Jhgzbedate;       //把10位日期转换为8位
