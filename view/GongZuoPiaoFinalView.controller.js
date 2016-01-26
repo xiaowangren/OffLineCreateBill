@@ -227,13 +227,35 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
                 return false;
             }
         }
+        // if(type=="DCC"||type=="DQ1"||type=="DQ2"||type=="JBP"||type=="JXD"||type=="QXD"||type=="RJP"||type=="RKP"){
+            if(WorkModel.Gzbzcynum.trim()!=""){
+                var gbs = this.onCheckShuZi(WorkModel.Gzbzcynum);
+                if(!gbs){
+                   sap.m.MessageBox.alert("人数请输入合法数字",{title: "提示"});
+                   return false;
+                }
+            }
+        // }
         if(WorkType=="DCC"||WorkType=="DQ1"||WorkType=="DQ2"||WorkType=="JBP"||WorkType=="RJP"||WorkType=="RKP"){
-            if(WorkModel.Fynum==""){
+            if(WorkModel.Fynum.trim()==""){
                 sap.m.MessageBox.alert("附页张数必填",{title: "提示"});
                 return false;
             }
+            var bs = this.onCheckShuZi(WorkModel.Fynum.trim());
+            if(!bs){
+               sap.m.MessageBox.alert("附页张数请输入合法数字",{title: "提示"});
+               return false;
+            }
         }
         
+        return true;
+    },
+    onCheckShuZi:function(str){
+        var re = /^[0-9]+.?[0-9]*$/;
+         if (!re.test(str))
+        {
+            return false;
+        }
         return true;
     }
 
