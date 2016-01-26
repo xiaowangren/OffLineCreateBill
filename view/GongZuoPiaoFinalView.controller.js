@@ -336,6 +336,72 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
                return false;
             }
         }
+        //检查Zsfjd是否填写
+        var bZsfjd=true;
+        if(WorkType=="DCC"||WorkType=="DQ1"||WorkType=="DQ2"||WorkType=="JBP"){
+            //此时出现该字段
+            bZsfjd=false;
+            if(WorkModel.Zsfjd){
+                if(WorkModel.Zsfjd.length>0)
+                {
+                    //此时该字段已被填写
+                    bZsfjd=true;
+                }
+            }
+        }
+        if(!bZsfjd){
+            sap.m.MessageBox.alert("是否需装接地线/接地闸 必填，请填写。",{title: "提示"});
+           return false;
+        }        
+        //检查检修时提出按错表是否为空并删除多余的行
+        var bAqcsTabX=false;
+        if(WorkModel.AqcsTabX){
+            if(WorkModel.AqcsTabX.length>0){
+                for(var i=0;i<WorkModel.AqcsTabX.length;i++){
+                    if(WorkModel.AqcsTabX[i].Code){
+                       if(WorkModel.AqcsTabX[i].Code.length>0){
+                           bAqcsTabX=true;
+                           continue;
+                       } 
+                    }
+                    //WorkModel.AqcsTabX.splice(i,1)
+                }
+            }
+        }
+        //console.log(WorkModel.AqcsTabX);
+        if(!bAqcsTabX){
+            sap.m.MessageBox.alert("检修提出安措必填，请填写。",{title: "提示"});
+           return false;           
+        }
+/*        //检查补充运行按错删除多余的行
+        if(WorkModel.AqcsTabY){
+            if(WorkModel.AqcsTabY.length>0){
+                for(var i=0;i<WorkModel.AqcsTabY.length;i++){
+                    if(WorkModel.AqcsTabx[i].Code){
+                       if(WorkModel.AqcsTabx[i].Code>0){
+                           //存在按错代码并且其长度大于0，以为空字符串
+                           continue;
+                       } 
+                    }
+                    WorkModel.AqcsTabY.splice(i,1)
+                }
+            }
+        }
+        //检查附页KKS编码删除多余的行
+        if(WorkModel.KksTab){
+            if(WorkModel.KksTab.length>0){
+                for(var i=0;i<WorkModel.KksTab.length;i++){
+                    if(WorkModel.KksTab[i].Tplnr){
+                       if(WorkModel.KksTab[i].Tplnr>0){
+                           //存在按错代码并且其长度大于0，以为空字符串
+                           continue;
+                       } 
+                    }
+                    WorkModel.KksTab.splice(i,1)
+                }
+            }
+        }*/
+        
         
         return true;
     },

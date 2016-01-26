@@ -1,4 +1,4 @@
-jQuery.sap.require("jquery.sap.storage");
+    jQuery.sap.require("jquery.sap.storage");
 jQuery.sap.require("com.zhenergy.bill.util.SearchKKS");
 jQuery.sap.require("com.zhenergy.bill.util.Formatter");
 sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoAppendix", {
