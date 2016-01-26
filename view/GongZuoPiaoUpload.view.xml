@@ -1,0 +1,117 @@
+<core:View xmlns:core="sap.ui.core" 
+	xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:c="sap.ui.commons"
+	xmlns="sap.ui.table"
+	xmlns:m ="sap.m" controllerName="com.zhenergy.bill.view.GongZuoPiaoUpload" 
+	xmlns:html="http://www.w3.org/1999/xhtml">
+	<m:Page title="操作票查询:共{/queryResultModelCount}张，查询日期:{/queryResultModelDate}">
+		<m:content>
+		    <c:Button text = "返回首页" icon="sap-icon://nav-back" press="onBack" ></c:Button>
+		    <c:Button id="upload" text = "上传" icon = "sap-icon://upload" press="onUploadPressed"></c:Button>
+		    <Table
+                id="gongZuoPiaoQueryResult"
+                visibleRowCount="10"
+                navigationMode="Paginator"
+                selectionMode="MultiToggle"
+                selectionBehavior="Row"
+                rowSelectionChange="onChange"
+                rows="{path: '/ResultModel', sorter: { path: 'Cdata', descending: true}}" >
+            <columns>
+					<Column width="11rem">
+						<m:Label text="工作票编号" />
+						<template>
+							<m:Text text="{Wcmno}" tooltip="{Wcmno}"/>
+						</template>
+					</Column>
+			</columns>
+			<columns>
+					<Column width="9rem">
+						<m:Label text="状态" />
+						<template>
+							<c:ComboBox width="95%" selectedKey="{Estat}" editable="false">
+								<c:items>
+									<core:ListItem key="10" text="拟票"></core:ListItem>
+								</c:items>
+							</c:ComboBox>
+						</template>
+					</Column>
+			</columns>
+			<columns>
+				<Column width="25rem">
+					<m:Label text="工作内容" />
+					<template>
+					    <m:Text text="{Ccontent}" tooltip="{Ccontent}"/>
+					</template>
+				</Column>
+			</columns>
+			<columns>
+				<Column width="9rem">
+					<m:Label text="工作票类型" />
+					<template>
+						<c:ComboBox items="{ path: '/WorkType', sorter: { path: 'Ztype' } }" width="95%" selectedKey="{Ztype}" editable="false">
+								<core:ListItem key="{Ztype}" text="{Ztypedes}"></core:ListItem>
+						</c:ComboBox>
+					</template>
+				</Column>
+			</columns>
+			<columns>
+				<Column width="6rem">
+					<m:Label text="是否已上传" />
+					<template>
+    					<c:ComboBox width="95%" selectedKey="{statusText}" editable="false">
+                            <c:items>
+                                <core:ListItem text="未上传" key="unCreated"></core:ListItem>
+                                <core:ListItem text="已上传" key="Created"></core:ListItem>
+                            </c:items>
+                        </c:ComboBox>
+					</template>
+				</Column>
+			</columns>
+			<columns>
+				<Column width="11rem">
+					<m:Label text="ECC编号" />
+					<template>
+    					<m:Text text="{Zlybnum}" tooltip="{Zlybnum}"/>
+					</template>
+				</Column>
+			</columns>
+			<columns>
+					<Column width="9rem" sortProperty="Crdate">
+						<m:Label text="开票日期" />
+						<template>
+							<m:Text text="{Crdate}" tooltip="{Crdate}"/>
+						</template>
+					</Column>
+			</columns>
+			<columns>
+				<Column width="11rem">
+					<m:Label text="工作单位" />
+					<template>
+						<c:ComboBox items="{ path: '/DanWei', sorter: { path: 'Appdep' } }" width="95%" selectedKey="{Appdep}" editable="false">
+							<core:ListItem key="{Appdep}" text="{Appdepdec}"></core:ListItem>
+					    </c:ComboBox>
+					</template>
+				</Column>
+			</columns>
+			<columns>
+				<Column width="7rem">
+					<m:Label text="班组" />
+					<template>
+    					<c:ComboBox items="{ path: '/BanZu', sorter: { path: 'Yxgroup' } }" width="95%" selectedKey="{Class}" editable="false">
+							<core:ListItem key="{Yxgroup}" text="{Yxgroupdec}"></core:ListItem>
+						</c:ComboBox>
+					</template>
+				</Column>
+			</columns>
+			<columns>
+				<Column width="9rem">
+					<m:Label text="工作负责人" />
+					<template>
+						<m:Text text="{Name}" tooltip="{Name}"/>
+					</template>
+				</Column>
+			</columns>
+    	</Table>
+		</m:content>
+	</m:Page>
+</core:View>

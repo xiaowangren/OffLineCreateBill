@@ -827,6 +827,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
     },
     onPrintGZPDanger:function(modelData){
         //工作票危险点
+        // console.log(modelData);
         var iwerkText = this.onGetIwerkText(modelData.Iwerk);
         if(!(iwerkText == undefined)){
             iwerkText = iwerkText.replace(/物资工厂/, '');
@@ -853,17 +854,36 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         var boxZtz = modelData.Ztz ? '\u25a0' : '\u25a1';
         var boxZqt = modelData.Zqt ? '\u25a0' : '\u25a1';
         
-        var wxyContent = [];
-        var hjysContent = [];
+        var oTableBody1 = [[{text:'部门',alignment:'center'},{text:appDepdec},
+    						  {text: '班组', alignment:'center'},{text: classdec},
+    						  {text: '工作负责人', alignment:'center'},{text: modelData.Name},
+    						  {text: '关联工作票号', alignment:'center'},{text: 'DCC_2081_15\n1103_001'}],
+    						[ {text:'工作\n内容',alignment:'center'}, {text:modelData.Ccontent,colSpan:7},{},{},{},{},{},{}],
+    						[ {text:'一',alignment:'center'}, {text:'危险源及控制措施',alignment:'center',colSpan:7},{},{},{},{},{},{}],
+    						[ {text:'序号',alignment:'center'},{text:'步骤或活动',alignment:'center'},
+    						  {text:'危险点',alignment:'center'},{text:'伤害类型',alignment:'center'},
+    						  {text:'控制措施',alignment:'center',colSpan:4},{},{},{}]
+						];
         for(var i=0;i<modelData.DangerTab.length;i++){
-            if(modelData.DangerTab[i].Zfxlx === 'X'){
-                var line = [modelData.DangerTab[i].Dangno,modelData.DangerTab[i].Dangsnot,modelData.DangerTab[i].Zztext,modelData.DangerTab[i].Zzremark,{text:modelData.DangerTab[i].Zzpltxt,colSpan:4},{},{},{}];
-                wxyContent.push(line);
-            }else if(modelData.DangerTab[i].Zfxlx === 'Y'){
-                var line = [modelData.DangerTab[i].Dangno,modelData.DangerTab[i].Dangsnot,modelData.DangerTab[i].Zztext,modelData.DangerTab[i].Zzremark,{text:modelData.DangerTab[i].Zzpltxt,colSpan:4},{},{},{}];
-                hjysContent.push(line);
+            if(modelData.DangerTab[i].Zfxlx === '1'){
+                var line = [{text:modelData.DangerTab[i].Dangno,alignment:'center'},modelData.DangerTab[i].Dangsnot,modelData.DangerTab[i].Zztext,modelData.DangerTab[i].Zzremark,{text:modelData.DangerTab[i].Zzpltxt,colSpan:4},{},{},{}];
+                oTableBody1.push(line);
             }
         }
+		oTableBody1.push([ {text:'二',alignment:'center'}, {text:'环境因素及控制措施',alignment:'center',colSpan:7},{},{},{},{},{},{}],
+						[ {text:'序号',alignment:'center'},{text:'步骤或活动',alignment:'center'},
+						  {text:'危险点',alignment:'center'},{text:'危害类型',alignment:'center'},
+						  {text:'控制措施',alignment:'center',colSpan:4},{},{},{}]);
+        for(var i=0;i<modelData.DangerTab.length;i++){
+            if(modelData.DangerTab[i].Zfxlx === '2'){
+                var line = [{text:modelData.DangerTab[i].Dangno,alignment:'center'},modelData.DangerTab[i].Dangsnot,modelData.DangerTab[i].Zztext,modelData.DangerTab[i].Zzremark,{text:modelData.DangerTab[i].Zzpltxt,colSpan:4},{},{},{}];
+                oTableBody1.push(line);
+            }
+        }
+// 		oTableBody1.push([ {text:'1',alignment:'center'},{text:'地方'},
+// 						  {text:''},{text:''},
+// 						  {text:'',colSpan:4},{},{},{}]);
+// 		console.log(oTableBody1);
         var docDefinition = {
             pageMargins: [ 40, 60, 40, 60 ],        //页面边距
             content: [
@@ -872,28 +892,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					style: 'bodyTable',
 					table: {
 							widths: ['10%','15%','10%','15%','10%','15%','10%','15%'],
-							body: [[{text:'部门',alignment:'center'},{text:appDepdec},
-									  {text: '班组', alignment:'center'},{text: classdec},
-									  {text: '工作负责人', alignment:'center'},{text: modelData.Name},
-									  {text: '关联工作票号', alignment:'center'},{text: 'DCC_2081_15\n1103_001'}],
-									[ {text:'工作\n内容',alignment:'center'}, {text:modelData.Ccontent,colSpan:7},{},{},{},{},{},{}],
-									[ {text:'一',alignment:'center'}, {text:'危险源及控制措施',alignment:'center',colSpan:7},{},{},{},{},{},{}],
-									[ {text:'序号',alignment:'center'},{text:'步骤或活动',alignment:'center'},
-									  {text:'危险点',alignment:'center'},{text:'伤害类型',alignment:'center'},
-									  {text:'控制措施',alignment:'center',colSpan:4},{},{},{}],
-								// 	wxyContent.length>0 ? wxyContent : [{},{},{},{},{},{},{},{}],
-									[ {text:'1',alignment:'center'},{text:'地方'},
-									  {text:''},{text:''},
-									  {text:'',colSpan:4},{},{},{}],
-									[ {text:'二',alignment:'center'}, {text:'环境因素及控制措施',alignment:'center',colSpan:7},{},{},{},{},{},{}],
-									[ {text:'序号',alignment:'center'},{text:'步骤或活动',alignment:'center'},
-									  {text:'危险点',alignment:'center'},{text:'危害类型',alignment:'center'},
-									  {text:'控制措施',alignment:'center',colSpan:4},{},{},{}],
-								// 	hjysContent,
-									[ {text:'1',alignment:'center'},{text:'地方'},
-									  {text:''},{text:''},
-									  {text:'',colSpan:4},{},{},{}]
-							]
+							body: oTableBody1
 					}
 				},
 				{
@@ -908,7 +907,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
                 						body: [
                 						    [{text:boxZaqm+'安全帽'},boxZaqs+'安全绳',boxZaqd+'安全带',boxZjyst+'绝缘手套',boxZjyx+'绝缘鞋',boxZjyd+'绝缘垫',boxZstzk+'手套钻孔'],
                 						    [{text:boxZydq+'验电器'},boxZmhq+'灭火器',boxZes+'耳塞',boxZfhyj+'防护眼镜',boxZhjyj+'焊接眼镜',boxZhjst+'焊接手套',boxZfcmz+'防尘面罩'],
-                						    [{text:boxZfhyj+'防护眼镜'},boxZhxq+'呼吸器',boxZzl+'遮栏',boxZtz+'梯子',boxZqt+'其它（）','','']
+                						    [{text:boxZfhz+'防护罩'},boxZhxq+'呼吸器',boxZzl+'遮栏',boxZtz+'梯子',boxZqt+'其它（）','','']
                 						]
                 					},
                 					layout: 'noBorders'
@@ -985,27 +984,47 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
     },
     onPrintGZPFuye:function(modelData){
         //工作票附页
+        console.log(modelData);
+        var iwerkText = this.onGetIwerkText(modelData.Iwerk);
+        if(!(iwerkText == undefined)){
+            iwerkText = iwerkText.replace(/物资工厂/, '');
+        }
+        var ticketTypeText = this.onGetTicketTypeText(modelData.Ztype);
+        var beginTime = modelData.Jhgzbedate.substring(0,4) + '月'+
+                        modelData.Jhgzbedate.substring(5,7)+'月'+
+                        modelData.Jhgzbedate.substring(8,10)+'日'+
+                        modelData.Jhgzbetime.substring(0,2)+'时'+
+                        modelData.Jhgzbetime.substring(3,5)+'分';
+        var endTime = modelData.Jhgzfidate.substring(0,4)+'年'+
+                        modelData.Jhgzfidate.substring(5,7)+'月'+
+                        modelData.Jhgzfidate.substring(8,10)+'日'+
+                        modelData.Jhgzfitime.substring(0,2)+'时'+
+                        modelData.Jhgzfitime.substring(3,5)+'分';
+        var oTableBody = [
+			[ {text:'序号',alignment:'center',style:'tableHeader'},
+			  {text:'KKS编码',alignment:'center',style:'tableHeader'},
+			  {text:'检修设备名称',alignment:'center',style:'tableHeader'}]
+		];
+		for(var i=0;i<modelData.KksTab.length;i++){
+		    var line = [{text:modelData.KksTab[i].Seqc,alignment:'center'},{text:modelData.KksTab[i].Tplnr},''];
+		    oTableBody.push(line);
+		}
         var docDefinition = {
             pageMargins: [ 40, 60, 40, 60 ],        //页面边距
             content: [
-                {text: "浙江浙能兰溪发电有限责任公司"+'\n'+"电除尘专用工作票附页\n ", style: 'header'},
-                {text:[ '工作票编号：',{text: this.getUnderLineText("", 28),style:'underLineText'}],style:'subheader'},
-                {text:[ '工作票内容：',{text: this.getUnderLineText("", 71),style:'underLineText'}],style:'subheader'},
-                {text:[ '工作负责人：',{text: this.getUnderLineText("林李卫", 8),style:'underLineText'},
-                        '开始时间：',{text: this.getUnderLineText("2015年10月24日11时30分", 22),style:'underLineText'},
-                        '结束时间：',{text: this.getUnderLineText("2015年10月25日11时30分", 22),style:'underLineText'}],style:'subheader'},
+                {text: iwerkText+'\n'+ticketTypeText+"电除尘专用工作票附页\n ", style: 'header'},
+                {text:[ '工作票编号：',{text: this.getUnderLineText(modelData.Wcmno, 28),style:'underLineText'}],style:'subheader'},
+                {text:[ '工作票内容：',{text: this.getUnderLineText(modelData.Ccontent, 71),style:'underLineText'}],style:'subheader'},
+                {text:[ '工作负责人：',{text: this.getUnderLineText(modelData.Name, 8),style:'underLineText'},
+                        '开始时间：',{text: this.getUnderLineText(beginTime, 22),style:'underLineText'},
+                        '结束时间：',{text: this.getUnderLineText(endTime, 22),style:'underLineText'}],style:'subheader'},
                 {text:'\n \n 检修设备：'},
 				{
 				    style:'bodyTable',
 				    table:{
-				        headerRows: 1,
+				        headerRows: 0,
 				        widths: ['10%','30%','60%'],
-				        body:[
-				               [ {text:'序号',alignment:'center',style:'tableHeader'},{text:'KKS编码',alignment:'center',style:'tableHeader'},{text:'检修设备名称',alignment:'center',style:'tableHeader'}],
-				               ['\n','',''],
-				               ['\n','',''],
-				               ['\n','','']
-				        ]
+				        body: oTableBody
 				    }
 				},
 				{text:'补充说明：'}

@@ -135,6 +135,13 @@ sap.ui.jsview("com.zhenergy.bill.view.BillApp", {
 			type: sap.ui.core.mvc.ViewType.XML
 		});
 		this.app.addPage(GongZuoPiaoQueryResultXml);
+		//注册工作票上传页面
+		var GongZuoPiaoUpload = sap.ui.view({
+			id: "idGongZuoPiaoUpload",
+			viewName: "com.zhenergy.bill.view.GongZuoPiaoUpload",
+			type: sap.ui.core.mvc.ViewType.XML
+		});
+		this.app.addPage(GongZuoPiaoUpload);
 		return this.app;
 	}
 
