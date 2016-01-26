@@ -74,7 +74,7 @@
                 <c:TextView text="补充说明："></c:TextView>
             </lay:MatrixLayoutCell>
             <lay:MatrixLayoutCell colSpan="3">
-                <c:TextArea value="{WorkModel>/Zbcsm}" rows="10" cols="150" id="buchongshuoming"></c:TextArea>
+                <c:TextArea value="{WorkModel>/Zbcsm}" rows="10" cols="150" id="buchongshuoming"  editable="{/Editable}"></c:TextArea>
             </lay:MatrixLayoutCell>
         </lay:MatrixLayoutRow>
     </lay:MatrixLayout>

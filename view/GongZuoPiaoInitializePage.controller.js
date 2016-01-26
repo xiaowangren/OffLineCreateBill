@@ -103,6 +103,8 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		};
 		var oModel = new sap.ui.model.json.JSONModel();
 		oModel = sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onFengZhuang(idIwerkInitialize);
+		//初始化安全措施下拉列表
+		sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onInitializeAQCSData(idWorkTypeInitialize);
         oModel.setProperty("/Title1","创建");
         oModel.setProperty("/Editable",true);
         oModel= this.onDataVisible(oModel,idIwerkInitialize,idWorkTypeInitialize);
@@ -134,7 +136,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
  	    sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoFinalView", "");
     	var page = sap.ui.getCore().byId("idBillApp").app.getPage("idGongZuoPiaoFinalView");
     	page.setModel(oModel,"WorkModel");
-    	//安全措施
+/*    	//安全措施
 		//var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		if (oStorage.get("ZPMOFFLINE_SRV.ZPMTQPCDT")) {
 			var AQCSDataX = new sap.ui.model.json.JSONModel();
@@ -156,7 +158,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 			//补充运行按错数据列表
 	        AQCSDataY.setData(aFilterPerY,false);
 			sap.ui.getCore().setModel(AQCSDataY,"AQCSDataY");
-		}
+		}*/
 
 
 
