@@ -5,7 +5,7 @@
 	xmlns:lay="sap.ui.commons.layout"
 	xmlns="sap.m" controllerName="com.zhenergy.bill.view.GongZuoPiaoBaseInfo" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
-	<lay:MatrixLayout class="page_Margin" widths="5%,20%,4%,20%,5%,20%,4%,20%" width="100%" >
+	<lay:MatrixLayout class="page_Margin" widths="5%,20%,4%,20%,7%,20%,4%,20%" width="100%" >
         		            <lay:MatrixLayoutRow>
         		                <lay:MatrixLayoutCell>
         		                    <c:TextView text="KKS编码"></c:TextView>
@@ -165,7 +165,7 @@
         		                </lay:MatrixLayoutCell>
         		            </lay:MatrixLayoutRow>
         		        </lay:MatrixLayout>
-        		        <lay:MatrixLayout widths="11%,20%,10%,10%,35%,14%" width="100%">
+        		        <lay:MatrixLayout widths="11%,20%,10%,10%,35%,13%" width="100%">
         		            <lay:MatrixLayoutRow>
         		                <lay:MatrixLayoutCell rowSpan="3" colSpan="4">
         		                   <Panel>
@@ -228,17 +228,17 @@
     		                        </Panel>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell >
-        		                    <c:TextView text="开始时间" visible="{/JhgzfiVisible}" width="20%"></c:TextView>
+        		                    <c:TextView text="开始时间" visible="{/JhgzfiVisible}" width="19%"></c:TextView>
         		                    <DateTimeInput type="Date" value="{WorkModel>/Jhgzbedate}" editable="{/Editable}" width="35%"
                             			visible="{/JhgzfiVisible}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd"/>
                             		<DateTimeInput type="Time" placeholder="00:00:00" value="{WorkModel>/Jhgzbetime}" editable="{/Editable}" width="35%"
                             			visible="{/JhgzfiVisible}"  displayFormat="HH:mm:ss" valueFormat="HH:mm:ss" class="TextField_TextView"/>
-                            		<c:TextView text="完成时间" visible="{/JhgzfiVisible}" width="20%"></c:TextView>
+                            		<c:TextView text="完成时间" visible="{/JhgzfiVisible}" width="19%"></c:TextView>
                             		<DateTimeInput type="Date" value="{WorkModel>/Jhgzfidate}" editable="{/Editable}" width="35%"
                             			visible="{/JhgzfiVisible}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
                             		<DateTimeInput type="Time" placeholder="00:00:00" value="{WorkModel>/Jhgzfitime}" editable="{/Editable}" width="35%"
                             			visible="{/JhgzfiVisible}"  displayFormat="HH:mm:ss" valueFormat="HH:mm:ss" class="TextField_TextView"/>
-                            	    <c:TextView text="关联工作票号" visible="{/RefWcmnoVisible}" width="20%"></c:TextView>
+                            	    <c:TextView text="关联工作票号" visible="{/RefWcmnoVisible}" width="19%"></c:TextView>
                             	    <c:TextField value="{WorkModel>/RefWcmno}" width="60%" editable="{/Editable}" visible="{/RefWcmnoVisible}"></c:TextField>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
