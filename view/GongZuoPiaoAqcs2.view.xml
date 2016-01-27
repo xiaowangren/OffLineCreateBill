@@ -63,7 +63,7 @@
 			>
 			<Text text="安全措施内容" />
 		</Column>
-		<Column
+<!--		<Column
 			minScreenWidth="Tablet"
 			demandPopin="true"
 			width="20px"
@@ -76,7 +76,7 @@
 			width="110px"
 			 >
 			<Text text="执行情况" />
-		</Column>
+		</Column>-->
 		<Column
 			minScreenWidth="Tablet"
 			demandPopin="true"
@@ -103,8 +103,8 @@
 				<c:TextView
 					text="{WorkModel>Seqc}" width="100%"/>
                 <c:TextField value="{WorkModel>Actext}"  width="100%" editable="{/Editable}"></c:TextField>
-                <c:CheckBox checked="{WorkModel>Comzx}" width="100%" editable="{/Editable}"/>
-                <c:TextField value="{WorkModel>Zxqk}" width="100%" editable="{/Editable}"></c:TextField>
+<!--                <c:CheckBox checked="{WorkModel>Comzx}" width="100%" editable="{/Editable}"/>
+                <c:TextField value="{WorkModel>Zxqk}" width="100%" editable="{/Editable}"></c:TextField>-->
 				<c:Button text="新增" press="onAddAqcs" visible="{/Editable}"></c:Button>
 			    <c:Button text="删除" press="onDeleteAqcs" visible="{/Editable}"></c:Button>
 			</cells>

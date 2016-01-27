@@ -79,7 +79,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoAqcs2", {
             }
             Seqc = parseInt(SeqcBefore);
         }
-        var Group = {Seqc:Seqc+1,Comzx:true};
+        var Group = {Seqc:Seqc+1};
         GroupTab.insert(index+1, Group);
         this.OnChangeAqcs();
         //this.onrefresh("idGongZuoPiaoFinalView", WorkModel);

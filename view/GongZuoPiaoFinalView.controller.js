@@ -19,7 +19,26 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
     },
     onSubmit:function(){
         var oModel = this.getView().getModel("WorkModel");
-        var WorkModel = oModel.getData(); 
+        var WorkModel = oModel.getData();
+        //将按错表按按错代码与序号排序
+        function mySortBy(a,b){
+            return (a.Code+a.Seqc)>(b.Code+b.Seqc)
+                
+        }
+        var AqcsTabX=WorkModel.AqcsTabX;
+        AqcsTabX.sort(mySortBy);
+        var AqcsTabY=WorkModel.AqcsTabY;
+        AqcsTabY.sort(mySortBy);
+        //将危险单按危险单代码跟序号排序
+        function mySortBy2(a,b){
+            return (a.Zfxlx+a.Dangno+"")>(b.Zfxlx+b.Dangno+"")
+                
+        }
+        
+        var DangerTab=WorkModel.DangerTab;
+        DangerTab.sort(mySortBy2);
+        
+        
         var booleans = this.onCheckData(WorkModel);
         if(!booleans){
             return;

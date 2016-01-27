@@ -23,8 +23,8 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoAqcs", {
             }
 
         }
-        console.log(GroupTab);
         this.onrefresh("idGongZuoPiaoFinalView", WorkModel);
+        //this.byId("idAqcsTabX").rerender();
     },
     OnChangeAqcs: function(){
         var WorkModel = this.getView().getModel("WorkModel").getData(); 
@@ -43,6 +43,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoAqcs", {
 
         }
         this.onrefresh("idGongZuoPiaoFinalView", WorkModel);
+        //this.byId("idAqcsTabX").rerender();
     },
     onAddDaleteIndex:function(oEvent){
         var source = oEvent.getSource();
@@ -79,7 +80,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoAqcs", {
             }
             Seqc = parseInt(SeqcBefore);
         }
-        var Group = {Seqc:Seqc+1,Comzx:true};
+        var Group = {Seqc:Seqc+1};
         GroupTab.insert(index+1, Group);
         this.OnChangeAqcs();
         //this.onrefresh("idGongZuoPiaoFinalView", WorkModel);
