@@ -453,8 +453,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			Iwerk: Iwerks
 		};
 	},
-	onOpenUploadPanel: function() {
-		jQuery.sap.require("jquery.sap.storage");
+	onOpenUploadCzpPanel: function() {
+// 		jQuery.sap.require("jquery.sap.storage");
 		sap.ui.getCore().byId("idBillApp").app.to("idBillUpload");
 	},
 	handleSelectWerks: function() {
@@ -940,8 +940,12 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 									dialog.close();
 									if(sAction==="Sync"){
 								    	oController.onSyncMasterData();
-									}else if(sAction === "Upload"){
-									    oController.onOpenUploadPanel();
+									}else if(sAction === "UploadCzp"){
+									   // oController.onOpenUploadCzpPanel();
+									    sap.ui.getCore().byId("idBillApp").app.to("idBillUpload");
+									}else if(sAction === "UploadGzp"){
+									   // oController.onOpenUploadPanel();
+									    sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoUpload");
 									}
 								}
 							});
@@ -1003,7 +1007,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		    this.onSyncMasterData();
 		}
 	},
-	onUploadToECCClicked:function(){
+	onUploadCzpToECCClicked:function(){
 	    jQuery.sap.require("sap.m.MessageBox");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		//检查是否已经选择了工厂
@@ -1017,9 +1021,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		
 		//打开上传操作票页面
 		var bLoggedIn = this.onCheckLoginECC();
-		console.log(bLoggedIn);
+// 		console.log(bLoggedIn);
 		if(!bLoggedIn){
-		 this.onOpenLogonToPortal("Upload");    //定义登陆后的行为
+		    this.onOpenLogonToPortal("UploadCzp");    //定义登陆后的行为
 		}else{
 		    this.onOpenUploadPanel();
 		}
@@ -1027,5 +1031,25 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	onUploadGZPToECCClicked:function(){
 	   // jQuery.sap.require("jquery.sap.storage");
 		sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoUpload");
+		
+// 		jQuery.sap.require("sap.m.MessageBox");
+// 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+// 		//检查是否已经选择了工厂
+// 		var oG_IwerkData = oStorage.get("ZPMOFFLINE_SRV.G_IWERK");
+// 		if (!oG_IwerkData) {
+// 			sap.m.MessageBox.alert("请设定工厂", {
+// 				title: "提示"
+// 			});
+// 			return;
+// 		}
+		
+// 		//打开上传操作票页面
+// 		var bLoggedIn = this.onCheckLoginECC();
+// // 		console.log(bLoggedIn);
+// 		if(!bLoggedIn){
+// 		    this.onOpenLogonToPortal("UploadGzp");    //定义登陆后的行为
+// 		}else{
+// 		    this.onOpenUploadPanel();
+// 		}
 	}
 });

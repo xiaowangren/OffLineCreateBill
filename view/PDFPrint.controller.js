@@ -226,7 +226,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
             }
             for(var j=0;j<modelData.AqcsTabX.length;j++){
                 if(currCode == modelData.AqcsTabX[j].Code){
-                    if(modelData.AqcsTabX.Codegruppe == 'DCC001'){
+                    if(modelData.AqcsTabX[j].Codegruppe == 'DCC001'){
                         if(modelData.AqcsTabX[j].Seqc == '1'){
                             //表头
                             aqcsBody1.push([ cn_no[tmpNo1],{text:arrAqcs[i][1],style:'tableHeader',alignment:'center'}, {text: '安措执行情况',style:'tableHeader', alignment:'center'}]);
@@ -244,6 +244,8 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
                 }
             }
         }
+        console.log(aqcsBody1);
+        console.log(aqcsBody2);
         var content = [
                 {
 					table: {

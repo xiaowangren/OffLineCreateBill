@@ -59,7 +59,7 @@
 				title="上传离线操作票"
 				info="最近上传:{/lastCzpUpload}"
 				infoState="Success"
-				press="onUploadToECCClicked">
+				press="onUploadCzpToECCClicked">
 			</StandardTile>
 			<StandardTile
 			    id="tileCreateWT"
