@@ -138,6 +138,10 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoUpload", {
                 var payLoad = oTableData[index];
                 var AqcsTab = payLoad.AqcsTabX.concat(payLoad.AqcsTabY);
                 payLoad["AqcsTab"] = AqcsTab;
+                delete payLoad["AqcsTabX"];
+                delete payLoad["AqcsTabY"];                
+                // delete payLoad["DangerTab"];                
+                //删除json中的字段
                 delete payLoad["statusText"];
                 delete payLoad["Title1"];
                 delete payLoad["Title2"];
@@ -154,11 +158,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoUpload", {
                 delete payLoad["JhgzfiVisible"];
                 delete payLoad["TableVisible"];
                 delete payLoad["ZsfjdVisible"];
-                // delete payLoad["Zbcsm"];
-                delete payLoad["AqcsTabX"];
-                delete payLoad["AqcsTabY"];
-                delete payLoad["DangerTab"];
-        	    delete payLoad["Zczph"];         //删除json中的字段
+       
         	    var tmpDate = payLoad.Crdate;       //把10位日期转换为8位
         	    payLoad.Crdate = tmpDate.substring(0,4) + tmpDate.substring(5,7) + tmpDate.substring(8,10);
         	    tmpDate = payLoad.Jhgzbedate;       //把10位日期转换为8位
@@ -167,6 +167,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoUpload", {
         	    payLoad.Jhgzfidate = tmpDate.substring(0,4) + tmpDate.substring(5,7) + tmpDate.substring(8,10);
         	   // payLoad.Jhgzbetime = payLoad.Jhgzbetime.replace(/:*/,'');
         	   // payLoad.Jhgzfitime = payLoad.Jhgzfitime.replace(/:*/,'');
+        	   //将true false转变为ECC的值
         	    payLoad.Bhgbz = payLoad.Bhgbz ? 'X' : '';
                 payLoad.Cj = payLoad.Cj ? 'X' : '';
                 payLoad.Delflg = payLoad.Delflg ? 'X' : '';
@@ -222,12 +223,12 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoUpload", {
                 console.log(data);
                 for(var i=0;i<data.__batchResponses.length;i++){
                     var respData = data.__batchResponses[i];
-                    var l_zczph = respData.__changeResponses[0].data.Wcmno;     //离线票号
+                    var l_wcmno = respData.__changeResponses[0].data.Wcmno;     //离线票号
                     var l_zzwcmno = respData.__changeResponses[0].data.Zzwcmno; //ECC票号
                     //更新返回状态到oStorage
                     
                     for(var j=0;j<oData.length;j++){
-                        if(oData[j].Zczph == l_zczph){
+                        if(oData[j].Wcmno == l_wcmno){
                             oData[j]["statusText"] = respData.__changeResponses[0].statusText;
                             oData[j]["Zlybnum"] = l_zzwcmno;
                         }
@@ -242,7 +243,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoUpload", {
                 oView.rerender();
             }, 
             function(data) {
-                console.log("工作票上传失败");
+                sap.m.MessageToast.show("工作票上传失败");
             },
             false
         );
