@@ -133,6 +133,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	onSyncMasterData: function() {
 
 		jQuery.sap.require("jquery.sap.storage");
+		jQuery.sap.require("sap.m.MessageBox");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var oG_IwerkData = oStorage.get("ZPMOFFLINE_SRV.G_IWERK");
 		//配置服务器

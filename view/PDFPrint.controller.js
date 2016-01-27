@@ -1318,31 +1318,45 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
     },
     // QXD	事故抢修单lww
     onPrintGzp_QXD:function(modelData){
-        var docDefinition = {
-            pageMargins: [ 40, 60, 40, 60 ],        //页面边距
-            content: [
+        var iwerkText = this.onGetIwerkText(modelData.Iwerk);
+        if(!(iwerkText == undefined)){
+            iwerkText = iwerkText.replace(/物资工厂/, '');
+        }
+        var ticketTypeText = this.onGetTicketTypeText(modelData.Ztype);
+        var appDepdec = this.onGetAppdepText(modelData.Appdep);
+        var classdec = this.onGetClassDec(modelData.Class);
+        //工作班组成员
+        var groupPersons = "";
+        for(var i=0;i<modelData.GroupTab.length;i++){
+            if(i>0){
+                groupPersons = groupPersons + "、";
+            }
+            groupPersons = groupPersons + modelData.GroupTab[i].Pname;
+        }
+        var groupPersonNum = modelData.GroupTab.length;
+        var    content = [
                 {
 					table: {
 							widths: ['20%','60%','20%'],
 							body: [
-        							[ '', {text: "浙江浙能兰溪发电有限公司"+'\n'+"事故应急抢修单\n ", style: 'header'},'']
+        							[ '', {text: iwerkText +'\n'+ticketTypeText+"\n ", style: 'header'},'']
 							]
 					},
 					layout: 'noBorders'
 				},
-                {text:'编号：RKP_2081_151203_001',style:'subheader'},
+                {text:'编号：'+modelData.Wcmno,style:'subheader'},
 				{
 				// 	style: 'bodyTable',
 					table: {
 							widths: ['51%','49%'],
 							body: [
-        							[ {text:['部门： ',{text: this.getUnderLineText("设备管理部", 36),style:'underLineText'}]}, 
+        							[ {text:['部门： ',{text: this.getUnderLineText(appDepdec, 36),style:'underLineText'}]}, 
         							 {text:[ '填写时间：',
-									        {text: this.getUnderLineText("2015", 4),style:'underLineText'},'年',
-        									{text: this.getUnderLineText("12", 2),style:'underLineText'},'月',
-        									{text: this.getUnderLineText("03", 2),style:'underLineText'},'日',
-        									{text: this.getUnderLineText("08", 2),style:'underLineText'},'时',
-        									{text: this.getUnderLineText("05", 2),style:'underLineText'},'分']}]
+									        {text: this.getUnderLineText(modelData.Crdate.substring(0,4), 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText(modelData.Crdate.substring(5,7), 2),style:'underLineText'},'月',
+        									{text: this.getUnderLineText(modelData.Crdate.substring(8,10), 2),style:'underLineText'},'日',
+        									{text: this.getUnderLineText(modelData.Crdate.substring(0,2), 2),style:'underLineText'},'时',
+        									{text: this.getUnderLineText(modelData.Crdate.substring(3,5), 2),style:'underLineText'},'分']}]
 							]
 					},
 					layout: 'noBorders'
@@ -1353,12 +1367,13 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 							headerRows: 0,
 							widths: ['2%','48%','50%'],
 							body: [
-									[ '1.',{text:['抢修工作负责人（监护人）：',{text: this.getUnderLineText("", 14),style:'underLineText'}]}, {text:[ '班组：',{text: this.getUnderLineText("集控运行", 32),style:'underLineText'}]} ],
+									[ '1.',{text:['抢修工作负责人（监护人）：',{text: this.getUnderLineText(modelData.Name, 14),style:'underLineText'}]}, 
+									       {text:[ '班组：',{text: this.getUnderLineText(classdec, 32),style:'underLineText'}]} ],
 									[ '2.', {text: '抢修班人员（不包括工作负责人）', colSpan:2}, {}],
-									[ '',{text:[{text: this.getUnderLineText("", 74),style:'underLineText'},
-							             '共',{text: this.getUnderLineText("", 4),style:'underLineText'},'人'],colSpan:2}, {}],
+									[ '',{text:[{text: this.getUnderLineText(groupPersons, 74),style:'underLineText'},
+							             '共',{text: this.getUnderLineText(groupPersonNum, 4),style:'underLineText'},'人'],colSpan:2}, {}],
 									[ '3.', {text: '抢修任务（抢修地点和抢修内容，有二级动火的必须注明有二级动火）',colSpan:2}, {}],
-									[ '', {text: this.getUnderLineText("ASDFASD", 167),style:'underLineText', colSpan:2}, {}],
+									[ '', {text: this.getUnderLineText(modelData.SPlace+modelData.SCont, 167),style:'underLineText', colSpan:2}, {}],
         							[ '4.', {text:'安全措施（有动火的包括动火时的安措）:',colSpan:2}, {}]
 							]
 					},
@@ -1399,7 +1414,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					table: {
 							widths: ['2%','48%','50%'],
 							body: [
-        							[ '6.',{text:[ '上述1~5项由抢修工作负责人',{text: this.getUnderLineText("", 14),style:'underLineText'},
+        							[ '6.',{text:[ '上述1~5项由抢修工作负责人',{text: this.getUnderLineText(modelData.Name, 14),style:'underLineText'},
 							             '根据抢修任务布置人',{text: this.getUnderLineText("", 12),style:'underLineText'},
         							     '的布置填写'],colSpan:2}, {}],
         							[ '7.', {text:'经现场勘察，需补充下列安全措施',colSpan:2}, {}]
@@ -1451,58 +1466,6 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					},
 					layout: 'noBorders'
 				}
-			],
-			styles: {
-        		header: {//大标题
-        			fontSize: 18,
-        			bold: false,
-        			alignment: 'center',
-        			color: 'black',
-        			margin: [0, 10, 0, 15]      //表格里不生效
-        		},
-        		smallText: {//右上角印章文字
-        			bold: false,
-        			fontSize: 10,
-        			color: 'black'
-        		},
-        		subheader: {//普通文本编号
-        			fontSize: 12,
-        			bold: false,
-        			margin: [0, 0, 10, 10]
-        		},
-        		underLineText: {//下划线文本
-        			fontSize: 12,
-        			bold: false,
-        // 			margin: [0, 3, 0, 5],
-        			decoration: 'underline'
-        		},
-        		bodyTable: {//表格格式，主要是结束的margin
-        		    fontSize: 12,
-        			margin: [0, 0, 0, 10]
-        		},
-        		tableHeader: {//14号字的表格内容
-        			bold: false,
-        			fontSize: 12,
-        			color: 'black'
-        		}
-        	},
-            defaultStyle: {
-                font: 'simfang'
-            }
-        };
-	    pdfMake.fonts = {
-           simfang: {
-             normal: 'simfang.ttf',
-             bold: 'simfang.ttf',
-             italics: 'simfang.ttf',
-             bolditalics: 'simfang.ttf'
-           }
-        };
-        // open the PDF in a new window
-         pdfMake.createPdf(docDefinition).open();
-        // print the PDF (not working in this version, will be added back in a couple of days)
-        // pdfMake.createPdf(docDefinition).print();
-        // download the PDF
-        // window.pdfmake.createPdf(docDefinition).download();
+			];
     }
 });
