@@ -137,6 +137,9 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoUpload", {
                 
                 var payLoad = oTableData[index];
                 var AqcsTab = payLoad.AqcsTabX.concat(payLoad.AqcsTabY);
+                for(var j=0;j<AqcsTab.length;j++){
+                    delete AqcsTab[j]["Comzx"];
+                }
                 payLoad["AqcsTab"] = AqcsTab;
                 delete payLoad["AqcsTabX"];
                 delete payLoad["AqcsTabY"];                
@@ -155,6 +158,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoUpload", {
                 delete payLoad["FynumVisible"];
                 delete payLoad["GzbzcynumVisible"];
                 delete payLoad["RefWcmnoVisible"];
+                delete payLoad["SaveVisible"];
                 delete payLoad["JhgzfiVisible"];
                 delete payLoad["TableVisible"];
                 delete payLoad["ZsfjdVisible"];
@@ -165,8 +169,8 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoUpload", {
         	    payLoad.Jhgzbedate = tmpDate.substring(0,4) + tmpDate.substring(5,7) + tmpDate.substring(8,10);
         	    tmpDate = payLoad.Jhgzfidate;       //把10位日期转换为8位
         	    payLoad.Jhgzfidate = tmpDate.substring(0,4) + tmpDate.substring(5,7) + tmpDate.substring(8,10);
-        	   // payLoad.Jhgzbetime = payLoad.Jhgzbetime.replace(/:*/,'');
-        	   // payLoad.Jhgzfitime = payLoad.Jhgzfitime.replace(/:*/,'');
+        	    payLoad.Jhgzbetime = payLoad.Jhgzbetime.replace(/:/g,'');
+        	    payLoad.Jhgzfitime = payLoad.Jhgzfitime.replace(/:/g,'');
         	   //将true false转变为ECC的值
         	    payLoad.Bhgbz = payLoad.Bhgbz ? 'X' : '';
                 payLoad.Cj = payLoad.Cj ? 'X' : '';
@@ -234,7 +238,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoUpload", {
                         }
                     }
                 }
-                // oStorage.put("ZPMOFFLINE_SRV.WorkInfos",oData);
+                oStorage.put("ZPMOFFLINE_SRV.WorkInfos",oData);
                 sap.m.MessageToast.show("工作票上传成功");
                 var uploadLog = {
         			lastUpload: $.now()
