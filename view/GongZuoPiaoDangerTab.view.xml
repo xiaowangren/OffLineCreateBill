@@ -9,6 +9,7 @@
 	<Table
         id="idCreateDangerousPointTab"
         visibleRowCount="7"
+        sorter="{WorkModel>Zfxlx}"
         items="{WorkModel>/DangerTab}" >
         <columns>
         <Column

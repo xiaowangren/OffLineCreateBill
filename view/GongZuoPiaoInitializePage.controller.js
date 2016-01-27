@@ -38,6 +38,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		    Estat:"10",//用户状态
 		    Sqbz:false,//双签标识
 		    Tplnr:"",//功能位置 kks编码
+		    Pltxt:"",
 		    Wbbz:"",//外包标识  X是 N否 ""空
 		    SPlace:"",//工作地点
 		    SCont:"",//工作内容

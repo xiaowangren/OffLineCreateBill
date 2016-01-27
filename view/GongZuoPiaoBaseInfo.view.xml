@@ -188,7 +188,7 @@
                             					demandPopin="true"
                             					width="110px"
                             					>
-                            					<Text text="成员名"/>
+                            					<Text text="工作班成员(不包含工作负责人)"/>
                             				</Column>
                             				<Column
                             					minScreenWidth="Tablet"

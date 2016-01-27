@@ -94,6 +94,20 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
 			    oLocalModel.setProperty("/ResultModel",aFilter);
             }
         }
+        //转换时间
+	    var now = new Date();
+		var year = now.getFullYear(); 
+        var month =(now.getMonth() + 1).toString(); 
+        var day = (now.getDate()).toString(); 
+        if (month.length == 1) { 
+            month = "0" + month; 
+        } 
+        if (day.length == 1) { 
+            day = "0" + day; 
+        } 
+        var Begda = year+"年" + month +"月"+  day +"日";
+        oLocalModel.setProperty("/queryResultCount", aFilter.length);
+        oLocalModel.setProperty("/queryResultDate", Begda);
         oLocalModel.setProperty("/BiaoJi",BiaoJiQuery);
         sap.ui.getCore().setModel(oLocalModel);
         sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoQueryResultXml");
