@@ -25,8 +25,8 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
         var Crdate = year+"-" + month +"-"+  day;
         //封装各Tab
         var DangerTab = [{Zfxlx:"",Dangno:"1",Dangsnot:"",Zztext:"",Zzremark:"",Zzpltxt:""}];
-        var AqcsTabX=[{Code:"",Seqc:"1",Actext:"",Comzx:true}];
-        var AqcsTabY=[{Code:"",Seqc:"1",Actext:"",Comzx:true}];
+        var AqcsTabX=[{Code:"",Seqc:"1",Actext:""}];
+        var AqcsTabY=[{Code:"",Seqc:"1",Actext:""}];
         var GroupTab =[{Seqc:"1",Pname:"",Opsno:""}];
         var KksTab = [{Seqc:"1",Tplnr:""}];
 		var data={
