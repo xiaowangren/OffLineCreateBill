@@ -45,6 +45,8 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
 			    }
 			}
         }
+        //将创建人改为大写
+        WorkModel.Crname = WorkModel.Crname.trim().toUpperCase();
         if(WorkModel.Wcmno==""){//创建
             //创建工作票号
             var LiuShuiId = this.uuid(8,10);
