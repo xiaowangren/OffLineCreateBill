@@ -10,14 +10,17 @@
         		                <lay:MatrixLayoutCell>
         		                    <c:TextView text="KKS编码"></c:TextView>
         		                </lay:MatrixLayoutCell>
-        		                <lay:MatrixLayoutCell>
-        		                    <c:TextField value="{WorkModel>/Tplnr}" width="80%" editable="{/Editable}" enabled="false" id="TplnrId"></c:TextField>
+        		                <lay:MatrixLayoutCell colSpan="3">
+        		                    <c:TextField value="{WorkModel>/Tplnr}" width="30%" editable="{/Editable}" enabled="false" id="TplnrId" tooltip="{WorkModel>/Tplnr}"></c:TextField>
+        		                    <c:TextField value="{WorkModel>/Pltxt}" width="50%" editable="{/Editable}" enabled="false" id="PltxtId" tooltip="{WorkModel>/Pltxt}"></c:TextField>
         		                    <c:Button text="选择" press="onAddKKS" visible="{/KKSButtonVisible}"></c:Button>
+        		                    
         		                </lay:MatrixLayoutCell>
-        		                <lay:MatrixLayoutCell>
-        		                </lay:MatrixLayoutCell>
-        		                <lay:MatrixLayoutCell>
-        		                </lay:MatrixLayoutCell>
+        		                <!--<lay:MatrixLayoutCell colSpan="2">-->
+        		                    
+        		                <!--</lay:MatrixLayoutCell>-->
+        		                <!--<lay:MatrixLayoutCell>-->
+        		                <!--</lay:MatrixLayoutCell>-->
         		                <lay:MatrixLayoutCell>
         		                    <c:TextView text="外包" visible="{/Lx3Visible}"></c:TextView>
         		                </lay:MatrixLayoutCell>

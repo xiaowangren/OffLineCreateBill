@@ -111,6 +111,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoBaseInfo", {
     },
 	onFinishAddKKS: function(oResult) {
 	    var TplnrId = this.getView().byId("TplnrId");
+	    var PltxtId = this.getView().byId("PltxtId");
 	    /*
     	    搜索完范围选中的KKS结果:
             {
@@ -121,5 +122,6 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoBaseInfo", {
 	    */
         // console.log(oResult);
         TplnrId.setValue(oResult.Tplnr);
+        PltxtId.setValue(oResult.Pltxt);
 	}
 });
