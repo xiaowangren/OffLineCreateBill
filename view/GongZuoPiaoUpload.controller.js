@@ -243,7 +243,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoUpload", {
                 var uploadLog = {
         			lastUpload: $.now()
         		};
-        		oStorage.put("ZPMUploadLog", uploadLog);
+        		oStorage.put("ZPMGzpUploadLog", uploadLog);
                 oView.rerender();
             }, 
             function(data) {

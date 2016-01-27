@@ -214,7 +214,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
                 var uploadLog = {
         			lastUpload: $.now()
         		};
-        		oStorage.put("ZPMUploadLog", uploadLog);
+        		oStorage.put("ZPMCzpUploadLog", uploadLog);
                 oView.rerender();
             }, 
             function(data) {

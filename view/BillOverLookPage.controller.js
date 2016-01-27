@@ -99,7 +99,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		//*****************************************************************************		
 		jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-		var oUploadData = oStorage.get("ZPMUploadLog");
+		var oCzpUploadData = oStorage.get("ZPMCzpUploadLog");
+		var oGzpUploadData = oStorage.get("ZPMGzpUploadLog");
 		var oSyncData = oStorage.get("ZPMSyncLog");
 		var oG_IwerkData = oStorage.get("ZPMOFFLINE_SRV.G_IWERK");
 		var oG_PinData = oStorage.get("ZPMOFFLINE_SRV.G_PIN");
@@ -110,11 +111,17 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		} else {
 			oData["lastSyncLog"] = "00/00 00:00:00";
 		}
-		if (oUploadData) { //上传操作票时间
-			var formatedDate = new Date(oUploadData.lastUpload).Format("MM/dd hh:mm:ss");
-			oData["lastUpload"] = formatedDate;
+		if (oCzpUploadData) { //上传操作票时间
+			var formatedDate = new Date(oCzpUploadData.lastUpload).Format("MM/dd hh:mm:ss");
+			oData["lastCzpUpload"] = formatedDate;
 		} else {
-			oData["lastUpload"] = "00/00 00:00:00";
+			oData["lastCzpUpload"] = "00/00 00:00:00";
+		}
+		if (oGzpUploadData) { //上传工作票时间
+			var formatedDate = new Date(oGzpUploadData.lastUpload).Format("MM/dd hh:mm:ss");
+			oData["lastGzpUpload"] = formatedDate;
+		} else {
+			oData["lastGzpUpload"] = "00/00 00:00:00";
 		}
 		if (oG_IwerkData) {
 			oData["G_IWERK"] = oG_IwerkData.Iwerk + ' ' + oG_IwerkData.Name1.replace(/物资工厂/, '');

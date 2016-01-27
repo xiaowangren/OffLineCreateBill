@@ -56,8 +56,8 @@
 			    id="tileUpload"
 				icon="sap-icon://hint"
 				type="Monitor"
-				title="上传离线数据"
-				info="最近上传:{/lastUpload}"
+				title="上传离线操作票"
+				info="最近上传:{/lastCzpUpload}"
 				infoState="Success"
 				press="onUploadToECCClicked">
 			</StandardTile>
@@ -99,7 +99,7 @@
 				icon="sap-icon://hint"
 				type="Monitor"
 				title="上传离线工作票"
-				info="最近上传:{/lastUpload}"
+				info="最近上传:{/lastGzpUpload}"
 				infoState="Success"
 				press="onUploadGZPToECCClicked">
 			</StandardTile>
