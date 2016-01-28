@@ -566,14 +566,38 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         var ticketTypeText = this.onGetTicketTypeText(modelData.Ztype);
         var appDepdec = this.onGetAppdepText(modelData.Appdep);
         var classdec = this.onGetClassDec(modelData.Class);
+        //动火执行人
+        var dhzxr = [];
+        for(var i=0;i<modelData.GroupTab.length;i++){
+            dhzxr.push('动火执行人：');
+            dhzxr.push({text: this.getUnderLineText(modelData.GroupTab[i].Pname, 26),style:'underLineText'});
+            dhzxr.push('   动火执行人操作证编号：');
+            dhzxr.push({text: this.getUnderLineText(modelData.GroupTab[i].Opsno, 18),style:'underLineText'});
+        }
+        console.log(dhzxr);
+        //动火描述
+        var donghuoTxt = "";
+        donghuoTxt += modelData.Rhhj ? "融化焊接、" : "";
+        donghuoTxt += modelData.Qg ? "切割、" : "";
+        donghuoTxt += modelData.Ylh ? "压力焊、" : "";
+        donghuoTxt += modelData.Xh ? "軒焊、" : "";
+        donghuoTxt += modelData.Px ? "喷枪、" : "";
+        donghuoTxt += modelData.Pd ? "喷灯、" : "";
+        donghuoTxt += modelData.Zk ? "钻孔、" : "";
+        donghuoTxt += modelData.Dm ? "打磨、" : "";
+        donghuoTxt += modelData.Cj ? "锤击、" : "";
+        donghuoTxt += modelData.Ps ? "破碎、" : "";
+        donghuoTxt += modelData.Qx ? "切削、" : "";
+        donghuoTxt += modelData.Qt ? "其他、" : "";
+        donghuoTxt = donghuoTxt.substring(0, donghuoTxt.length-1);
         //安全措施表
         var aqcsBodyX = [[ '序号',{text:'运行部门应采取的安全措施',style:'tableHeader',alignment:'center'}]];
-        for(var i=0;i<modelData.aqcsTabX.length;i++){
-            aqcsBodyX.push([modelData.aqcsTabX[i].Seqc,modelData.aqcsTabX[i].Actext]);
+        for(var i=0;i<modelData.AqcsTabX.length;i++){
+            aqcsBodyX.push([modelData.AqcsTabX[i].Seqc,modelData.AqcsTabX[i].Actext]);
         }
         var aqcsBodyY = [[ '序号',{text:'动火部门应采取的安全措施',style:'tableHeader',alignment:'center'}]];
-        for(var i=0;i<modelData.aqcsTabY.length;i++){
-            aqcsBodyY.push([modelData.aqcsTabY[i].Seqc,modelData.aqcsTabY[i].Actext]);
+        for(var i=0;i<modelData.AqcsTabY.length;i++){
+            aqcsBodyY.push([modelData.AqcsTabY[i].Seqc,modelData.AqcsTabY[i].Actext]);
         }
         var content = [
                 {
@@ -603,16 +627,17 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 									[ '1.',{text:[ '工作单位：',{text: this.getUnderLineText(appDepdec, 28),style:'underLineText'}]}, 
 									       {text:[ '班组：',{text: this.getUnderLineText(classdec, 34),style:'underLineText'}]} ],
 									[ '2.', {text:[ '动火工作负责人：',{text: this.getUnderLineText(modelData.Name, 22),style:'underLineText'}]},
-									        {text:[ '联系方式：',{text: this.getUnderLineText("1234567890", 30),style:'underLineText'}]} ],
-									[ '3.', {text:[ '动火执行人：',{text: this.getUnderLineText("楼伟伟", 26),style:'underLineText'}]},
-									        {text:[ '动火执行人操作证编号：',{text: this.getUnderLineText("1234567890", 18),style:'underLineText'}]} ],
-									 //TODO动态内容
-									[ '', {text:[ '动火执行人：',{text: this.getUnderLineText("楼伟伟", 26),style:'underLineText'}]},
-									       {text:[ '动火执行人操作证编号：',{text: this.getUnderLineText("1234567890", 18),style:'underLineText'}]} ],
+									        {text:[ '联系方式：',{text: this.getUnderLineText(modelData.Phone1, 30),style:'underLineText'}]} ],
+								// 	 //动态内容									
+									['3',{text:dhzxr,colSpan:2},{}],
+								// 	[ '3.', {text:[ '动火执行人：',{text: this.getUnderLineText("楼伟伟", 26),style:'underLineText'},
+								// 	                '   动火执行人操作证编号：',{text: this.getUnderLineText("1234567890", 18),style:'underLineText'}],colSpan:2},{}],
+								// 	[ '', {text:[ '动火执行人：',{text: this.getUnderLineText("楼伟伟", 26),style:'underLineText'}]},
+								// 	       {text:[ '动火执行人操作证编号：',{text: this.getUnderLineText("1234567890", 18),style:'underLineText'}]} ],
 									[ '4.', {text:[ '动火地点及设备名称：',{text: this.getUnderLineText(modelData.SPlace, 147),style:'underLineText'}],colSpan:2}, {}],
 									[ '5', {text:[ '动火工作内容（必要时可附页绘图说明）：',{text: this.getUnderLineText(modelData.SCont, 129),style:'underLineText'}],colSpan:2}, {}],
-									//TODO动态内容
-                                    [ '6.', {text:[ '动火方式：',{text: this.getUnderLineText("", 73),style:'underLineText'}],colSpan:2}, {}],
+									//动态内容
+                                    [ '6.', {text:[ '动火方式：',{text: this.getUnderLineText(donghuoTxt, 73),style:'underLineText'}],colSpan:2}, {}],
                                     [ '', {text:'动火方式可填写熔化焊接、切割、压力焊、钎焊、喷灯、钻孔、打磨、锤击、破碎、切削等。',colSpan:2}, {}],
         							[ '7.', {text:'运行部门应采取的安全措施:',colSpan:2}, {}]
 							]
@@ -669,7 +694,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}],
                                     [ '11.', {text:'审批：',colSpan:2}, {}],
                                     [ '', {text:[ '审核人：安键环部负责人签名：',{text: this.getUnderLineText("", 55),style:'underLineText'}],colSpan:2}, {}],
-                                    [ '', {text:[ '批准人：分管生产的领导或技术负责人（总工程师）签名：',{text: this.getUnderLineText("ASDFASD", 31),style:'underLineText'}],colSpan:2}, {}],
+                                    [ '', {text:[ '批准人：分管生产的领导或技术负责人（总工程师）签名：',{text: this.getUnderLineText("", 31),style:'underLineText'}],colSpan:2}, {}],
         							[ '', {text:[ '批准动火开始时间：',
 									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
@@ -784,6 +809,8 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					layout: 'noBorders'
 				}
 			];
+		console.log(content);
+		return content;
     },
 
     // RJP	热力机械工作票HX
@@ -1417,6 +1444,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					layout: 'noBorders'
 				}
       ];
+      return content;
     },
     // JXD	检修作业通知单lww
     onPrintGzp_JXD:function(modelData){
@@ -1511,12 +1539,12 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         var fuyeNum = modelData.KksTab.length;
         //安全措施表
         var aqcsBodyX = [[ '序号',{text:'必须采取的安全措施',style:'tableHeader',alignment:'center'},{text:'安措执行情况',style:'tableHeader',alignment:'center'}]];
-        for(var i=0;i<modelData.aqcsTabX.length;i++){
-            aqcsBodyX.push([modelData.aqcsTabX[i].Seqc,modelData.aqcsTabX[i].Actext,'']);
+        for(var i=0;i<modelData.AqcsTabX.length;i++){
+            aqcsBodyX.push([modelData.AqcsTabX[i].Seqc,modelData.AqcsTabX[i].Actext,'']);
         }
         var aqcsBodyY = [[ '序号',{text:'运行值班人员补充的安全措施',style:'tableHeader',alignment:'center'},{text:'补充安措执行情况',style:'tableHeader',alignment:'center'}]];
-        for(var i=0;i<modelData.aqcsTabY.length;i++){
-            aqcsBodyY.push([modelData.aqcsTabY[i].Seqc,modelData.aqcsTabY[i].Actext,'']);
+        for(var i=0;i<modelData.AqcsTabY.length;i++){
+            aqcsBodyY.push([modelData.AqcsTabY[i].Seqc,modelData.AqcsTabY[i].Actext,'']);
         }
         var content = [
                 {
@@ -1897,6 +1925,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					layout: 'noBorders'
 				}
 			];
+		return content;
     },
     // JBP	继电保护工作票
     onPrintGzp_JPB:function(modelData){
@@ -2242,6 +2271,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					layout: 'noBorders'
 				}
            ];
+        return content;
     },
     onPrintGZPDanger:function(modelData){
     //工作票危险点
