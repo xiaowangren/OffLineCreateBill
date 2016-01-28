@@ -194,6 +194,19 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         var appDepdec = this.onGetAppdepText(modelData.Appdep);
         var classdec = this.onGetClassDec(modelData.Class);
         var lxbmText = this.onGetLxbmText(modelData.Lxbm);
+        //全部结束章
+        var qbjsPrintBody = [{
+            					table: {
+            							body: [[{text:'盖 “已执行” 章',style:'smallText'}]]
+            					}
+						    },'\n'];
+        if(modelData.Zsfjd == '1'){
+            qbjsPrintBody.push({
+            					table: {
+            							body: [[{text:'盖“全部结束”章',style:'smallText'}]]
+            					}
+						       });
+        }
         //工作班组成员
         var groupPersons = "";
         for(var i=0;i<modelData.GroupTab.length;i++){
@@ -250,20 +263,9 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					table: {
 							widths: ['20%','60%','20%'],
 							body: [
-        							[ '', {text: iwerkText+'\n'+ticketTypeText+"\n ", style: 'header'},
-        							    [
-        							        {
-                            					table: {
-                            							body: [[{text:'盖 “已执行” 章',style:'smallText'}]]
-                            					}
-            							    },
-            							    '\n',
-            							    {
-                            					table: {
-                            							body: [[{text:'盖“全部结束”章',style:'smallText'}]]
-                            					}
-            							    }
-        							    ]
+        							[ '', 
+        							  {text: iwerkText+'\n'+ticketTypeText+"\n ", style: 'header'},
+        							  qbjsPrintBody        //盖章标记
         							]
 							]
 					},
@@ -1074,6 +1076,19 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         var appDepdec = this.onGetAppdepText(modelData.Appdep);
         var classdec = this.onGetClassDec(modelData.Class);
         var lxbmText = this.onGetLxbmText(modelData.Lxbm);
+        //全部结束章
+        var qbjsPrintBody = [{
+            					table: {
+            							body: [[{text:'盖 “已执行” 章',style:'smallText'}]]
+            					}
+						    },'\n'];
+        if(modelData.Zsfjd == '1'){
+            qbjsPrintBody.push({
+            					table: {
+            							body: [[{text:'盖“全部结束”章',style:'smallText'}]]
+            					}
+						       });
+        }
         //工作班组成员
         var groupPersons = "";
         for(var i=0;i<modelData.GroupTab.length;i++){
@@ -1118,15 +1133,9 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
                     table:{
                         widths: ['20%','60%','20%'],
                         	body: [
-        							[ '', {text: iwerkText +'\n'+ticketTypeText+"\n ", style: 'header'},
-        							    [
-        							        {
-                            					table: {
-                            							body: [[{text:'盖 “已执行” 章',style:'smallText'}]]
-                            					}
-            							    },
-            							    '\n'
-        							    ]
+        							[ '', 
+        							  {text: iwerkText +'\n'+ticketTypeText+"\n ", style: 'header'},
+                                      qbjsPrintBody  //盖章标记
         							]
 							]
                     },
@@ -1384,6 +1393,19 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         var appDepdec = this.onGetAppdepText(modelData.Appdep);
         var classdec = this.onGetClassDec(modelData.Class);
         var lxbmText = this.onGetLxbmText(modelData.Lxbm);
+        //全部结束章
+        var qbjsPrintBody = [{
+            					table: {
+            							body: [[{text:'盖 “已执行” 章',style:'smallText'}]]
+            					}
+						    },'\n'];
+        if(modelData.Zsfjd == '1'){
+            qbjsPrintBody.push({
+            					table: {
+            							body: [[{text:'盖“全部结束”章',style:'smallText'}]]
+            					}
+						       });
+        }
         //工作班组成员
         var groupPersons = "";
         for(var i=0;i<modelData.GroupTab.length;i++){
@@ -1428,15 +1450,9 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
                     table:{
                         widths: ['20%','60%','20%'],
                         	body: [
-        							[ '', {text: iwerkText +'\n'+ticketTypeText+"\n ", style: 'header'},
-        							    [
-        							        {
-                            					table: {
-                            							body: [[{text:'盖 “已执行” 章',style:'smallText'}]]
-                            					}
-            							    },
-            							    '\n'
-        							    ]
+        							[ '', 
+        							  {text: iwerkText +'\n'+ticketTypeText+"\n ", style: 'header'},
+                                      qbjsPrintBody  //盖章标记
         							]
 							]
                     },
@@ -1743,6 +1759,19 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         var appDepdec = this.onGetAppdepText(modelData.Appdep);
         var classdec = this.onGetClassDec(modelData.Class);
         var lxbmText = this.onGetLxbmText(modelData.Lxbm);
+        //全部结束章
+        var qbjsPrintBody = [{
+            					table: {
+            							body: [[{text:'盖 “已执行” 章',style:'smallText'}]]
+            					}
+						    },'\n'];
+        if(modelData.Zsfjd == '1'){
+            qbjsPrintBody.push({
+            					table: {
+            							body: [[{text:'盖“全部结束”章',style:'smallText'}]]
+            					}
+						       });
+        }
         //工作班组成员
         var groupPersons = "";
         for(var i=0;i<modelData.GroupTab.length;i++){
@@ -1786,15 +1815,9 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
                     table:{
                         widths: ['20%','60%','20%'],
                         	body: [
-        							[ '', {text: iwerkText +'\n'+ticketTypeText+"\n ", style: 'header'},
-        							    [
-        							        {
-                            					table: {
-                            							body: [[{text:'盖 “已执行” 章',style:'smallText'}]]
-                            					}
-            							    },
-            							    '\n'
-        							    ]
+        							[ '', 
+        							  {text: iwerkText +'\n'+ticketTypeText+"\n ", style: 'header'},
+                                      qbjsPrintBody
         							]
 							]
                     },
