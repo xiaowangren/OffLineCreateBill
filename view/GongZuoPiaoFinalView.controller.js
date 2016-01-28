@@ -374,55 +374,67 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
             sap.m.MessageBox.alert("是否需装接地线/接地闸 必填，请填写。",{title: "提示"});
            return false;
         }        
-        //检查检修时提出按错表是否为空并删除多余的行
-        var bAqcsTabX=false;
+        //检查 检修时提出按错表 是否每个代码组都填写了数据
+        var AQCSDataX=sap.ui.getCore().getModel("AQCSDataX").getData();
+        var bAqcsTabX=true;
+        var sInfoString="";
+        var AqcsDictX={};
         if(WorkModel.AqcsTabX){
             if(WorkModel.AqcsTabX.length>0){
                 for(var i=0;i<WorkModel.AqcsTabX.length;i++){
                     if(WorkModel.AqcsTabX[i].Code){
                        if(WorkModel.AqcsTabX[i].Code.length>0){
-                           bAqcsTabX=true;
-                           continue;
+                           if(!AqcsDictX[WorkModel.AqcsTabX[i].Code]){
+                               AqcsDictX[WorkModel.AqcsTabX[i].Code]=true;
+                           }
                        } 
                     }
-                    //WorkModel.AqcsTabX.splice(i,1)
                 }
+            }
+        }
+        for(var i=0;i<AQCSDataX.length;i++){
+            if(!AqcsDictX[AQCSDataX[i].Code]){
+                bAqcsTabX=false;
+                sInfoString+=AQCSDataX[i].Code+"、"
             }
         }
         //console.log(WorkModel.AqcsTabX);
         if(!bAqcsTabX){
-            sap.m.MessageBox.alert("检修提出安措必填，请填写。",{title: "提示"});
-           return false;           
+            sap.m.MessageBox.alert("代码为"+sInfoString.substring(0,sInfoString.length-1)+"的安措必须填写安措内容，若无该安措请填“无”！",{title: "提示"});
+           return false;
         }
-/*        //检查补充运行按错删除多余的行
-        if(WorkModel.AqcsTabY){
-            if(WorkModel.AqcsTabY.length>0){
-                for(var i=0;i<WorkModel.AqcsTabY.length;i++){
-                    if(WorkModel.AqcsTabx[i].Code){
-                       if(WorkModel.AqcsTabx[i].Code>0){
-                           //存在按错代码并且其长度大于0，以为空字符串
-                           continue;
-                       } 
+        //检查 运行时提出按错表 是否每个代码组都填写了数据
+        if(WorkType=="JBP"||WorkType=="DH1"||WorkType=="DH2"){
+            var AQCSDataY=sap.ui.getCore().getModel("AQCSDataY").getData();
+            var bAqcsTabY=true;
+            var sInfoString="";
+            var AqcsDictY={};
+            if(WorkModel.AqcsTabY){
+                if(WorkModel.AqcsTabY.length>0){
+                    for(var i=0;i<WorkModel.AqcsTabY.length;i++){
+                        if(WorkModel.AqcsTabY[i].Code){
+                           if(WorkModel.AqcsTabY[i].Code.length>0){
+                               if(!AqcsDictY[WorkModel.AqcsTabY[i].Code]){
+                                   AqcsDictY[WorkModel.AqcsTabY[i].Code]=true;
+                               }
+                           } 
+                        }
                     }
-                    WorkModel.AqcsTabY.splice(i,1)
                 }
             }
-        }
-        //检查附页KKS编码删除多余的行
-        if(WorkModel.KksTab){
-            if(WorkModel.KksTab.length>0){
-                for(var i=0;i<WorkModel.KksTab.length;i++){
-                    if(WorkModel.KksTab[i].Tplnr){
-                       if(WorkModel.KksTab[i].Tplnr>0){
-                           //存在按错代码并且其长度大于0，以为空字符串
-                           continue;
-                       } 
-                    }
-                    WorkModel.KksTab.splice(i,1)
+            for(var i=0;i<AQCSDataY.length;i++){
+                if(!AqcsDictY[AQCSDataY[i].Code]){
+                    bAqcsTabY=false;
+                    sInfoString+=AQCSDataY[i].Code+"、"
                 }
             }
-        }*/
-        
+            //console.log(WorkModel.AqcsTabX);
+            if(!bAqcsTabY){
+                sap.m.MessageBox.alert("代码为"+sInfoString.substring(0,sInfoString.length-1)+"的安措必须填写安措内容，若无该安措请填“无”！",{title: "提示"});
+               return false;
+            }            
+        }
+
         
         return true;
     },

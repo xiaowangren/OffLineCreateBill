@@ -111,6 +111,11 @@
 	    </ColumnListItem>
    </Table>
 	<lay:MatrixLayout class="page_Margin" widths="12%,13%,10%,15%,10%,15%,9%,8%,8%" width="100%" >
+    	<lay:MatrixLayoutRow>
+    	    <lay:MatrixLayoutCell colSpan="1">
+    	        <c:TextView text="" visible="false"></c:TextView>
+    	    </lay:MatrixLayoutCell>
+    	</lay:MatrixLayoutRow>
         <lay:MatrixLayoutRow>
             <lay:MatrixLayoutCell colSpan="1">
                 <c:TextView text="是否需要接地线/接地闸刀" visible="{WorkModel>/ZsfjdVisible}"></c:TextView>
