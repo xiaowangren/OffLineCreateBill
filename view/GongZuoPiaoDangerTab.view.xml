@@ -163,7 +163,7 @@
 	                    <c:TextView text="其他安全措施"></c:TextView>
 	                </lay:MatrixLayoutCell>
 	                <lay:MatrixLayoutCell colSpan="4">
-	                    <c:TextField value="{WorkModel>/Zqtt}" width="55%" editable="{/Editable}"></c:TextField>
+	                    <c:TextField value="{WorkModel>/Zqtt}" width="55%" editable="{/Editable}" enabled="{/Editable}"></c:TextField>
 	                </lay:MatrixLayoutCell>
 	            </lay:MatrixLayoutRow>  
 	     </lay:MatrixLayout >
