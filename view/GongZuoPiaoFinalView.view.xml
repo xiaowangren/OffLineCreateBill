@@ -348,10 +348,10 @@
         		     <!--       </lay:MatrixLayoutRow>-->
         		     <!--   </lay:MatrixLayout>-->
 		            </c:Tab>
-		            <c:Tab text="检修提出安措">
+		            <c:Tab text="{AQCSDataYInfo>/Xtitle}">
 		                <mvc:XMLView viewName="com.zhenergy.bill.view.GongZuoPiaoAqcs"/>
 		            </c:Tab>
-		            <c:Tab text="运行补充安措">
+		            <c:Tab text="{AQCSDataYInfo>/Ytitle}" visible="{AQCSDataYInfo>/Yvisible}">
 		                <mvc:XMLView viewName="com.zhenergy.bill.view.GongZuoPiaoAqcs2"/>
 		            </c:Tab>
 		            <c:Tab text="危险点分析">

@@ -45,7 +45,7 @@
 				</Column>
 			</columns>
 			<columns>
-				<Column width="9rem">
+				<Column width="12rem">
 					<m:Label text="工作票类型" />
 					<template>
 						<c:ComboBox items="{ path: '/WorkType', sorter: { path: 'Ztype' } }" width="95%" selectedKey="{Ztype}" editable="false">
@@ -68,7 +68,7 @@
 				</Column>
 			</columns>
 			<columns>
-				<Column width="11rem">
+				<Column width="16rem">
 					<m:Label text="ECC编号" />
 					<template>
     					<m:Text text="{Zlybnum}" tooltip="{Zlybnum}"/>
