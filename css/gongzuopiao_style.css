@@ -11,6 +11,9 @@
 .TextField_TextView{
     margin-left:20px;
 }
+.TextField_Date{
+    margin-left:10px;
+}
 .margin_top{
     margin-top: -18px;
     height:100px;
@@ -37,4 +40,10 @@
 }
 .panel_bkgColor{
     background-color: #BDE2EA;
+}
+.title_font_size{
+    font-size: 1rem;
+}
+.sapMTB-Transparent-CTX>.sapMTitleTB.sapMTitleStyleAuto{
+    font-size: 0.875rem;
 }

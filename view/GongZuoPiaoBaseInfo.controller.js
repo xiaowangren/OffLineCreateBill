@@ -121,7 +121,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoBaseInfo", {
             处理选中的KKS
 	    */
         // console.log(oResult);
-        TplnrId.setValue(oResult.Tplnr);
-        PltxtId.setValue(oResult.Pltxt);
+        TplnrId.setText(oResult.Tplnr);
+        PltxtId.setText(oResult.Pltxt);
 	}
 });

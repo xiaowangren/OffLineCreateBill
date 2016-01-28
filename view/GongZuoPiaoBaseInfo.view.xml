@@ -11,8 +11,8 @@
         		                    <c:TextView text="KKS编码"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell colSpan="3">
-        		                    <c:TextField value="{WorkModel>/Tplnr}" width="30%" editable="{/Editable}" enabled="false" id="TplnrId" tooltip="{WorkModel>/Tplnr}"></c:TextField>
-        		                    <c:TextField value="{WorkModel>/Pltxt}" width="50%" editable="{/Editable}" enabled="false" id="PltxtId" tooltip="{WorkModel>/Pltxt}"></c:TextField>
+        		                    <c:TextView text="{WorkModel>/Tplnr}" width="30%" editable="{/Editable}" enabled="false" id="TplnrId" tooltip="{WorkModel>/Tplnr}"></c:TextView>
+        		                    <c:TextView text="{WorkModel>/Pltxt}" width="50%" editable="{/Editable}" enabled="false" id="PltxtId" tooltip="{WorkModel>/Pltxt}"></c:TextView>
         		                    <c:Button text="选择" press="onAddKKS" visible="{/KKSButtonVisible}"></c:Button>
         		                    
         		                </lay:MatrixLayoutCell>
@@ -25,7 +25,7 @@
         		                    <c:TextView text="外包" visible="{/Lx3Visible}"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
-        		                    <c:ComboBox width="20%" selectedKey="{WorkModel>/Wbbz}" editable="{/Editable}"  visible="{/Lx3Visible}">
+        		                    <c:ComboBox width="20%" selectedKey="{WorkModel>/Wbbz}" editable="{/Editable}" enabled="{/Editable}" visible="{/Lx3Visible}">
         								<c:items>
         									<core:ListItem key="X" text="是"></core:ListItem>
 									        <core:ListItem key="N" text="否"></core:ListItem>
@@ -38,13 +38,13 @@
         		                    <c:TextView text="工作地点"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell colSpan="3">
-        		                    <c:TextArea value="{WorkModel>/SPlace}" rows="4" cols="80" editable="{/Editable}"></c:TextArea>
+        		                    <c:TextArea value="{WorkModel>/SPlace}" rows="4" cols="80" editable="{/Editable}" enabled="{/Editable}"></c:TextArea>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
         		                    <c:TextView text="工作内容"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell colSpan="3">
-        		                    <c:TextArea value="{WorkModel>/SCont}" rows="4" cols="80" editable="{/Editable}"></c:TextArea>
+        		                    <c:TextArea value="{WorkModel>/SCont}" rows="4" cols="80" editable="{/Editable}" enabled="{/Editable}"></c:TextArea>
         		                </lay:MatrixLayoutCell>
         		            </lay:MatrixLayoutRow> 
         		            <lay:MatrixLayoutRow>
@@ -52,7 +52,7 @@
         		                    <c:TextView text="工作单位"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
-        		                    <c:ComboBox items="{ path: '/DanWei', sorter: { path: 'Appdep' } }" width="60%" selectedKey="{WorkModel>/Appdep}" editable="{/Editable}">
+        		                    <c:ComboBox items="{ path: '/DanWei', sorter: { path: 'Appdep' } }" width="60%" selectedKey="{WorkModel>/Appdep}" editable="{/Editable}" enabled="{/Editable}">
             							<core:ListItem key="{Appdep}" text="{Appdep} {Appdepdec}"></core:ListItem>
             					    </c:ComboBox>
         		                </lay:MatrixLayoutCell>
@@ -60,7 +60,7 @@
         		                    <c:TextView text="班组"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
-        		                    <c:ComboBox items="{ path: '/BanZu', sorter: { path: 'Yxgroup' } }" width="60%" editable="{/Editable}" selectedKey="{WorkModel>/Class}">
+        		                    <c:ComboBox items="{ path: '/BanZu', sorter: { path: 'Yxgroup' } }" width="60%" editable="{/Editable}" selectedKey="{WorkModel>/Class}" enabled="{/Editable}">
             							<core:ListItem key="{Yxgroup}" text="{Yxgroup} {Yxgroupdec}"></core:ListItem>
             						</c:ComboBox>
         		                </lay:MatrixLayoutCell>
@@ -68,7 +68,7 @@
         		                    <c:TextView text="专业"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
-        		                    <c:ComboBox width="60%" selectedKey="{WorkModel>/Prfty}" editable="{/Editable}">
+        		                    <c:ComboBox width="60%" selectedKey="{WorkModel>/Prfty}" editable="{/Editable}" enabled="{/Editable}">
         		                        <c:items>
                                             <core:ListItem text="0001 汽机专业" key="0001"></core:ListItem>
                                             <core:ListItem text="0002 电气专业" key="0002"></core:ListItem>
@@ -84,7 +84,7 @@
         		                    <c:TextView text="运行区域"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
-        		                    <c:ComboBox items="{ path: '/YunXingQuYu', sorter: { path: 'Rarea' }}" width="60%" selectedKey="{WorkModel>/Rarea}" editable="{/Editable}">
+        		                    <c:ComboBox items="{ path: '/YunXingQuYu', sorter: { path: 'Rarea' }}" width="60%" selectedKey="{WorkModel>/Rarea}" editable="{/Editable}" enabled="{/Editable}">
         								<core:ListItem key="{Rarea}" text="{Rarea} {Rareadec}"></core:ListItem>
         							</c:ComboBox>
         		                </lay:MatrixLayoutCell>
@@ -94,7 +94,7 @@
         		                    <c:TextView text="联系部门" visible="{/Lx3Visible}"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
-        		                    <c:ComboBox items="{ path: '/BuMen', sorter: { path: 'Appdep' }}" width="60%" selectedKey="{WorkModel>/Lxbm}" editable="{/Editable}" visible="{/Lx3Visible}">
+        		                    <c:ComboBox items="{ path: '/BuMen', sorter: { path: 'Appdep' }}" width="60%" selectedKey="{WorkModel>/Lxbm}" editable="{/Editable}" visible="{/Lx3Visible}" enabled="{/Editable}">
         								<core:ListItem key="{Appdep}" text="{Appdep} {Appdepdec}"></core:ListItem>
         							</c:ComboBox>
         		                </lay:MatrixLayoutCell>
@@ -102,19 +102,19 @@
         		                    <c:TextView text="联系人" visible="{/Lx3Visible}"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
-        		                    <c:TextField value="{WorkModel>/Contact}" width="60%" editable="{/Editable}" visible="{/Lx3Visible}"></c:TextField>
+        		                    <c:TextField value="{WorkModel>/Contact}" width="60%" editable="{/Editable}" visible="{/Lx3Visible}" enabled="{/Editable}"></c:TextField>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
         		                    <c:TextView text="联系方式" visible="{/Lx3Visible}"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
-        		                    <c:TextField value="{WorkModel>/Phone}" width="60%" editable="{/Editable}" visible="{/Lx3Visible}"></c:TextField>
+        		                    <c:TextField value="{WorkModel>/Phone}" width="60%" editable="{/Editable}" visible="{/Lx3Visible}" enabled="{/Editable}"></c:TextField>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
         		                    <c:TextView text="机组" visible="{/Lx32Visible}"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
-        		                    <c:ComboBox items="{ path: '/JiZu', sorter: { path: 'Unity' }}" width="60%" selectedKey="{WorkModel>/Unity}" editable="{/Editable}" visible="{/Lx32Visible}">
+        		                    <c:ComboBox items="{ path: '/JiZu', sorter: { path: 'Unity' }}" width="60%" selectedKey="{WorkModel>/Unity}" editable="{/Editable}" visible="{/Lx32Visible}" enabled="{/Editable}">
         								<core:ListItem key="{Unity}" text="{Unity} {Untxt}"></core:ListItem>
         							</c:ComboBox>
         		                </lay:MatrixLayoutCell>
@@ -124,7 +124,7 @@
         		                    <c:TextView text="工作负责人" visible="{/Lx32Visible}"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell colSpan="3">
-        		                    <c:ComboBox items="{ path: '/ZPMTOPER', sorter: { path: 'Peoid' }}" width="27%" selectedKey="{WorkModel>/Bname}" editable="{/Editable}" visible="{/Lx32Visible}">
+        		                    <c:ComboBox items="{ path: '/ZPMTOPER', sorter: { path: 'Peoid' }}" width="27%" selectedKey="{WorkModel>/Bname}" editable="{/Editable}" visible="{/Lx32Visible}" enabled="{/Editable}">
         								<core:ListItem key="{Peoid}" text="{Peoid} {Peonam}"></core:ListItem>
         							</c:ComboBox>
         		                </lay:MatrixLayoutCell>
@@ -132,7 +132,7 @@
         		                    <c:TextView text="联系方式" visible="{/Lx32Visible}"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
-        		                    <c:TextField value="{WorkModel>/Phone1}" width="60%" editable="{/Editable}" visible="{/Lx32Visible}"></c:TextField>
+        		                    <c:TextField value="{WorkModel>/Phone1}" width="60%" editable="{/Editable}" visible="{/Lx32Visible}" enabled="{/Editable}"></c:TextField>
         		                </lay:MatrixLayoutCell>
         		            </lay:MatrixLayoutRow>
         		            <lay:MatrixLayoutRow>
@@ -157,15 +157,15 @@
         		            <lay:MatrixLayoutRow>
         		                <lay:MatrixLayoutCell colSpan="4">
         		                    <c:TextView text="需退出保护或装置名称" visible="{/ZtcbhVisible}"></c:TextView>
-        		                    <c:TextField value="{WorkModel>/Xtcbh}" width="50%" class="TextField_TextView" editable="{/Editable}" visible="{/ZtcbhVisible}"></c:TextField>
+        		                    <c:TextField value="{WorkModel>/Xtcbh}" width="50%" class="TextField_TextView" editable="{/Editable}" visible="{/ZtcbhVisible}" enabled="{/Editable}"></c:TextField>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell colSpan="4">
         		                    <c:TextView text="工作条件（停电/不停电）" visible="{/GztjVisible}"></c:TextView>
-        		                    <c:TextField value="{WorkModel>/Gztj}" width="50%" class="TextField_TextView" editable="{/Editable}" visible="{/GztjVisible}"></c:TextField>
+        		                    <c:TextField value="{WorkModel>/Gztj}" width="50%" class="TextField_TextView" editable="{/Editable}" visible="{/GztjVisible}" enabled="{/Editable}"></c:TextField>
         		                </lay:MatrixLayoutCell>
         		            </lay:MatrixLayoutRow>
         		        </lay:MatrixLayout>
-        		        <lay:MatrixLayout widths="11%,20%,10%,10%,35%,13%" width="100%">
+        		        <lay:MatrixLayout widths="11%,20%,10%,10%,25%,23%" width="100%">
         		            <lay:MatrixLayoutRow>
         		                <lay:MatrixLayoutCell rowSpan="3" colSpan="4">
         		                   <Panel>
@@ -214,11 +214,11 @@
                             			<ColumnListItem>
                             				<cells>
                             					<c:TextField
-                            						value="{WorkModel>Seqc}" width="80%" change="onChangeSeqc" editable="{/Editable}"/>
+                            						value="{WorkModel>Seqc}" width="80%" change="onChangeSeqc" editable="{/Editable}" enabled="{/Editable}"/>
                             					<c:TextField
-                            						value="{WorkModel>Pname}" width="100%" editable="{/Editable}"/>
+                            						value="{WorkModel>Pname}" width="100%" editable="{/Editable}" enabled="{/Editable}"/>
                             					<c:TextField
-                            						value="{WorkModel>Opsno}" width="100%" editable="{/Editable}"/>
+                            						value="{WorkModel>Opsno}" width="100%" editable="{/Editable}" enabled="{/Editable}"/>
                             					<c:Button text="新增" press="onAddRow" visible="{/Editable}"></c:Button>
                             					<c:Button text="删除" press="onDeleteRow" visible="{/Editable}"></c:Button>
                             				</cells>
@@ -228,18 +228,18 @@
     		                        </Panel>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell >
-        		                    <c:TextView text="开始时间" visible="{/JhgzfiVisible}" width="19%"></c:TextView>
-        		                    <DateTimeInput type="Date" value="{WorkModel>/Jhgzbedate}" editable="{/Editable}" width="35%"
-                            			visible="{/JhgzfiVisible}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd"/>
-                            		<DateTimeInput type="Time" placeholder="00:00:00" value="{WorkModel>/Jhgzbetime}" editable="{/Editable}" width="35%"
-                            			visible="{/JhgzfiVisible}"  displayFormat="HH:mm:ss" valueFormat="HH:mm:ss" class="TextField_TextView"/>
-                            		<c:TextView text="完成时间" visible="{/JhgzfiVisible}" width="19%"></c:TextView>
-                            		<DateTimeInput type="Date" value="{WorkModel>/Jhgzfidate}" editable="{/Editable}" width="35%"
-                            			visible="{/JhgzfiVisible}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" />
-                            		<DateTimeInput type="Time" placeholder="00:00:00" value="{WorkModel>/Jhgzfitime}" editable="{/Editable}" width="35%"
-                            			visible="{/JhgzfiVisible}"  displayFormat="HH:mm:ss" valueFormat="HH:mm:ss" class="TextField_TextView"/>
-                            	    <c:TextView text="关联工作票号" visible="{/RefWcmnoVisible}" width="19%"></c:TextView>
-                            	    <c:TextField value="{WorkModel>/RefWcmno}" width="60%" editable="{/Editable}" visible="{/RefWcmnoVisible}"></c:TextField>
+        		                    <c:TextView text="开始时间" visible="{/JhgzfiVisible}" width="27%"></c:TextView>
+        		                    <DateTimeInput type="Date" value="{WorkModel>/Jhgzbedate}" editable="{/Editable}" width="32%"
+                            			visible="{/JhgzfiVisible}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" enabled="{/Editable}"/>
+                            		<DateTimeInput type="Time" placeholder="00:00:00" value="{WorkModel>/Jhgzbetime}" editable="{/Editable}" width="30%"
+                            			visible="{/JhgzfiVisible}"  displayFormat="HH:mm:ss" valueFormat="HH:mm:ss" class="TextField_Date" enabled="{/Editable}"/>
+                            		<c:TextView text="完成时间" visible="{/JhgzfiVisible}" width="27%"></c:TextView>
+                            		<DateTimeInput type="Date" value="{WorkModel>/Jhgzfidate}" editable="{/Editable}" width="32%"
+                            			visible="{/JhgzfiVisible}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" enabled="{/Editable}"/>
+                            		<DateTimeInput type="Time" placeholder="00:00:00" value="{WorkModel>/Jhgzfitime}" editable="{/Editable}" width="30%"
+                            			visible="{/JhgzfiVisible}"  displayFormat="HH:mm:ss" valueFormat="HH:mm:ss" class="TextField_Date" enabled="{/Editable}"/>
+                            	    <c:TextView text="关联工作票号" visible="{/RefWcmnoVisible}" width="27%"></c:TextView>
+                            	    <c:TextField value="{WorkModel>/RefWcmno}" width="60%" editable="{/Editable}" visible="{/RefWcmnoVisible}" enabled="{/Editable}"></c:TextField>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
         		                </lay:MatrixLayoutCell>
@@ -291,10 +291,10 @@
         		                <lay:MatrixLayoutCell>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
-        		                    <c:TextView text="共" visible="{/GzbzcynumVisible}"></c:TextView><c:TextField value="{WorkModel>/Gzbzcynum}" width="25%" editable="{/Editable}" visible="{/GzbzcynumVisible}"></c:TextField><c:TextView text="人" visible="{/GzbzcynumVisible}"></c:TextView>
+        		                    <c:TextView text="共" visible="{/GzbzcynumVisible}"></c:TextView><c:TextField value="{WorkModel>/Gzbzcynum}" width="25%" editable="{/Editable}" visible="{/GzbzcynumVisible}" enabled="{/Editable}"></c:TextField><c:TextView text="人" visible="{/GzbzcynumVisible}"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
-        		                    <c:TextView text="附页" visible="{/FynumVisible}"></c:TextView><c:TextField value="{WorkModel>/Fynum}" width="25%" editable="{/Editable}" visible="{/FynumVisible}"></c:TextField><c:TextView text="张" visible="{/FynumVisible}"></c:TextView>
+        		                    <c:TextView text="附页" visible="{/FynumVisible}"></c:TextView><c:TextField value="{WorkModel>/Fynum}" width="25%" editable="{/Editable}" visible="{/FynumVisible}" enabled="{/Editable}"></c:TextField><c:TextView text="张" visible="{/FynumVisible}"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		            </lay:MatrixLayoutRow>
         		            

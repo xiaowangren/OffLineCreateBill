@@ -5,7 +5,7 @@
 	xmlns:c="sap.ui.commons"
 	xmlns="sap.m" controllerName="com.zhenergy.bill.view.GongZuoPiaoDangerTab" 
 	xmlns:html="http://www.w3.org/1999/xhtml">
-	<Panel class="_vertical" height="280px">
+	<Panel class="_vertical" height="305px">
 	<Table
         id="idCreateDangerousPointTab"
         visibleRowCount="7"
@@ -94,8 +94,8 @@
 </Panel>
 <Panel class="panel_bkgColor">
     <headerToolbar>
-		<Toolbar height="3rem">
-			<Title text="安全措施"/>
+		<Toolbar height="2rem">
+			<Title text="安全措施" class="title_font_size"/>
 		</Toolbar>
 	</headerToolbar>
 	<content>
