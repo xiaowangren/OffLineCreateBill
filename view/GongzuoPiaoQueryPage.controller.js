@@ -218,6 +218,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
 		if (oStorage.get("ZPMOFFLINE_SRV.ZPMTQPCDT")) {
 			var AQCSDataX = new sap.ui.model.json.JSONModel();
 			var AQCSDataY = new sap.ui.model.json.JSONModel();
+			var AQCSDataYInfo = new sap.ui.model.json.JSONModel();
 			var oDataPer = oStorage.get("ZPMOFFLINE_SRV.ZPMTQPCDT");
     		var aFilterPerX = [];
     		var aFilterPerY = [];
@@ -235,6 +236,18 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
 			//补充运行按错数据列表
 	        AQCSDataY.setData(aFilterPerY,false);
 			sap.ui.getCore().setModel(AQCSDataY,"AQCSDataY");
+			var oInfoJson={"Yvisible":false,"Xtitle":"检修提出安措","Ytitle":"运行补充安措"};
+			if(Ztype=="DH1"||Ztype=="DH2"){
+			    oInfoJson.Xtitle="动火部门应采安措";
+			    oInfoJson.Ytitle="运行部门应采安措";
+			    oInfoJson.Yvisible=true;
+			}
+			if(Ztype=="JBP"){
+			    oInfoJson.Ytitle="开工后安错";
+			    oInfoJson.Yvisible=true;
+			}
+			AQCSDataYInfo.setData(oInfoJson,false);
+			sap.ui.getCore().setModel(AQCSDataYInfo,"AQCSDataYInfo");
 /*			console.log("+++++++++++++++++++++++++++++++++++++++++++++");
 			console.log(Ztype);
 			console.log(oDataPer);
