@@ -1,45 +1,51 @@
-<core:View controllerName="com.zhenergy.bill.view.BillInitializationPage" xmlns:c="sap.ui.commons" xmlns:core="sap.ui.core"
+<core:View controllerName="com.zhenergy.bill.view.BillInitializationPage" xmlns:c="sap.ui.commons" xmlns:core="sap.ui.core" 	xmlns:f="sap.ui.layout.form"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:lay="sap.ui.commons.layout" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m">
 	<Page title="选择工厂、操作票类型">
 		<content>
-			<l:VerticalLayout class="BillInitializationPage_page_content_VerticalLayout">
-				<lay:MatrixLayout class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1" width="40%" widths="15%,30%,25%,25%">
+		<f:SimpleForm id="idCaoZuoPiaoQuery2"
+			minWidth="1024"
+			maxContainerCols="4"
+			editable="true"
+			layout="ResponsiveGridLayout"
+			labelSpanL="3"
+			labelSpanM="3"
+			emptySpanL="4"
+			emptySpanM="4"
+			columnsL="1"
+			columnsM="1"
+			>
+			<f:content>
+				<lay:MatrixLayout class="BillCreateInfoPage_VerticalLayout_MatrixLayout_1" width="70%" widths="20%,30%,25%,25%">
 					<lay:MatrixLayoutRow>
-					    <lay:MatrixLayoutCell>
-						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
 							<c:Button press="onFanHui" text="返回首页"></c:Button>
 						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
-							<c:Button press="onExecute" text="执行"></c:Button>
+							<c:Button press="onExecute" text="执行" align="left"></c:Button>
 						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
                             <c:Button text="参考典型票" press="onCanKaoLiShiPiao"></c:Button>
                         </lay:MatrixLayoutCell>
 					</lay:MatrixLayoutRow>
-				</lay:MatrixLayout>
-				<lay:MatrixLayout class="BillInitializationPage_VerticalLayout_MatrixLayout_2" width="60%" widths="15%,25%,60%">
+				<!--</lay:MatrixLayout>-->
+				<!--<lay:MatrixLayout class="BillInitializationPage_VerticalLayout_MatrixLayout_2" width="40%" widths="15%,25%,60%">-->
 					<lay:MatrixLayoutRow>
-					    <lay:MatrixLayoutCell>
-						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
 							<c:TextView text="工厂"></c:TextView>
 						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
 						    <c:TextField value="{/User}" visible="false" id="idUser"></c:TextField>
-							<c:ComboBox id="idWerksSelect" items="{ path: '/WERKS', sorter: { path: 'Iwerk' } }" width="64%" selectedKey="{/Iwerk}" editable="false">
+							<c:ComboBox id="idWerksSelect" items="{ path: '/WERKS', sorter: { path: 'Iwerk' } }" width="100%" selectedKey="{/Iwerk}" editable="false">
 								<core:ListItem key="{Iwerk}" text="{Iwerk} {Name1}"></core:ListItem>
 							</c:ComboBox>
 						</lay:MatrixLayoutCell>
 					</lay:MatrixLayoutRow>
 					<lay:MatrixLayoutRow>
-					    <lay:MatrixLayoutCell>
-						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
 							<c:TextView text="操作票类型"></c:TextView>
 						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
-							<c:ComboBox id="idTicketSelect"  width="30%">
+							<c:ComboBox id="idTicketSelect"  width="50%">
 								<c:items>
 									<core:ListItem key="DQ" text="DQ 电气操作票"></core:ListItem>
 									<core:ListItem key="GL" text="GL 锅炉操作票"></core:ListItem>
@@ -54,7 +60,8 @@
 						</lay:MatrixLayoutCell>
 					</lay:MatrixLayoutRow>
 				</lay:MatrixLayout>
-			</l:VerticalLayout>
+			</f:content>
+		</f:SimpleForm>
 		</content>
 	</Page>
 </core:View>
