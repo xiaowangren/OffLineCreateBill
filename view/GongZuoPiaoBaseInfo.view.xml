@@ -225,13 +225,13 @@
                             			visible="{/JhgzfiVisible}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" enabled="{/Editable}"/>
                             		<DateTimeInput type="Time" placeholder="00:00:00" value="{WorkModel>/Jhgzbetime}" editable="{/Editable}" width="30%"
                             			visible="{/JhgzfiVisible}"  displayFormat="HH:mm:ss" valueFormat="HH:mm:ss" class="TextField_Date" enabled="{/Editable}"/>
-                            		<c:TextView text="完成时间" visible="{/JhgzfiVisible}" width="27%"></c:TextView>
+                            		<c:TextView text="完成时间" visible="{/JhgzfiVisible}" width="27%" class="TextField_Date_top"></c:TextView>
                             		<DateTimeInput type="Date" value="{WorkModel>/Jhgzfidate}" editable="{/Editable}" width="32%"
-                            			visible="{/JhgzfiVisible}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" enabled="{/Editable}"/>
+                            			visible="{/JhgzfiVisible}" displayFormat="yyyy-MM-dd" valueFormat="yyyy-MM-dd" enabled="{/Editable}" class="TextField_Date_top"/>
                             		<DateTimeInput type="Time" placeholder="00:00:00" value="{WorkModel>/Jhgzfitime}" editable="{/Editable}" width="30%"
-                            			visible="{/JhgzfiVisible}"  displayFormat="HH:mm:ss" valueFormat="HH:mm:ss" class="TextField_Date" enabled="{/Editable}"/>
-                            	    <c:TextView text="关联工作票号" visible="{/RefWcmnoVisible}" width="27%"></c:TextView>
-                            	    <c:TextField value="{WorkModel>/RefWcmno}" width="60%" editable="{/Editable}" visible="{/RefWcmnoVisible}" enabled="{/Editable}"></c:TextField>
+                            			visible="{/JhgzfiVisible}"  displayFormat="HH:mm:ss" valueFormat="HH:mm:ss" class="TextField_Date TextField_Date_top" enabled="{/Editable}"/>
+                            	    <c:TextView text="关联工作票号" visible="{/RefWcmnoVisible}" width="27%" class="TextField_Date_top"></c:TextView>
+                            	    <c:TextField value="{WorkModel>/RefWcmno}" width="60%" editable="{/Editable}" visible="{/RefWcmnoVisible}" enabled="{/Editable}" class="TextField_Date_top"></c:TextField>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
         		                </lay:MatrixLayoutCell>

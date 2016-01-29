@@ -14,6 +14,9 @@
 .TextField_Date{
     margin-left:10px;
 }
+.TextField_Date_top{
+    margin-top:8px;
+}
 .margin_top{
     margin-top: -18px;
     height:100px;
@@ -23,7 +26,7 @@
     background-color: #ffffff;
     border: 1px solid #c0c0c0;
     margin: 0;
-    font-size: 0.875rem;
+    font-size: 0.75rem;
     font-family: Arial,Helvetica,sans-serif;
     line-height: normal;
     height: 23px;
@@ -46,4 +49,23 @@
 }
 .sapMTB-Transparent-CTX>.sapMTitleTB.sapMTitleStyleAuto{
     font-size: 0.875rem;
+}
+.sapMInputBase{
+    background-color: transparent;
+    border: none;
+    position: relative;
+    display: inline-block;
+    padding: 0rem 0; 
+    height: 23px;
+    vertical-align: top;
+}
+.sapMComboBoxBaseArrow {
+    width: 2rem;
+    height: 17px;
+    line-height: 0.95rem;
+    top: 0.3125rem;
+    right: 0.05rem;
+}
+input.sapMComboBoxBaseInputInner:not(.sapMComboBoxBaseInputInnerReadonly) {
+    padding-right: 0rem;
 }
