@@ -97,8 +97,8 @@
 				<Column width="7rem">
 					<m:Label text="班组" />
 					<template>
-    					<c:ComboBox items="{ path: '/BanZu', sorter: { path: 'Yxgroup' } }" width="95%" selectedKey="{Class}" editable="false">
-							<core:ListItem key="{Yxgroup}" text="{Yxgroupdec}"></core:ListItem>
+    					<c:ComboBox items="{ path: '/BanZu', sorter: { path: 'Class' } }" width="95%" selectedKey="{Class}" editable="false">
+							<core:ListItem key="{Class}" text="{Classdec}"></core:ListItem>
 						</c:ComboBox>
 					</template>
 				</Column>

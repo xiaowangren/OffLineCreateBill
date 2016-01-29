@@ -165,9 +165,9 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
 		    oLocalModel.setProperty("/DanWei",aFilterDanWei);
 		}
 		//状态   ？？？？？
-		//班组 ZPMT00283
-		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00283")) {
-			var oDataBanZu = oStorage.get("ZPMOFFLINE_SRV.ZPMT00283");
+		//班组 ZPMT00283  ZPMT00228
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00228")) {
+			var oDataBanZu = oStorage.get("ZPMOFFLINE_SRV.ZPMT00228");
 			var aFilterBanZu = [];
 			for(var m=0;m<oDataBanZu.length;m++){
 			    if(oDataBanZu[m].Werks==Iwerk){
@@ -208,6 +208,17 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
 			    }
 			}
 		    oLocalModel.setProperty("/BuMen",aFilterBuMen);
+		}
+		//专业
+		if(oStorage.get("ZPMOFFLINE_SRV.ZPMT00230")){
+		    var oDatazhuanYe = oStorage.get("ZPMOFFLINE_SRV.ZPMT00230");
+		    var oFilterZy = [];
+		    for(var u=0;u<oDatazhuanYe.length;u++){
+		        if(oDatazhuanYe[u].Werks==Iwerk){
+			        oFilterZy.push(oDatazhuanYe[u]);
+			    }
+		    }
+		    oLocalModel.setProperty("/ZhuanYe",oFilterZy);
 		}
 		return oLocalModel;
 	},

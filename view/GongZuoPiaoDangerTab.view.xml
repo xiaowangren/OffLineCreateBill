@@ -70,7 +70,7 @@
     </columns>
     <ColumnListItem type="Active">
 		<cells>
-			<c:ComboBox width="100%" selectedKey="{WorkModel>Zfxlx}" editable="{/Editable}" change="onSelect">
+			<c:ComboBox width="100%" selectedKey="{WorkModel>Zfxlx}" editable="{/Editable}" selectionChange="onSelect">
     			<c:items>
     				<core:ListItem key="1" text="危险源"></core:ListItem>
     				<core:ListItem key="2" text="环境因素"></core:ListItem>
