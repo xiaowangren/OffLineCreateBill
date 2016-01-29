@@ -188,14 +188,14 @@
                             					demandPopin="true"
                             					width="110px"
                             					>
-                            					<Text text="工作班成员(不包含工作负责人)"/>
+                            					<Text text="{WorkModel>/TableTitle1}"/>
                             				</Column>
                             				<Column
                             					minScreenWidth="Tablet"
                             					demandPopin="true"
                             					width="100px"
                             					>
-                            					<Text text="备注"/>
+                            					<Text text="{WorkModel>/TableTitle2}"/>
                             				</Column>
                             				<Column
                             					minScreenWidth="Tablet"

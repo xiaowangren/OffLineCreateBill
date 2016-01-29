@@ -39,12 +39,13 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
         DangerTab.sort(mySortBy2);
         
         
-        var booleans = this.onCheckData(WorkModel);
-        if(!booleans){
-            return;
-        }
+        // var booleans = this.onCheckData(WorkModel);
+        // if(!booleans){
+        //     return;
+        // }
         //删除多余的元素
         WorkModel = this.onDeleteElement(WorkModel);
+        WorkModel = this.onDeleteTableTitle(WorkModel);
         var GroupTab = WorkModel.GroupTab;
         if(GroupTab!=null){
             for(var i=0;i<GroupTab.length;i++){
@@ -97,6 +98,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
         // oModel = sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onFengZhuang(WorkModel.Iwerk);
         // oModel = sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage").onDataVisible(oModel,WorkModel.Iwerk,WorkModel.Ztype);
         oModel = this.onAddLieBiao(oModel, WorkModel.Iwerk,WorkModel.Ztype);
+        oModel = sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage").onTableTitle(oModel,WorkModel.Ztype);
         oModel.setProperty("/Title1","修改");
 //         if (oStorage.get("ZPMOFFLINE_SRV.WorkType")) {
 // 			var oData = oStorage.get("ZPMOFFLINE_SRV.WorkType");
@@ -480,6 +482,11 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
             return false;
         }
         return true;
+    },
+    onDeleteTableTitle:function(WorkModel){
+        delete WorkModel["TableTitle1"];
+        delete WorkModel["TableTitle2"];
+        return WorkModel;
     }
 
 

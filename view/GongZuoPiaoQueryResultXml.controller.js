@@ -10,6 +10,8 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoQueryResultXml", {
  	    var data  = model.getProperty(rowContext.sPath);
  	    jQuery.sap.require("sap.m.MessageBox");
  	    var oModel = sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onFengZhuang(data.Iwerk);
+ 	    oModel = sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage").onTableTitle(oModel,data.Ztype);
+
  	     //初始化安全措施下拉列表
  	     sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onInitializeAQCSData(data.Ztype);
  	     //工作负责人

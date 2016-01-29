@@ -108,6 +108,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onInitializeAQCSData(idWorkTypeInitialize);
         oModel.setProperty("/Title1","创建");
         oModel.setProperty("/Editable",true);
+        oModel = this.onTableTitle(oModel,idWorkTypeInitialize);
         oModel= this.onDataVisible(oModel,idIwerkInitialize,idWorkTypeInitialize);
         jQuery.sap.require("jquery.sap.storage");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
@@ -309,6 +310,17 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		    oModel.setProperty("/ZsfjdVisible",false);
 		}		
 		return oModel;
+    },
+    onTableTitle:function(oModel,type){
+        var TableTitle1 = "工作班成员(不包含工作负责人)";
+        var TableTitle2 = "备注";
+        if(type=="DH1"||type=="DH2"){
+            TableTitle1="动火执行人";
+            TableTitle2="动火执行人操作编号";
+        }
+        oModel.setProperty("/TableTitle1",TableTitle1);
+        oModel.setProperty("/TableTitle2",TableTitle2);
+        return oModel;
     }
 
 
