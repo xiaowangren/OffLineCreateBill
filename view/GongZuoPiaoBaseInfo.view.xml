@@ -214,7 +214,7 @@
                             			<ColumnListItem>
                             				<cells>
                             					<c:TextField
-                            						value="{WorkModel>Seqc}" width="80%" change="onChangeSeqc" editable="{/Editable}" enabled="{/Editable}"/>
+                            						value="{WorkModel>Seqc}" width="80%" change="onChangeSeqc" editable="{/Editable}" enabled="false"/>
                             					<c:TextField
                             						value="{WorkModel>Pname}" width="100%" editable="{/Editable}" enabled="{/Editable}"/>
                             					<c:TextField

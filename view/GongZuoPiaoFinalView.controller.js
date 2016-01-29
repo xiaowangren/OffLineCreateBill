@@ -37,12 +37,10 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
         
         var DangerTab=WorkModel.DangerTab;
         DangerTab.sort(mySortBy2);
-        
-        
-        // var booleans = this.onCheckData(WorkModel);
-        // if(!booleans){
-        //     return;
-        // }
+        var booleans = this.onCheckData(WorkModel);
+        if(!booleans){
+            return;
+        }
         //删除多余的元素
         WorkModel = this.onDeleteElement(WorkModel);
         WorkModel = this.onDeleteTableTitle(WorkModel);
@@ -328,6 +326,21 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
                 sap.m.MessageBox.alert("需退出保护或装置名称必填",{title: "提示"});
                 return false;
             } 
+        }
+        //判断GroupTab是否必填
+        var GroupTab = WorkModel.GroupTab;
+        var seqcs = [];
+        if(GroupTab!=undefined&&GroupTab.length!=0){
+            for(var i=0;i<GroupTab.length;i++){
+                if(GroupTab[i].Seqc!=""&&GroupTab[i].Pname.trim()==""){
+                    seqcs.push(GroupTab[i].Seqc);
+                }
+            }
+            if(seqcs.length>0){
+                sap.m.MessageBox.alert("序号为"+seqcs+"的"+WorkModel.TableTitle1+"不能为空",{title: "提示"});
+                return;  
+            }
+            
         }
         if(startWith!="S"&&WorkType!="QXD"){    
             if(WorkModel.Jhgzbedate==""){
