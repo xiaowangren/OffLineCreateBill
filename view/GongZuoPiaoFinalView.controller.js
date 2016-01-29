@@ -276,29 +276,43 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
             return false;
         }
         if(startWith!="S"){
-            if(WorkModel.Appdep==""){
+            if(WorkModel.Appdep==""||WorkModel.Appdep==undefined){
                 sap.m.MessageBox.alert("工作单位必填",{title: "提示"});
                 return false;
             }
-            if(WorkModel.Class==""){
+            if(WorkModel.Class==""||WorkModel.Class==undefined){
                 sap.m.MessageBox.alert("班组必填",{title: "提示"}); 
                 return false;
             }
         }
-        if(WorkModel.Prfty==""){
+        if(WorkModel.Prfty==""||WorkModel.Prfty==undefined){
             sap.m.MessageBox.alert("专业必填",{title: "提示"});
             return false;
         }
         if(startWith!="S"){
-            if(WorkModel.Rarea==""){
+            if(WorkModel.Rarea==""||WorkModel.Rarea==undefined){
                 sap.m.MessageBox.alert("运行区域必填",{title: "提示"});
                 return false;
             }
-            if(WorkModel.Unity==""){
+            if(WorkModel.Wbbz=="X"){//如果外包标记是“是”，必填
+                if(WorkModel.Lxbm==undefined||WorkModel.Lxbm==""){
+                    sap.m.MessageBox.alert("联系部门必填",{title: "提示"});
+                    return false; 
+                }
+                if(WorkModel.Contact.trim()==""){
+                    sap.m.MessageBox.alert("联系人必填",{title: "提示"});
+                    return false; 
+                }
+                if(WorkModel.Phone.trim()==""){
+                    sap.m.MessageBox.alert("联系方式必填",{title: "提示"});
+                    return false; 
+                }
+            }
+            if(WorkModel.Unity==""||WorkModel.Unity==undefined){
                 sap.m.MessageBox.alert("机组必填",{title: "提示"});
                 return false;
             }
-            if(WorkModel.Bname==""){
+            if(WorkModel.Bname==""||WorkModel.Bname==undefined){
                 sap.m.MessageBox.alert("工作负责人必填",{title: "提示"});
                 return false;
             }
@@ -331,9 +345,9 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
                 return false;
             }
         }
-        if(WorkType=="DH1"&&WorkType=="DH2"){
+        if(WorkType=="DH1"||WorkType=="DH2"){
             if(WorkModel.RefWcmno==""){
-                sap.m.MessageBox.alert("工作票号数必填",{title: "提示"});
+                sap.m.MessageBox.alert("关联工作票号数必填",{title: "提示"});
                 return false;
             }
         }
