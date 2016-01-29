@@ -348,7 +348,7 @@
         		     <!--       </lay:MatrixLayoutRow>-->
         		     <!--   </lay:MatrixLayout>-->
 		            </c:Tab>
-		            <c:Tab text="{AQCSDataYInfo>/Xtitle}">
+		            <c:Tab text="{AQCSDataYInfo>/Xtitle}"  visible="{AQCSDataYInfo>/Xvisible}">
 		                <mvc:XMLView viewName="com.zhenergy.bill.view.GongZuoPiaoAqcs"/>
 		            </c:Tab>
 		            <c:Tab text="{AQCSDataYInfo>/Ytitle}" visible="{AQCSDataYInfo>/Yvisible}">

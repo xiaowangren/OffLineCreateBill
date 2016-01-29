@@ -377,7 +377,24 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
         if(!bZsfjd){
             sap.m.MessageBox.alert("是否需装接地线/接地闸 必填，请填写。",{title: "提示"});
            return false;
-        }        
+        } 
+        //检查Zkghac是否填写
+        var bZkghac=true;
+        if(WorkType=="JBP"){
+            //此时出现该字段
+            bZkghac=false;
+            if(WorkModel.Zkghac){
+                if(WorkModel.Zkghac.length>0)
+                {
+                    //此时该字段已被填写
+                    bZkghac=true;
+                }
+            }
+        }
+        if(!bZkghac){
+            sap.m.MessageBox.alert("是否有开工后安措 必填，请填写。",{title: "提示"});
+           return false;
+        } 
         //检查 检修时提出按错表 是否每个代码组都填写了数据
         var AQCSDataX=sap.ui.getCore().getModel("AQCSDataX").getData();
         var bAqcsTabX=true;
@@ -436,7 +453,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
             if(!bAqcsTabY){
                 sap.m.MessageBox.alert("代码为"+sInfoString.substring(0,sInfoString.length-1)+"的安措必须填写安措内容，若无该安措请填“无”！",{title: "提示"});
                return false;
-            }            
+            }
         }
 
         

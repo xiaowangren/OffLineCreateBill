@@ -110,4 +110,103 @@
 			</cells>
 	    </ColumnListItem>
    </Table>
+	<lay:MatrixLayout class="page_Margin" widths="12%,13%,10%,15%,10%,15%,9%,8%,8%" width="100%" >
+    	<lay:MatrixLayoutRow>
+    	    <lay:MatrixLayoutCell colSpan="1">
+    	        <c:TextView text="" visible="false"></c:TextView>
+    	    </lay:MatrixLayoutCell>
+    	</lay:MatrixLayoutRow>
+        <lay:MatrixLayoutRow>
+            <lay:MatrixLayoutCell colSpan="1">
+                <c:TextView text="是否有开工会按错" visible="{AQCSDataYInfo>/ZkghacVisible}"></c:TextView>
+            </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1">
+                <c:ComboBox width="60%" 
+                            selectedKey="{WorkModel>/Zkghac}"
+                            editable="{/Editable}"
+                            visible="{AQCSDataYInfo>/ZkghacVisible}">
+    				<c:items>
+    					<core:ListItem key="X" text="X 有"></core:ListItem>
+    			        <core:ListItem key="N" text="N 无"></core:ListItem>
+    				</c:items>
+    			</c:ComboBox>
+            </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1"></lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1"></lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1"></lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1"></lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1"></lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1"></lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1"></lay:MatrixLayoutCell>
+        </lay:MatrixLayoutRow> 
+<!--        <lay:MatrixLayoutRow>
+            <lay:MatrixLayoutCell>
+                <c:TextView text="动火测定值"></c:TextView>
+            </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell>
+                <c:TextField value="{WorkModel>/Dhcdz}" editable="{/Editable}"></c:TextField>
+            </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell>
+                <c:TextView text="动火执行人"></c:TextView>
+            </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1">
+                <c:ComboBox items="{ path: '/ZPMTOPER', sorter: { path: 'Peoid' }}" width="100%" selectedKey="{WorkModel>/Bname1}" editable="{/Editable}" visible="{/Lx32Visible}">
+					<core:ListItem key="{Peoid}" text="{Peoid} {Peonam}"></core:ListItem>
+				</c:ComboBox>
+            </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell>
+                <c:TextView text="消防监护人"></c:TextView>
+            </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1">
+                <c:ComboBox items="{ path: '/ZPMTOPER', sorter: { path: 'Peoid' }}" width="100%" selectedKey="{WorkModel>/Bname2}" editable="{/Editable}" visible="{/Lx32Visible}">
+					<core:ListItem key="{Peoid}" text="{Peoid} {Peonam}"></core:ListItem>
+				</c:ComboBox>
+            </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell>
+                <c:TextView text="动火工作负责人"></c:TextView>
+            </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="2">
+                <c:ComboBox items="{ path: '/ZPMTOPER', sorter: { path: 'Peoid' }}" width="100%" selectedKey="{WorkModel>/Bname3}" editable="{/Editable}" visible="{/Lx32Visible}">
+					<core:ListItem key="{Peoid}" text="{Peoid} {Peonam}"></core:ListItem>
+				</c:ComboBox>
+            </lay:MatrixLayoutCell>
+        </lay:MatrixLayoutRow> 
+        <lay:MatrixLayoutRow>
+            <lay:MatrixLayoutCell>
+                <c:TextView text="动火部门执行人"></c:TextView>
+            </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1">
+                <c:ComboBox items="{ path: '/ZPMTOPER', sorter: { path: 'Peoid' }}" width="100%" selectedKey="{WorkModel>/Bname4}" editable="{/Editable}" visible="{/Lx32Visible}">
+					<core:ListItem key="{Peoid}" text="{Peoid} {Peonam}"></core:ListItem>
+				</c:ComboBox>
+            </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell>
+                <c:TextView text="安健环部门负责人"></c:TextView>
+            </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1">
+                <c:ComboBox items="{ path: '/ZPMTOPER', sorter: { path: 'Peoid' }}" width="100%" selectedKey="{WorkModel>/Bname5}" editable="{/Editable}" visible="{/Lx32Visible}">
+					<core:ListItem key="{Peoid}" text="{Peoid} {Peonam}"></core:ListItem>
+				</c:ComboBox>
+            </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell>
+                <c:TextView text="生产领导"></c:TextView>
+            </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell colSpan="1">
+                <c:ComboBox items="{ path: '/ZPMTOPER', sorter: { path: 'Peoid' }}" width="100%" selectedKey="{WorkModel>/Bname6}" editable="{/Editable}" visible="{/Lx32Visible}">
+					<core:ListItem key="{Peoid}" text="{Peoid} {Peonam}"></core:ListItem>
+				</c:ComboBox>
+            </lay:MatrixLayoutCell>
+        </lay:MatrixLayoutRow>
+        <lay:MatrixLayoutRow>
+            <lay:MatrixLayoutCell>
+                <c:TextView text="允许动火时间"></c:TextView>
+            </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell>
+                <DateTimeInput value="{WorkModel>/Date24}" displayFormat="yyyy.MM.dd" valueFormat="yyyy.MM.dd" width="100%"></DateTimeInput>
+            </lay:MatrixLayoutCell>
+            <lay:MatrixLayoutCell>
+                <DateTimeInput value="{WorkModel>/Time24}" type="Time" displayFormat="HH:mm:ss" valueFormat="HH:mm:ss" width="100%"></DateTimeInput>
+            </lay:MatrixLayoutCell>
+        </lay:MatrixLayoutRow>-->
+    </lay:MatrixLayout>
 </core:View>

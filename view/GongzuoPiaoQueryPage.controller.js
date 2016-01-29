@@ -233,10 +233,21 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
 	        AQCSDataX.setData(aFilterPerX,false);
 	        //检修提出安措数据列表
 			sap.ui.getCore().setModel(AQCSDataX,"AQCSDataX");
-			//补充运行按错数据列表
+			//补充运行安错数据列表
 	        AQCSDataY.setData(aFilterPerY,false);
 			sap.ui.getCore().setModel(AQCSDataY,"AQCSDataY");
-			var oInfoJson={"Yvisible":false,"Xtitle":"检修提出安措","Ytitle":"运行补充安措"};
+			
+			//安措标签页配置信息
+			var oInfoJson={
+			                "Xvisible":false,
+			                "Yvisible":false,
+			                "Xtitle":"检修提出安措",
+			                "Ytitle":"运行补充安措",
+			                "ZkghacVisible":false,
+			};
+			if(Ztype!="JXD"){
+			    oInfoJson.Xvisible=true;
+			}
 			if(Ztype=="DH1"||Ztype=="DH2"){
 			    oInfoJson.Xtitle="动火部门应采安措";
 			    oInfoJson.Ytitle="运行部门应采安措";
@@ -245,6 +256,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
 			if(Ztype=="JBP"){
 			    oInfoJson.Ytitle="开工后安错";
 			    oInfoJson.Yvisible=true;
+			    oInfoJson.ZkghacVisible=true;
 			}
 			AQCSDataYInfo.setData(oInfoJson,false);
 			sap.ui.getCore().setModel(AQCSDataYInfo,"AQCSDataYInfo");
