@@ -95,7 +95,7 @@
 			<cells>
                 <c:ComboBox items="{ path: 'AQCSDataY>/', sorter: { path: 'AQCSDataY>Code' } }" 
                             selectedKey="{WorkModel>Code}"
-                            change="onSelect"
+                            selectionChange="onSelect"
                             editable="{/Editable}"
                             width="100%">
                     <core:ListItem key="{AQCSDataY>Code}" text="{AQCSDataY>Code}"></core:ListItem>
