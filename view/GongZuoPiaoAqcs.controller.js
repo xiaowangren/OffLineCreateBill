@@ -80,7 +80,14 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoAqcs", {
             }
             Seqc = parseInt(SeqcBefore);
         }
-        var Group = {Seqc:Seqc+1};
+        var Group = {Seqc:Seqc+1+""};
+        var AQCSDataX= sap.ui.getCore().getModel("AQCSDataX").getData();
+        if(AQCSDataX){
+                    if(AQCSDataX.length>0){
+                        Group.Codegruppe=AQCSDataX[0].Codegruppe;
+                        Group.Katalogart="X"
+                    }
+                }
         GroupTab.insert(index+1, Group);
         this.OnChangeAqcs();
         //this.onrefresh("idGongZuoPiaoFinalView", WorkModel);

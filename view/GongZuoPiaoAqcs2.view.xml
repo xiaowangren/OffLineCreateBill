@@ -93,13 +93,13 @@
 	    </columns>
 	    <ColumnListItem type="Active">
 			<cells>
-                <c:ComboBox items="{ path: 'AQCSDataY>/', sorter: { path: 'AQCSDataY>Code' } }" 
+                <c:DropdownBox items="{ path: 'AQCSDataY>/', sorter: { path: 'AQCSDataY>Code' } }" 
                             selectedKey="{WorkModel>Code}"
-                            selectionChange="onSelect"
+                            change="onSelect"
                             editable="{/Editable}"
                             width="100%">
                     <core:ListItem key="{AQCSDataY>Code}" text="{AQCSDataY>Code}"></core:ListItem>
-                </c:ComboBox>
+                </c:DropdownBox>
 				<c:TextView
 					text="{WorkModel>Seqc}" width="100%"/>
                 <c:TextField value="{WorkModel>Actext}"  width="100%" editable="{/Editable}"></c:TextField>
