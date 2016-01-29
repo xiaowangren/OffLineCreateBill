@@ -540,95 +540,95 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		var werksData = {
 			"werks": [{
 					"Iwerk": "2031",
-					"Name1": "浙江浙能电力股份有限公司萧山发电厂物资工厂"
+					"Name1": "浙江浙能电力股份有限公司萧山发电厂"
 				},
 				{
 					"Iwerk": "2051",
-					"Name1": "浙江浙能电力股份有限公司台州发电厂物资工厂"
+					"Name1": "浙江浙能电力股份有限公司台州发电厂"
 				},
 				{
 					"Iwerk": "2081",
-					"Name1": "浙江浙能兰溪发电有限责任公司物资工厂"
+					"Name1": "浙江浙能兰溪发电有限责任公司"
 				},
 				{
 					"Iwerk": "2111",
-					"Name1": "浙江浙能台州第二发电有限责任公司物资工厂"
+					"Name1": "浙江浙能台州第二发电有限责任公司"
 				},
 				{
 					"Iwerk": "2121",
-					"Name1": "淮浙煤电有限责任公司凤台发电分公司物资工厂"
+					"Name1": "淮浙煤电有限责任公司凤台发电分公司"
 				},
 				{
 					"Iwerk": "2131",
-					"Name1": "浙江浙能嘉兴发电有限公司物资工厂"
+					"Name1": "浙江浙能嘉兴发电有限公司"
 				},
 				{
 					"Iwerk": "2161",
-					"Name1": "浙江浙能长兴发电有限公司物资工厂"
+					"Name1": "浙江浙能长兴发电有限公司"
 				},
 				{
 					"Iwerk": "2181",
-					"Name1": "浙江浙能绍兴滨海热电有限责任公司物资工厂"
+					"Name1": "浙江浙能绍兴滨海热电有限责任公司"
 				},
 				{
 					"Iwerk": "2191",
-					"Name1": "浙江浙能镇海发电有限责任公司物资工厂"
+					"Name1": "浙江浙能镇海发电有限责任公司"
 				},
 				{
 					"Iwerk": "2221",
-					"Name1": "浙江浙能温州发电有限公司物资工厂"
+					"Name1": "浙江浙能温州发电有限公司"
 				},
 				{
 					"Iwerk": "2251",
-					"Name1": "浙江浙能乐清发电有限责任公司物资工厂"
+					"Name1": "浙江浙能乐清发电有限责任公司"
 				},
 				{
 					"Iwerk": "2261",
-					"Name1": "浙江浙能中煤舟山煤电有限责任公司物资工厂"
+					"Name1": "浙江浙能中煤舟山煤电有限责任公司"
 				},
 				{
 					"Iwerk": "2271",
-					"Name1": "浙能阿克苏热电有限公司物资工厂"
+					"Name1": "浙能阿克苏热电有限公司"
 				},
 				{
 					"Iwerk": "2281",
-					"Name1": "宁夏枣泉发电有限责任公司物资工厂"
+					"Name1": "宁夏枣泉发电有限责任公司"
 				},
 				{
 					"Iwerk": "2291",
-					"Name1": "浙江浙能镇海联合发电有限公司物资工厂"
+					"Name1": "浙江浙能镇海联合发电有限公司"
 				},
 				{
 					"Iwerk": "2301",
-					"Name1": "浙江浙能金华燃机发电有限责任公司物资工厂"
+					"Name1": "浙江浙能金华燃机发电有限责任公司"
 				},
 				{
 					"Iwerk": "2311",
-					"Name1": "浙江浙能常山天然气发电有限公司物资工厂"
+					"Name1": "浙江浙能常山天然气发电有限公司"
 				},
 				{
 					"Iwerk": "2321",
-					"Name1": "温州燃机发电有限公司物资工厂"
+					"Name1": "温州燃机发电有限公司"
 				},
 				{
 					"Iwerk": "2331",
-					"Name1": "浙江浙能嘉华发电有限公司物资工厂"
+					"Name1": "浙江浙能嘉华发电有限公司"
 				},
 				{
 					"Iwerk": "2341",
-					"Name1": "浙江浙能北仑发电有限公司物资工厂"
+					"Name1": "浙江浙能北仑发电有限公司"
 				},
 				{
 					"Iwerk": "2351",
-					"Name1": "浙江浙能镇海天然气发电有限责任公司物资工厂"
+					"Name1": "浙江浙能镇海天然气发电有限责任公司"
 				},
 				{
 					"Iwerk": "2361",
-					"Name1": "浙江浙能镇海燃气热电有限责任公司物资工厂"
+					"Name1": "浙江浙能镇海燃气热电有限责任公司"
 				},
 				{
 					"Iwerk": "2391",
-					"Name1": "浙江浙能绍兴滨海热力有限公司物资工厂"
+					"Name1": "浙江浙能绍兴滨海热力有限公司"
 				}
                         ]
 		};
@@ -652,7 +652,14 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 				oValueHelpDialog.close();
 			}
 		});
+		var oCancelButton = new sap.m.Button({
+		    text:"取消",
+		    press:function(oEvent){
+		        oValueHelpDialog.close();
+		    }
+		});
 		oValueHelpDialog.addButton(oOkButton);
+		oValueHelpDialog.addButton(oCancelButton);
 		oValueHelpDialog.open(sap.ui.core.Popup.Dock.Center, sap.ui.core.Popup.Dock.Center);
 	},
 	handleSetPassword: function() {
@@ -1062,27 +1069,26 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		}
 	},
 	onUploadGZPToECCClicked:function(){
-	   // jQuery.sap.require("jquery.sap.storage");
-		sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoUpload");
+		//sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoUpload");
 		
-// 		jQuery.sap.require("sap.m.MessageBox");
-// 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-// 		//检查是否已经选择了工厂
-// 		var oG_IwerkData = oStorage.get("ZPMOFFLINE_SRV.G_IWERK");
-// 		if (!oG_IwerkData) {
-// 			sap.m.MessageBox.alert("请设定工厂", {
-// 				title: "提示"
-// 			});
-// 			return;
-// 		}
+		jQuery.sap.require("sap.m.MessageBox");
+		jQuery.sap.require("jquery.sap.storage");
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		//检查是否已经选择了工厂
+		var oG_IwerkData = oStorage.get("ZPMOFFLINE_SRV.G_IWERK");
+		if (!oG_IwerkData) {
+			sap.m.MessageBox.alert("请设定工厂", {
+				title: "提示"
+			});
+			return;
+		}
 		
-// 		//打开上传操作票页面
-// 		var bLoggedIn = this.onCheckLoginECC();
-// // 		console.log(bLoggedIn);
-// 		if(!bLoggedIn){
-// 		    this.onOpenLogonToPortal("UploadGzp");    //定义登陆后的行为
-// 		}else{
-// 		    this.onOpenUploadPanel();
-// 		}
+		//打开上传操作票页面
+		var bLoggedIn = this.onCheckLoginECC();
+		if(!bLoggedIn){
+		    this.onOpenLogonToPortal("UploadGzp");    //定义登陆后的行为
+		}else{
+		    this.onOpenUploadPanel();
+		}
 	}
 });
