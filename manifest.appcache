@@ -11,7 +11,11 @@ resources/sap/ui/core/library-preload.json
 resources/sap/m/library-preload.json
 /sap/public/bc/bsp/pdfmake/pdfmake.js
 /sap/public/bc/bsp/pdfmake/vfs_fonts.js
+resources/sap/ui/thirdparty/datajs.js
 #20160121
+resources/sap/ui/commons/TextViewRenderer.js
+resources/sap/ui/commons/CheckBoxRenderer.js
+resources/sap/ui/commons/DropdownBoxRenderer.js
 resources/sap/ui/commons/ButtonRenderer.js
 resources/sap/ui/commons/DatePickerRenderer.js
 resources/sap/ui/commons/LabelRenderer.js
@@ -25,6 +29,9 @@ resources/sap/ui/commons/themes/sap_bluecrystal/img/combobox/ComboBoxArrow_hover
 resources/sap/ui/commons/themes/sap_bluecrystal/img/combobox/ComboBoxArrow_regular.png
 resources/sap/ui/commons/themes/sap_bluecrystal/img/datepicker/Calendar_hover.png
 resources/sap/ui/commons/themes/sap_bluecrystal/img/datepicker/Calendar_regular.png
+resources/sap/ui/table/themes/sap_bluecrystal/img/Select_All_Icon.png
+resources/sap/ui/commons/themes/sap_bluecrystal/img/checkbox.png
+
 resources/sap/ui/layout/form/FormLayoutRenderer.js
 resources/sap/ui/layout/form/FormRenderer.js
 resources/sap/ui/layout/form/ResponsiveGridLayoutRenderer.js
