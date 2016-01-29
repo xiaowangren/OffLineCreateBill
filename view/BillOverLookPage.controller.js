@@ -484,10 +484,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			Iwerk: Iwerks
 		};
 	},
-	onOpenUploadCzpPanel: function() {
-// 		jQuery.sap.require("jquery.sap.storage");
-		sap.ui.getCore().byId("idBillApp").app.to("idBillUpload");
-	},
 	handleSelectWerks: function() {
 		//选择工厂，不然不能同步数据
 		jQuery.sap.require("sap.m.Dialog");
@@ -710,12 +706,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		//to get access to the global model
 		this.getView().addDependent(dialog);
 		dialog.open();
-	},
-	//<<<<<<< HEAD
-	onPDFPrintTest: function() {
-		console.log("navi to print page");
-		sap.ui.getCore().byId("idBillApp").app.to("idPDFPrint");
-		//=======
 	},
 	onCreateGongZuoPiao: function() { //新增工作票
 		//将页面跳转至工作票初始页面
@@ -954,11 +944,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 					"url": serverURL + "/irj/portal?j_user=" + j_user + "&j_password=" + j_password,
 					"method": "GET",
 					// success:function (response) {
-					//     dialog.close();
-					//     console.log("success");
 					// },
 					// failure:function (response, opts) {
-					//     console.log("faulture");
 					// },
 					complete: function(response) {
 						if (response.status === 200) {
@@ -981,10 +968,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 									if(sAction==="Sync"){
 								    	oController.onSyncMasterData();
 									}else if(sAction === "UploadCzp"){
-									   // oController.onOpenUploadCzpPanel();
 									    sap.ui.getCore().byId("idBillApp").app.to("idBillUpload");
 									}else if(sAction === "UploadGzp"){
-									   // oController.onOpenUploadPanel();
 									    sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoUpload");
 									}
 								}
@@ -1042,7 +1027,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		var bLoggedIn = this.onCheckLoginECC();
 		console.log(bLoggedIn);
 		if(!bLoggedIn){
-		 this.onOpenLogonToPortal("Sync");    //定义登陆后的行为
+		    this.onOpenLogonToPortal("Sync");    //定义登陆后的行为
 		}else{
 		    this.onSyncMasterData();
 		}
@@ -1061,11 +1046,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		
 		//打开上传操作票页面
 		var bLoggedIn = this.onCheckLoginECC();
-// 		console.log(bLoggedIn);
 		if(!bLoggedIn){
 		    this.onOpenLogonToPortal("UploadCzp");    //定义登陆后的行为
 		}else{
-		    this.onOpenUploadPanel();
+		    sap.ui.getCore().byId("idBillApp").app.to("idBillUpload");
 		}
 	},
 	onUploadGZPToECCClicked:function(){
@@ -1082,13 +1066,12 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			});
 			return;
 		}
-		
 		//打开上传操作票页面
 		var bLoggedIn = this.onCheckLoginECC();
 		if(!bLoggedIn){
 		    this.onOpenLogonToPortal("UploadGzp");    //定义登陆后的行为
 		}else{
-		    this.onOpenUploadPanel();
+		    sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoUpload");
 		}
 	}
 });
