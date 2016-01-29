@@ -9,6 +9,8 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
             sap.m.MessageBox.alert("请选择工作票类型",{title: "提示"});
             return;
         }
+		//初始化安全措施下拉列表
+		sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onInitializeAQCSData(idWorkTypeInitialize);
         //根据工作票类型查出工作票类型描述
        
 		//创建今天日期：Crdate
@@ -25,8 +27,30 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
         var Crdate = year+"-" + month +"-"+  day;
         //封装各Tab
         var DangerTab = [{Zfxlx:"",Dangno:"1",Dangsnot:"",Zztext:"",Zzremark:"",Zzpltxt:""}];
-        var AqcsTabX=[{Code:"",Seqc:"1",Actext:""}];
-        var AqcsTabY=[{Code:"",Seqc:"1",Actext:""}];
+        var AqcsTabX=[];
+        if(idWorkTypeInitialize!="JXD"){
+            var Group={Code:"",Seqc:"1",Actext:"无"};
+            var AQCSDataX= sap.ui.getCore().getModel("AQCSDataX").getData();
+            if(AQCSDataX){
+                        if(AQCSDataX.length>0){
+                            Group.Codegruppe=AQCSDataX[0].Codegruppe;
+                            Group.Katalogart="X"
+                        }
+                    }
+            AqcsTabX.push(Group);
+        }
+        var AqcsTabY=[];
+        if(idWorkTypeInitialize=="JBP"||idWorkTypeInitialize=="DH1"||idWorkTypeInitialize=="DH2"){
+            Group={Code:"",Seqc:"1",Actext:"无"};
+            var AQCSDataY= sap.ui.getCore().getModel("AQCSDataY").getData();
+            if(AQCSDataY){
+                        if(AQCSDataY.length>0){
+                            Group.Codegruppe=AQCSDataY[0].Codegruppe;
+                            Group.Katalogart="X"
+                        }
+                    }
+            AqcsTabY.push(Group);
+        }
         var GroupTab =[{Seqc:"1",Pname:"",Opsno:""}];
         var KksTab = [{Seqc:"1",Tplnr:""}];
 		var data={
@@ -104,8 +128,6 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		};
 		var oModel = new sap.ui.model.json.JSONModel();
 		oModel = sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onFengZhuang(idIwerkInitialize);
-		//初始化安全措施下拉列表
-		sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onInitializeAQCSData(idWorkTypeInitialize);
         oModel.setProperty("/Title1","创建");
         oModel.setProperty("/Editable",true);
         oModel = this.onTableTitle(oModel,idWorkTypeInitialize);
