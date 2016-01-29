@@ -60,24 +60,16 @@
         		                    <c:TextView text="班组"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
-        		                    <c:ComboBox items="{ path: '/BanZu', sorter: { path: 'Yxgroup' } }" width="60%" editable="{/Editable}" selectedKey="{WorkModel>/Class}" enabled="{/Editable}">
-            							<core:ListItem key="{Yxgroup}" text="{Yxgroup} {Yxgroupdec}"></core:ListItem>
+        		                    <c:ComboBox items="{ path: '/BanZu', sorter: { path: 'Class' } }" width="60%" editable="{/Editable}" selectedKey="{WorkModel>/Class}" enabled="{/Editable}">
+            							<core:ListItem key="{Class}" text="{Class} {Classdec}"></core:ListItem>
             						</c:ComboBox>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
         		                    <c:TextView text="专业"></c:TextView>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>
-        		                    <c:ComboBox width="60%" selectedKey="{WorkModel>/Prfty}" editable="{/Editable}" enabled="{/Editable}">
-        		                        <c:items>
-                                            <core:ListItem text="0001 汽机专业" key="0001"></core:ListItem>
-                                            <core:ListItem text="0002 电气专业" key="0002"></core:ListItem>
-                                            <core:ListItem text="0003 锅炉专业" key="0003"></core:ListItem>
-                                            <core:ListItem text="0004 化学专业" key="0004"></core:ListItem>
-                                            <core:ListItem text="0005 环保专业" key="0005"></core:ListItem>
-                                            <core:ListItem text="0006 燃料专业" key="0006"></core:ListItem>
-                                            <core:ListItem text="0007 热机专业" key="0007"></core:ListItem>
-                                        </c:items>
+        		                    <c:ComboBox items="{ path: '/ZhuanYe', sorter: { path: 'Prfty' } }" width="60%" selectedKey="{WorkModel>/Prfty}" editable="{/Editable}" enabled="{/Editable}">
+        		                       <core:ListItem key="{Prfty}" text="{Prfty} {Prtxt}"></core:ListItem>
     		                        </c:ComboBox>
         		                </lay:MatrixLayoutCell>
         		                <lay:MatrixLayoutCell>

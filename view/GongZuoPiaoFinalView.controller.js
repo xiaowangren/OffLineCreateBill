@@ -123,6 +123,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
         delete WorkModel["BuMen"];
         delete WorkModel["DanWei"];
         delete WorkModel["JiZu"];
+        delete WorkModel["ZhuanYe"];
         // delete WorkModel["Title1"];
         // delete WorkModel["Title2"];
         delete WorkModel["WERKS"];
