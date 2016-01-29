@@ -138,7 +138,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		this.getView().setModel(oJsonModel);
 	},
 	onSyncMasterData: function() {
-
 		jQuery.sap.require("jquery.sap.storage");
 		jQuery.sap.require("sap.m.MessageBox");
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
@@ -146,11 +145,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		//配置服务器
 		var sServiceUrl = "/sap/opu/odata/SAP/ZPMOFFLINE_SRV";
 		var oECCModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
-		// 		sap.ui.getCore().setModel(oECCModel);   //会覆盖其它使用了getCore的Model，引起其他自动请求
-
+		//sap.ui.getCore().setModel(oECCModel);   //会覆盖其它使用了getCore的Model，引起其他自动请求
 		//定义Read方法的执行方法
 		var mParameters = {};
-		mParameters['async'] = true;
+		mParameters['async'] = false;
 		mParameters['success'] = jQuery.proxy(function(oData, response) {
 			var oJsonModel = new sap.ui.model.json.JSONModel(oData);
 			var rawData = oJsonModel.getData().results;
@@ -162,11 +160,14 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 				}
 				oStorage.put(typeName, rawData);
 				console.log(typeName + "主数据已报存");
+			}else{
+			    console.log(typeName + '下载失败');
 			}
 		}, this);
 		mParameters['error'] = jQuery.proxy(function(data) {
 			console.log("Read 失败");
 		}, this);
+		
 		//显示同步中的对话框
 		var dialog = new sap.m.BusyDialog({
 			title: "请稍候",
@@ -178,8 +179,38 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		dialog.open();
 
 		//取数
-		//工厂
-		oECCModel.read("/WERKSSet", mParameters);
+		var bSuccess = false;
+		//工厂 同步执行，返回成功以后才运行其它主数据同步
+// 		oECCModel.read("/WERKSSet", mParameters);
+        oECCModel.read("/WERKSSet?$filter=Iwerk eq '" + oG_IwerkData.Iwerk + "'",{async:false,
+            success:function(data){
+    			var oJsonModel = new sap.ui.model.json.JSONModel(data);
+    			var rawData = oJsonModel.getData().results;
+    			//清理rawData,降低存储大小
+    			if (rawData.length > 0) {
+    				var typeName = oJsonModel.getData().results[0].__metadata.type;
+    				for (var i = 0; i < rawData.length; i++) {
+    					delete rawData[i]["__metadata"];
+    				}
+    				oStorage.put(typeName, rawData);
+    				console.log(typeName + "主数据已报存");
+    				bSuccess = true;
+    			}else{
+                    sap.m.MessageBox.alert("没有下载该工厂数据的权限", {
+                        title: "提示"
+                    });
+    			}
+            },
+            error:function(evt){
+                sap.m.MessageBox.alert("主数据下载失败", {
+                    title: "提示"
+                });
+            }
+        });
+        if(!bSuccess){
+            dialog.close();
+            return;
+        }
 		//KKS
 		oECCModel.read("/KKSSet?$filter=Tplnr eq '" + oG_IwerkData.Iwerk + "'", mParameters);
 		//操作票类型
@@ -468,21 +499,13 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			title: "选择工厂",
 			// opener:  openButton,             // locate dialog next to this field 
 			afterClose: function(oEvent) {
-				//设定选中的工厂
-				var oContext = oHelpTable.getContextByIndex(oHelpTable.getSelectedIndex());
-				if (oContext) {
-					var oSel = oContext.getModel().getProperty(oContext.getPath());
-					//Storage  
-					jQuery.sap.require("jquery.sap.storage");
-					var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-					oStorage.put("ZPMOFFLINE_SRV.G_IWERK", oSel); //将选中的工厂设为全局变量存到oStorage中
-					oView.rerender();
-				}
+
 			}
 		});
 		var oHelpTable = new sap.ui.table.Table({
 			selectionMode: sap.ui.table.SelectionMode.Single,
 			visibleRowCount: 7,
+			selectionBehavior: "RowOnly",
 // 			columnHeaderHeight:40,
 // 			rowHeight:35,
 			width: "300pt"
@@ -616,6 +639,16 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			text: "确定",
 			press: function(oEvent) {
 				// oEvent.getSource().getParent().close();
+				//设定选中的工厂
+				var oContext = oHelpTable.getContextByIndex(oHelpTable.getSelectedIndex());
+				if (oContext) {
+					var oSel = oContext.getModel().getProperty(oContext.getPath());
+					//Storage  
+					jQuery.sap.require("jquery.sap.storage");
+					var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+					oStorage.put("ZPMOFFLINE_SRV.G_IWERK", oSel); //将选中的工厂设为全局变量存到oStorage中
+					oView.rerender();
+				}
 				oValueHelpDialog.close();
 			}
 		});
