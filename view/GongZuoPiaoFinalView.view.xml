@@ -29,7 +29,7 @@
 		        </lay:MatrixLayout>
 		    </l:VerticalLayout>
 		    <l:VerticalLayout>
-		        <lay:MatrixLayout class="page_Margin" widths="4%,20%,6%,20%,3%,24%" width="100%" >
+		        <lay:MatrixLayout class="page_Margin" widths="4%,20%,6%,20%,5%,24%,4%" width="100%" >
 		            <lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="工作票号"></c:TextView>
@@ -52,6 +52,14 @@
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="状态"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:ComboBox width="90%" selectedKey="{WorkModel>/Estat}" editable="false">
+								<c:items>
+									<core:ListItem key="10" text="10 拟票"></core:ListItem>
+								</c:items>
+							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow> 
 		            <lay:MatrixLayoutRow>
@@ -64,23 +72,21 @@
 						    </c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="开票人姓名"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextField value="{WorkModel>/CreateName}" width="55%" editable="{/Editable}"></c:TextField>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="创建日期"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextField value="{WorkModel>/Crdate}" width="90%" editable="false"></c:TextField>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextView text="状态"></c:TextView>
-		                </lay:MatrixLayoutCell>
-		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox width="90%" selectedKey="{WorkModel>/Estat}" editable="false">
-								<c:items>
-									<core:ListItem key="10" text="10 拟票"></core:ListItem>
-								</c:items>
-							</c:ComboBox>
-		                </lay:MatrixLayoutCell>
-		                <lay:MatrixLayoutCell>
 		                    <c:CheckBox text="双签" checked="{WorkModel>/Sqbz}" editable="{/Editable}" visible="{/SqVisible}"/>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow> 
 		        </lay:MatrixLayout>
