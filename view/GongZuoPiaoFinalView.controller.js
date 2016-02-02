@@ -368,6 +368,9 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
                return false;
             }
         }
+        
+        var AQCSDataYInfo=sap.ui.getCore().getModel("AQCSDataYInfo").getData();
+        console.log(AQCSDataYInfo);
         //检查Zsfjd是否填写
         var bZsfjd=true;
         if(WorkType=="DCC"||WorkType=="DQ1"||WorkType=="DQ2"||WorkType=="JBP"){
@@ -382,7 +385,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
             }
         }
         if(!bZsfjd){
-            sap.m.MessageBox.alert('是否需装接地线/接地闸刀必填，请填写!',{title: "提示"});
+            sap.m.MessageBox.alert('“'+AQCSDataYInfo.Xtitle+'”标签下“是否需装接地线/接地闸刀”必填，请填写!',{title: "提示"});
            return false;
         } 
         //检查Zkghac是否填写
@@ -399,7 +402,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
             }
         }
         if(!bZkghac){
-            sap.m.MessageBox.alert("是否有开工后安措 必填，请填写。",{title: "提示"});
+            sap.m.MessageBox.alert('“'+AQCSDataYInfo.Ytitle+"”标签下“是否有开工后安措”必填，请填写。",{title: "提示"});
            return false;
         } 
         //检查 检修时提出按错表 是否每个代码组都填写了数据
@@ -441,7 +444,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
             }
             //console.log(WorkModel.AqcsTabX);
             if(!bAqcsTabX){
-                sap.m.MessageBox.alert("代码为"+sInfoString.substring(0,sInfoString.length-1)+"的安措必须填写安措内容，若无该安措请填“无”！",{title: "提示"});
+                sap.m.MessageBox.alert('“'+AQCSDataYInfo.Xtitle+"”标签下代码为"+sInfoString.substring(0,sInfoString.length-1)+"的安措必须填写安措内容，若无该安措请填“无”！",{title: "提示"});
                return false;
             }
         }
@@ -473,7 +476,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
             }
             //console.log(WorkModel.AqcsTabX);
             if(!bAqcsTabY){
-                sap.m.MessageBox.alert("代码为"+sInfoString.substring(0,sInfoString.length-1)+"的安措必须填写安措内容，若无该安措请填“无”！",{title: "提示"});
+                sap.m.MessageBox.alert('“'+AQCSDataYInfo.Ytitle+"”标签下代码为"+sInfoString.substring(0,sInfoString.length-1)+"的安措必须填写安措内容，若无该安措请填“无”！",{title: "提示"});
                return false;
             }
         }
