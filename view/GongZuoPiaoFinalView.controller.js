@@ -231,8 +231,12 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
     onCheckData:function(WorkModel){
         var WorkType = WorkModel.Ztype;
         var startWith = WorkType.substring(0,1);
-        if(WorkModel.Crname.trim()==""){
-            sap.m.MessageBox.alert("创建人必填",{title: "提示"});
+        if(WorkModel.Crname==undefined|| WorkModel.Crname.trim()==""){
+            sap.m.MessageBox.alert("开票人账号必填",{title: "提示"});
+            return false;
+        }
+        if(WorkModel.CreateName==undefined||WorkModel.CreateName.trim()==""){
+            sap.m.MessageBox.alert("开票人姓名必填",{title: "提示"});
             return false;
         }
         if(WorkModel.Tplnr==""){
@@ -245,11 +249,11 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
                 return false;
             }
         }
-        if(WorkModel.SPlace.trim()==""){
+        if(WorkModel.SPlace==undefined||WorkModel.SPlace.trim()==""){
             sap.m.MessageBox.alert("工作地点必填",{title: "提示"});
             return false;
         }
-        if(WorkModel.SCont.trim()==""){
+        if(WorkModel.SCont==undefined||WorkModel.SCont.trim()==""){
             sap.m.MessageBox.alert("工作内容必填",{title: "提示"});
             return false;
         }
@@ -277,11 +281,11 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
                     sap.m.MessageBox.alert("联系部门必填",{title: "提示"});
                     return false; 
                 }
-                if(WorkModel.Contact.trim()==""){
+                if(WorkModel.Contact==undefined|| WorkModel.Contact.trim()==""){
                     sap.m.MessageBox.alert("联系人必填",{title: "提示"});
                     return false; 
                 }
-                if(WorkModel.Phone.trim()==""){
+                if(WorkModel.Phone==undefined||WorkModel.Phone.trim()==""){
                     sap.m.MessageBox.alert("联系方式必填",{title: "提示"});
                     return false; 
                 }
@@ -294,7 +298,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
                 sap.m.MessageBox.alert("工作负责人必填",{title: "提示"});
                 return false;
             }
-            if(WorkModel.Phone1==""){
+            if(WorkModel.Phone1==undefined||WorkModel.Phone1.trim()==""){
                 sap.m.MessageBox.alert("联系方式必填",{title: "提示"});
                 return false;
             }
