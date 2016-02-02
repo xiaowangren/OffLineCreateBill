@@ -29,7 +29,7 @@
 		        </lay:MatrixLayout>
 		    </l:VerticalLayout>
 		    <l:VerticalLayout>
-		        <lay:MatrixLayout class="page_Margin" widths="4%,20%,4%,20%,3%,24%" width="100%" >
+		        <lay:MatrixLayout class="page_Margin" widths="4%,20%,6%,20%,3%,24%" width="100%" >
 		            <lay:MatrixLayoutRow>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="工作票号"></c:TextView>
@@ -38,7 +38,7 @@
 		                    <c:TextField value="{WorkModel>/Wcmno}" width="90%" editable="false"></c:TextField>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextView text="创建人"></c:TextView>
+		                    <c:TextView text="开票人账号"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextField value="{WorkModel>/Crname}" width="55%" editable="{/Editable}"></c:TextField>

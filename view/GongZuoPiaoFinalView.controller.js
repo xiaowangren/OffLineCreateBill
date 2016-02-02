@@ -90,29 +90,10 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
             }
             
         }
-        
-        // oModel.setData(WorkModel);
-        // console.log(WorkModels.Iwerk,WorkModels.Ztype);
-        // oModel = sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onFengZhuang(WorkModel.Iwerk);
-        // oModel = sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage").onDataVisible(oModel,WorkModel.Iwerk,WorkModel.Ztype);
         oModel = this.onAddLieBiao(oModel, WorkModel.Iwerk,WorkModel.Ztype);
         oModel = sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage").onTableTitle(oModel,WorkModel.Ztype);
         oModel.setProperty("/Title1","修改");
-//         if (oStorage.get("ZPMOFFLINE_SRV.WorkType")) {
-// 			var oData = oStorage.get("ZPMOFFLINE_SRV.WorkType");
-// 			var Ztypedesc = "";
-// 			for(var n=0;n<oData.length;n++){
-// 			    if(oData[n].Ztype==WorkModel.Ztype){
-// 			        Ztypedesc = oData[n].Ztypedes;
-// 			        break;
-// 			    }
-// 			}
-// 		    oModel.setProperty("/Title2",Ztypedesc);
-// 		}
-// 		var oModel2=new sap.ui.model.json.JSONModel({Title1:"修改",Title2:Ztypedesc},true);
-// 		this.byId("idFinalViewTitle").setModel(oModel2);
         oModel.setProperty("/Editable",true);
-        // sap.ui.getCore().byId("idBillApp").app.to("idGongZuoPiaoFinalView", "");
     	var page = sap.ui.getCore().byId("idBillApp").app.getPage("idGongZuoPiaoFinalView");
 		page.setModel(oModel,"WorkModel"); 
 		sap.m.MessageBox.alert("保存成功",{title: "提示"});
@@ -124,24 +105,9 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
         delete WorkModel["DanWei"];
         delete WorkModel["JiZu"];
         delete WorkModel["ZhuanYe"];
-        // delete WorkModel["Title1"];
-        // delete WorkModel["Title2"];
         delete WorkModel["WERKS"];
         delete WorkModel["YunXingQuYu"];
         delete WorkModel["ZPMTOPER"];
-        // delete WorkModel["Editable"];
-        // delete WorkModel["GztjVisible"];
-        // delete WorkModel["SqVisible"];
-        // delete WorkModel["DhfsVisible"];
-        // delete WorkModel["ZtcbhVisible"];
-        // delete WorkModel["Lx3Visible"];
-        // delete WorkModel["Lx32Visible"];
-        // delete WorkModel["FynumVisible"];
-        // delete WorkModel["GzbzcynumVisible"];
-        // delete WorkModel["RefWcmnoVisible"];
-        // delete WorkModel["JhgzfiVisible"];
-        // delete WorkModel["TableVisible"];
-        // delete WorkModel["SaveVisible"];
         return WorkModel;
     },
     onAddLieBiao:function(oLocalModel,Iwerk,WorkType){
@@ -175,9 +141,9 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
 			}
 		    oLocalModel.setProperty("/DanWei",aFilterDanWei);
 		}
-		//班组 ZPMT00283
-		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00283")) {
-			var oDataBanZu = oStorage.get("ZPMOFFLINE_SRV.ZPMT00283");
+		//班组 ZPMT00283 ZPMT00228
+		if (oStorage.get("ZPMOFFLINE_SRV.ZPMT00228")) {
+			var oDataBanZu = oStorage.get("ZPMOFFLINE_SRV.ZPMT00228");
 			var aFilterBanZu = [];
 			for(var m=0;m<oDataBanZu.length;m++){
 			    if(oDataBanZu[m].Werks==Iwerk){
@@ -218,6 +184,17 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
 			    }
 			}
 		    oLocalModel.setProperty("/BuMen",aFilterBuMen);
+		}
+		//专业
+		if(oStorage.get("ZPMOFFLINE_SRV.ZPMT00230")){
+		    var oDatazhuanYe = oStorage.get("ZPMOFFLINE_SRV.ZPMT00230");
+		    var oFilterZy = [];
+		    for(var u=0;u<oDatazhuanYe.length;u++){
+		        if(oDatazhuanYe[u].Werks==Iwerk){
+			        oFilterZy.push(oDatazhuanYe[u]);
+			    }
+		    }
+		    oLocalModel.setProperty("/ZhuanYe",oFilterZy);
 		}
 		//封装部门负责人 ZPMTOPER
 		if (oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI")) {
@@ -405,7 +382,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
             }
         }
         if(!bZsfjd){
-            sap.m.MessageBox.alert("是否需装接地线/接地闸 必填，请填写。",{title: "提示"});
+            sap.m.MessageBox.alert('是否需装接地线/接地闸刀必填，请填写!',{title: "提示"});
            return false;
         } 
         //检查Zkghac是否填写

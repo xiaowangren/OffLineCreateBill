@@ -167,7 +167,7 @@
 		                <lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextView text="开票人"></c:TextView>
+		                    <c:TextView text="开票人账号"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextField value="{newCaoZuoPiaoCreate>/Cuser}" id="dianQiKaiPiaoRen" width="65%"></c:TextField>
