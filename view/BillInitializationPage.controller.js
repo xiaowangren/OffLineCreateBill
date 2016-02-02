@@ -248,6 +248,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
             Prfty:"",//专业
             statusText:"unCreated",
             Zlybnum:"",
+            CreateName:"",
             InfoTab:InfoDataNewC,//InfoTab
             DangerousTab:DangerousTabNewC//危险点分析
         };

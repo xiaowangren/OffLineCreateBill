@@ -35,11 +35,15 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
             sap.m.MessageBox.alert("值别必填",{title: "提示"});
             return;
         }
-        if(newCaoZuoPiaoCreate.Cuser.trim()==""){
-            sap.m.MessageBox.alert("开票人必填",{title: "提示"});
+        if(newCaoZuoPiaoCreate.Cuser==undefined||newCaoZuoPiaoCreate.Cuser.trim()==""){
+            sap.m.MessageBox.alert("开票人账号必填",{title: "提示"});
             return;
         }
-        if(newCaoZuoPiaoCreate.Ztask.trim()==""){
+        if(newCaoZuoPiaoCreate.CreateName==undefined||newCaoZuoPiaoCreate.CreateName.trim()==""){
+            sap.m.MessageBox.alert("开票人姓名必填",{title: "提示"});
+            return;
+        }
+        if(newCaoZuoPiaoCreate.Ztask==undefined||newCaoZuoPiaoCreate.Ztask.trim()==""){
             sap.m.MessageBox.alert("操作任务必填",{title: "提示"});
             return;
         }

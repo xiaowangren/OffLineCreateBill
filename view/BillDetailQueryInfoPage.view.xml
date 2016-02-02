@@ -184,7 +184,21 @@
 		                    <c:TextView text="操作任务"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell rowSpan="2" colSpan="4">
-		                    <c:TextArea value="{newBillDetailQueryInfoPage>/Ztask}" rows="3" cols="60" id="dianQiCaoZuoRenWu3" editable="false"></c:TextArea>
+		                    <c:TextArea value="{newBillDetailQueryInfoPage>/Ztask}" rows="3" cols="63" id="dianQiCaoZuoRenWu3" editable="false"></c:TextArea>
+		                </lay:MatrixLayoutCell>
+		            </lay:MatrixLayoutRow>
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="开票人姓名"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView  text="{newBillDetailQueryInfoPage>/CreateName}"></c:TextView >
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>

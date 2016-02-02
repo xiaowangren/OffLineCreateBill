@@ -193,7 +193,21 @@
 		                    <c:TextView text="操作任务"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell rowSpan="2" colSpan="4">
-		                    <c:TextArea value="{newCaoZuoPiaoUpdateMuBan>/Ztask}" rows="3" cols="60" id="dianQiCaoZuoRenWu4"></c:TextArea>
+		                    <c:TextArea value="{newCaoZuoPiaoUpdateMuBan>/Ztask}" rows="3" cols="63" id="dianQiCaoZuoRenWu4"></c:TextArea>
+		                </lay:MatrixLayoutCell>
+		            </lay:MatrixLayoutRow>
+		            <lay:MatrixLayoutRow>
+		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextView text="开票人姓名"></c:TextView>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                    <c:TextField value="{newCaoZuoPiaoUpdateMuBan>/CreateName}" width="65%"></c:TextField>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
+		                </lay:MatrixLayoutCell>
+		                <lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutCell>
 		            </lay:MatrixLayoutRow>
 		        </lay:MatrixLayout>

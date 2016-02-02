@@ -33,11 +33,15 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
             sap.m.MessageBox.alert("值别必填",{title: "提示"});
             return;
         }
-        if(newBillDetailUpdateInfoPage.Cuser.trim()==""){
-            sap.m.MessageBox.alert("开票人必填",{title: "提示"});
+        if(newBillDetailUpdateInfoPage.Cuser==undefined||newBillDetailUpdateInfoPage.Cuser.trim()==""){
+            sap.m.MessageBox.alert("开票人账号必填",{title: "提示"});
             return;
         }
-        if(newBillDetailUpdateInfoPage.Ztask.trim()==""){
+        if(newBillDetailUpdateInfoPage.CreateName==undefined||newBillDetailUpdateInfoPage.CreateName.trim()==""){
+            sap.m.MessageBox.alert("开票人姓名必填",{title: "提示"});
+            return;
+        }
+        if(newBillDetailUpdateInfoPage.Ztask==undefined||newBillDetailUpdateInfoPage.Ztask.trim()==""){
             sap.m.MessageBox.alert("操作任务必填",{title: "提示"});
             return;
         }
@@ -98,13 +102,114 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpdateInfoPage", {
             var oModel = new sap.ui.model.json.JSONModel(newCaoZuoPiao);
             sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", newCaoZuoPiao);
         	var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
-    		page.setModel(oModel,"newBillDetailUpdateInfoPage");  
+    		page.setModel(oModel,"newBillDetailUpdateInfoPage"); 
+    		
         }
     },
     onUpdateBillInfo:function(){
-	    this.onUpdateBillInfoFirst();
-        sap.m.MessageBox.alert("修改保存成功",{title: "提示"});
-
+        var newBillDetailUpdateInfoPage = this.getView().getModel("newBillDetailUpdateInfoPage").getData(); 
+        //校验数据合法性
+        if(newBillDetailUpdateInfoPage.Appdep==""){
+            sap.m.MessageBox.alert("填写部门必填",{title: "提示"});
+            return;
+        }
+        if(newBillDetailUpdateInfoPage.Yxgroup==""){
+            sap.m.MessageBox.alert("班组必填",{title: "提示"});
+            return;
+        }
+        if(newBillDetailUpdateInfoPage.Otype==""){
+            sap.m.MessageBox.alert("操作类型必填",{title: "提示"});
+            return;
+        }
+        if(newBillDetailUpdateInfoPage.Zczfs==""){
+            sap.m.MessageBox.alert("操作性质必填",{title: "提示"});
+            return;
+        }
+        if(newBillDetailUpdateInfoPage.Rarea==""){
+            sap.m.MessageBox.alert("运行区域必填",{title: "提示"});
+            return;
+        }
+        if(newBillDetailUpdateInfoPage.Unity==""){
+            sap.m.MessageBox.alert("机组必填",{title: "提示"});
+            return;
+        }
+        if(newBillDetailUpdateInfoPage.Dunum==""){
+            sap.m.MessageBox.alert("值别必填",{title: "提示"});
+            return;
+        }
+        if(newBillDetailUpdateInfoPage.Cuser==undefined||newBillDetailUpdateInfoPage.Cuser.trim()==""){
+            sap.m.MessageBox.alert("开票人账号必填",{title: "提示"});
+            return;
+        }
+        if(newBillDetailUpdateInfoPage.CreateName==undefined||newBillDetailUpdateInfoPage.CreateName.trim()==""){
+            sap.m.MessageBox.alert("开票人姓名必填",{title: "提示"});
+            return;
+        }
+        if(newBillDetailUpdateInfoPage.Ztask==undefined||newBillDetailUpdateInfoPage.Ztask.trim()==""){
+            sap.m.MessageBox.alert("操作任务必填",{title: "提示"});
+            return;
+        }
+        newBillDetailUpdateInfoPage.Cuser = newBillDetailUpdateInfoPage.Cuser.trim().toUpperCase();                         
+        var tableData = newBillDetailUpdateInfoPage.InfoTab;
+        var BillInfoNew =[];
+        for(var i=0;i<tableData.length;i++){
+            tableData[i].Zxh = ""+tableData[i].Zxh;
+            if((tableData[i].Zzysx.trim()=="")&&(tableData[i].Zxh=="")&&(tableData[i].Zcznr.trim()=="")){
+            }else{
+                BillInfoNew.push(tableData[i]); 
+            }
+        }
+        newBillDetailUpdateInfoPage.InfoTab = BillInfoNew;
+        var dangerousPointData = newBillDetailUpdateInfoPage.DangerousTab;
+        var dangerousPointDataNew = [];
+        for(var j=0;j<dangerousPointData.length;j++){
+            dangerousPointData[j].Dangno = dangerousPointData[j].Dangno+"";
+            if((dangerousPointData[j].Dangno=="")&&(dangerousPointData[j].Zztext.trim()=="")
+                &&(dangerousPointData[j].Zzremark.trim()=="")&&(dangerousPointData[j].Zzpltxt.trim()=="")){
+            }else{
+                dangerousPointDataNew.push(dangerousPointData[j]); 
+            }
+        }
+        newBillDetailUpdateInfoPage.DangerousTab=dangerousPointDataNew;
+        //存储数据
+        jQuery.sap.require("jquery.sap.storage");
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		var getStorage = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
+        if(getStorage){
+            for(var a=0;a<getStorage.length;a++){
+                if(getStorage[a].Zczph==newBillDetailUpdateInfoPage.Zczph){
+                    getStorage[a] = newBillDetailUpdateInfoPage;
+                }
+            }
+            oStorage.put("ZPMOFFLINE_SRV.BillInfos",getStorage);
+            //提示成功
+            //根据票号查
+            var getStorageNew = oStorage.get("ZPMOFFLINE_SRV.BillInfos");
+            var newCaoZuoPiao = "";
+            if(getStorageNew){
+                for(var x=0;x<getStorageNew.length;x++){
+                    if(getStorageNew[x].Zczph==newBillDetailUpdateInfoPage.Zczph){
+                        newCaoZuoPiao = getStorageNew[x];
+                    }
+                }
+            }
+            //重新拼装InfoTab,DangerousTab
+            var InfoDataNew = [];
+            var InfoTab = newCaoZuoPiao.InfoTab; 
+    		var InfoTabLength = newCaoZuoPiao.InfoTab.length;
+    		for(var m=0;m<InfoTabLength;m++){
+    		    //将编号字符串改为数字
+    		    InfoDataNew.push(InfoTab[m]);
+    		}
+            newCaoZuoPiao.InfoTab=InfoDataNew;
+            newCaoZuoPiao.DangerousTab=dangerousPointDataNew;
+            var oModel = new sap.ui.model.json.JSONModel(newCaoZuoPiao);
+            sap.ui.getCore().byId("idBillApp").app.to("idBillUpdateInfoPage", newCaoZuoPiao);
+        	var page = sap.ui.getCore().byId("idBillApp").app.getPage("idBillUpdateInfoPage");
+    		page.setModel(oModel,"newBillDetailUpdateInfoPage"); 
+    		
+        }
+	    sap.m.MessageBox.alert("修改保存成功",{title: "提示"});
     },
     onCancleBillInfo:function(){
         //重新填充页面

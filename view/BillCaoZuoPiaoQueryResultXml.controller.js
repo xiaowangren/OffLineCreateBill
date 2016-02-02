@@ -206,6 +206,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
             Estat:"10",//ESTAT
             Cuser:data.Cuser,//CUSER
             Cdata:Begda,//CDATA
+            CreateName:"",//开票人姓名
             Appdep:data.Appdep,//填写部门
             Ztype:data.Ztype,//ZTYPE
             Otype:data.Otype,//OTYPE
