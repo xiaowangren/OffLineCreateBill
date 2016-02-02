@@ -124,7 +124,8 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		    GroupTab:GroupTab,//
 		    KksTab:KksTab,
 		    Zbcsm:"",//附件的补充说明字段
-		    statusText:"unCreated"
+		    statusText:"unCreated",
+		    CreateName:""
 		};
 		var oModel = new sap.ui.model.json.JSONModel();
 		oModel = sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onFengZhuang(idIwerkInitialize);
