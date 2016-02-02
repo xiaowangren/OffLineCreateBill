@@ -436,8 +436,20 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoFinalView", {
                     for(var i=0;i<WorkModel.AqcsTabX.length;i++){
                         if(WorkModel.AqcsTabX[i].Code){
                            if(WorkModel.AqcsTabX[i].Code.length>0){
-                               if(!AqcsDictX[WorkModel.AqcsTabX[i].Code]){
-                                   AqcsDictX[WorkModel.AqcsTabX[i].Code]=true;
+                               //此时该安措代码在列表内
+                               if(WorkModel.AqcsTabX[i].Actext){
+                                   if(WorkModel.AqcsTabX[i].Actext.length>0){
+                                       //此时该安措代码的实施内容不为空
+                                       if(!AqcsDictX[WorkModel.AqcsTabX[i].Code]){
+                                           AqcsDictX[WorkModel.AqcsTabX[i].Code]=true;
+                                       }
+                                   }else{
+                                       //此时该安措代码的实施内容为空
+                                       AqcsDictX[WorkModel.AqcsTabX[i].Code]=false;
+                                   }
+                               }else{
+                                   //此时该安措代码的实施内容为空
+                                   AqcsDictX[WorkModel.AqcsTabX[i].Code]=false;
                                }
                            } 
                         }
