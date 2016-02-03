@@ -910,6 +910,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		var oView = this.getView();
 		var dialog = new sap.m.Dialog({
 			title: '请输入ERP门户用户名和密码',
+// 			contentHeight:"300px",
 			afterClose: function() {
 				dialog.destroy();
 			}

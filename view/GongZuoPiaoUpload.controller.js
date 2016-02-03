@@ -165,6 +165,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoUpload", {
                 delete payLoad["Pltxt"];
                 delete payLoad["queryResultCount"];
                 delete payLoad["queryResultDate"];
+                delete payLoad["CreateName"];
         	    var tmpDate = payLoad.Crdate;       //把10位日期转换为8位
         	    payLoad.Crdate = tmpDate.substring(0,4) + tmpDate.substring(5,7) + tmpDate.substring(8,10);
         	    tmpDate = payLoad.Jhgzbedate;       //把10位日期转换为8位

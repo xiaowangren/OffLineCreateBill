@@ -66,30 +66,40 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
     //工作单位文本
     onGetAppdepText:function(Appdep){
         var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-        var oTickets = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C");
-        for(var i=0;i<oTickets.length;i++){
-            if(oTickets[i].Appdep == Appdep){
-                return oTickets[i].Appdepdec;
+        var oData = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C");
+        for(var i=0;i<oData.length;i++){
+            if(oData[i].Appdep == Appdep){
+                return oData[i].Appdepdec;
             }
         }
     },
     //工作票班组文本
     onGetClassDec:function(Class){
         var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-        var oTickets = oStorage.get("ZPMOFFLINE_SRV.ZPMT00228");
-        for(var i=0;i<oTickets.length;i++){
-            if(oTickets[i].Class == Class){
-                return oTickets[i].Classdec;
+        var oData = oStorage.get("ZPMOFFLINE_SRV.ZPMT00228");
+        for(var i=0;i<oData.length;i++){
+            if(oData[i].Class == Class){
+                return oData[i].Classdec;
             }
         }
     },
     //工作票联系部门文本
     onGetLxbmText:function(Lxbm){
         var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-        var oTickets = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C");
-        for(var i=0;i<oTickets.length;i++){
-            if(oTickets[i].Appdep == Lxbm){
-                return oTickets[i].Appdepdec;
+        var oData = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C");
+        for(var i=0;i<oData.length;i++){
+            if(oData[i].Appdep == Lxbm){
+                return oData[i].Appdepdec;
+            }
+        }
+    },
+    //KKS文本
+    onGetKksText:function(tplnr){
+        var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+        var oData = oStorage.get("ZPMOFFLINE_SRV.KKS");
+        for(var i=0;i<oData.length;i++){
+            if(oData[i].Tplnr == tplnr){
+                return oData[i].Pltxt;
             }
         }
     },
@@ -3038,7 +3048,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 			  {text:'检修设备名称',alignment:'center',style:'tableHeader'}]
 		];
 		for(var i=0;i<modelData.KksTab.length;i++){
-		    var line = [{text:modelData.KksTab[i].Seqc,alignment:'center'},{text:modelData.KksTab[i].Tplnr},''];
+		    var line = [{text:modelData.KksTab[i].Seqc,alignment:'center'},{text:modelData.KksTab[i].Tplnr},{text:this.onGetKksText(modelData.KksTab[i].Tplnr)}];
 		    oTableBody.push(line);
 		}
         var docDefinition = {
@@ -3059,7 +3069,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 				        body: oTableBody
 				    }
 				},
-				{text:'补充说明：'}
+				{text:'补充说明：' + modelData.Zbcsm}
         	],
 			styles: {
         		header: {//大标题

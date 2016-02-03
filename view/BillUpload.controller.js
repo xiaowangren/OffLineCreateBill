@@ -180,6 +180,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
                 // this.onUploadSingleCZP(oTableData[index]);
                 var payLoad = oTableData[index];
                 delete payLoad["statusText"];
+                delete payLoad["CreateName"];
         	    //delete payLoad["Zczph"];         //删除json中的字段
         	    var tmpDate = payLoad.Cdata;       //把10位日期转换为8位
         	    payLoad.Cdata = tmpDate.substring(0,4) + tmpDate.substring(5,7) + tmpDate.substring(8,10);

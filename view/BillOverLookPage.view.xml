@@ -17,7 +17,7 @@
 				title="同步主数据"
 				info="最近更新:{/lastSyncLog}"
 				infoState="Success"
-				press="onSyncMasterData">			<!-- press='onSyncMasterData///onSyncMasterClicked'-->
+				press="onSyncMasterClicked">			<!-- press='onSyncMasterData///onSyncMasterClicked'-->
 			</StandardTile>
 			<StandardTile
 			    id="tileCreateOT"
