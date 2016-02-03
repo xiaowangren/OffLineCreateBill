@@ -982,8 +982,14 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 				});
 			}
 		});
-		dialog.addContent(userField);
-		dialog.addContent(passwordField);
+		var oFlex1 = new sap.m.FlexBox({height:"35px",direction:"Column"});
+		var oFlex2 = new sap.m.FlexBox({height:"35px",direction:"Column"});
+		oFlex1.addItem(userField);
+		oFlex2.addItem(passwordField);
+		dialog.addContent(oFlex1);
+		dialog.addContent(oFlex2);
+// 		dialog.addContent(userField);
+// 		dialog.addContent(passwordField);
 		dialog.addButton(okButton);
 		dialog.addButton(cancelButton);
 		//to get access to the global model
