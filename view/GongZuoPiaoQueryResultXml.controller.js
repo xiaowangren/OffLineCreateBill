@@ -21,7 +21,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoQueryResultXml", {
 			var oDataPer = oStorage.get("ZPMOFFLINE_SRV.ZPMTPEOQUALI");
     		var aFilterPer = [];
 			for(var g=0;g<oDataPer.length;g++){
-			    if(oDataPer[g].Ztype=="DH1"&&oDataPer[g].Quaid=="A"){
+			    if(oDataPer[g].Ztype==data.Ztype&&oDataPer[g].Quaid=="A"){
 			        aFilterPer.push(oDataPer[g]);
 			    }
 			}
