@@ -148,7 +148,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		//sap.ui.getCore().setModel(oECCModel);   //会覆盖其它使用了getCore的Model，引起其他自动请求
 		//定义Read方法的执行方法
 		var mParameters = {};
-		mParameters['async'] = false;
+		mParameters['async'] = true;
 		mParameters['success'] = jQuery.proxy(function(oData, response) {
 			var oJsonModel = new sap.ui.model.json.JSONModel(oData);
 			var rawData = oJsonModel.getData().results;
@@ -245,6 +245,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		sap.m.MessageBox.alert("主数据下载完成", {
 			title: "提示"
 		});
+
 		//保存同步日志（最近同步时间）
 		var syncLog = {
 			lastUpdate: $.now()
@@ -274,7 +275,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 					}
 				}
 			}
-// 			console.log(rawData);
 			//数据没有保存到storage前保存在view的model中，取出来然后继续添加，如果第一次，新建model
 			var oOperModel = this.getView().getModel("/ZPMTOPERSet");
 			if (rawData.length > 0) {
@@ -295,7 +295,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			} else {
 				//没有后续数据的时候，统一写入Storage
 				if (oOperModel) {
-					oStorage.put("ZPMOFFLINE_SRV.ZPMTOPER", oOperModel.getData());
+				// 	oStorage.put("ZPMOFFLINE_SRV.ZPMTOPER", oOperModel.getData());
+				this.onSaveBigZS(oOperModel.getData());
 					console.log("ZPMOFFLINE_SRV.ZPMTOPER" + "典型票已报存：" + oOperModel.getData().length);
 				} else {
 					sap.m.MessageBox.alert("典型票无数据", {
@@ -313,6 +314,30 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		var reqURL = "/ZPMTOPERSet?$expand=InfoTab&$top=" + p_top + "&$skip=" + p_skip + "&$filter=Iwerk eq '" + oG_IwerkData.Iwerk + "'";
 		// console.log(reqURL);
 		oECCModel.read(reqURL, mParameters);
+	},
+	onSaveBigZS:function(data){
+	    //Storage  
+		jQuery.sap.require("jquery.sap.storage");
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		var storageIndex = [];
+	    for(var i=0;i*500 < data.length;i++){
+	        var end = (i+1)*500 > data.length  ? data.length : (i+1)*500;
+	        oStorage.put("ZPMOFFLINE_SRV.ZPMTOPER"+i, data.slice(i*500,end));
+	        storageIndex.push("ZPMOFFLINE_SRV.ZPMTOPER"+i);
+	    }
+	    oStorage.put("ZSStorageIndex",storageIndex);
+	},
+	onGetBigZS:function(){
+	    //Storage  
+		jQuery.sap.require("jquery.sap.storage");
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+	    var operData = [];
+	    var storageIndex = oStorage.get("ZSStorageIndex");
+	    for(var i=0;i<storageIndex.length;i++){
+	        var data = oStorage.get(storageIndex[i]);
+	        operData = operData.concat(data);
+	    }
+	    return operData;
 	},
 	// 	onUploadToEcc: function(){
 	// 		//读取LOCAL STORAGE 中的数据,作为程序的下拉框主数据
