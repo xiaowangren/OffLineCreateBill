@@ -426,9 +426,13 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			var oData = oStorage.get("ZPMOFFLINE_SRV.WERKS");
 			oLocalModel.setProperty("/WERKS", oData);
 		}
-
+        if (oStorage.get("ZPMOFFLINE_SRV.TicketType")) {
+			var oDataT = oStorage.get("ZPMOFFLINE_SRV.TicketType");
+			oLocalModel.setProperty("/TicketType",oDataT);
+		}
 		oLocalModel.setProperty("/Iwerk", UserIwerk.Iwerk);
 		oLocalModel.setProperty("/User", UserIwerk.Cuser);
+		oLocalModel.setProperty("/Ztype", "");
 		sap.ui.getCore().setModel(oLocalModel);
 		sap.ui.getCore().byId("idBillApp").app.to("idBillInitializationPage");
 	},
@@ -1057,7 +1061,6 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		
 		//打开上传操作票页面
 		var bLoggedIn = this.onCheckLoginECC();
-		console.log(bLoggedIn);
 		if(!bLoggedIn){
 		    this.onOpenLogonToPortal("Sync");    //定义登陆后的行为
 		}else{
