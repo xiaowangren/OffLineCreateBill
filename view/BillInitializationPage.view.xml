@@ -45,7 +45,7 @@
 							<c:TextView text="操作票类型"></c:TextView>
 						</lay:MatrixLayoutCell>
 						<lay:MatrixLayoutCell>
-							<c:ComboBox id="idTicketSelect"  width="50%">
+							<c:ComboBox id="idTicketSelect"  width="50%" selectedKey="{/Ztype}">
 								<c:items>
 									<core:ListItem key="DQ" text="DQ 电气操作票"></core:ListItem>
 									<core:ListItem key="GL" text="GL 锅炉操作票"></core:ListItem>

@@ -201,6 +201,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQueryResultXml", {
             day = "0" + day; 
         } 
         var Begda = year+"-" + month +"-"+ day;
+        if(data.Dunum=="0000"){
+            data.Dunum ="";
+        }
         var payLoad ={
             Zczph:"",//ZCZPH
             Estat:"10",//ESTAT

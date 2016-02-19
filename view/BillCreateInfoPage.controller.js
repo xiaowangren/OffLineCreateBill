@@ -5,33 +5,37 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
     onSubmitBillInfo:function(){
         // var payLoad = this.collectData();
         
-        var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData(); 
+        var newCaoZuoPiaoCreate = this.getView().getModel("newCaoZuoPiaoCreate").getData();
         //校验数据合法性
-        if(newCaoZuoPiaoCreate.Appdep==""){
+        if(newCaoZuoPiaoCreate.Appdep==""||newCaoZuoPiaoCreate.Appdep==undefined){
             sap.m.MessageBox.alert("填写部门必填",{title: "提示"});
             return;
         }
-        if(newCaoZuoPiaoCreate.Yxgroup==""){
+        if(newCaoZuoPiaoCreate.Yxgroup==""||newCaoZuoPiaoCreate.Yxgroup==undefined){
             sap.m.MessageBox.alert("班组必填",{title: "提示"});
             return;
         }
-        if(newCaoZuoPiaoCreate.Otype==""){
+        if(newCaoZuoPiaoCreate.Otype==""||newCaoZuoPiaoCreate.Otype==undefined){
             sap.m.MessageBox.alert("操作类型必填",{title: "提示"});
             return;
         }
-        if(newCaoZuoPiaoCreate.Zczfs==""){
+        if(newCaoZuoPiaoCreate.Zczfs==""||newCaoZuoPiaoCreate.Zczfs==undefined){
             sap.m.MessageBox.alert("操作性质必填",{title: "提示"});
             return;
         }
-        if(newCaoZuoPiaoCreate.Rarea==""){
+        if(newCaoZuoPiaoCreate.Prfty==""||newCaoZuoPiaoCreate.Prfty==undefined){
+            sap.m.MessageBox.alert("专业必填",{title: "提示"});
+            return;
+        }
+        if(newCaoZuoPiaoCreate.Rarea==""||newCaoZuoPiaoCreate.Rarea==undefined){
             sap.m.MessageBox.alert("运行区域必填",{title: "提示"});
             return;
         }
-        if(newCaoZuoPiaoCreate.Unity==""){
+        if(newCaoZuoPiaoCreate.Unity==""||newCaoZuoPiaoCreate.Unity==undefined){
             sap.m.MessageBox.alert("机组必填",{title: "提示"});
             return;
         }
-        if(newCaoZuoPiaoCreate.Dunum==""){
+        if(newCaoZuoPiaoCreate.Dunum==""||newCaoZuoPiaoCreate.Dunum==undefined){
             sap.m.MessageBox.alert("值别必填",{title: "提示"});
             return;
         }
@@ -548,7 +552,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         //console.log(payLoad);
         var dianQiGongChang = this.onGetIwerkText(payLoad.Iwerk);
         if(!(dianQiGongChang == undefined)){
-            console.log(dianQiGongChang);
+            // console.log(dianQiGongChang);
             dianQiGongChang = dianQiGongChang.replace(/物资工厂/, '');
         }
         var dianQiLeiXing = this.onGetTicketTypeText(payLoad.Ztype);
@@ -733,7 +737,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
         //console.log(payLoad);
         var dianQiGongChang = this.onGetIwerkText(payLoad.Iwerk);
         if(!(dianQiGongChang == undefined)){
-            console.log(dianQiGongChang);
+            // console.log(dianQiGongChang);
             dianQiGongChang = dianQiGongChang.replace(/物资工厂/, '');
         }
         var dianQiLeiXing = this.onGetTicketTypeText(payLoad.Ztype);
@@ -790,7 +794,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCreateInfoPage", {
                 }
                 var line2 = {text:'编号：'+dianQiCaoZuoPiaoHao+'-'+currentPage,style:'subheader',alignment:'right'};
                 Header.push(line2);
-                console.log(Header);
+                // console.log(Header);
                 var table =  [               {
                     style: 'headTable',
 					color: '#444',

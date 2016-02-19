@@ -8,23 +8,23 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
     onFanHui:function(){
         sap.ui.getCore().byId("idBillApp").app.to("idBillOverLookPage");
     },
-	onInit: function() {
-		//读取LOCAL STORAGE 中的数据,作为程序的下拉框主数据
-		//Storage  
-		jQuery.sap.require("jquery.sap.storage");
-		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-		var oLocalModel = new sap.ui.model.json.JSONModel();
-		//Check if there is data into the Storage
-		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
-			var oData = oStorage.get("ZPMOFFLINE_SRV.WERKS");
-			oLocalModel.setProperty("/WERKS",oData);
-		}
-		if (oStorage.get("ZPMOFFLINE_SRV.TicketType")) {
-			var oDataT = oStorage.get("ZPMOFFLINE_SRV.TicketType");
-			oLocalModel.setProperty("/TicketType",oDataT);
-		}
-		sap.ui.getCore().setModel(oLocalModel);
-	},
+// 	onInit: function() {
+// 		//读取LOCAL STORAGE 中的数据,作为程序的下拉框主数据
+// 		//Storage  
+// 		jQuery.sap.require("jquery.sap.storage");
+// 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+// 		var oLocalModel = new sap.ui.model.json.JSONModel();
+// 		//Check if there is data into the Storage
+// 		if (oStorage.get("ZPMOFFLINE_SRV.WERKS")) {
+// 			var oData = oStorage.get("ZPMOFFLINE_SRV.WERKS");
+// 			oLocalModel.setProperty("/WERKS",oData);
+// 		}
+// 		if (oStorage.get("ZPMOFFLINE_SRV.TicketType")) {
+// 			var oDataT = oStorage.get("ZPMOFFLINE_SRV.TicketType");
+// 			oLocalModel.setProperty("/TicketType",oDataT);
+// 		}
+// 		sap.ui.getCore().setModel(oLocalModel);
+// 	},
     onExecute: function() {
       jQuery.sap.require("sap.m.MessageBox");
         //检查必填输入
@@ -234,17 +234,17 @@ sap.ui.controller("com.zhenergy.bill.view.BillInitializationPage", {
             Estat:"10",//ESTAT
             Cuser:idUser,//CUSER
             Cdata:Begda,//CDATA
-            Appdep:"",//填写部门
+            // Appdep:"",//填写部门
             Ztype:idTicketSelect,//ZTYPE
             Otype:"",//OTYPE
-            Unity:"",//UNITY
-            Dunum:"",//ZDUTY
-            Rarea:"",//RAREA
+            // Unity:"",//UNITY
+            // Dunum:"",//ZDUTY
+            // Rarea:"",//RAREA
             Iwerk:idWerksSelect,//BHGBZ
             Ztask:"",//ZTASK操作任务
             Zczfs:"",//ZCZFS操作性质
             Znote:"",//ZNOTE备注
-            Yxgroup:"",//YXGROUP运行班组编码
+            // Yxgroup:"",//YXGROUP运行班组编码
             Prfty:"",//专业
             statusText:"unCreated",
             Zlybnum:"",

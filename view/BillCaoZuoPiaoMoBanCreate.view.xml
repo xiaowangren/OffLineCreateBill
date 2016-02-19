@@ -136,7 +136,7 @@
 		                    <c:TextView text="运行区域"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox id="dianQiYunXingQuYu4" items="{ path: '/yunXingQuYuQuery3',sorter: { path: 'Rarea' }}" width="65%" selectedKey="{newCaoZuoPiaoUpdateMuBan>/Rarea}">
+		                    <c:ComboBox items="{ path: '/yunXingQuYuQuery3',sorter: { path: 'Rarea' }}" width="65%" selectedKey="{newCaoZuoPiaoUpdateMuBan>/Rarea}">
 								<core:ListItem key="{Rarea}" text="{Rarea} {Rareadec}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
@@ -144,14 +144,14 @@
 		                    <c:TextView text="机组"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:ComboBox id="dianQiJiZu4" items="{ path: '/jiZuQuery3'}" width="47%" selectedKey="{newCaoZuoPiaoUpdateMuBan>/Unity}" >
+		                    <c:ComboBox items="{ path: '/jiZuQuery3',sorter: { path: 'Unity' }}" width="47%" selectedKey="{newCaoZuoPiaoUpdateMuBan>/Unity}" >
 								<core:ListItem key="{Unity}" text="{Unity} {Untxt}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextView text="值别"></c:TextView>
 		                </lay:MatrixLayoutCell><lay:MatrixLayoutCell>
-		                    <c:ComboBox id="dianQiZhiBie4" items="{ path: '/ZhiBieQuery3'}" width="68%" selectedKey="{newCaoZuoPiaoUpdateMuBan>/Dunum}">
+		                    <c:ComboBox id="zhiBei" items="{ path: '/ZhiBieQuery3',sorter: { path: 'Dunum' }}" width="68%" selectedKey="{newCaoZuoPiaoUpdateMuBan>/Dunum}" >
 								<core:ListItem key="{Dunum}" text="{Dunum} {Dutxt}"></core:ListItem>
 							</c:ComboBox>
 		                </lay:MatrixLayoutCell>
@@ -177,7 +177,7 @@
 		                <lay:MatrixLayoutCell>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
-		                    <c:TextView text="开票人"></c:TextView>
+		                    <c:TextView text="开票人账号"></c:TextView>
 		                </lay:MatrixLayoutCell>
 		                <lay:MatrixLayoutCell>
 		                    <c:TextField value="{newCaoZuoPiaoUpdateMuBan>/Cuser}" id="dianQiKaiPiaoRen4" width="65%"></c:TextField>

@@ -32,8 +32,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery", {
 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 		var aFilterData = [];
 		//Check if there is data into the Storage   筛选数据
-		if (oStorage.get("ZPMOFFLINE_SRV.ZPMTOPER")) {
-			var oData1 = oStorage.get("ZPMOFFLINE_SRV.ZPMTOPER");
+// 		if (oStorage.get("ZPMOFFLINE_SRV.ZPMTOPER")) {
+// 			var oData1 = oStorage.get("ZPMOFFLINE_SRV.ZPMTOPER");
+            var oData1 = sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage").onGetBigZS();
 			for(var i=0;i<oData1.length;i++){
                 if(this.checkhelp(oData1[i].Iwerk,gongChangQueryId)&&
                    this.checkhelp(oData1[i].Ztype,caoZuoPiaoLeiXingQuery)&&
@@ -46,7 +47,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillCaoZuoPiaoQuery", {
                 }
     
             } 
-		}
+// 		}
         //转换时间
 	    var now = new Date();
 		var year = now.getFullYear(); 
