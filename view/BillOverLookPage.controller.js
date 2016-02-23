@@ -9,7 +9,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 				var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
 				if (oStorage.get("ZPMOFFLINE_SRV.G_PIN")) {
 					var oJsonModel = sap.ui.getCore().getModel("CertModel");
-					if (oJsonModel == undefined) {
+					if (!oJsonModel) {
 						oJsonModel = new sap.ui.model.json.JSONModel();
 					}
 					var certData = oJsonModel.getData();
@@ -63,6 +63,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 				}
 			}
 		}, oView);
+		
+		oController = this;
+		this.onPrepareIDB();
+		
 	},
 	onBeforeRendering: function() {
 		//打开页面时更新主数据更新时间  oView.rerender();
@@ -295,14 +299,16 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			} else {
 				//没有后续数据的时候，统一写入Storage
 				if (oOperModel) {
-				// 	oStorage.put("ZPMOFFLINE_SRV.ZPMTOPER", oOperModel.getData());
-				this.onSaveBigZS(oOperModel.getData());
-					console.log("ZPMOFFLINE_SRV.ZPMTOPER" + "典型票已报存：" + oOperModel.getData().length);
+				    //oStorage.put("ZPMOFFLINE_SRV.ZPMTOPER", oOperModel.getData());
+				    // this.onSaveBigZS(oOperModel.getData());
+				    this.onSaveZSIDB(oOperModel.getData());
+					console.log("ZPMOFFLINE_SRV.ZPMTOPER" + "典型票已保存：" + oOperModel.getData().length);
+					this.getView().setModel(null, "/ZPMTOPERSet");
 				} else {
 					sap.m.MessageBox.alert("典型票无数据", {
 						title: "提示"
 					});
-					console.log("ZPMOFFLINE_SRV.ZPMTOPER" + "典型票无数据");
+				// 	console.log("ZPMOFFLINE_SRV.ZPMTOPER" + "典型票无数据");
 				}
 			}
 		}, this);
@@ -315,30 +321,120 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		// console.log(reqURL);
 		oECCModel.read(reqURL, mParameters);
 	},
-	onSaveBigZS:function(data){
-	    //Storage  
-		jQuery.sap.require("jquery.sap.storage");
-		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-		var storageIndex = [];
-	    for(var i=0;i*500 < data.length;i++){
-	        var end = (i+1)*500 > data.length  ? data.length : (i+1)*500;
-	        oStorage.put("ZPMOFFLINE_SRV.ZPMTOPER"+i, data.slice(i*500,end));
-	        storageIndex.push("ZPMOFFLINE_SRV.ZPMTOPER"+i);
-	    }
-	    oStorage.put("ZSStorageIndex",storageIndex);
+	onPrepareIDB:function(){
+	    if(window.indexedDB == null)
+        {
+            alert("Offline store not supported!");
+            return null;
+        }else{
+            var createDBRequest= window.indexedDB.open("ZPMOfflineDB", 2);
+        
+            createDBRequest.onupgradeneeded = function(event){
+                oController.myDB = event.target.result;
+                var objectStore = oController.myDB.createObjectStore("OperStore", { keyPath: "Zczph" });
+                  objectStore.createIndex("Zczph", "Zczph", { unique: true });
+                  objectStore.createIndex("Estat", "Estat", { unique: false });
+                  objectStore.createIndex("Cuser", "Cuser", { unique: false });
+                  objectStore.createIndex("Cdata", "Cdata", { unique: false });
+                  objectStore.createIndex("Ztype", "Ztype", { unique: false });
+                  objectStore.createIndex("Otype", "Otype", { unique: false });
+                  objectStore.createIndex("Unity", "Unity", { unique: false });
+                  objectStore.createIndex("Dunum", "Dunum", { unique: false });
+                  objectStore.createIndex("Rarea", "Rarea", { unique: false });
+                  objectStore.createIndex("Iwerk", "Iwerk", { unique: false });
+                  objectStore.createIndex("Appdep", "Appdep", { unique: false });
+                  objectStore.createIndex("Ztask", "Ztask", { unique: false });
+                  objectStore.createIndex("Znote", "Znote", { unique: false });
+                  objectStore.createIndex("Prfty", "Prfty", { unique: false });
+                  objectStore.createIndex("Yxgroup", "Yxgroup", { unique: false });
+                  objectStore.createIndex("Zczfs", "Zczfs", { unique: false });
+                  objectStore.createIndex("Zlybnum", "Zlybnum", { unique: false });
+                  objectStore.createIndex("InfoTab", "InfoTab", { unique: false });
+            };
+            createDBRequest.onsuccess = function(event){
+                oController.myDB = event.target.result; //oController - Defined in onInit function
+            };
+            createDBRequest.onerror = function(oError)
+            {
+                alert("Open IndexedDB failed!");
+            };
+        }
 	},
-	onGetBigZS:function(){
-	    //Storage  
-		jQuery.sap.require("jquery.sap.storage");
-		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-	    var operData = [];
-	    var storageIndex = oStorage.get("ZSStorageIndex");
-	    for(var i=0;i<storageIndex.length;i++){
-	        var data = oStorage.get(storageIndex[i]);
-	        operData = operData.concat(data);
+	onSaveZSIDB:function(data){
+	    if(!oController.myDB){
+	        return;
 	    }
-	    return operData;
+
+        for (var i=0;i<data.length;i++) {
+            var oObject = data[i];
+            var oRecord = {Zczph: oObject.Zczph,
+                            Estat: oObject.Estat,
+                            Cuser: oObject.Cuser,
+                            Cdata: oObject.Cdata,
+                            Ztype: oObject.Ztype,
+                            Otype: oObject.Otype,
+                            Unity: oObject.Unity,
+                            Dunum: oObject.Dunum, 
+                            Rarea: oObject.Rarea,
+                            Iwerk: oObject.Iwerk,
+                            Appdep: oObject.Appdep,
+                            Ztask: oObject.Ztask,
+                            Znote: oObject.Znote,
+                            Prfty: oObject.Prfty,
+                            Yxgroup: oObject.Yxgroup,
+                            Zczfs: oObject.Zczfs,
+                            Zlybnum: oObject.Zlybnum,
+                            InfoTab: oObject.InfoTab};
+            var oTransaction = oController.myDB.transaction(["OperStore"], "readwrite");
+            var oDataStore = oTransaction.objectStore("OperStore");
+            oDataStore.add(oRecord);
+        }
 	},
+	onReadIDB:function(resultCallback){
+        var objectStore = oController.myDB.transaction("OperStore").objectStore("OperStore");
+        var items = [];
+        
+        objectStore.openCursor().onsuccess = function(event) {
+// 			var deferred = $.Deferred();
+            var cursor = event.target.result;
+            if (cursor) {
+                  items.push(cursor.value);
+                  cursor.continue();
+            }else {
+                resultCallback(items);
+                // deferred.resolve(items);
+            }
+        };
+	},
+// 	onSaveBigZS:function(data){
+// 	    //Storage  
+// 		jQuery.sap.require("jquery.sap.storage");
+// 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+// 		oStorage.removeAll("ZPMOFFLINE_SRV.ZPMTOPER");
+// 		var storageIndex = [];
+// 		var iSize = 500;
+// 	    for(var i=0;i*iSize < data.length;i++){
+// 	        var end = (i+1)*iSize > data.length  ? data.length : (i+1)*iSize;
+// 	        oStorage.put("ZPMOFFLINE_SRV.ZPMTOPER"+i, data.slice(i*iSize,end));
+// 	        storageIndex.push("ZPMOFFLINE_SRV.ZPMTOPER"+i);
+// 	    }
+// 	    oStorage.put("ZSStorageIndex",storageIndex);
+// 	},
+// 	onGetBigZS:function(){
+
+// 	    //Storage  
+// 		jQuery.sap.require("jquery.sap.storage");
+// 		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+// 	    var operData = [];
+// 	    var storageIndex = oStorage.get("ZSStorageIndex");
+// 	    for(var i=0;i<storageIndex.length;i++){
+// 	        var data = oStorage.get(storageIndex[i]);
+// 	        if(data){
+// 	            operData = operData.concat(data);
+// 	        }
+// 	    }
+// 	    return operData;
+// 	},
 	// 	onUploadToEcc: function(){
 	// 		//读取LOCAL STORAGE 中的数据,作为程序的下拉框主数据
 	// 		//Storage  
