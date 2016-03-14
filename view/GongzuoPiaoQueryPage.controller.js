@@ -244,7 +244,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
 	        AQCSDataX.setData(aFilterPerX,false);
 	        //检修提出安措数据列表
 			sap.ui.getCore().setModel(AQCSDataX,"AQCSDataX");
-			//补充运行安错数据列表
+			//补充运行安措数据列表
 	        AQCSDataY.setData(aFilterPerY,false);
 			sap.ui.getCore().setModel(AQCSDataY,"AQCSDataY");
 			
@@ -265,7 +265,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
 			    oInfoJson.Yvisible=true;
 			}
 			if(Ztype=="JBP"){
-			    oInfoJson.Ytitle="开工后安错";
+			    oInfoJson.Ytitle="开工后安措";
 			    oInfoJson.Yvisible=true;
 			    oInfoJson.ZkghacVisible=true;
 			}

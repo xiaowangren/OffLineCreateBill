@@ -118,7 +118,7 @@
     	</lay:MatrixLayoutRow>
         <lay:MatrixLayoutRow>
             <lay:MatrixLayoutCell colSpan="1">
-                <c:TextView text="是否有开工会按错" visible="{AQCSDataYInfo>/ZkghacVisible}"></c:TextView>
+                <c:TextView text="是否有开工会按措" visible="{AQCSDataYInfo>/ZkghacVisible}"></c:TextView>
             </lay:MatrixLayoutCell>
             <lay:MatrixLayoutCell colSpan="1">
                 <c:ComboBox width="60%" 

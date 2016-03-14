@@ -29,7 +29,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
         var DangerTab = [{Zfxlx:"",Dangno:"1",Dangsnot:"",Zztext:"",Zzremark:"",Zzpltxt:""}];
         var AqcsTabX=[];
         if(idWorkTypeInitialize!="JXD"){
-            var Group={Code:"",Seqc:"1",Actext:"无"};
+            var Group={Code:"",Seqc:"1",Actext:""};
             var AQCSDataX= sap.ui.getCore().getModel("AQCSDataX").getData();
             if(AQCSDataX){
                         if(AQCSDataX.length>0){
@@ -180,7 +180,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 	        AQCSDataX.setData(aFilterPerX,false);
 	        //检修提出安措数据列表
 			sap.ui.getCore().setModel(AQCSDataX,"AQCSDataX");
-			//补充运行按错数据列表
+			//补充运行按措数据列表
 	        AQCSDataY.setData(aFilterPerY,false);
 			sap.ui.getCore().setModel(AQCSDataY,"AQCSDataY");
 		}*/
