@@ -242,9 +242,15 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         var tmpNo1 = 0;
         var tmpNo2 = 0;
         var cn_no = ["一","二","三","四","五","六","七","八","九","十"];
+        var aczxqk = "";
         for(var i=0;i<arrAqcs.length;i++){
             if(!currCode || currCode != arrAqcs[i][0]){
                 currCode = arrAqcs[i][0];
+            }
+            if(tmpNo1 == 1 || tmpNo2 == 1){
+                aczxqk = '安措执行情况\n(注明确实地点、名称及接地线编号)';
+            }else{
+                aczxqk = '安措执行情况';
             }
             for(var j=0;j<modelData.AqcsTabX.length;j++){
                 if(currCode == modelData.AqcsTabX[j].Code){
@@ -268,6 +274,41 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         }
         // console.log(aqcsBody1);
         // console.log(aqcsBody2);
+        //根据双签标识，生成第一项和第八项
+        var formPart1 = [];
+        var gzpqfr = [];
+        formPart1.push([ '1.',{text:[ '工作单位：',{text: this.getUnderLineText(appDepdec, 28),style:'underLineText'}]}, 
+									        {text:[ '班组：',{text: this.getUnderLineText(classdec, 34),style:'underLineText'}]} ]);
+        formPart1.push([ '', {text:[ '工作负责人：',{text: this.getUnderLineText(modelData.Name, 26),style:'underLineText'}]},
+									        {text:[ '联系方式：',{text: this.getUnderLineText(modelData.Phone1, 30),style:'underLineText'}]} ]);
+        //双签标识
+        if(modelData.Sqbz == true){
+            formPart1.push([ '',{text:[ '联系部门：',{text: this.getUnderLineText(modelData.Lxbm, 16),style:'underLineText'},
+							             '联系人：',{text: this.getUnderLineText(modelData.Contact, 20),style:'underLineText'},
+        							     '联系方式：',{text: this.getUnderLineText(modelData.Phone, 18),style:'underLineText'}],colSpan:2}, {}]);
+            gzpqfr.push([ '8.', {text:[ '外包单位签发人：',{text: this.getUnderLineText("", 22),style:'underLineText'}]}, {text:[ '签发时间：',
+    									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}]);
+            gzpqfr.push([ '', {text:[ '业主签发人：',{text: this.getUnderLineText("", 26),style:'underLineText'}]}, {text:[ '签发时间：',
+    									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}]);
+        }else{
+            gzpqfr.push([ '8.', {text:[ '工作票签发人：',{text: this.getUnderLineText("", 24),style:'underLineText'}]}, {text:[ '签发时间：',
+    									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}]);
+        }
+        formPart1.push([ '', {text:['工作班组成员（不包含工作负责人）',{text:this.getUnderLineText(groupPersons, 114),style:'underLineText'},
+									        '等共',{text:this.getUnderLineText(groupPersonNum, 2),style:'underLineText'},'人，附页',
+									        {text:this.getUnderLineText(fuyeNum, 2),style:'underLineText'},'张'],colSpan:2}, {} ]);
         var content = [
                 {
 					table: {
@@ -287,14 +328,16 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					table: {
 							headerRows: 0,
 							widths: ['2%','48%','50%'],
+							body: formPart1
+                    },
+					layout: 'noBorders'
+				},
+				{
+				// 	style: 'bodyTable',
+					table: {
+							headerRows: 0,
+							widths: ['2%','48%','50%'],
 							body: [
-									[ '1.',{text:[ '工作单位：',{text: this.getUnderLineText(appDepdec, 28),style:'underLineText'}]}, 
-									        {text:[ '班组：',{text: this.getUnderLineText(classdec, 34),style:'underLineText'}]} ],
-									[ '', {text:[ '工作负责人：',{text: this.getUnderLineText(modelData.Name, 26),style:'underLineText'}]},
-									        {text:[ '联系方式：',{text: this.getUnderLineText(modelData.Phone1, 30),style:'underLineText'}]} ],
-									[ '', {text:['工作班组成员（不包含工作负责人）',{text:this.getUnderLineText(groupPersons, 116),style:'underLineText'},
-									        '等共',{text:this.getUnderLineText(groupPersonNum, 2),style:'underLineText'},'人，附页',
-									        {text:this.getUnderLineText(fuyeNum, 2),style:'underLineText'},'张'],colSpan:2}, {} ],
 									[ '2.', {text:[ '工作地点：',{text: this.getUnderLineText(modelData.SPlace, 73),style:'underLineText'}],colSpan:2}, {}],
 									[ '', {text:[ '工作内容：',{text: this.getUnderLineText(modelData.SCont, 73),style:'underLineText'}],colSpan:2}, {}],
 									[ '3.', {text:[ '工作计划开始时间：',
@@ -384,13 +427,15 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 				    // style: 'bodyTable',
 					table: {
 							widths: ['2%','48%','50%'],
+							body: gzpqfr
+					},
+					layout: 'noBorders'
+				},
+				{
+				    // style: 'bodyTable',
+					table: {
+							widths: ['2%','48%','50%'],
 							body: [
-        							[ '8.', {text:[ '工作票签发人：',{text: this.getUnderLineText("", 24),style:'underLineText'}]}, {text:[ '签发时间：',
-									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}],
         						    [ '9.', {text:[ '集控接票人：',{text: this.getUnderLineText("", 26),style:'underLineText'}]}, {text:[ '接票时间：',
 									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
@@ -415,7 +460,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:2}, {}],
-        							[ '9.', {text:[ '值长：',{text: this.getUnderLineText("", 32),style:'underLineText'}]}, {text:[ '签字时间：',
+        							[ '', {text:[ '值长：',{text: this.getUnderLineText("", 32),style:'underLineText'}]}, {text:[ '签字时间：',
 									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
@@ -1369,7 +1414,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         							        {text: this.getUnderLineText("", 4),style:'underLineText'},'时',
         								    {text: this.getUnderLineText("", 4),style:'underLineText'},'分' ],colSpan:2}, {}],
 		          			        [ '15.',{text: '工作票终结：',colSpan:2}, {}],
-							        [ '',   {text:[ '临时遮拦、标示牌已拆除，常设遮拦已恢复。已拆除（或已拉开）的接地线、接地闸刀（小车）共',
+							        [ '',   {text:[ '临时遮栏、标示牌已拆除，常设遮栏已恢复。已拆除（或已拉开）的接地线、接地闸刀（小车）共',
 							                {text: this.getUnderLineText("", 8),style:'underLineText'},'副（台），已汇报值班分责人。'],colSpan:2}, {}],
                                     [ '',   {text:[ '拆除时间：',
 								            {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
@@ -1737,7 +1782,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         							        {text: this.getUnderLineText("", 4),style:'underLineText'},'时',
         								    {text: this.getUnderLineText("", 4),style:'underLineText'},'分' ],colSpan:2}, {}],
 		          			        [ '19.',{text: '工作票终结：',colSpan:2}, {}],
-							        [ '',   {text:[ '临时遮拦、标示牌已拆除，常设遮拦已恢复。已拆除（或已拉开）的接地线、接地闸刀（小车）共',
+							        [ '',   {text:[ '临时遮栏、标示牌已拆除，常设遮栏已恢复。已拆除（或已拉开）的接地线、接地闸刀（小车）共',
 							                {text: this.getUnderLineText("", 8),style:'underLineText'},'副（台），已汇报值班分责人。'],colSpan:2}, {}],
                                     [ '',   {text:[ '拆除时间：',
 								            {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
@@ -2090,7 +2135,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         							        {text: this.getUnderLineText("", 4),style:'underLineText'},'时',
         								    {text: this.getUnderLineText("", 4),style:'underLineText'},'分' ],colSpan:2}, {}],
 		          			        [ '17.',{text: '工作票终结：',colSpan:2}, {}],
-							        [ '',   {text:[ '临时遮拦、标示牌已拆除，常设遮拦已恢复。已拆除（或已拉开）的接地线、接地闸刀（小车）共',
+							        [ '',   {text:[ '临时遮栏、标示牌已拆除，常设遮栏已恢复。已拆除（或已拉开）的接地线、接地闸刀（小车）共',
 							                {text: this.getUnderLineText("", 8),style:'underLineText'},'副（台），已汇报值班分责人。'],colSpan:2}, {}],
                                     [ '',   {text:[ '拆除时间：',
 								            {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
@@ -2156,7 +2201,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         									{text: this.getUnderLineText(modelData.Jhgzfitime.substring(3,5), 2),style:'underLineText'},'分'],alignment:'center',colSpan:3},{},{}],
 									[ {text: '工作负责人\n\n\n', alignment:'center'},{text: modelData.Name},
 									  {text: '联系电话\n\n\n', alignment:'center'},{text: modelData.Phone1}],
-									[ {text: '计划班组成员\n\n\n\n', alignment:'center'},{text: groupPersons,colSpan:3},{},{}],
+									[ {text: '工作班成员\n\n\n\n', alignment:'center'},{text: groupPersons,colSpan:3},{},{}],
 									[ {text: '值班负责人意见\n\n\n', alignment:'center'},
 									  {text: ['\n签名           ',{text: this.getUnderLineText("", 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
