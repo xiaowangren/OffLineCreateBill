@@ -1953,6 +1953,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         var tmpNo = 0;
         var cn_no = ["一","二","三","四","五","六","七","八","九","十"];
         var aczxqk = "";//安措执行情况
+        console.log(arrAqcs);
         for(var i=0;i<arrAqcs.length;i++){
             if(!currCode || currCode != arrAqcs[i][0]){
                 currCode = arrAqcs[i][0];
@@ -1972,6 +1973,14 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
                     aqcsBody.push([ modelData.AqcsTabX[j].Seqc, {text:modelData.AqcsTabX[j].Actext},{text:''} ]);
                 }
             }
+        }
+        //开工后安全措施
+        var aqcsBody2 = [];
+        aqcsBody2.push([ '序号',{text:'开工后的安全措施',style:'tableHeader',alignment:'center'}, 
+									         {text:'执行',style:'tableHeader', alignment:'center'},
+									         {text:'恢复',style:'tableHeader', alignment:'center'}]);
+        for(var j=0;j<modelData.AqcsTabY.length;j++){
+            aqcsBody2.push([ modelData.AqcsTabY[j].Seqc, {text:modelData.AqcsTabY[j].Actext},{text:''},{text:''} ]);
         }
         //根据双签标识，生成第一项和第八项
         var formPart1 = [];
@@ -2115,14 +2124,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					table: {
 							headerRows: 0,
 							widths: ['2%','50%','24%','24%'],
-							body: [
-									[ '序号',{text:'开工后的安全措施',style:'tableHeader',alignment:'center'}, 
-									         {text:'执行',style:'tableHeader', alignment:'center'},
-									         {text:'恢复',style:'tableHeader', alignment:'center'}],
-									[ '1', {text:'\n'},
-									       {text:''},
-									       {text:''}]
-							]
+							body: aqcsBody2
 					}
 				},
 
