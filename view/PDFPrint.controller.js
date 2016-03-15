@@ -257,14 +257,14 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
                     if(modelData.AqcsTabX[j].Codegruppe == 'DCC001'){
                         if(modelData.AqcsTabX[j].Seqc == '1'){
                             //表头
-                            aqcsBody1.push([ cn_no[tmpNo1],{text:arrAqcs[i][1],style:'tableHeader',alignment:'center'}, {text: '安措执行情况',style:'tableHeader', alignment:'center'}]);
+                            aqcsBody1.push([ cn_no[tmpNo1],{text:arrAqcs[i][1],style:'tableHeader',alignment:'center'}, {text: aczxqk,style:'tableHeader', alignment:'center'}]);
                             tmpNo1 ++;
                         }
                         aqcsBody1.push([ modelData.AqcsTabX[j].Seqc, {text:modelData.AqcsTabX[j].Actext},{text:''} ]);
                     }else{
                         if(modelData.AqcsTabX[j].Seqc == '1'){
                             //表头
-                            aqcsBody2.push([ cn_no[tmpNo2],{text:arrAqcs[i][1],style:'tableHeader',alignment:'center'}, {text: '安措执行情况',style:'tableHeader', alignment:'center'}]);
+                            aqcsBody2.push([ cn_no[tmpNo2],{text:arrAqcs[i][1],style:'tableHeader',alignment:'center'}, {text: aczxqk,style:'tableHeader', alignment:'center'}]);
                             tmpNo2 ++;
                         }
                         aqcsBody2.push([ modelData.AqcsTabX[j].Seqc, {text:modelData.AqcsTabX[j].Actext},{text:''} ]);
