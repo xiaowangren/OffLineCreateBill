@@ -655,6 +655,41 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         for(var i=0;i<modelData.AqcsTabY.length;i++){
             aqcsBodyY.push([modelData.AqcsTabY[i].Seqc,modelData.AqcsTabY[i].Actext]);
         }
+        //根据双签标识，生成第3项和第11项
+        var delta = 0;
+        var formPart1 = [];
+        var gzpqfr = [];
+        formPart1.push([ '1.',{text:[ '工作单位：',{text: this.getUnderLineText(appDepdec, 28),style:'underLineText'}]}, 
+									        {text:[ '班组：',{text: this.getUnderLineText(classdec, 34),style:'underLineText'}]} ]);
+        formPart1.push([ '2.', {text:[ '动火工作负责人：',{text: this.getUnderLineText(modelData.Name, 22),style:'underLineText'}]},
+									        {text:[ '联系方式：',{text: this.getUnderLineText(modelData.Phone1, 30),style:'underLineText'}]} ]);
+        //双签标识
+        if(modelData.Sqbz == true){
+            delta = 1;
+            formPart1.push([ '3.',{text:[ '联系部门：',{text: this.getUnderLineText(modelData.Lxbm, 16),style:'underLineText'},
+							             '联系人：',{text: this.getUnderLineText(modelData.Contact, 20),style:'underLineText'},
+        							     '联系方式：',{text: this.getUnderLineText(modelData.Phone, 18),style:'underLineText'}],colSpan:2}, {}]);
+            gzpqfr.push([ (10+delta)+'.', {text:[ '外包单位签发人：',{text: this.getUnderLineText("", 22),style:'underLineText'}]}, {text:[ '签发时间：',
+    									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}]);
+            gzpqfr.push([ '', {text:[ '业主签发人：',{text: this.getUnderLineText("", 26),style:'underLineText'}]}, {text:[ '签发时间：',
+    									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}]);
+        }else{
+            gzpqfr.push([ (10+delta)+'.', {text:[ '动火工作票签发人：',{text: this.getUnderLineText("", 20),style:'underLineText'}]}, {text:[ '签发时间：',
+    									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}]);
+        }
+
         var content = [
                 {
 					table: {
@@ -679,23 +714,28 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					table: {
 							headerRows: 0,
 							widths: ['2%','48%','50%'],
+							body: formPart1
+					},
+					layout: 'noBorders'
+				},
+                {
+				// 	style: 'bodyTable',
+					table: {
+							headerRows: 0,
+							widths: ['2%','48%','50%'],
 							body: [
-									[ '1.',{text:[ '工作单位：',{text: this.getUnderLineText(appDepdec, 28),style:'underLineText'}]}, 
-									       {text:[ '班组：',{text: this.getUnderLineText(classdec, 34),style:'underLineText'}]} ],
-									[ '2.', {text:[ '动火工作负责人：',{text: this.getUnderLineText(modelData.Name, 22),style:'underLineText'}]},
-									        {text:[ '联系方式：',{text: this.getUnderLineText(modelData.Phone1, 30),style:'underLineText'}]} ],
 								// 	 //动态内容									
-									['3',{text:dhzxr,colSpan:2},{}],
+									[(3+delta)+'.',{text:dhzxr,colSpan:2},{}],
 								// 	[ '3.', {text:[ '动火执行人：',{text: this.getUnderLineText("楼伟伟", 26),style:'underLineText'},
 								// 	                '   动火执行人操作证编号：',{text: this.getUnderLineText("1234567890", 18),style:'underLineText'}],colSpan:2},{}],
 								// 	[ '', {text:[ '动火执行人：',{text: this.getUnderLineText("楼伟伟", 26),style:'underLineText'}]},
 								// 	       {text:[ '动火执行人操作证编号：',{text: this.getUnderLineText("1234567890", 18),style:'underLineText'}]} ],
-									[ '4.', {text:[ '动火地点及设备名称：',{text: this.getUnderLineText(modelData.SPlace, 147),style:'underLineText'}],colSpan:2}, {}],
-									[ '5', {text:[ '动火工作内容（必要时可附页绘图说明）：',{text: this.getUnderLineText(modelData.SCont, 129),style:'underLineText'}],colSpan:2}, {}],
+									[ (4+delta)+'.', {text:[ '动火地点及设备名称：',{text: this.getUnderLineText(modelData.SPlace, 147),style:'underLineText'}],colSpan:2}, {}],
+									[ (5+delta)+'.', {text:[ '动火工作内容（必要时可附页绘图说明）：',{text: this.getUnderLineText(modelData.SCont, 129),style:'underLineText'}],colSpan:2}, {}],
 									//动态内容
-                                    [ '6.', {text:[ '动火方式：',{text: this.getUnderLineText(donghuoTxt, 73),style:'underLineText'}],colSpan:2}, {}],
+                                    [ (6+delta)+'.', {text:[ '动火方式：',{text: this.getUnderLineText(donghuoTxt, 73),style:'underLineText'}],colSpan:2}, {}],
                                     [ '', {text:'动火方式可填写熔化焊接、切割、压力焊、钎焊、喷灯、钻孔、打磨、锤击、破碎、切削等。',colSpan:2}, {}],
-        							[ '7.', {text:'运行部门应采取的安全措施:',colSpan:2}, {}]
+        							[ (7+delta)+'.', {text:'运行部门应采取的安全措施:',colSpan:2}, {}]
 							]
 					},
 					layout: 'noBorders'
@@ -713,7 +753,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					table: {
 							widths: ['2%','48%','50%'],
 							body: [
-        							[ '8.', {text:'动火部门应采取的安全措施',colSpan:2}, {}]
+        							[ (8+delta)+'.', {text:'动火部门应采取的安全措施',colSpan:2}, {}]
 							]
 					},
 					layout: 'noBorders'
@@ -730,7 +770,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					table: {
 							widths: ['2%','48%','50%'],
 							body: [
-									[ '9.', {text:[ '申请动火开始时间：',
+									[ (9+delta)+'.', {text:[ '申请动火开始时间：',
 									        {text: this.getUnderLineText(modelData.Jhgzbedate.substring(0,4), 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText(modelData.Jhgzbedate.substring(5,7), 2),style:'underLineText'},'月',
         									{text: this.getUnderLineText(modelData.Jhgzbedate.substring(8,10), 2),style:'underLineText'},'日',
@@ -741,14 +781,25 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         									{text: this.getUnderLineText(modelData.Jhgzfidate.substring(5,7), 2),style:'underLineText'},'月',
         									{text: this.getUnderLineText(modelData.Jhgzfidate.substring(8,10), 2),style:'underLineText'},'日',
         									{text: this.getUnderLineText(modelData.Jhgzfitime.substring(0,2), 2),style:'underLineText'},'时',
-        									{text: this.getUnderLineText(modelData.Jhgzfitime.substring(3,5), 2),style:'underLineText'},'分'],colSpan:2}, {}],
-        							[ '10.', {text:[ '动火工作票签发人签名：',{text: this.getUnderLineText("", 18),style:'underLineText'}]}, {text:[ '签发时间：',
-									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}],
-                                    [ '11.', {text:'审批：',colSpan:2}, {}],
+        									{text: this.getUnderLineText(modelData.Jhgzfitime.substring(3,5), 2),style:'underLineText'},'分'],colSpan:2}, {}]
+							]
+					},
+					layout: 'noBorders'
+				},
+				{
+				    // style: 'bodyTable',
+					table: {
+							widths: ['2%','48%','50%'],
+							body: gzpqfr
+					},
+					layout: 'noBorders'
+				},
+				{
+				    // style: 'bodyTable',
+					table: {
+							widths: ['2%','48%','50%'],
+							body: [
+                                    [ (11+delta)+'.', {text:'审批：',colSpan:2}, {}],
                                     [ '', {text:[ '审核人：安键环部负责人签名：',{text: this.getUnderLineText("", 55),style:'underLineText'}],colSpan:2}, {}],
                                     [ '', {text:[ '批准人：分管生产的领导或技术负责人（总工程师）签名：',{text: this.getUnderLineText("", 31),style:'underLineText'}],colSpan:2}, {}],
         							[ '', {text:[ '批准动火开始时间：',
@@ -763,13 +814,13 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:2}, {}],
-        							[ '12.', {text:[ '工作票接票人：',{text: this.getUnderLineText("", 24),style:'underLineText'}]}, {text:[ '按票时间：',
+        							[ (12+delta)+'.', {text:[ '工作票接票人：',{text: this.getUnderLineText("", 24),style:'underLineText'}]}, {text:[ '按票时间：',
 									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}],
-        							[ '13.', {text:'运行部门应采取的安全措施已全部执行完毕：',colSpan:2}, {}],
+        							[ (13+delta)+'.', {text:'运行部门应采取的安全措施已全部执行完毕：',colSpan:2}, {}],
 									[ '', {text:[ '运行许可动火时间',
 									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
@@ -777,7 +828,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:2}, {}],
         							[ '',{text:[ '运行许可人签名：',{text: this.getUnderLineText("", 22),style:'underLineText'}],colSpan:2},{}],
-									[ '14.', {text:[ '应配备的消防设施和采取的消防措施、安全措施已符合要求。可燃性、易爆气体含量或粉尘浓度合格（测定值',
+									[ (14+delta)+'.', {text:[ '应配备的消防设施和采取的消防措施、安全措施已符合要求。可燃性、易爆气体含量或粉尘浓度合格（测定值',
         									{text: this.getUnderLineText("", 12),style:'underLineText'},'）。'],colSpan:2}, {}],
         							[ '',{text:[ '动火执行人签名：',{text: this.getUnderLineText("", 22),style:'underLineText'}]},
         							     {text:[ '消防监护人签名：',{text: this.getUnderLineText("", 24),style:'underLineText'}]}],
@@ -791,7 +842,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:2}, {}],
-        							[ '15.', {text:'动火间断',colSpan:2}, {}]
+        							[ (15+delta)+'.', {text:'动火间断',colSpan:2}, {}]
 							]
 					},
 					layout: 'noBorders'
@@ -818,7 +869,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					table: {
 							widths: ['2%','48%','50%'],
 							body: [
-        							[ '16.', {text:'动火恢复',colSpan:2}, {}]
+        							[ (16+delta)+'.', {text:'动火恢复',colSpan:2}, {}]
 							]
 					},
 					layout: 'noBorders'
@@ -847,7 +898,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					table: {
 							widths: ['2%','48%','50%'],
 							body: [
-        							[ '17.', {text:'动火工作终结：',colSpan:2}, {}],
+        							[ (17+delta)+'.', {text:'动火工作终结：',colSpan:2}, {}],
         							[ '', {text:[ '动火工作于',
 							        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
 									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
@@ -857,7 +908,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 								// 	[ '', {text:'火种，参与现场动火工作的有关人员已全部撤离，动火工作已结束。',colSpan:2}, {}],
 									[ '', {text:[ '动火执行人签名：',{text: this.getUnderLineText("", 22),style:'underLineText'}]}, {text:[ '消防监护人签名：',{text: this.getUnderLineText("", 24),style:'underLineText'}]}],
         							[ '', {text:[ '动火工作负责人签名：',{text: this.getUnderLineText("", 18),style:'underLineText'}]}, {text:[ '运行许可人签名：',{text: this.getUnderLineText("", 24),style:'underLineText'}]}],
-        							[ '18.', {text:'备注：',colSpan:2}, {}],
+        							[ (18+delta)+'.', {text:'备注：',colSpan:2}, {}],
         							[ '', {text:[ '（1）对应的检修工作票、工作任务单或事故抢修单编号：（如无，填写“无”）',{text: this.getUnderLineText("", 96),style:'underLineText'}],colSpan:2}, {}],
         							[ '', {text:[ '（2）其它事项：',{text: this.getUnderLineText("", 152),style:'underLineText'}],colSpan:2}, {}]
 							]
@@ -910,6 +961,40 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         for(var i=0;i<modelData.AqcsTabY.length;i++){
             aqcsBodyY.push([modelData.AqcsTabY[i].Seqc,modelData.AqcsTabY[i].Actext]);
         }
+        //根据双签标识，生成第3项和第11项
+        var delta = 0;
+        var formPart1 = [];
+        var gzpqfr = [];
+        formPart1.push([ '1.',{text:[ '工作单位：',{text: this.getUnderLineText(appDepdec, 28),style:'underLineText'}]}, 
+									        {text:[ '班组：',{text: this.getUnderLineText(classdec, 34),style:'underLineText'}]} ]);
+        formPart1.push([ '2.', {text:[ '动火工作负责人：',{text: this.getUnderLineText(modelData.Name, 22),style:'underLineText'}]},
+									        {text:[ '联系方式：',{text: this.getUnderLineText(modelData.Phone1, 30),style:'underLineText'}]} ]);
+        //双签标识
+        if(modelData.Sqbz == true){
+            delta = 1;
+            formPart1.push([ '3.',{text:[ '联系部门：',{text: this.getUnderLineText(modelData.Lxbm, 16),style:'underLineText'},
+							             '联系人：',{text: this.getUnderLineText(modelData.Contact, 20),style:'underLineText'},
+        							     '联系方式：',{text: this.getUnderLineText(modelData.Phone, 18),style:'underLineText'}],colSpan:2}, {}]);
+            gzpqfr.push([ (10+delta)+'.', {text:[ '外包单位签发人：',{text: this.getUnderLineText("", 22),style:'underLineText'}]}, {text:[ '签发时间：',
+    									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}]);
+            gzpqfr.push([ '', {text:[ '业主签发人：',{text: this.getUnderLineText("", 26),style:'underLineText'}]}, {text:[ '签发时间：',
+    									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}]);
+        }else{
+            gzpqfr.push([ (10+delta)+'.', {text:[ '动火工作票签发人：',{text: this.getUnderLineText("", 20),style:'underLineText'}]}, {text:[ '签发时间：',
+    									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}]);
+        }
         var content = [
                 {
 					table: {
@@ -934,23 +1019,28 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					table: {
 							headerRows: 0,
 							widths: ['2%','48%','50%'],
+							body: formPart1
+					},
+					layout: 'noBorders'
+				},
+                {
+				// 	style: 'bodyTable',
+					table: {
+							headerRows: 0,
+							widths: ['2%','48%','50%'],
 							body: [
-									[ '1.',{text:[ '工作单位：',{text: this.getUnderLineText(appDepdec, 28),style:'underLineText'}]}, 
-									       {text:[ '班组：',{text: this.getUnderLineText(classdec, 34),style:'underLineText'}]} ],
-									[ '2.', {text:[ '动火工作负责人：',{text: this.getUnderLineText(modelData.Name, 22),style:'underLineText'}]},
-									        {text:[ '联系方式：',{text: this.getUnderLineText(modelData.Phone1, 30),style:'underLineText'}]} ],
 								// 	 //动态内容									
-									['3',{text:dhzxr,colSpan:2},{}],
+									[(3+delta)+'.',{text:dhzxr,colSpan:2},{}],
 								// 	[ '3.', {text:[ '动火执行人：',{text: this.getUnderLineText("楼伟伟", 26),style:'underLineText'},
 								// 	                '   动火执行人操作证编号：',{text: this.getUnderLineText("1234567890", 18),style:'underLineText'}],colSpan:2},{}],
 								// 	[ '', {text:[ '动火执行人：',{text: this.getUnderLineText("楼伟伟", 26),style:'underLineText'}]},
 								// 	       {text:[ '动火执行人操作证编号：',{text: this.getUnderLineText("1234567890", 18),style:'underLineText'}]} ],
-									[ '4.', {text:[ '动火地点及设备名称：',{text: this.getUnderLineText(modelData.SPlace, 147),style:'underLineText'}],colSpan:2}, {}],
-									[ '5', {text:[ '动火工作内容（必要时可附页绘图说明）：',{text: this.getUnderLineText(modelData.SCont, 129),style:'underLineText'}],colSpan:2}, {}],
+									[ (4+delta)+'.', {text:[ '动火地点及设备名称：',{text: this.getUnderLineText(modelData.SPlace, 147),style:'underLineText'}],colSpan:2}, {}],
+									[ (5+delta)+'.', {text:[ '动火工作内容（必要时可附页绘图说明）：',{text: this.getUnderLineText(modelData.SCont, 129),style:'underLineText'}],colSpan:2}, {}],
 									//动态内容
-                                    [ '6.', {text:[ '动火方式：',{text: this.getUnderLineText(donghuoTxt, 73),style:'underLineText'}],colSpan:2}, {}],
+                                    [ (6+delta)+'.', {text:[ '动火方式：',{text: this.getUnderLineText(donghuoTxt, 73),style:'underLineText'}],colSpan:2}, {}],
                                     [ '', {text:'动火方式可填写熔化焊接、切割、压力焊、钎焊、喷灯、钻孔、打磨、锤击、破碎、切削等。',colSpan:2}, {}],
-        							[ '7.', {text:'运行部门应采取的安全措施:',colSpan:2}, {}]
+        							[ (7+delta)+'.', {text:'运行部门应采取的安全措施:',colSpan:2}, {}]
 							]
 					},
 					layout: 'noBorders'
@@ -968,7 +1058,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					table: {
 							widths: ['2%','48%','50%'],
 							body: [
-        							[ '8.', {text:'动火部门应采取的安全措施',colSpan:2}, {}]
+        							[ (8+delta)+'.', {text:'动火部门应采取的安全措施',colSpan:2}, {}]
 							]
 					},
 					layout: 'noBorders'
@@ -985,7 +1075,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					table: {
 							widths: ['2%','48%','50%'],
 							body: [
-									[ '9.', {text:[ '申请动火开始时间：',
+									[ (9+delta)+'.', {text:[ '申请动火开始时间：',
 									        {text: this.getUnderLineText(modelData.Jhgzbedate.substring(0,4), 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText(modelData.Jhgzbedate.substring(5,7), 2),style:'underLineText'},'月',
         									{text: this.getUnderLineText(modelData.Jhgzbedate.substring(8,10), 2),style:'underLineText'},'日',
@@ -996,16 +1086,27 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         									{text: this.getUnderLineText(modelData.Jhgzfidate.substring(5,7), 2),style:'underLineText'},'月',
         									{text: this.getUnderLineText(modelData.Jhgzfidate.substring(8,10), 2),style:'underLineText'},'日',
         									{text: this.getUnderLineText(modelData.Jhgzfitime.substring(0,2), 2),style:'underLineText'},'时',
-        									{text: this.getUnderLineText(modelData.Jhgzfitime.substring(3,5), 2),style:'underLineText'},'分'],colSpan:2}, {}],
-        							[ '10.', {text:[ '动火工作票签发人签名：',{text: this.getUnderLineText("", 18),style:'underLineText'}]}, {text:[ '签发时间：',
-									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}],
-                                    [ '11.', {text:'审批：',colSpan:2}, {}],
+        									{text: this.getUnderLineText(modelData.Jhgzfitime.substring(3,5), 2),style:'underLineText'},'分'],colSpan:2}, {}]
+							]
+					},
+					layout: 'noBorders'
+				},
+				{
+				    // style: 'bodyTable',
+					table: {
+							widths: ['2%','48%','50%'],
+							body: gzpqfr
+					},
+					layout: 'noBorders'
+				},
+				{
+				    // style: 'bodyTable',
+					table: {
+							widths: ['2%','48%','50%'],
+							body: [
+                                    [ (11+delta)+'.', {text:'审批：',colSpan:2}, {}],
                                     [ '', {text:[ '审核人：动火部门安监人员签名：',{text: this.getUnderLineText("", 53),style:'underLineText'}],colSpan:2}, {}],
-                                    [ '', {text:[ '批准人：动火部门负责人或技术负责人（总工程师）签名：',{text: this.getUnderLineText("", 31),style:'underLineText'}],colSpan:2}, {}],
+                                    [ '', {text:[ '批准人：动火部门负责人或技术负责人签名：',{text: this.getUnderLineText("", 43),style:'underLineText'}],colSpan:2}, {}],
         							[ '', {text:[ '批准动火开始时间：',
 									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
@@ -1018,13 +1119,13 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:2}, {}],
-        							[ '12.', {text:[ '工作票接票人：',{text: this.getUnderLineText("", 24),style:'underLineText'}]}, {text:[ '按票时间：',
+        							[ (12+delta)+'.', {text:[ '工作票接票人：',{text: this.getUnderLineText("", 24),style:'underLineText'}]}, {text:[ '按票时间：',
 									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}],
-        							[ '13.', {text:'运行部门应采取的安全措施已全部执行完毕：',colSpan:2}, {}],
+        							[ (13+delta)+'.', {text:'运行部门应采取的安全措施已全部执行完毕：',colSpan:2}, {}],
 									[ '', {text:[ '运行许可动火时间',
 									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
@@ -1032,7 +1133,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:2}, {}],
         							[ '',{text:[ '运行许可人签名：',{text: this.getUnderLineText("", 22),style:'underLineText'}],colSpan:2},{}],
-									[ '14.', {text:[ '应配备的消防设施和采取的消防措施、安全措施已符合要求。可燃性、易爆气体含量或粉尘浓度合格（测定值',
+									[ (14+delta)+'.', {text:[ '应配备的消防设施和采取的消防措施、安全措施已符合要求。可燃性、易爆气体含量或粉尘浓度合格（测定值',
         									{text: this.getUnderLineText("", 12),style:'underLineText'},'）。'],colSpan:2}, {}],
         							[ '',{text:[ '动火执行人签名：',{text: this.getUnderLineText("", 22),style:'underLineText'}]},
         							     {text:[ '消防监护人签名：',{text: this.getUnderLineText("", 24),style:'underLineText'}]}],
@@ -1044,7 +1145,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:2}, {}],
-        							[ '15.', {text:'动火间断',colSpan:2}, {}]
+        							[ (15+delta)+'.', {text:'动火间断',colSpan:2}, {}]
 							]
 					},
 					layout: 'noBorders'
@@ -1052,18 +1153,17 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 				{
 					style: 'bodyTable',
 					table: {
-							widths: ['30%','18%','18%','18%','16%'],
+							widths: ['34%','22%','22%','22%'],
 							body: [
 									[ {text:'动火间断时间',alignment:'center'},
 									  {text:'动火负责人',alignment:'center'},
 									  {text: '动火执行人', alignment:'center'},
-									  {text: '消防监护人', alignment:'center'},
-									  {text: '安健环部负责人', alignment:'center'}],
-									[ '\n', {text:''},{text:''},'',''],
-									[ '\n', {text:''},{text:''},'',''],
-									[ '\n', {text:''},{text:''},'',''],
-									[ '\n', {text:''},{text:''},'',''],
-									[ '\n', {text:''},{text:''},'','']
+									  {text: '消防监护人', alignment:'center'}],
+									[ '\n', {text:''},{text:''},''],
+									[ '\n', {text:''},{text:''},''],
+									[ '\n', {text:''},{text:''},''],
+									[ '\n', {text:''},{text:''},''],
+									[ '\n', {text:''},{text:''},'']
 							]
 					}
 				},
@@ -1071,7 +1171,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					table: {
 							widths: ['2%','48%','50%'],
 							body: [
-        							[ '16.', {text:'动火恢复',colSpan:2}, {}]
+        							[ (16+delta)+'.', {text:'动火恢复',colSpan:2}, {}]
 							]
 					},
 					layout: 'noBorders'
@@ -1084,8 +1184,8 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 									[ {text:'动火恢复时间',alignment:'center'},
 									  {text:'动火负责人',alignment:'center'},
 									  {text: '动火执行人', alignment:'center'},
+									  {text: '动火部门安监人员', alignment:'center'},
 									  {text: '动火部门负责人', alignment:'center'},
-									  {text: '安健环部门负责人', alignment:'center'},
 									  {text: '消防监护人', alignment:'center'},
 									  {text: '动火许可人', alignment:'center'}],
 									[ '\n', {text:''},{text:''},'','','',''],
@@ -1100,7 +1200,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					table: {
 							widths: ['2%','48%','50%'],
 							body: [
-        							[ '17.', {text:'动火工作终结：',colSpan:2}, {}],
+        							[ (17+delta)+'.', {text:'动火工作终结：',colSpan:2}, {}],
         							[ '', {text:[ '动火工作于',
 							        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
 									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
@@ -1110,7 +1210,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 								// 	[ '', {text:'火种，参与现场动火工作的有关人员已全部撤离，动火工作已结束。',colSpan:2}, {}],
 									[ '', {text:[ '动火执行人签名：',{text: this.getUnderLineText("", 22),style:'underLineText'}]}, {text:[ '消防监护人签名：',{text: this.getUnderLineText("", 24),style:'underLineText'}]}],
         							[ '', {text:[ '动火工作负责人签名：',{text: this.getUnderLineText("", 18),style:'underLineText'}]}, {text:[ '运行许可人签名：',{text: this.getUnderLineText("", 24),style:'underLineText'}]}],
-        							[ '18.', {text:'备注：',colSpan:2}, {}],
+        							[ (18+delta)+'.', {text:'备注：',colSpan:2}, {}],
         							[ '', {text:[ '（1）对应的检修工作票、工作任务单或事故抢修单编号：（如无，填写“无”）',{text: this.getUnderLineText("", 96),style:'underLineText'}],colSpan:2}, {}],
         							[ '', {text:[ '（2）其它事项：',{text: this.getUnderLineText("", 152),style:'underLineText'}],colSpan:2}, {}]
 							]
@@ -1852,9 +1952,15 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         var currCode;
         var tmpNo = 0;
         var cn_no = ["一","二","三","四","五","六","七","八","九","十"];
+        var aczxqk = "";//安措执行情况
         for(var i=0;i<arrAqcs.length;i++){
             if(!currCode || currCode != arrAqcs[i][0]){
                 currCode = arrAqcs[i][0];
+            }
+            if(tmpNo == 2){
+                aczxqk = '安措执行情况\n(注明确实地点、名称及接地线编号)';
+            }else{
+                aczxqk = '安措执行情况';
             }
             for(var j=0;j<modelData.AqcsTabX.length;j++){
                 if(currCode == modelData.AqcsTabX[j].Code){
@@ -1867,6 +1973,41 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
                 }
             }
         }
+        //根据双签标识，生成第一项和第八项
+        var formPart1 = [];
+        var gzpqfr = [];
+        formPart1.push([ '1.',{text:[ '工作单位：',{text: this.getUnderLineText(appDepdec, 28),style:'underLineText'}]}, 
+									        {text:[ '班组：',{text: this.getUnderLineText(classdec, 34),style:'underLineText'}]} ]);
+        formPart1.push([ '', {text:[ '工作负责人：',{text: this.getUnderLineText(modelData.Name, 26),style:'underLineText'}]},
+									        {text:[ '联系方式：',{text: this.getUnderLineText(modelData.Phone1, 30),style:'underLineText'}]} ]);
+        //双签标识
+        if(modelData.Sqbz == true){
+            formPart1.push([ '',{text:[ '联系部门：',{text: this.getUnderLineText(modelData.Lxbm, 16),style:'underLineText'},
+							             '联系人：',{text: this.getUnderLineText(modelData.Contact, 20),style:'underLineText'},
+        							     '联系方式：',{text: this.getUnderLineText(modelData.Phone, 18),style:'underLineText'}],colSpan:2}, {}]);
+            gzpqfr.push([ '5.', {text:[ '外包单位签发人：',{text: this.getUnderLineText("", 22),style:'underLineText'}]}, {text:[ '签发时间：',
+    									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}]);
+            gzpqfr.push([ '', {text:[ '业主签发人：',{text: this.getUnderLineText("", 26),style:'underLineText'}]}, {text:[ '签发时间：',
+    									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}]);
+        }else{
+            gzpqfr.push([ '5.', {text:[ '工作票签发人：',{text: this.getUnderLineText("", 24),style:'underLineText'}]}, {text:[ '签发时间：',
+    									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
+            									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}]);
+        }
+        formPart1.push([ '', {text:['工作班组成员（不包含工作负责人）',{text:this.getUnderLineText(groupPersons, 114),style:'underLineText'},
+									        '等共',{text:this.getUnderLineText(groupPersonNum, 2),style:'underLineText'},'人，附页',
+									        {text:this.getUnderLineText(fuyeNum, 2),style:'underLineText'},'张'],colSpan:2}, {} ]);
         var content = [
                 {                                  
                     table:{
@@ -1882,16 +2023,21 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
                 },
                 {text:'编号：'+modelData.Wcmno,style:'subheader',alignment:'right'},
                 
-                       // 内容1
-               {       // 	style: 'bodyTable',
+                // 内容1
+               {       
+                   // 	style: 'bodyTable',
+                   table:{
+                       headerRows: 0,
+                       widths: ['2%','48%','50%'],
+                       body:formPart1
+                   },
+                layout: 'noBorders'
+               },   
+               {
                    table:{
                        headerRows: 0,
                        widths: ['2%','48%','50%'],
                        body:[
-								    [ '1.',{text:[ '工作单位：',{text: this.getUnderLineText(appDepdec, 28),style:'underLineText'}]}, {text:[ '班组：',{text: this.getUnderLineText(classdec, 36),style:'underLineText'}]} ],
-									[ '', {text:[ '工作负责人：',{text: this.getUnderLineText("", 26),style:'underLineText'}]},{text:[ '联系方式：',{text: this.getUnderLineText("1234567890", 32),style:'underLineText'}]} ],
-									[ '', {text:['工作班组成员（不包含工作负责人）：',{text:this.getUnderLineText(groupPersons, 113),style:'underLineText'},
-									        '等共',{text:this.getUnderLineText(groupPersonNum, 2),style:'underLineText'},'人，附页',{text:this.getUnderLineText(fuyeNum, 2),style:'underLineText'},'张'],colSpan:2}, {} ],
 									[ '2.', {text:[ '工作地点：',{text: this.getUnderLineText(modelData.SPlace, 73),style:'underLineText'}],colSpan:2}, {}],
 									[ '', {text:[ '工作内容：',{text: this.getUnderLineText(modelData.SCont, 73),style:'underLineText'}],colSpan:2}, {}],
 									[ '', {text:[ '检修设备双重命名：',{text: this.getUnderLineText("ASDFASD", 65),style:'underLineText'}],colSpan:2}, {}],
@@ -1912,7 +2058,6 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
                    },
                 layout: 'noBorders'
                },   
-
                {   //  动态表输入安全措施
 					style: 'bodyTable',
 					table: {
@@ -1921,18 +2066,19 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 						body: aqcsBody
 					}
 				},
-
+				{
+			   // style: 'bodyTable',
+					table: {
+							widths: ['2%','48%','50%'],
+							body: gzpqfr  //工作票签发人
+					},
+					layout: 'noBorders'
+				},
 				{
 			   // style: 'bodyTable',
 					table: {
 							widths: ['2%','48%','50%'],
 							body: [
-        							[ '5.', {text:[ '工作票签发人：',{text: this.getUnderLineText("", 24),style:'underLineText'}]}, {text:[ '签发时间：',
-									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}],
         						    [ '6.', {text:[ '工作票接票人：',{text: this.getUnderLineText("", 24),style:'underLineText'}]}, {text:[ '接票时间：',
 									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
