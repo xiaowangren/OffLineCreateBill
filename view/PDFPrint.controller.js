@@ -1118,6 +1118,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
                 arrAqcs.push([aqcsStorage[i].Code,aqcsStorage[i].Kurztext]);
             }
         }
+        console.log(arrAqcs);
         var aqcsBody = [];
         var currCode;
         var tmpNo = 0;
@@ -1137,6 +1138,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
                 }
             }
         }
+        console.log(aqcsBody);
         var content = [
                         //  抬头
                 {                                  
@@ -1153,10 +1155,10 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
                 },
                 {text:'编号：'+modelData.Wcmno,style:'subheader',alignment:'right'},
                 {       // 	style: 'bodyTable',
-                   table:{
-                       headerRows: 0,
-                       widths: ['2%','48%','50%'],
-                       body:[
+                  table:{
+                      headerRows: 0,
+                      widths: ['2%','48%','50%'],
+                      body:[
 								    [ '1.',{text:[ '工作单位：',{text: this.getUnderLineText(appDepdec, 28),style:'underLineText'}]}, 
 								            {text:[ '班组：',{text: this.getUnderLineText(classdec, 36),style:'underLineText'}]} ],
 									[ '', {text:[ '工作负责人：',{text: this.getUnderLineText(modelData.Name, 26),style:'underLineText'}]},
@@ -1179,12 +1181,12 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         									{text: this.getUnderLineText(modelData.Jhgzfitime.substring(0,2), 2),style:'underLineText'},'时',
         									{text: this.getUnderLineText(modelData.Jhgzfitime.substring(3,5), 2),style:'underLineText'},'分'],colSpan:2}, {}],
         							[ '4.', {text:'安全措施（必要时可附页绘图说明）：',colSpan:2}, {}]
-                           ]
-                   },
+                          ]
+                  },
                 layout: 'noBorders'
-               },            
+                },            
               
-               {   //  动态表输入安全措施
+                {  //  动态表输入安全措施
 					style: 'bodyTable',
 					table: {
 					    headerRows: 0,
@@ -1214,20 +1216,20 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:2}, {}], //
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:2}, {}],
         							[ '',   {text:[ '批准工作结束时间：',
 									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'月',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'日',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
-        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:2}, {}]
+        									{text: this.getUnderLineText("", 4),style:'underLineText'},'分'],colSpan:2}, {}],
         							[ '', {text:['值长',this.getUnderLineText("", 32)],colSpan:2}, {}]
 							]
 					},
 					layout: 'noBorders'
 				},
 				{
-				   //style: 'bodyTable',
+				  //style: 'bodyTable',
 					table: {
 							widths: ['2%','48%','50%'],
 							body: [
@@ -1238,8 +1240,8 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         								  {text: this.getUnderLineText("", 4),style:'underLineText'},'时',  
         								  {text: this.getUnderLineText("", 4),style:'underLineText'},'分许可工作'],colSpan:2},{} ],		
         							['',  {text:[ '工作许可人：',{text: this.getUnderLineText("", 26),style:'underLineText'}]}, {text:[ '工作负责人：',{text: this.getUnderLineText("", 30),style:'underLineText'}]} ],
-                                   	['8.',{text:[ '确认工作负责人布置的工作任务和安全措施'],colSpan:2 },{} ],
-                                   	['',  {text:[ '工作班组成员签名：',{text: this.getUnderLineText("", 65),style:'underLineText'}],colSpan:2}, {}],
+                                  	['8.',{text:[ '确认工作负责人布置的工作任务和安全措施'],colSpan:2 },{} ],
+                                  	['',  {text:[ '工作班组成员签名：',{text: this.getUnderLineText("", 65),style:'underLineText'}],colSpan:2}, {}],
 								    ['9.',{text:[ '工作负责人变更：'],colSpan:2}, {}],
 						            ['',  {text:['自',
         							      {text: this.getUnderLineText("", 4),style:'underLineText'},'年',  
@@ -1340,7 +1342,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 				},
 
 				{
-				   //style: 'bodyTable',
+				  //style: 'bodyTable',
 					table: {
 							widths: ['2%','48%','50%'],
 							body: [

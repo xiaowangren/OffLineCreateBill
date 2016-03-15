@@ -208,7 +208,7 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoUpload", {
                 payLoad.Zkghac = payLoad.Zkghac ? 'X' : '';
                 payLoad.Zmhq = payLoad.Zmhq ? 'X' : '';
                 payLoad.Zqt = payLoad.Zqt ? 'X' : '';
-                payLoad.Zsfjd = payLoad.Zsfjd ? 'X' : '';
+                // payLoad.Zsfjd = payLoad.Zsfjd ? 'X' : '';
                 payLoad.Zstzk = payLoad.Zstzk ? 'X' : '';
                 payLoad.Ztz = payLoad.Ztz ? 'X' : '';
                 payLoad.Zydq = payLoad.Zydq ? 'X' : '';
