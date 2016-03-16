@@ -134,7 +134,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         if(!modelData){
             return;
         }
-        console.log(modelData);
+        // console.log(modelData);
         var functionName = "this.onPrintGzp_" + gzpType;
         var printContent = eval(functionName+"(modelData);"); //动态调用函数
         
@@ -590,7 +590,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'时',
         									{text: this.getUnderLineText("", 4),style:'underLineText'},'分']}],
         							[ '19.', {text:'工作票终结：',colSpan:2}, {}],
-        							[ '', {text:[ '临时遮挡、标示牌已拆除，常设遮栏已恢复。已拆除（或已拉开）的接地线、接地闸刀（小车）共：',{text: this.getUnderLineText("", 8),style:'underLineText'},
+        							[ '', {text:[ '临时遮栏、标示牌已拆除，常设遮栏已恢复。已拆除（或已拉开）的接地线、接地闸刀（小车）共：',{text: this.getUnderLineText("", 8),style:'underLineText'},
         							              '副（台），已汇报值班负责人。'],colSpan:2}, {}],
         							[ '', {text:[ '拆除时间：',
 									        {text: this.getUnderLineText("", 4),style:'underLineText'},'年',
@@ -1263,7 +1263,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
                 arrAqcs.push([aqcsStorage[i].Code,aqcsStorage[i].Kurztext]);
             }
         }
-        console.log(arrAqcs);
+        // console.log(arrAqcs);
         var aqcsBody = [];
         var currCode;
         var tmpNo = 0;     
@@ -1296,7 +1296,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         
   //根据双签标识，生成行
         var Line1 = [];
-        var Line2 = []
+        var Line2 = [];
         Line1.push([ '1.',{text:[ '工作单位：',{text: this.getUnderLineText(appDepdec, 28),style:'underLineText'}]}, 
 						  {text:[ '班组：',{text: this.getUnderLineText(classdec, 36),style:'underLineText'}]} ]);
         Line1.push([ '', {text:[ '工作负责人（监护人）：',{text: this.getUnderLineText(modelData.Name, 16),style:'underLineText'}]},
@@ -1328,7 +1328,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         
         
         
-        console.log(aqcsBody);
+        // console.log(aqcsBody);
         var content = [
                         //  抬头
                 {                                  
@@ -2076,7 +2076,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         var tmpNo = 0;
         var cn_no = ["一","二","三","四","五","六","七","八","九","十"];
         var aczxqk = "";//安措执行情况
-        console.log(arrAqcs);
+        // console.log(arrAqcs);
         for(var i=0;i<arrAqcs.length;i++){
             if(!currCode || currCode != arrAqcs[i][0]){
                 currCode = arrAqcs[i][0];
