@@ -41,12 +41,12 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
         }
         var AqcsTabY=[];
         if(idWorkTypeInitialize=="JBP"||idWorkTypeInitialize=="DH1"||idWorkTypeInitialize=="DH2"){
-            Group={Code:"",Seqc:"1",Actext:"无"};
+            Group={Code:"",Seqc:"1",Actext:""};
             var AQCSDataY= sap.ui.getCore().getModel("AQCSDataY").getData();
             if(AQCSDataY){
                         if(AQCSDataY.length>0){
                             Group.Codegruppe=AQCSDataY[0].Codegruppe;
-                            Group.Katalogart="X"
+                            Group.Katalogart="Y"
                         }
                     }
             AqcsTabY.push(Group);
