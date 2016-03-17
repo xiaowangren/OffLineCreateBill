@@ -1673,6 +1673,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
                             tmpNo ++;
                         }else{
                             qfrBody.push([ '序号',{text:'工作地点保留带点部分或注意事项'+'\n'+'（工作票签发人填写）',style:'tableHeader',alignment:'center'}]);
+                            tmpNo ++;
                         }
                     }
                     if(tmpNo < 3){

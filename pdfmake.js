@@ -30887,6 +30887,7 @@
 	       // Encoding: 'MacRomanEncoding',   //LOUWEIWEI  'WinAnsiEncoding'  StandardEncoding UniGB-UCS2-H
 	        ToUnicode: cmap
 	      };
+	      console.log(this.dictionary.data);
 	      return this.dictionary.end();
 	    };
 
