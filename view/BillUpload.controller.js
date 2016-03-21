@@ -174,7 +174,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillUpload", {
         //Table中绑定的数据
         var oTableData = oModel.getProperty("/queryResultModel");
         for(var i=0;i<aIndices.length;i++){
-            var index = aIndices[i];
+            var index = oTableData.length - aIndices[i] - 1;
             // console.log(oTableData[index]);
             if(oTableData[index].Zlybnum == "" ){
                 // this.onUploadSingleCZP(oTableData[index]);

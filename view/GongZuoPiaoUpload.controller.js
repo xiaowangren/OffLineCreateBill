@@ -128,11 +128,13 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoUpload", {
 	    var oECCModel = new sap.ui.model.odata.ODataModel(sServiceUrl, true);
 	    //所有选中的行
 	    var aIndices = this.getView().byId("gongZuoPiaoQueryResult").getSelectedIndices();
+	   // console.log(aIndices);
         var oModel = this.getView().getModel();
         //Table中绑定的数据
         var oTableData = oModel.getProperty("/ResultModel");
         for(var i=0;i<aIndices.length;i++){
-            var index = aIndices[i];
+            var index =oTableData.length - aIndices[i] - 1;
+            
             if(oTableData[index].statusText == "unCreated" ){
                 
                 var payLoad = oTableData[index];

@@ -142,6 +142,13 @@ sap.ui.jsview("com.zhenergy.bill.view.BillApp", {
 			type: sap.ui.core.mvc.ViewType.XML
 		});
 		this.app.addPage(GongZuoPiaoUpload);
+		//注册KKS搜索页面
+		var vForward = sap.ui.view({
+			id: "idForward",
+			viewName: "com.zhenergy.bill.view.SearchKKS.Forward",
+			type: sap.ui.core.mvc.ViewType.XML
+		});
+		this.app.addPage(vForward);
 		return this.app;
 	}
 
