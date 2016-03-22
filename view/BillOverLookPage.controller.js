@@ -244,7 +244,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		//同步典型票  每次200条
 		this.onSyncZS(oECCModel, 200, 0);
 		//KKS
-		this.onSyncKKS(oECCModel,5000,0);
+ 		this.onSyncKKS(oECCModel,5000,0);
 // 		oECCModel.read("/KKSSet?$filter=Tplnr eq '" + oG_IwerkData.Iwerk + "'", mParameters);
 		dialog.close();
 		sap.m.MessageBox.alert("主数据下载完成", {
@@ -360,6 +360,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 			} else {
 				//没有后续数据的时候，统一写入Storage
 				if (oOperModel) {
+				    // console.log(oOperModel.getData());
 				    this.onSaveKKSIDB(oOperModel.getData());
 					console.log("ZPMOFFLINE_SRV.KKS" + "KKS已保存：" + oOperModel.getData().length);
 					this.getView().setModel(null, "/KKSSet");
@@ -426,7 +427,8 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	    if(!oController.myDB){
 	        return;
 	    }
-
+        var oTransaction = oController.myDB.transaction(["OperStore"], "readwrite");
+        var oDataStore = oTransaction.objectStore("OperStore");
         for (var i=0;i<data.length;i++) {
             var oObject = data[i];
             var oRecord = {Zczph: oObject.Zczph,
@@ -447,8 +449,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
                             Zczfs: oObject.Zczfs,
                             Zlybnum: oObject.Zlybnum,
                             InfoTab: oObject.InfoTab};
-            var oTransaction = oController.myDB.transaction(["OperStore"], "readwrite");
-            var oDataStore = oTransaction.objectStore("OperStore");
+
             oDataStore.add(oRecord);
         }
 	},
@@ -456,13 +457,12 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	    if(!oController.myDB){
 	        return;
 	    }
-
+        var oTransaction = oController.myDB.transaction(["KKSStore"], "readwrite");
+        var oDataStore = oTransaction.objectStore("KKSStore");
         for (var i=0;i<data.length;i++) {
             var oObject = data[i];
             var oRecord = {Tplnr: oObject.Tplnr,
                             Pltxt: oObject.Pltxt};
-            var oTransaction = oController.myDB.transaction(["KKSStore"], "readwrite");
-            var oDataStore = oTransaction.objectStore("KKSStore");
             oDataStore.add(oRecord);
         }
 	},
@@ -477,6 +477,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
                   items.push(cursor.value);
                   cursor.continue();
             }else {
+                // console.log(items.length);
                 resultCallback(items);
                 // deferred.resolve(items);
             }
