@@ -12,11 +12,15 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoInitializePage", {
 		//初始化安全措施下拉列表
 		sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage").onInitializeAQCSData(idWorkTypeInitialize);
 		//初始化KKS编码列表
-        sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage").onReadKKSIDB(function(items){
-            var oJsonModelKKS = new sap.ui.model.json.JSONModel();
-            oJsonModelKKS.setData(items);
-            sap.ui.getCore().setModel(oJsonModelKKS,"KKSData");
-        });
+		var KKSData=sap.ui.getCore().getModel("KKSData");
+		if(!KKSData){
+            sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage").onReadKKSIDB(function(items){
+                var oJsonModelKKS = new sap.ui.model.json.JSONModel();
+                oJsonModelKKS.setData(items);
+                sap.ui.getCore().setModel(oJsonModelKKS,"KKSData");
+            });
+		}
+
         
         //根据工作票类型查出工作票类型描述
        
