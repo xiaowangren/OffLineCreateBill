@@ -91,15 +91,22 @@ sap.ui.controller("com.zhenergy.bill.view.SearchKKS.Forward", {
                 //load data from cache if any
                 KKSData=sap.ui.getCore().getModel("KKSData");
                 if(!KKSData){
-                    var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-                    if (oStorage.get("ZPMOFFLINE_SRV.KKS")) {
-                    	var oDataKKS = oStorage.get("ZPMOFFLINE_SRV.KKS");
-                    	oJsonModelKKS.setData(oDataKKS)
-                    }else{
-                        oJsonModelKKS.setData([])
-                    }
-                    sap.ui.getCore().setModel(oJsonModelKKS,"KKSData");
-                    KKSData=oJsonModelKKS;
+                    
+                    
+                    //using storage
+                    // var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+                    // if (oStorage.get("ZPMOFFLINE_SRV.KKS")) {
+                    // 	var oDataKKS = oStorage.get("ZPMOFFLINE_SRV.KKS");
+                    // 	oJsonModelKKS.setData(oDataKKS)
+                    // }else{
+                    //     oJsonModelKKS.setData([])
+                    // }
+                    
+                    //using IndexedDB
+                    sap.ui.contorller("com.zhenergy.bill.view.BillOverLookPage").onReadKKSIDB(function(items){
+                        oJsonModelKKS.setData(items);
+                        sap.ui.getCore().setModel(oJsonModelKKS,"KKSData");
+                    });
                 }
                 var oDataPer=KKSData.getProperty("/");
             	var oFitler=[];
