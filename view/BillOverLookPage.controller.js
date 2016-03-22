@@ -215,8 +215,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
             dialog.close();
             return;
         }
-		//KKS
-		oECCModel.read("/KKSSet?$filter=Tplnr eq '" + oG_IwerkData.Iwerk + "'", mParameters);
+
 		//操作票类型
 		oECCModel.read("/TicketTypeSet?$filter=Iwerk eq '" + oG_IwerkData.Iwerk + "'", mParameters);
 		//工作票类型
@@ -244,7 +243,9 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 
 		//同步典型票  每次200条
 		this.onSyncZS(oECCModel, 200, 0);
-
+		//KKS
+		this.onSyncKKS(oECCModel,5000,0);
+// 		oECCModel.read("/KKSSet?$filter=Tplnr eq '" + oG_IwerkData.Iwerk + "'", mParameters);
 		dialog.close();
 		sap.m.MessageBox.alert("主数据下载完成", {
 			title: "提示"
@@ -321,6 +322,63 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 		// console.log(reqURL);
 		oECCModel.read(reqURL, mParameters);
 	},
+	onSyncKKS: function(oECCModel, p_top, p_skip) {
+		//Storage  
+		jQuery.sap.require("jquery.sap.storage");
+		var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+		var oG_IwerkData = oStorage.get("ZPMOFFLINE_SRV.G_IWERK");
+		//定义Read方法的执行方法
+		var mParameters = {};
+		mParameters['async'] = false;
+		mParameters['success'] = jQuery.proxy(function(oData, response) {
+			//取返回的data
+			var oJsonModel = new sap.ui.model.json.JSONModel(oData);
+			var rawData = oJsonModel.getData().results;
+			//清理rawData,降低存储大小
+			if (rawData.length > 0) {
+				for (var i = 0; i < rawData.length; i++) {
+					delete rawData[i]["__metadata"];
+				}
+			}
+			//数据没有保存到storage前保存在view的model中，取出来然后继续添加，如果第一次，新建model
+			var oOperModel = this.getView().getModel("/KKSSet");
+			if (rawData.length > 0) {
+				if (oOperModel) {
+					//从view module中取暂存的数组
+					var oOperData = oOperModel.getData();
+					oOperData = oOperData.concat(rawData);
+					oOperModel.setData(oOperData);
+				} else {
+					//oOperModel 为空 新建JsonModule 增加到view中
+					oOperModel = new sap.ui.model.json.JSONModel();
+					var oOperData = rawData;
+					oOperModel.setData(oOperData);
+					this.getView().setModel(oOperModel, "/KKSSet");
+				}
+				//递归调用
+				this.onSyncKKS(oECCModel, p_top, p_skip + p_top);
+			} else {
+				//没有后续数据的时候，统一写入Storage
+				if (oOperModel) {
+				    this.onSaveKKSIDB(oOperModel.getData());
+					console.log("ZPMOFFLINE_SRV.KKS" + "KKS已保存：" + oOperModel.getData().length);
+					this.getView().setModel(null, "/KKSSet");
+				} else {
+					sap.m.MessageBox.alert("KKS无数据", {
+						title: "提示"
+					});
+				}
+			}
+		}, this);
+		mParameters['error'] = jQuery.proxy(function(data) {
+			var oJsonModel = new sap.ui.model.json.JSONModel(data);
+			console.log("Read /KKSSet调用失败");
+		}, this);
+		//调用请求
+		var reqURL = "/KKSSet?$top=" + p_top + "&$skip=" + p_skip + "&$filter=Tplnr eq '" + oG_IwerkData.Iwerk + "'";
+		// console.log(reqURL);
+		oECCModel.read(reqURL, mParameters);
+	},
 	onPrepareIDB:function(){
 	    if(window.indexedDB == null)
         {
@@ -350,6 +408,10 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
                   objectStore.createIndex("Zczfs", "Zczfs", { unique: false });
                   objectStore.createIndex("Zlybnum", "Zlybnum", { unique: false });
                   objectStore.createIndex("InfoTab", "InfoTab", { unique: false });
+                  
+                objectStore = oController.myDB.createObjectStore("KKSStore", { keyPath: "Tplnr" });
+                objectStore.createIndex("Tplnr", "Tplnr", { unique: true });
+                objectStore.createIndex("Pltxt", "Pltxt", { unique: false });
             };
             createDBRequest.onsuccess = function(event){
                 oController.myDB = event.target.result; //oController - Defined in onInit function
@@ -389,6 +451,36 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
             var oDataStore = oTransaction.objectStore("OperStore");
             oDataStore.add(oRecord);
         }
+	},
+	onSaveKKSIDB:function(data){
+	    if(!oController.myDB){
+	        return;
+	    }
+
+        for (var i=0;i<data.length;i++) {
+            var oObject = data[i];
+            var oRecord = {Tplnr: oObject.Tplnr,
+                            Pltxt: oObject.Pltxt};
+            var oTransaction = oController.myDB.transaction(["KKSStore"], "readwrite");
+            var oDataStore = oTransaction.objectStore("KKSStore");
+            oDataStore.add(oRecord);
+        }
+	},
+	onReadKKSIDB:function(resultCallback){
+        var objectStore = oController.myDB.transaction("KKSStore").objectStore("KKSStore");
+        var items = [];
+        
+        objectStore.openCursor().onsuccess = function(event) {
+// 			var deferred = $.Deferred();
+            var cursor = event.target.result;
+            if (cursor) {
+                  items.push(cursor.value);
+                  cursor.continue();
+            }else {
+                resultCallback(items);
+                // deferred.resolve(items);
+            }
+        };
 	},
 	onReadIDB:function(resultCallback){
         var objectStore = oController.myDB.transaction("OperStore").objectStore("OperStore");
