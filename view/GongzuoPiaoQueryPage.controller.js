@@ -24,6 +24,15 @@ sap.ui.controller("com.zhenergy.bill.view.GongzuoPiaoQueryPage", {
         
     },
     onGongZuoPiaoQuery:function(){
+		//初始化KKS编码列表
+		var KKSData=sap.ui.getCore().getModel("KKSData");
+		if(!KKSData){
+            sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage").onReadKKSIDB(function(items){
+                var oJsonModelKKS = new sap.ui.model.json.JSONModel();
+                oJsonModelKKS.setData(items);
+                sap.ui.getCore().setModel(oJsonModelKKS,"KKSData");
+            });
+		}
         //收集桌面数据
         var BiaoJiQuery = this.getView().byId("BiaoJiQuery").getText();
         var Iwerk = this.getView().byId("gongChangQuery").getSelectedKey();

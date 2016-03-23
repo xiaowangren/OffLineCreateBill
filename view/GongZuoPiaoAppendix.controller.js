@@ -1,4 +1,4 @@
-    jQuery.sap.require("jquery.sap.storage");
+jQuery.sap.require("jquery.sap.storage");
 jQuery.sap.require("com.zhenergy.bill.util.SearchKKS");
 jQuery.sap.require("com.zhenergy.bill.util.Formatter");
 sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoAppendix", {
@@ -81,7 +81,9 @@ sap.ui.controller("com.zhenergy.bill.view.GongZuoPiaoAppendix", {
         var WorkModel = this.getView().getModel("WorkModel").getData(); 
         var GroupTab = WorkModel.KksTab;
         if(GroupTab.length==1&&index==0){
-            sap.m.MessageBox.alert("至少存在一行，无法进行删除",{title: "提示"});
+            GroupTab[0].Tplnr="";
+            this.onrefresh("idGongZuoPiaoFinalView", WorkModel);
+//            sap.m.MessageBox.alert("至少存在一行，无法进行删除",{title: "提示"});
             return;
         }
         var GroupElement = GroupTab[index];
