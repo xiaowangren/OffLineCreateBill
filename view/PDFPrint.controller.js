@@ -95,8 +95,11 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
     },
     //KKS文本
     onGetKksText:function(tplnr){
-        var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-        var oData = oStorage.get("ZPMOFFLINE_SRV.KKS");
+        // var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
+        // var oData = oStorage.get("ZPMOFFLINE_SRV.KKS");
+        // 改从IndexedDB 取数
+        var KKSData =sap.ui.getCore().getModel("KKSData");
+        var oData = KKSData.getProperty("/");
         for(var i=0;i<oData.length;i++){
             if(oData[i].Tplnr == tplnr){
                 return oData[i].Pltxt;
