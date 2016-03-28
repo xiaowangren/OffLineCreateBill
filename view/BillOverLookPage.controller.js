@@ -386,7 +386,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
             alert("Offline store not supported!");
             return null;
         }else{
-            var createDBRequest= window.indexedDB.open("ZPMOfflineDB", 2);
+            var createDBRequest= window.indexedDB.open("ZPMOfflineDB");
         
             createDBRequest.onupgradeneeded = function(event){
                 oController.myDB = event.target.result;
@@ -457,13 +457,16 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
 	    if(!oController.myDB){
 	        return;
 	    }
+	   // console.log("kks length = "+data.length);
         var oTransaction = oController.myDB.transaction(["KKSStore"], "readwrite");
         var oDataStore = oTransaction.objectStore("KKSStore");
         for (var i=0;i<data.length;i++) {
             var oObject = data[i];
             var oRecord = {Tplnr: oObject.Tplnr,
                             Pltxt: oObject.Pltxt};
+            // var oResult = 
             oDataStore.add(oRecord);
+            // console.log(oResult);
         }
 	},
 	onReadKKSIDB:function(resultCallback){
@@ -477,7 +480,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
                   items.push(cursor.value);
                   cursor.continue();
             }else {
-                // console.log(items.length);
+                console.log("kks length = "+items.length);
                 resultCallback(items);
                 // deferred.resolve(items);
             }
@@ -494,6 +497,7 @@ sap.ui.controller("com.zhenergy.bill.view.BillOverLookPage", {
                   items.push(cursor.value);
                   cursor.continue();
             }else {
+                console.log("zs length = "+items.length);
                 resultCallback(items);
                 // deferred.resolve(items);
             }
