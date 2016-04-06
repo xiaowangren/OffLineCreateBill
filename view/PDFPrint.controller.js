@@ -86,7 +86,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
     //工作票联系部门文本
     onGetLxbmText:function(Lxbm){
         var oStorage = jQuery.sap.storage(jQuery.sap.storage.Type.local);
-        var oData = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229C");
+        var oData = oStorage.get("ZPMOFFLINE_SRV.ZPMT00229");
         for(var i=0;i<oData.length;i++){
             if(oData[i].Appdep == Lxbm){
                 return oData[i].Appdepdec;
@@ -385,10 +385,10 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 							body: [
 									[ '序号',{text:'集控运行值班人员补充的安全措施',style:'tableHeader',alignment:'center'}, {text: '补充安措执行情况',style:'tableHeader', alignment:'center'}],
 									[ '1', {text:''},{text:''} ],
-									[ '1', {text:''},{text:''} ],
-									[ '1', {text:''},{text:''} ],
-									[ '1', {text:''},{text:''} ],
-									[ '1', {text:''},{text:''} ]
+									[ '2', {text:''},{text:''} ],
+									[ '3', {text:''},{text:''} ],
+									[ '4', {text:''},{text:''} ],
+									[ '5', {text:''},{text:''} ]
 							]
 					}
 				},
@@ -427,10 +427,10 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 							body: [
 									[ '序号',{text:'环保运行值班人员补充的安全措施',style:'tableHeader',alignment:'center'}, {text: '补充安措执行情况',style:'tableHeader', alignment:'center'}],
 									[ '1', {text:''},{text:''} ],
-									[ '1', {text:''},{text:''} ],
-									[ '1', {text:''},{text:''} ],
-									[ '1', {text:''},{text:''} ],
-									[ '1', {text:''},{text:''} ]
+									[ '2', {text:''},{text:''} ],
+									[ '3', {text:''},{text:''} ],
+									[ '4', {text:''},{text:''} ],
+									[ '5', {text:''},{text:''} ]
 									
 							]
 					}
@@ -1660,7 +1660,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
             if(aqcsStorage[i].Katalogart == 'X' && aqcsStorage[i].Ztype == modelData.Ztype ){
                 arrAqcs.push([aqcsStorage[i].Code,aqcsStorage[i].Kurztext]);
             }
-        }
+        }   
         var aqcsBody = [];
         var qfrBody = [];   //第6点 工作票签发人填写表
         var currCode;
@@ -1836,11 +1836,11 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 						widths: ['2%','98%'],
 						body: [
 							  [ '序号',{text:'补充工作地点保留带点部分或注意事项'+'\n'+'（工作票许可人填写）',style:'tableHeader',alignment:'center'}],
-							  ['1',{}],
-							  ['2',{}],
-							  ['3',{}],
-							  ['4',{}],
-							  ['5',{}]
+							  ['1',{text:''}],
+							  ['2',{text:''}],
+							  ['3',{text:''}],
+							  ['4',{text:''}],
+							  ['5',{text:''}]
 						]
 					}
 				},
@@ -2570,6 +2570,16 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         }
         var groupPersonNum = modelData.Gzbzcynum;
         var fuyeNum = modelData.Fynum;
+        
+        var aqcsBody1 = [];
+        var aqcsBody2 = [];
+        for(var j=0;j<modelData.AqcsTabX.length;j++){
+            if(modelData.AqcsTabX[j].Code == 'QXD001001'){
+                aqcsBody1.push([modelData.AqcsTabX[j].Seqc+'）'+modelData.AqcsTabX[j].Actext]);
+            }else if(modelData.AqcsTabX[j].Code == 'QXD001002'){
+                aqcsBody2.push([modelData.AqcsTabX[j].Seqc+'）'+modelData.AqcsTabX[j].Actext]);
+            }
+        }
         var    content = [
                 {
 					table: {
@@ -2588,11 +2598,11 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 							body: [
         							[ {text:['部门： ',{text: this.getUnderLineText(appDepdec, 36),style:'underLineText'}]}, 
         							 {text:[ '填写时间：',
-									        {text: this.getUnderLineText(modelData.Crdate.substring(0,4), 4),style:'underLineText'},'年',
-        									{text: this.getUnderLineText(modelData.Crdate.substring(5,7), 2),style:'underLineText'},'月',
-        									{text: this.getUnderLineText(modelData.Crdate.substring(8,10), 2),style:'underLineText'},'日',
-        									{text: this.getUnderLineText(modelData.Crdate.substring(0,2), 2),style:'underLineText'},'时',
-        									{text: this.getUnderLineText(modelData.Crdate.substring(3,5), 2),style:'underLineText'},'分']}]
+									        {text: this.getUnderLineText('', 4),style:'underLineText'},'年',
+        									{text: this.getUnderLineText('', 2),style:'underLineText'},'月',
+        									{text: this.getUnderLineText('', 2),style:'underLineText'},'日',
+        									{text: this.getUnderLineText('', 2),style:'underLineText'},'时',
+        									{text: this.getUnderLineText('', 2),style:'underLineText'},'分']}]
 							]
 					},
 					layout: 'noBorders'
@@ -2620,9 +2630,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					table: {
 							headerRows: 0,
 							widths: ['100%'],
-							body: [
-									[{text:'（1）\n（2）'}]
-							]
+							body: aqcsBody1
 					}
 				},
 				{
@@ -2640,9 +2648,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 					table: {
 							headerRows: 0,
 							widths: ['100%'],
-							body: [
-									[{text:'（1）\n（2）'}]
-							]
+							body: aqcsBody2
 					}
 				},
 				{
@@ -2664,7 +2670,11 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
 							headerRows: 0,
 							widths: ['100%'],
 							body: [
-									[{text:'（1）\n（2）\n（3）\n（4）\n（5）'}]
+									[{text:'（1）'}],
+									[{text:'（2）'}],
+									[{text:'（3）'}],
+									[{text:'（4）'}],
+									[{text:'（5）'}]
 							]
 					}
 				},
@@ -3538,7 +3548,7 @@ sap.ui.controller("com.zhenergy.bill.view.PDFPrint", {
         var docDefinition = {
             pageMargins: [ 40, 60, 40, 60 ],        //页面边距
             content: [
-                {text: iwerkText+'\n'+ticketTypeText+"电除尘专用工作票附页\n ", style: 'header'},
+                {text: iwerkText+'\n'+ticketTypeText+"附页\n ", style: 'header'},
                 {text:[ '工作票编号：',{text: this.getUnderLineText(modelData.Wcmno, 28),style:'underLineText'}],style:'subheader'},
                 {text:[ '工作票内容：',{text: this.getUnderLineText(modelData.SCont, 71),style:'underLineText'}],style:'subheader'},
                 {text:[ '工作负责人：',{text: this.getUnderLineText(modelData.Name, 8),style:'underLineText'},
